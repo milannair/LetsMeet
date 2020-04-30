@@ -1,6 +1,6 @@
 // userController.js
 // Import user model
-User = require("./userModel");
+User = require("server/userModel");
 // Handle index actions
 exports.index = function (req, res) {
   User.get(function (err, users) {

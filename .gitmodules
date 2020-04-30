@@ -1,0 +1,6 @@
+[submodule "api"]
+	path = api
+	url = ./api
+[submodule "frontend"]
+	path = frontend
+	url = ./frontend
