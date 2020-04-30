@@ -1,6 +1,6 @@
 // api-routes.js
 // Initialize express router
-let router = require("server/node_modules/express").Router();
+let router = require("express").Router();
 // Set default API response
 router.get("/", function (req, res) {
   res.json({
