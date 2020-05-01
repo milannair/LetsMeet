@@ -19,10 +19,11 @@ function FillerComponent({ text }) {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Button
         onPress={handleButtonPress}
         mode='contained'
+        style={styles.button}
       >
         {text}
       </Button>
@@ -32,10 +33,13 @@ function FillerComponent({ text }) {
 
 // styling
 const styles = StyleSheet.create({
-  text: {
-    color: 'red',
-    fontSize: 24,
-    marginBottom: '20px',
+  container: {
+    height: 50,
+    alignItems: 'center'
+  },
+  button: {
+    backgroundColor: 'black',
+    width: '50%'
   }
 });
 
