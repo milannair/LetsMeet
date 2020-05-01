@@ -1,19 +1,17 @@
 import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import FillerComponent from '../components/FillerComponent';
 
 function FillerScreen() {
   return (
     <View>
-      <FillerComponent />
+      <FillerComponent text='hello!' />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  text: {
-    color: 'red',
-    fontSize: 24
-  }
+
 });
 
-export default Filler;
+export default FillerScreen;
