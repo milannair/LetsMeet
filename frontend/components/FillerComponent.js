@@ -34,8 +34,9 @@ function FillerComponent({ text }) {
 // styling
 const styles = StyleSheet.create({
   container: {
-    height: 50,
-    alignItems: 'center'
+    height: '50%',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   button: {
     backgroundColor: 'black',
