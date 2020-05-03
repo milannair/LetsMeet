@@ -9,7 +9,7 @@ function FillerComponent({ text }) {
 
   // use effect (called when component loads)
   useEffect(() => {
-    // const currUser = userController.getUser();
+    userController.getUser().then((data) => console.log(data));
     // setUser(currUser);
   });
 
