@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, 
+       { 
+         useState, 
+         useEffect 
+       } from 'react';
+import { View } from 'react-native';
+import styles from './styles';
 import { Button } from 'react-native-paper';
-import userController from '../controllers/FillerController';
+import * as referenceController from '../../controllers/ReferenceController';
 
-function FillerComponent({ text }) {
+function ReferenceComponent(props) {
   // state
   const [count, setCount] = useState(1);
 
   // use effect (called when component loads)
   useEffect(() => {
-    userController.getUser().then((data) => console.log(data));
+    referenceController.getUser().then((data) => console.log(data));
     // setUser(currUser);
   });
 
@@ -25,23 +30,10 @@ function FillerComponent({ text }) {
         mode='contained'
         style={styles.button}
       >
-        {text}
+        {props.text}
       </Button>
     </View>
   );
 }
 
-// styling
-const styles = StyleSheet.create({
-  container: {
-    height: '50%',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  button: {
-    backgroundColor: 'black',
-    width: '50%'
-  }
-});
-
-export default FillerComponent;
+export default ReferenceComponent;

@@ -1,4 +1,4 @@
-async function getUser() {
+export async function getUser() {
   const response = await fetch('http://localhost:8000/lm/users/?id=5eab42ff0da6924cccfefe38');
   return response.json();
     // .then((response) => {
@@ -8,7 +8,3 @@ async function getUser() {
     //   console.error(error);
     // });
 }
-
-module.exports = {
-  getUser
-};
