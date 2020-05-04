@@ -1,0 +1,19 @@
+# Travis CI Configuration File
+#
+# Relevant documentation URLs:
+# - https://docs.travis-ci.com/user/customizing-the-build/
+# - https://docs.travis-ci.com/user/job-lifecycle/
+# - https://docs.travis-ci.com/user/build-stages/
+# - https://docs.travis-ci.com/user/languages/javascript-with-nodejs/
+
+language: node_js
+node_js:
+  - node
+
+os: linux
+dist: bionic
+
+# Default `install`: `npm ci`
+
+script: echo "The command to run the test is not defined yet. Once the testing
+              framework is added, fill in the command in file '.travis.yml'."
