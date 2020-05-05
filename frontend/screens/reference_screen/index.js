@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import styles from './styles';
 import ReferenceComponent from '../../components/reference_component/index';
 
-function FillerScreen() {
+function ReferenceScreen() {
   return (
     <View style={styles.container}>
       <ReferenceComponent text='hello!' />
@@ -11,4 +11,4 @@ function FillerScreen() {
   );
 }
 
-export default FillerScreen;
+export default ReferenceScreen;
