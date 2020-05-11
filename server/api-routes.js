@@ -12,7 +12,7 @@ router.get("/", function (req, res) {
 var userController = require("./userController");
 
 // user routes
-router.route("/users").get(userController.index).post(userController.new);
+router.route("/users").get(userController.index).post(userController.register);
 
 router
   .route("/user/:user_id")
