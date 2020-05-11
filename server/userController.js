@@ -18,7 +18,7 @@ exports.index = function (req, res) {
   });
 };
 // Handle create user actions
-exports.new = function (req, res) {
+exports.register = function (req, res) {
   var user = new User();
   user.name = req.body.name ? req.body.name : user.name;
   user.username = req.body.username;
