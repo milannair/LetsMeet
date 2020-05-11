@@ -2,13 +2,15 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import FillerScreen from './screens/FillerScreen';
+import SignupScreen from './screens/SignupScreen';
 import Constants from 'expo-constants';
 
 export default function App() {
   return (
     <PaperProvider>
       <View style={styles.container}>
-        <FillerScreen />
+        {/* <FillerScreen /> */}
+        <SignupScreen />
       </View>
     </PaperProvider>
   );
@@ -17,6 +19,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     marginTop: Constants.statusBarHeight,
-    flex: 1
+    flex: 1,
   },
 });
