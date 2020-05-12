@@ -1,4 +1,3 @@
-export const REFERENCE = "Reference";
-export const MEETINGS = "Meetings";
-export const GROUPS = "Groups";
-export const PROFILE = "Profile";
+export const LOGIN = "Login";
+export const SIGNUP = "Signup";
+export const TABS = "Tabs";

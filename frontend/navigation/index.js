@@ -1,55 +1,22 @@
 import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as Screen from './screen-names';
-import MeetingsStackScreen from './stacks/meetings/index';
-import GroupsStackScreen from './stacks/groups/index';
-import ProfileStackScreen from './stacks/profile/index';
+import SignupScreen from '../screens/SignupScreen/index';
+import TabNavigation from './tab_navigator/index';
 
-const Tab = createMaterialBottomTabNavigator();
+const Stack = createStackNavigator();
 
-function TabNavigator() {
+function Navigator() {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        activeColor='#000009'
-        inactiveColor='#464F51'
-        shifting={true}
-      >
-        <Tab.Screen 
-          name={Screen.MEETINGS} 
-          component={MeetingsStackScreen} 
-          options={{
-            tabBarColor: '#73FCAA',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name='calendar-blank' color={color} size={24} />
-            ),
-          }}
-        />
-        <Tab.Screen 
-          name={Screen.GROUPS} 
-          component={GroupsStackScreen} 
-          options={{
-            tabBarColor: '#73FCAA',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name='account-multiple' color={color} size={24} />
-            ),
-          }}
-        />
-        <Tab.Screen 
-          name={Screen.PROFILE} 
-          component={ProfileStackScreen} 
-          options={{
-            tabBarColor: '#73FCAA',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name='account-circle' color={color} size={24} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
+      <Stack.Navigator headerMode='none'>
+        {/* <Stack.Screen name={Screen.LOGIN} component={} /> */}
+        <Stack.Screen name={Screen.SIGNUP} component={SignupScreen} />
+        <Stack.Screen name={Screen.TABS} component={TabNavigation} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-export default TabNavigator;
+export default Navigator;

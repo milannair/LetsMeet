@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Screen from './screen-names';
-import ReferenceScreen from '../../../screens/reference_screen/index';
+import ReferenceScreen from '../../../../screens/reference_screen/index';
 
 const ProfileStack = createStackNavigator();
 

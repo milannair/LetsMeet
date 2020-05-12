@@ -1,14 +1,22 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Provider as PaperProvider } from 'react-native-paper';
-import ReferenceScreen from './screens/reference_screen/index';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import Constants from 'expo-constants';
-import TabNavigator from './navigation/index';
+import Navigator from './navigation/index';
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#b57edc',
+    accent: '#aaf0d1',
+  },
+};
 
 export default function App() {
   return (
-    <PaperProvider>
-      <TabNavigator />
+    <PaperProvider theme={theme}>
+      <Navigator />
     </PaperProvider>
   );
 }
@@ -16,6 +24,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     marginTop: Constants.statusBarHeight,
-    flex: 1
+    flex: 1,
   },
 });
