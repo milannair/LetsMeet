@@ -9,6 +9,7 @@ function index() {
   const [displayName, setDisplayName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPasswordError, setShowPasswordError] = useState(false);
@@ -114,6 +115,22 @@ function index() {
       >
         Email is invalid
       </HelperText>
+      <TextInput // phone field
+        style={styles.textField}
+        label="Phone Number"
+        autoCompeleteType="tel"
+        keyboardType="phone-pad"
+        textContentType="telephoneNumber"
+        value={phone}
+        onChange={(e) => setPhone(e.nativeEvent.text)}
+        maxLength={maxFieldLength}
+      />
+      <HelperText
+        type="error"
+        visible={false}
+      >
+        Phone Number is invalid
+      </HelperText>
       <TextInput // password field
         style={styles.textField}
         label="Password"
@@ -148,7 +165,7 @@ function index() {
         onPress={() => handleButtonPress()}
         style={styles.button}
         mode="contained"
-        disabled={!(displayName && username && email && password && confirmPassword)}
+        disabled={!(displayName && username && email && password && confirmPassword && phone)}
         uppercase={false}
         loading={loadingIcon}
       >

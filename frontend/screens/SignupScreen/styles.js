@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
   },
   textField: {
     width: '90%',
+    height: 50,
   },
   button: {
     justifyContent: 'center',
