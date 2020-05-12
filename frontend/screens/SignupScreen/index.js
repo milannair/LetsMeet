@@ -15,6 +15,7 @@ function index() {
   const [showDisplayNameError, setDisplayNameError] = useState(false);
   const [showUsernameError, setUsernameError] = useState(false);
   const maxFieldLength = 15;
+  const minFieldLength = 5;
 
   const handleButtonPress = () => {
     let flag = false;
@@ -32,14 +33,14 @@ function index() {
       setShowPasswordError(false);
     }
 
-    if (displayName.length < 5) {
+    if (displayName.length < minFieldLength) {
       setDisplayNameError(true);
       flag = true;
     } else {
       setDisplayNameError(false);
     }
 
-    if (username.length < 5) {
+    if (username.length < minFieldLength) {
       setUsernameError(true);
       flag = true;
     } else {
@@ -74,7 +75,7 @@ function index() {
         type="error"
         visible={showDisplayNameError}
       >
-        Display Name must be at least 5 characters long
+        Display Name must be at least {minFieldLength} characters long
       </HelperText>
       <TextInput // username field
         style={styles.textField}
@@ -88,7 +89,7 @@ function index() {
         type="error"
         visible={showUsernameError}
       >
-        Username must be at least 5 characters long
+        Username must be at least {minFieldLength} characters long
       </HelperText>
       <TextInput // email field
         style={styles.textField}
