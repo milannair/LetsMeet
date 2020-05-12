@@ -4,6 +4,7 @@ import {
   TextInput, Button, HelperText, IconButton,
 } from 'react-native-paper';
 import styles from './styles';
+import { postUser } from '../../controllers/SignupController';
 
 function index() {
   const [displayName, setDisplayName] = useState('');
@@ -17,8 +18,8 @@ function index() {
   const [loadingIcon, setLoadingIcon] = useState(false);
   const [showDisplayNameError, setDisplayNameError] = useState(false);
   const [showUsernameError, setUsernameError] = useState(false);
-  const maxFieldLength = 15;
-  const minFieldLength = 5;
+  const maxFieldLength = 25;
+  const minFieldLength = 3;
 
   const handleButtonPress = () => {
     let flag = false;
@@ -53,6 +54,7 @@ function index() {
     if (!flag) {
       console.log('sending account to database');
       setLoadingIcon(true);
+      postUser(username, email, phone, password, displayName);
     }
   };
 
@@ -107,7 +109,7 @@ function index() {
         textContentType="emailAddress"
         value={email}
         onChange={(e) => setEmail(e.nativeEvent.text)}
-        maxLength={maxFieldLength}
+        maxLength={256}
       />
       <HelperText
         type="error"
