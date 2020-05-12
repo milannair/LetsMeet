@@ -1,6 +1,7 @@
 // userController.js
 // Import user model
 User = require("./userModel");
+
 // Handle index actions
 exports.index = function (req, res) {
   User.get(function (err, users) {
@@ -25,6 +26,7 @@ exports.register = function (req, res) {
   user.email = req.body.email;
   user.phone = req.body.phone;
   user.password = req.body.password;
+  user.displayName = req.body.displayName;
   // save the user and check for errors
   user.save(function (err) {
     // if (err)

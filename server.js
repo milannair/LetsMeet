@@ -18,12 +18,15 @@ app.use(
 app.use(bodyParser.json());
 
 // Connect to Mongoose and set connection variable
-mongoose.connect("mongodb://localhost/LetsMeet", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/LetsMeet", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 var db = mongoose.connection;
 
 // Added check for DB connection
 if (!db) console.log("Error connecting db");
-else console.log("Db connected successfully");
+else console.log("DB connected");
 
 // Setup server port
 var port = process.env.PORT || 8000;
@@ -33,6 +36,7 @@ app.get("/", (req, res) => res.send("LetsMeet API"));
 
 // Use Api routes in the App
 app.use("/lm", apiRoutes);
+
 // Launch app to listen to specified port
 app.listen(port, function () {
   console.log("Running LetsMeet API @ localhost:" + port);

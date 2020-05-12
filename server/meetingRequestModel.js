@@ -6,6 +6,7 @@
 //   author: mongoose.Types.ObjectId,
 //   deadline: { type: Date, required: true },
 //   groupID: mongoose.Types.ObjectId,
+//   multiPoll: [Option]
 //   uniPoll: Option,
 //   status: Number,
 // });
