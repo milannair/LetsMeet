@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   backButton: {
     position: 'absolute',
     left: 5,
-    top: 10,
+    top: 5,
   },
   container: {
     flex: 1,

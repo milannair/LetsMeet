@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
-import { TextInput, Button, HelperText, IconButton } from 'react-native-paper';
+import {
+  TextInput, Button, HelperText, IconButton,
+} from 'react-native-paper';
 import styles from './styles';
 
 function index() {
@@ -57,7 +59,7 @@ function index() {
     <View style={styles.container}>
       <IconButton // goes back to login screen
         icon="arrow-left"
-        size={30}
+        size={25}
         style={styles.backButton}
       />
       <Text style={styles.text}>LetsMeet</Text>
