@@ -2,9 +2,9 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { DarkTheme, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import ReferenceScreen from './screens/reference_screen/index';
-import SignupScreen from './screens/SignupScreen/index';
+// import SignupScreen from './screens/SignupScreen/index';
 import Constants from 'expo-constants';
-import Login from './screens/reference_screen/Login';
+import Login from './screens/LoginScreen/index';
 
 const theme = {
   ...DefaultTheme,
