@@ -5,17 +5,22 @@ import React,
        } from 'react';
 import { View } from 'react-native';
 import styles from './styles';
-import { Button } from 'react-native-paper';
+import { Button, Text } from 'react-native-paper';
 import * as referenceController from '../../controllers/ReferenceController';
+import * as signupController from '../../controllers/SignupController';
 
 function ReferenceComponent(props) {
   // state
   const [count, setCount] = useState(1);
+  const [user, setUser] = useState({});
 
   // use effect (called when component loads)
   useEffect(() => {
-    referenceController.getUser().then((data) => console.log(data));
-    // setUser(currUser);
+    const getUser = async () => {
+      const user = await referenceController.getUser('5eb9f120b582611adc9914c0');
+      setUser(user);
+    }
+    getUser();
   });
 
   const handleButtonPress = () => {
@@ -32,6 +37,9 @@ function ReferenceComponent(props) {
       >
         {props.text}
       </Button>
+      <Text>
+        {JSON.stringify(user)}
+      </Text>
     </View>
   );
 }
