@@ -1,9 +1,9 @@
 const axios = require('axios').default;
 
-const protocol = 'http://'
+const protocol = 'http://';
 const baseUrl = '[YOUR IPV4 ADDRESS HERE]';
-const port = 8000
-const route = '/lm'
+const port = 8000;
+const route = '/lm';
 
 export async function getUser(id) {
   try {
