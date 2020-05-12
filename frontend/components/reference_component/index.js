@@ -7,6 +7,7 @@ import { View } from 'react-native';
 import styles from './styles';
 import { Button, Text } from 'react-native-paper';
 import * as referenceController from '../../controllers/ReferenceController';
+import * as signupController from '../../controllers/SignupController';
 
 function ReferenceComponent(props) {
   // state
