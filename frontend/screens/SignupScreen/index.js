@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
-import { TextInput, Button, HelperText } from 'react-native-paper';
+import { TextInput, Button, HelperText, IconButton } from 'react-native-paper';
 import styles from './styles';
 
 function index() {
@@ -55,13 +55,18 @@ function index() {
 
   return (
     <View style={styles.container}>
+      <IconButton // goes back to login screen
+        icon="arrow-left"
+        size={30}
+        style={styles.backButton}
+      />
       <Text style={styles.text}>LetsMeet</Text>
       <Text style={styles.text}>Create Your Account</Text>
       <HelperText
         type="error"
         visible={false}
       >
-        Error message
+        Error Message
       </HelperText>
       <TextInput // display name field
         style={styles.textField}
@@ -142,7 +147,6 @@ function index() {
         style={styles.button}
         mode="contained"
         disabled={!(displayName && username && email && password && confirmPassword)}
-        contentStyle={styles.buttonDims}
         uppercase={false}
         loading={loadingIcon}
       >

@@ -1,8 +1,12 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
+  backButton: {
+    position: 'absolute',
+    left: 5,
+    top: 10,
+  },
   container: {
-    marginTop: 10,
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
@@ -13,7 +17,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   textField: {
-    marginVertical: 5,
     width: '90%',
   },
   button: {
