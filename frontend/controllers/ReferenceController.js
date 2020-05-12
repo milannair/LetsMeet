@@ -1,10 +1,14 @@
-export async function getUser() {
-  const response = await fetch('http://localhost:8000/lm/users/?id=5eab42ff0da6924cccfefe38');
-  return response.json();
-    // .then((response) => {
-    //   return response.json();
-    // })
-    // .catch((error) => {
-    //   console.error(error);
-    // });
+const axios = require('axios').default;
+
+export async function getUser(id) {
+  try {
+    const response = await axios.get('http://[YOUR IPV4 ADDRESS]:8000/lm/users', {
+        params: {
+          id: id
+        }
+      });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 }
