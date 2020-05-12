@@ -9,7 +9,6 @@ function CreateAccountComponent() {
       <Button
         // onPress={handleButtonPress}
         mode="contained"
-        style={styles.button}
       >
         Create Account
       </Button>
@@ -23,9 +22,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  button: {
-    width: '90%',
   },
 });
 

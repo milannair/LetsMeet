@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    width: '90%',
   },
   textField: {
     width: '90%',
