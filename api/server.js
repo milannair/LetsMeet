@@ -7,6 +7,8 @@ let mongoose = require("mongoose");
 // Initialise the app
 let app = express();
 
+var cors = require('cors')
+
 // Import routes
 let apiRoutes = require("./server/api-routes");
 // Configure bodyparser to handle post requests
@@ -32,11 +34,11 @@ else console.log("DB connected");
 var port = process.env.PORT || 8000;
 
 // Send message for default URL
-app.get("/", (req, res) => res.send("LetsMeet API"));
+// TODO: only allow cors from specific origin
+app.get("/", cors(), (req, res) => res.send("LetsMeet API"));
 
 // Use Api routes in the App
-app.use("/lm", apiRoutes);
-
+app.use("/lm", cors(), apiRoutes);
 // Launch app to listen to specified port
 app.listen(port, function () {
   console.log("Running LetsMeet API @ localhost:" + port);
