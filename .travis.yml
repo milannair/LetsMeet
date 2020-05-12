@@ -1,0 +1,34 @@
+# Travis CI Configuration File
+#
+# Relevant documentation URLs:
+# - https://docs.travis-ci.com/user/customizing-the-build/
+# - https://docs.travis-ci.com/user/job-lifecycle/
+# - https://docs.travis-ci.com/user/build-stages/
+# - https://docs.travis-ci.com/user/languages/javascript-with-nodejs/
+
+language: node_js
+node_js:
+  - node
+
+os: linux
+dist: bionic
+
+# Default `install`: `npm ci`
+
+script: echo "The command to run the test is not defined yet. Once the testing
+              framework is added, fill in the command in file '.travis.yml'."
+
+notifications:
+  slack: # Slack integration
+    secure: "\
+      RbDVpdk+ZfwllKlJZBTZy3WXVk7Ix5bgFBrUWon2Bb35VHk3CRzjYOHV77L37tzptTcDl55c\
+      0jt611611v8Ki6h1vu0WpgAM0lT3Nl3zKvydIwyV7vce78sbB9sBQQXnuTNzTjj/ahVRP2xa\
+      gTWMSxCtj8lgKSeQxIYtJZhKJV/GqL+lchJ61W9qURjrXc4xMpMh1dc/I3IG5riT6JshOvlU\
+      b8qmWC8SF/EFzR9H1/6r6tLakctmEv3izd6MiP0XKLXrjTxvWtDglX6QEB2BiccQ5cph2fsX\
+      gHU0fm0WpKOawRAegGl5w0fq5l61FuqDdAog9TuQiVJVin1UV25LTCasnesTVrEcfjkY0Som\
+      aRc+HBhyjqWnnaH9F+Pj5JUqcIRdTeJUYdpIduQIqJZJqn7hTzz4mWt62riwaMJ3ke2Prnj0\
+      sXwtzN1WMXzafqdRikCebto0LGDoAoPbSKh3/LnSty6+x10BxGqqjcIS1UTENefAiURC7zoy\
+      fOM1xHtys+y0P/vwD3WYsVorS9jX5MFwKSNz/VvK07p+6F+pEIvKsOomHCqNdGAHvCGph0Vp\
+      aDhBS/Jg80d8lxxOBpgIQuXO1j9+acWrD4ujb4NaiFNrlSsjX6IfZL3oRBwStgu/19OVDy4e\
+      3Gn3zH86kWrJFZciXr7BUPHYyNKbigOQB4U=\
+    "
