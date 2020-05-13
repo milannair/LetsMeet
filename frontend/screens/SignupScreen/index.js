@@ -59,7 +59,7 @@ function Signup({ navigation }) {
       postUser(username, email, phone, password, displayName)
         .then((response) => {
           console.log(response);
-          if (response >= 200 && response < 300) {
+          if (response.status >= 200 && response.status < 300) {
             console.log('account created');
             navigation.navigate('Tabs');
           } else {
