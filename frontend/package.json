@@ -5,10 +5,12 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest --env=jsdom"
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.6",
+    "axios": "^0.19.2",
     "expo": "~37.0.3",
     "expo-constants": "~9.0.0",
     "react": "~16.9.0",
@@ -30,7 +32,12 @@
     "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.19.0"
+    "eslint-plugin-react": "^7.19.0",
+    "jest": "^26.0.1",
+    "jest-expo": "^37.0.0"
+  },
+  "jest": {
+    "preset": "jest-expo/universal"
   },
   "private": true
 }
