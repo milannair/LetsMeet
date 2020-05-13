@@ -75,3 +75,6 @@ and testing are exactly the same.
    your browser.
 
 As of 5/12, the only feature working is account creation.
+
+### Links
+[Requirements, Architecture, Design, Testing, and CI](https://docs.google.com/document/d/1dkohsmQGX5KDGNGMGTPQ_vPJNPvdhAjXJFZqr1CVU9Q/edit?usp=sharing)
