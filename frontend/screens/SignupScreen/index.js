@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Alert } from 'react-native';
 import {
   TextInput, Button, HelperText, IconButton,
 } from 'react-native-paper';
@@ -64,10 +64,12 @@ function Signup({ navigation }) {
             navigation.navigate('Tabs');
           } else {
             // TODO: some error message on UI
+            Alert.alert('Failed to create account. Please try again.');
           }
         })
         .catch((error) => {
           console.error(error);
+          Alert.alert('Failed to create account. Please try again.');
           // TODO: some error message on UI
         })
     }
@@ -124,7 +126,7 @@ function Signup({ navigation }) {
       <TextInput // email field
         style={styles.textField}
         label="Email"
-        autoCompeleteType="email"
+        autoCompleteType="email"
         keyboardType="email-address"
         textContentType="emailAddress"
         value={email}
@@ -140,7 +142,7 @@ function Signup({ navigation }) {
       <TextInput // phone field
         style={styles.textField}
         label="Phone Number"
-        autoCompeleteType="tel"
+        autoCompleteType="tel"
         keyboardType="phone-pad"
         textContentType="telephoneNumber"
         value={phone}

@@ -38,7 +38,7 @@ function Login({ navigation }) {
 
   const handleSignupButtonPress = () => {
     navigation.navigate(SIGNUP_SCREEN_NAME);
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -52,7 +52,7 @@ function Login({ navigation }) {
       <TextInput // email field
         style={styles.textField}
         label="Email"
-        autoCompeleteType="email"
+        autoCompleteType="email"
         keyboardType="email-address"
         textContentType="emailAddress"
         value={email}

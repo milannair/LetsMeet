@@ -1,11 +1,17 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
+  backButton: {
+    position: 'absolute',
+    left: 5,
+    top: 5,
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    margin: 20,
   },
   text: {
     textAlign: 'center',
@@ -17,16 +23,11 @@ const styles = StyleSheet.create({
   },
   button: {
     justifyContent: 'center',
-    width: '50%',
-    height: 50,
-    margin: 10,
+    width: '90%',
+    height: 64,
   },
   buttonText: {
     fontSize: 25,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
   },
 });
 
