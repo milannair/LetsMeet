@@ -11,15 +11,15 @@ const Tab = createMaterialBottomTabNavigator();
 function TabNavigator() {
   return (
     <Tab.Navigator
-      activeColor='#000009'
-      inactiveColor='#464F51'
+      // activeColor='#000009'
+      // inactiveColor='#464F51'
       shifting={true}
     >
       <Tab.Screen 
         name={Screen.MEETINGS} 
         component={MeetingsStackScreen} 
         options={{
-          tabBarColor: '#73FCAA',
+          // tabBarColor: '#73FCAA',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name='calendar-blank' color={color} size={24} />
           ),
@@ -29,7 +29,7 @@ function TabNavigator() {
         name={Screen.GROUPS} 
         component={GroupsStackScreen} 
         options={{
-          tabBarColor: '#73FCAA',
+          // tabBarColor: '#73FCAA',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name='account-multiple' color={color} size={24} />
           ),
@@ -39,7 +39,7 @@ function TabNavigator() {
         name={Screen.PROFILE} 
         component={ProfileStackScreen} 
         options={{
-          tabBarColor: '#73FCAA',
+          // tabBarColor: '#73FCAA',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name='account-circle' color={color} size={24} />
           ),

@@ -8,7 +8,10 @@ import {
 } from 'react-native-paper';
 import styles from './styles';
 
-function Login() {
+const SIGNUP_SCREEN_NAME = 'Signup';
+const HOME_SCREEN_NAME = 'Tabs';
+
+function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPasswordError, setShowPasswordError] = useState(false);
@@ -16,7 +19,7 @@ function Login() {
   const maxFieldLength = 25;
   const minFieldLength = 3;
 
-  const handleButtonPress = () => {
+  const handleLoginButtonPress = () => {
     let flag = false;
     if (password.length < 6) {
       setShowPasswordError(true);
@@ -26,10 +29,16 @@ function Login() {
     }
 
     if (!flag) {
-      console.log('sending account to database');
       setLoadingIcon(true);
     }
+
+    // TODO: check username and password in database
+    navigation.navigate(HOME_SCREEN_NAME);
   };
+
+  const handleSignupButtonPress = () => {
+    navigation.navigate(SIGNUP_SCREEN_NAME);
+  }
 
   return (
     <View style={styles.container}>
@@ -73,7 +82,7 @@ function Login() {
       </HelperText>
       <View style={styles.buttonContainer}>
         <Button // login button
-          onPress={() => handleButtonPress()}
+          onPress={() => handleLoginButtonPress()}
           style={styles.button}
           mode="contained"
           disabled={!(email && password)}
@@ -85,7 +94,7 @@ function Login() {
           </Text>
         </Button>
         <Button // create account button
-          onPress={() => handleButtonPress()}
+          onPress={() => handleSignupButtonPress()}
           style={styles.button}
           mode="contained"
           uppercase={false}
