@@ -23,7 +23,7 @@ function Signup({ navigation }) {
   const maxFieldLength = 25;
   const minFieldLength = 3;
 
-  const handleButtonPress = () => {
+  const handleSignupButtonPress = () => {
     let flag = false;
     if (password !== confirmPassword) {
       setShowConfirmPassError(true);
@@ -184,7 +184,7 @@ function Signup({ navigation }) {
         Passwords do not match
       </HelperText>
       <Button // create account button
-        onPress={() => handleButtonPress()}
+        onPress={() => handleSignupButtonPress()}
         style={styles.button}
         mode="contained"
         disabled={!(displayName && username && email && password && confirmPassword && phone)}
