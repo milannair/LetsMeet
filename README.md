@@ -14,7 +14,7 @@ for your reference.
 - MongoDB (4.2.6)
 - Node.js (12.16.3, 14.2.0)
 
-## Platforms
+### Platforms
 
 LetsMeet's back-end and front-end are both platform-independent. You can run
 the back-end on any platform that has MongoDB and Node.js available. The
