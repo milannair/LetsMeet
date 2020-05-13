@@ -57,9 +57,12 @@ function index({ navigation }) {
       postUser(username, email, phone, password, displayName)
         .then((response) => {
           console.log(response);
-          console.log('account created');
-          navigation.navigate('Tabs');
-          console.log('hi');
+          if (response.status >= 200 && response.status < 300) {
+            console.log('account created');
+            navigation.navigate('Tabs');
+          } else {
+            // TODO: some error message on UI
+          }
         })
         .catch((error) => {
           console.error(error);
