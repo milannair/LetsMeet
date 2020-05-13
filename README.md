@@ -73,3 +73,5 @@ and testing are exactly the same.
    popping up a new browser tab. Follow the instructions given by Expo to run
    the front-end app on an Android device or simulator, an iOS simulator, or in
    your browser.
+
+As of 5/12, the only feature working is account creation.
