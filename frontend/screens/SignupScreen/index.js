@@ -6,7 +6,7 @@ import {
 import styles from './styles';
 import { postUser } from '../../controllers/SignupController';
 
-function index() {
+function Signup() {
   const [displayName, setDisplayName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -179,4 +179,4 @@ function index() {
   );
 }
 
-export default index;
+export default Signup;
