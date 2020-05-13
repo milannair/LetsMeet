@@ -1,0 +1,295 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "flexDirection": "row",
+      "marginTop": 12,
+    }
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#6200ee",
+          "borderRadius": 20,
+          "height": 40,
+          "width": 40,
+        },
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+        },
+        Object {
+          "marginHorizontal": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      numberOfLines={1}
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "sans-serif",
+            "fontWeight": "normal",
+            "textAlign": "left",
+          },
+          Array [
+            Object {
+              "textAlign": "center",
+              "textAlignVertical": "center",
+            },
+            Object {
+              "color": "#ffffff",
+              "fontSize": 20,
+              "lineHeight": 40,
+            },
+            undefined,
+          ],
+        ]
+      }
+    >
+      i
+    </Text>
+  </View>
+  <View>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "sans-serif",
+            "fontWeight": "normal",
+            "textAlign": "left",
+          },
+          undefined,
+        ]
+      }
+    >
+      Test notification
+    </Text>
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "backgroundColor": "#6200ee",
+            "borderColor": "transparent",
+            "borderRadius": 4,
+            "borderStyle": "solid",
+            "borderWidth": 0,
+            "elevation": 2,
+            "marginEnd": 40,
+            "marginVertical": 12,
+            "minWidth": 64,
+            "shadowColor": "#000000",
+            "shadowOffset": Object {
+              "height": 0.75,
+              "width": 0,
+            },
+            "shadowOpacity": 0.24,
+            "shadowRadius": 1.5,
+            "width": 100,
+          }
+        }
+      >
+        <View
+          accessibilityRole="button"
+          accessibilityStates={Array []}
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              Object {
+                "overflow": "hidden",
+              },
+              Object {
+                "borderRadius": 4,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                },
+                undefined,
+              ]
+            }
+          >
+            <Text
+              numberOfLines={1}
+              style={
+                Array [
+                  Object {
+                    "color": "#000000",
+                    "fontFamily": "sans-serif",
+                    "fontWeight": "normal",
+                    "textAlign": "left",
+                  },
+                  Array [
+                    Object {
+                      "letterSpacing": 1,
+                      "marginHorizontal": 16,
+                      "marginVertical": 9,
+                      "textAlign": "center",
+                    },
+                    undefined,
+                    Object {
+                      "textTransform": "uppercase",
+                    },
+                    Object {
+                      "color": "#ffffff",
+                      "fontFamily": "sans-serif-medium",
+                      "fontWeight": "normal",
+                    },
+                    Object {
+                      "fontFamily": "sans-serif-medium",
+                      "fontWeight": "normal",
+                    },
+                    undefined,
+                  ],
+                ]
+              }
+            >
+              Accept
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "backgroundColor": "grey",
+            "borderColor": "transparent",
+            "borderRadius": 4,
+            "borderStyle": "solid",
+            "borderWidth": 0,
+            "elevation": 2,
+            "marginEnd": 40,
+            "marginVertical": 12,
+            "minWidth": 64,
+            "shadowColor": "#000000",
+            "shadowOffset": Object {
+              "height": 0.75,
+              "width": 0,
+            },
+            "shadowOpacity": 0.24,
+            "shadowRadius": 1.5,
+            "width": 100,
+          }
+        }
+      >
+        <View
+          accessibilityRole="button"
+          accessibilityStates={Array []}
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              Object {
+                "overflow": "hidden",
+              },
+              Object {
+                "borderRadius": 4,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                },
+                undefined,
+              ]
+            }
+          >
+            <Text
+              numberOfLines={1}
+              style={
+                Array [
+                  Object {
+                    "color": "#000000",
+                    "fontFamily": "sans-serif",
+                    "fontWeight": "normal",
+                    "textAlign": "left",
+                  },
+                  Array [
+                    Object {
+                      "letterSpacing": 1,
+                      "marginHorizontal": 16,
+                      "marginVertical": 9,
+                      "textAlign": "center",
+                    },
+                    undefined,
+                    Object {
+                      "textTransform": "uppercase",
+                    },
+                    Object {
+                      "color": "#ffffff",
+                      "fontFamily": "sans-serif-medium",
+                      "fontWeight": "normal",
+                    },
+                    Object {
+                      "fontFamily": "sans-serif-medium",
+                      "fontWeight": "normal",
+                    },
+                    undefined,
+                  ],
+                ]
+              }
+            >
+              Decline
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "rgba(0, 0, 0, 0.12)",
+            "height": 0.5,
+          },
+          undefined,
+          undefined,
+        ]
+      }
+    />
+  </View>
+</View>
+`;
