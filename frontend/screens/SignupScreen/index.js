@@ -6,9 +6,7 @@ import {
 import styles from './styles';
 import { postUser } from '../../controllers/SignupController';
 
-const LOGIN_SCREEN_NAME = 'Login';
-
-function Signup({ navigation }) {
+function index({ navigation }) {
   const [displayName, setDisplayName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -73,17 +71,12 @@ function Signup({ navigation }) {
     }
   };
 
-  const handleBackButtonPress = () => {
-    navigation.navigate(LOGIN_SCREEN_NAME);
-  };
-
   return (
     <View style={styles.container}>
       <IconButton // goes back to login screen
         icon="arrow-left"
         size={25}
         style={styles.backButton}
-        onPress={() => handleBackButtonPress()}
       />
       <Text style={styles.text}>LetsMeet</Text>
       <Text style={styles.text}>Create Your Account</Text>
@@ -199,4 +192,4 @@ function Signup({ navigation }) {
   );
 }
 
-export default Signup;
+export default index;
