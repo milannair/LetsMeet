@@ -1,5 +1,5 @@
 import React from 'react';
-import NotificationsScreen from "../screens/NotificationsScreen";
+import NotificationsScreen from "../screens/NotificationsScreen/index";
 import renderer from 'react-test-renderer';
 
 it('renders correctly', () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import NotificationComponent from '../components/NotificationComponent';
+import NotificationComponent from '../components/NotificationComponent/index';
 import renderer from 'react-test-renderer';
 
 it('renders correctly', () => {
