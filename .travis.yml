@@ -3,7 +3,7 @@
 # Relevant documentation URLs:
 # - https://docs.travis-ci.com/user/customizing-the-build/
 # - https://docs.travis-ci.com/user/job-lifecycle/
-# - https://docs.travis-ci.com/user/build-stages/
+# - https://docs.travis-ci.com/user/build-matrix/
 # - https://docs.travis-ci.com/user/languages/javascript-with-nodejs/
 
 language: node_js
@@ -13,10 +13,14 @@ node_js:
 os: linux
 dist: bionic
 
-# Default `install`: `npm ci`
+jobs:
+  include:
+    - name: "api"
+    - name: "frontend"
 
-script: echo "The command to run the test is not defined yet. Once the testing
-              framework is added, fill in the command in file '.travis.yml'."
+install: npm ci --prefix ${TRAVIS_JOB_NAME}
+
+script: npm test --prefix ${TRAVIS_JOB_NAME}
 
 notifications:
   slack: # Slack integration
