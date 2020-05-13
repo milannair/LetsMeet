@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import NotificationComponent from "../components/NotificationComponent";
+import NotificationComponent from "../../components/NotificationComponent/index";
 
 /*
  * TODO: determine a notification's model
