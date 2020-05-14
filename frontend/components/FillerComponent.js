@@ -15,7 +15,7 @@ function FillerComponent({ text }) {
 
   const handleButtonPress = () => {
     setCount(count + 1);
-    alert('You pressed the button ' + count + ' times!');
+    alert('You pressed the button ' + 0 + ' times!');
   };
 
   return (

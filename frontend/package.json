@@ -8,8 +8,9 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@babel/runtime": "7.0.0-beta.55",
     "@react-native-community/masked-view": "0.1.6",
-    "expo": "~37.0.3",
+    "expo": "^37.0.10",
     "expo-constants": "~9.0.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
@@ -23,6 +24,7 @@
     "yarn": "^1.22.4"
   },
   "devDependencies": {
+    "@babel/runtime": "^7.0.0-beta.56",
     "@babel/core": "^7.8.6",
     "babel-preset-expo": "~8.1.0"
   },
