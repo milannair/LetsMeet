@@ -5,7 +5,7 @@ import FillerComponent from '../components/FillerComponent';
 function FillerScreen() {
   return (
     <View style={styles.container}>
-      <FillerComponent text='hello!' />
+      <FillerComponent text='Hello!' />
     </View>
   );
 }
