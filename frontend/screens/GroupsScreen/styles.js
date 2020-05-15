@@ -9,6 +9,14 @@ const styles = StyleSheet.create({
     },
     navbar : {
         height: "70px",
+    },
+    fab: {
+        position: 'absolute',
+        marginBottom: 100,
+        marginRight: 16,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "#663399",
     }
 });
 

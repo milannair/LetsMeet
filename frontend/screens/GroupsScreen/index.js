@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { Appbar } from 'react-native-paper';
-import CardComponent from '../../components/CardComponent/index';
+import { Appbar, FAB } from 'react-native-paper';
+import CardComponent from '../../components/GroupCardComponent/index';
 import styles from './styles'
 
 
@@ -14,9 +14,6 @@ function GroupsScreen() {
   return (
     <View style={styles.container}>
       <Appbar.Header style={styles.navbar} >
-        {/* <Appbar.BackAction
-          onPress={this._goBack}
-        /> */}
         <Appbar.Content
           title="LetsMeet"
         />
@@ -34,6 +31,11 @@ function GroupsScreen() {
         />
       </Appbar.Header>
       {groupComponents(hearts)}
+      <FAB
+        style={styles.fab}
+        icon="plus"
+        onPress={() => alert("Congrats! Pressing the FAB does nothing at this point")}
+      />
     </View>
   );
 

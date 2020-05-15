@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { View } from 'react-native';
-import { Avatar, Button, Card, Title, Paragraph, IconButton } from 'react-native-paper';
+import { Avatar, Card, IconButton } from 'react-native-paper';
 import styles from './styles'
 
 
