@@ -4,8 +4,10 @@
     "\\frontend",
     "\\frontend\\components",
     "\\frontend\\screens",
+    "\\frontend\\screens\\GroupsScreen",
+    "\\frontend\\screens\\reference_screen",
     "\\reports"
   ],
-  "SelectedNode": "\\frontend\\screens\\GroupsPage.js",
+  "SelectedNode": "\\.gitignore",
   "PreviewInSolutionExplorer": false
 }
