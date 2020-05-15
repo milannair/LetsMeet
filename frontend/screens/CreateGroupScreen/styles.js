@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
         marginTop: '5px',
         marginBottom: '20px',
         height: '100px'
-        // height: '200px',
     },
     groupAvatarEdit: {
         height: '100px',
@@ -39,7 +38,6 @@ const styles = StyleSheet.create({
     textinput: {
         backgroundColor: '#f3ffe7',
         paddingTop: '40px',
-        elevation: '-1',
     },
     textinputFocused: {
         backgroundColor: '#f3ffe7',
@@ -62,7 +60,7 @@ const styles = StyleSheet.create({
 
     },
     buttonText: {
-        fontWeight: '550'
+        fontWeight: '600'
     }, 
 });
 

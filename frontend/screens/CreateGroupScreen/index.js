@@ -62,6 +62,7 @@ function CreateGroupScreen() {
                         style={styles.listItem} 
                         key={username + 'item' + i} 
                         title={username} 
+                        left={() => <Avatar.Image size={40} source={{uri: 'https://picsum.photos/60' + i}} />}
                         right = {() => <IconButton icon={icon}/> }
                         onPress={()=> {
                                     inviteOrUninviteUser(username); 
