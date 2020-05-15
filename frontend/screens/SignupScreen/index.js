@@ -97,7 +97,8 @@ function Signup({ navigation }) {
       </HelperText>
       <TextInput // display name field
         style={styles.textField}
-        label="DisplayName"
+        mode='outlined'
+        label="Display Name"
         autoCompleteType="name"
         value={displayName}
         onChange={(e) => setDisplayName(e.nativeEvent.text)}
@@ -111,6 +112,7 @@ function Signup({ navigation }) {
       </HelperText>
       <TextInput // username field
         style={styles.textField}
+        mode='outlined'
         label="Username"
         autoCompleteType="username"
         value={username}
@@ -125,6 +127,7 @@ function Signup({ navigation }) {
       </HelperText>
       <TextInput // email field
         style={styles.textField}
+        mode='outlined'
         label="Email"
         autoCompleteType="email"
         keyboardType="email-address"
@@ -141,6 +144,7 @@ function Signup({ navigation }) {
       </HelperText>
       <TextInput // phone field
         style={styles.textField}
+        mode='outlined'
         label="Phone Number"
         autoCompleteType="tel"
         keyboardType="phone-pad"
@@ -157,6 +161,7 @@ function Signup({ navigation }) {
       </HelperText>
       <TextInput // password field
         style={styles.textField}
+        mode='outlined'
         label="Password"
         secureTextEntry
         autoCorrect={false}
@@ -172,6 +177,7 @@ function Signup({ navigation }) {
       </HelperText>
       <TextInput // confirm password field
         style={styles.textField}
+        mode='outlined'
         label="Confirm Password"
         secureTextEntry
         autoCorrect={false}

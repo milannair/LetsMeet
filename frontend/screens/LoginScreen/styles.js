@@ -22,11 +22,12 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   buttonText: {
-    fontSize: 25,
+    fontSize: 18,
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
+    width: '85%'
   },
 });
 

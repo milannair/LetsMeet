@@ -10,22 +10,22 @@ function Profile({ navigation }) {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    const showUser = () => {
-      getUser('5ebb7d22d5352752400c7cfe')
-        .then((response) => {
-          setUser(response);
-          console.log(user);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+    const showUser = async () => {
+      try {
+        const user = await getUser('5eab42ff0da6924cccfefe38');
+        console.log(user);
+        setUser(user);
+      } catch (error) {
+        console.error(error);
+      }
+      
     };
     showUser();
-  });
+  }, []);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{user}</Text>
+      <Text style={styles.text}>{JSON.stringify(user)}</Text>
     </View>
   );
 }
