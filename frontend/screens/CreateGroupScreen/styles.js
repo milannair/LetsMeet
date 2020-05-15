@@ -10,10 +10,26 @@ const styles = StyleSheet.create({
     navbar : {
         height: '70px',
     },
-    avatar : {
-        marginTop: '50px',
+    groupDetailsContainer: {
+        width: '80%',
         marginLeft: 'auto',
-        marginRight: 'auto'
+        marginRight: 'auto',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: '5px',
+        marginBottom: '20px',
+        height: '100px'
+        // height: '200px',
+    },
+    groupAvatarEdit: {
+        height: '100px',
+        paddingTop: '40px'
+    },
+    avatar : {
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        paddingBottom: '30px'
     },
     edit: {
         marginLeft: 'auto',
@@ -22,15 +38,12 @@ const styles = StyleSheet.create({
     },
     textinput: {
         backgroundColor: '#f3ffe7',
-        borderBottomWidth: '1px',
-        borderBottomColor: '#bfbfbf',
-        borderTopWidth: 0,
-        marginBottom: '20px'
+        paddingTop: '40px',
+        elevation: '-1',
     },
     textinputFocused: {
         backgroundColor: '#f3ffe7',
-        borderBottomWidth: '0',
-        marginBottom: '20px'
+        paddingTop: '40px',
     },
     chip: {
         height: '30px',
@@ -47,7 +60,10 @@ const styles = StyleSheet.create({
     searchBar: {
         marginBottom: "5px"
 
-    },    
+    },
+    buttonText: {
+        fontWeight: '550'
+    }, 
 });
 
 export default styles

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
-import { Appbar, Avatar, Button, IconButton, Colors, TextInput, Chip, Searchbar, List} from 'react-native-paper';
+import { Appbar, Avatar, IconButton, Button, Colors, TextInput, Chip, Searchbar, List} from 'react-native-paper';
 import styles from './styles'
 
 
@@ -76,32 +76,42 @@ function CreateGroupScreen() {
     return(
         <View style={styles.container}>
             <Appbar.Header style={styles.navbar}>
+                <Appbar.BackAction onPress={() => alert('Will eventually let you go back')}/>
                 <Appbar.Content title='Create a Group'/>
+                <Button color='white' labelStyle={styles.buttonText} onPress={() => alert('Will eventually allow you to finish creating the group')}>
+                    DONE
+                </Button>
+                
             </Appbar.Header>
+
+            <View style={styles.groupDetailsContainer}>
+                <View style={styles.groupAvatarEdit}>
+                    <Avatar.Image 
+                        style={styles.avatar} 
+                        size={50} 
+                        source={{uri: 'https://picsum.photos/600'}} />
+
+                    <IconButton
+                        icon='account-edit'
+                        size={15}
+                        color={Colors.white}
+                        style={styles.edit}
+                        onPress={() => alert('Will allow you to change the photo')}
+                    />
+                </View>
+
+                <TextInput
+                    style={textActive ? styles.textinputFocused : styles.textinput}
+                    label={'Group Name'}
+                    value={groupName}
+                    underlineColor='purple'
+                    theme = {{colors: {}}}
+                    onFocus = {() => {setTextActive(true); console.log(textActive)}}
+                    onBlur = {() => {setTextActive(false); console.log(textActive)}}
+                    onChange={(e) => {setGroupName(e.nativeEvent.text); console.log(groupName)}}                
+                />
+            </View>
             
-            <Avatar.Image 
-                style={styles.avatar} 
-                size={100} 
-                source={{uri: 'https://picsum.photos/600'}} />
-
-            <IconButton
-                icon='account-edit'
-                size={20}
-                color={Colors.white}
-                style={styles.edit}
-                onPress={() => alert('Will allow you to change the photo')}
-            />
-
-            <TextInput
-                style={textActive ? styles.textinputFocused : styles.textinput}
-                label={'Group Name'}
-                value={groupName}
-                underlineColor='purple'
-                theme = {{colors: {}}}
-                onFocus = {() => {setTextActive(true); console.log(textActive)}}
-                onBlur = {() => {setTextActive(false); console.log(textActive)}}
-                onChange={(e) => {setGroupName(e.nativeEvent.text); console.log(groupName)}}                
-            />
             <View style={styles.chipContainer}>
                 {inviteeChips}
             </View>
