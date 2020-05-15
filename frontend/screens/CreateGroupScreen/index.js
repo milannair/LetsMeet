@@ -11,16 +11,15 @@ function CreateGroupScreen() {
 
     const [groupName, setGroupName] = useState('')
     const [textActive, setTextActive] = useState(false)
-    const [invited, setInvited] = useState(invitedMembers)
     const [inviteeChips, setInviteeChips] = useState(getInviteeChips(invitedMembers))
     const [searchQuery, setSearchQuery] = useState('')
-    const [searchList, setSearchList] = useState(getSearchItems(searchResults))
+    const [searchList, setSearchList] = useState([])
 
     const removeInvitee = (username) => {
         const index = invitedMembers.indexOf(username)
         invitedMembers.splice(index, 1)
-        setInvited(invitedMembers)
         setInviteeChips(getInviteeChips(invitedMembers))
+        setSearchList(getSearchItems(searchResults));
     }
 
     
@@ -30,7 +29,6 @@ function CreateGroupScreen() {
             removeInvitee(username)
         } else {
             invitedMembers = [...invitedMembers, username]
-            setInvited(invitedMembers)
             setInviteeChips(getInviteeChips(invitedMembers))
         }
     }
@@ -57,7 +55,8 @@ function CreateGroupScreen() {
         let items = []
             for (let i = 0; i < usernames.length; i++) {
                 const username = usernames[i]
-                const icon = invited.indexOf(username) > -1 ? 'checkbox-marked-circle' : 'circle-outline'
+                const icon = invitedMembers.indexOf(username) > -1 ? 'checkbox-marked-circle' : 'circle-outline'
+                console.log(icon)
                 items.push(
                     <List.Item 
                         style={styles.listItem} 
