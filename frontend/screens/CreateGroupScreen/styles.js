@@ -42,9 +42,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
         flexWrap: 'wrap',
-        marginBottom: '15px'
-    }
-    
+        marginBottom: '15px',
+    },
+    searchBar: {
+        marginBottom: "5px"
+
+    },    
 });
 
 export default styles

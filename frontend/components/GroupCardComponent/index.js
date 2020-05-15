@@ -11,12 +11,12 @@ function CardComponent({groupName, heartActiveCallback, index, heartStatus=false
     const LeftContent = () => (<Avatar.Image size={40} source={{ uri: "https://picsum.photos/60" + index}} />);
     const RightContent = () => {
         return <IconButton
-                        icon="heart" 
-                        size= {20} 
-                        // green if active otherwise grey
-                        color={ heart ? "rgb(127,255,0)" : "rgb(211,211,211)"}
-                        onPress={() => {setHeart(!heart); heartActiveCallback(index)}}
-                    />
+                    icon="heart" 
+                    size= {20} 
+                    // green if active otherwise grey
+                    color={ heart ? "rgb(127,255,0)" : "rgb(211,211,211)"}
+                    onPress={() => {setHeart(!heart); heartActiveCallback(index)}}
+                />
     }
 
     return (

@@ -1,26 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
-import { Appbar, Avatar, IconButton, Colors, TextInput, Chip, Searchbar} from 'react-native-paper';
+import { Appbar, Avatar, Button, IconButton, Colors, TextInput, Chip, Searchbar, List} from 'react-native-paper';
 import styles from './styles'
 
+
+let allUsernames = ['Jay', 'Jonah', 'Jameson', 'Peter', 'Parker', 'Mary', 'Jane']
+let invitedMembers = []
+let searchResults = []
 function CreateGroupScreen() {
 
     const [groupName, setGroupName] = useState('')
     const [textActive, setTextActive] = useState(false)
-    let inviteeNames = ['Jay', 'Jonah', 'Jameson', 'Peter', 'Parker', 'Mary', 'Jane']
-    const [inviteeChips, setInviteeChips] = useState(getInviteeChips(inviteeNames))
+    const [invited, setInvited] = useState(invitedMembers)
+    const [inviteeChips, setInviteeChips] = useState(getInviteeChips(invitedMembers))
     const [searchQuery, setSearchQuery] = useState('')
+    const [searchList, setSearchList] = useState(getSearchItems(searchResults))
 
-    const removeInvitee = (index) => {
-        inviteeNames.splice(index, 1);
-        setInviteeChips(getInviteeChips(inviteeNames))
+    const removeInvitee = (username) => {
+        const index = invitedMembers.indexOf(username)
+        invitedMembers.splice(index, 1)
+        setInvited(invitedMembers)
+        setInviteeChips(getInviteeChips(invitedMembers))
+    }
+
+    
+    function inviteOrUninviteUser(username) {
+        const index = invitedMembers.indexOf(username)
+        if(index >= 0) {
+            removeInvitee(username)
+        } else {
+            invitedMembers = [...invitedMembers, username]
+            setInvited(invitedMembers)
+            setInviteeChips(getInviteeChips(invitedMembers))
+        }
     }
 
     function getInviteeChips(invitees) {
         let chips = []
         for (let i = 0; i < invitees.length; i++) {
             chips.push (
-                <Chip style={styles.chip} key={invitees[i] + i} onClose={() => removeInvitee(i)}>
+                <Chip style={styles.chip} key={invitees[i] + 'Chip' + i} onClose={() => removeInvitee(invitees[i])}>
                     {invitees[i]}
                 </Chip>
             )
@@ -28,10 +47,36 @@ function CreateGroupScreen() {
         return chips
     }
 
+    const searchMembers = (query) => {
+        searchResults = allUsernames.filter(el => el.toLowerCase().startsWith(query))
+        const list = getSearchItems(searchResults)
+        setSearchList(list)
+    }
+
+    function getSearchItems(usernames) {
+        let items = []
+            for (let i = 0; i < usernames.length; i++) {
+                const username = usernames[i]
+                const icon = invited.indexOf(username) > -1 ? 'checkbox-marked-circle' : 'circle-outline'
+                items.push(
+                    <List.Item 
+                        style={styles.listItem} 
+                        key={username + 'item' + i} 
+                        title={username} 
+                        right = {() => <IconButton icon={icon}/> }
+                        onPress={()=> {
+                                    inviteOrUninviteUser(username); 
+                                    setSearchList(getSearchItems(searchResults));
+                                }}
+                    />
+                )
+            }
+        return items
+    }
+
     return(
         <View style={styles.container}>
             <Appbar.Header style={styles.navbar}>
-                {/* <Appbar.BackAction onPress={alert('I shall take you back later')}/> */}
                 <Appbar.Content title='Create a Group'/>
             </Appbar.Header>
             
@@ -63,10 +108,13 @@ function CreateGroupScreen() {
             </View>
 
             <Searchbar
+                style={styles.searchBar}
                 placeholder="Search"
-                onChangeText={(query) => {setSearchQuery(query)}}
+                onChangeText={(query) => {setSearchQuery(query); searchMembers(query.toLowerCase())}}
                 value={searchQuery}
             />
+
+            {searchList}
             
         </View>
     );
