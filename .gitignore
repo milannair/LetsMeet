@@ -14,5 +14,5 @@ frontend/web-build
 
 #VS
 .suo
-slnx.sqlite
+.vs/slnx.sqlite
 VSWorkspaceState.json
