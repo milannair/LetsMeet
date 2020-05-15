@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import CardComponent from '../../components/CardComponent';
+import { Appbar } from 'react-native-paper';
+import CardComponent from '../../components/CardComponent/index';
 import styles from './styles'
 
 
@@ -12,6 +13,26 @@ function GroupsScreen() {
 
   return (
     <View style={styles.container}>
+      <Appbar.Header style={styles.navbar} >
+        {/* <Appbar.BackAction
+          onPress={this._goBack}
+        /> */}
+        <Appbar.Content
+          title="LetsMeet"
+        />
+        <Appbar.Action 
+          icon="bell-ring" 
+          color="yellow" 
+          size={20} 
+          onPress={()=> alert("Will eventually take you to the notifications screen")}
+          />
+        <Appbar.Action 
+          icon="dots-vertical" 
+          color="white" 
+          size={20}
+          onPress={()=> alert("Will eventually take you to the settings screen")}
+        />
+      </Appbar.Header>
       {groupComponents(hearts)}
     </View>
   );

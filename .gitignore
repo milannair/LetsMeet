@@ -13,6 +13,7 @@ frontend/web-build
 .history/
 
 #VS
+.vs
 .suo
 .vs/slnx.sqlite
 VSWorkspaceState.json
