@@ -19,25 +19,16 @@ function CardComponent({groupName, heartActiveCallback, index, heartStatus=false
                     />
     }
 
-
-
     return (
     <View style={styles.container}>
         <Card style={styles.card}>
             <Card.Title title={groupName} subtitle={groupDescription} left={LeftContent} right={RightContent}/>
-        {/* <Card.Content>
-            <Title>Card title</Title>
-            <Paragraph>Card content</Paragraph>
-        </Card.Content> */}
-        {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
-        {/* <Card.Actions>
-            <Button>Cancel</Button>
-            <Button>Ok</Button>
-        </Card.Actions> */}
         </Card>
     </View>
     );
 }
+
+
 // styling
 const styles = StyleSheet.create({
   container: {
