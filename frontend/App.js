@@ -1,18 +1,16 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-import ReferenceScreen from './screens/reference_screen/index';
 import SignupScreen from './screens/SignupScreen/index';
-import { Provider as PaperProvider } from 'react-native-paper';
-import GroupsScreen from './screens/GroupsScreen'
+import GroupsScreen from './screens/GroupsScreen/index'
 import Constants from 'expo-constants';
 
 const theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#b57edc',
-    accent: '#aaf0d1',
+    primary: 'green',
+    accent: 'green',
   },
 };
 
@@ -21,8 +19,7 @@ export default function App() {
     <PaperProvider theme={theme}>
       <View style={styles.container}>
         <GroupsScreen/>
-        <GroupsPage/>
-        <SignupScreen />
+        {/* <SignupScreen /> */}
       </View>
     </PaperProvider>
   );

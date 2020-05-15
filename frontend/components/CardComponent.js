@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Avatar, Button, Card, Title, Paragraph, IconButton } from 'react-native-paper';
-import userController from '../controllers/FillerController';
 
 
 
