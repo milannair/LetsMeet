@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        flexWrap: 'wrap',
         marginBottom: '15px',
+        overflow: 'scroll'
     },
     searchBar: {
         marginBottom: "5px"
