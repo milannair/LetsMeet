@@ -1,13 +1,13 @@
 function Schedule(scheduleId = '',
                   user = '',
-                  timeslots = [],
+                  timeSlots = [],
                   meetings = [], // meetings or events?
                   // default = false,
                   name = '',
                   createDate = null) {
   this.scheduleId = scheduleId;
   this.user = user;
-  this.timeslots = timeslots;
+  this.timeSlots = timeSlots;
   this.meetings = meetings;
   this.name = name;
   this.createDate = createDate;
