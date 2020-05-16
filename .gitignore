@@ -1,5 +1,6 @@
 # node
 api/node_modules/
+api/.env
 frontend/node_modules/
 frontend/npm-debug.log
 frontend/yarn-error.log
@@ -11,3 +12,4 @@ frontend/web-build
 
 # VSCode
 .history/
+
