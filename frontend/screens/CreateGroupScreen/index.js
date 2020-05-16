@@ -37,7 +37,12 @@ function CreateGroupScreen() {
         let chips = []
         for (let i = 0; i < invitees.length; i++) {
             chips.push (
-                <Chip style={styles.chip} key={invitees[i] + 'Chip' + i} onClose={() => removeInvitee(invitees[i])}>
+                <Chip 
+                    style={styles.chip} 
+                    key={invitees[i] + 'Chip' + i} 
+                    onClose={() => removeInvitee(invitees[i])}
+                    avatar= {<Avatar.Image size={23} source={{uri: 'https://picsum.photos/60' + i}}/>}
+                >
                     {invitees[i]}
                 </Chip>
             )
@@ -56,14 +61,14 @@ function CreateGroupScreen() {
             for (let i = 0; i < usernames.length; i++) {
                 const username = usernames[i]
                 const icon = invitedMembers.indexOf(username) > -1 ? 'checkbox-marked-circle' : 'circle-outline'
-                console.log(icon)
+                const color = icon === 'circle-outline' ? 'grey' : 'black'
                 items.push(
                     <List.Item 
                         style={styles.listItem} 
                         key={username + 'item' + i} 
                         title={username} 
                         left={() => <Avatar.Image size={40} source={{uri: 'https://picsum.photos/60' + i}} />}
-                        right = {() => <IconButton icon={icon}/> }
+                        right = {() => <IconButton color={color} icon={icon}/> }
                         onPress={()=> {
                                     inviteOrUninviteUser(username); 
                                     setSearchList(getSearchItems(searchResults));
