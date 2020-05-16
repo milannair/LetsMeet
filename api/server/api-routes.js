@@ -10,18 +10,14 @@ router.get("/", function (req, res) {
 });
 // Import user controller
 var userController = require("./userController");
-var userController2 = require("./newUserController");
 
 // user routes
-router
-  .route("/users")
-  .get(userController.index)
-  .post(userController2.createUser);
+router.route("/users").get(userController.index).post(userController.register);
 
 router
   .route("/user/:user_id")
-  .get(userController2.getUser)
-  .patch(userController2.updateUser)
+  .get(userController.view)
+  .patch(userController.update)
   .put(userController.update)
   .delete(userController.delete);
 
