@@ -2,8 +2,6 @@
   "ExpandedNodes": [
     "",
     "\\frontend",
-    "\\frontend\\screens\\GroupsScreen",
-    "\\frontend\\screens\\reference_screen",
     "\\reports"
   ],
   "SelectedNode": "\\frontend\\package.json",
