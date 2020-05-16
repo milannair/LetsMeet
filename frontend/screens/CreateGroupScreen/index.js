@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { Appbar, Avatar, IconButton, Button, Colors, TextInput, Chip, Searchbar, List} from 'react-native-paper';
 import styles from './styles'
+import { GROUPS } from '../../navigation/screen-names';
 
 
 let allUsernames = ['Jay', 'Jonah', 'Jameson', 'Peter', 'Parker', 'Mary', 'Jane']
 let invitedMembers = []
 let searchResults = []
-function CreateGroupScreen() {
+function CreateGroupScreen({navigation}) {
 
     const [groupName, setGroupName] = useState('')
     const [textActive, setTextActive] = useState(false)
@@ -82,7 +83,7 @@ function CreateGroupScreen() {
     return(
         <View style={styles.container}>
             <Appbar.Header style={styles.navbar}>
-                <Appbar.BackAction onPress={() => alert('Will eventually let you go back')}/>
+                <Appbar.BackAction onPress={() => navigation.navigate(GROUPS)}/>
                 <Appbar.Content title='Create a Group'/>
                 <Button color='white' labelStyle={styles.buttonText} onPress={() => alert('Will eventually allow you to finish creating the group')}>
                     DONE

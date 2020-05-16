@@ -5,6 +5,7 @@ import SignupScreen from './screens/SignupScreen/index';
 import CreateGroupScreen from './screens/CreateGroupScreen/index'
 import GroupsScreen from './screens/GroupsScreen/index'
 import Constants from 'expo-constants';
+import Navigator from './navigation/index';
 
 const theme = {
   ...DefaultTheme,
@@ -19,9 +20,7 @@ export default function App() {
   return (
     <PaperProvider theme={theme}>
       <View style={styles.container}>
-        <CreateGroupScreen/>
-        {/* <GroupsScreen/> */}
-        {/* <SignupScreen /> */}
+        <Navigator/>
       </View>
     </PaperProvider>
   );

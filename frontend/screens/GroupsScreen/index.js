@@ -3,10 +3,11 @@ import { View } from 'react-native';
 import { Appbar, FAB } from 'react-native-paper';
 import CardComponent from '../../components/GroupCardComponent/index';
 import styles from './styles'
+import { CREATE_GROUP } from '../../navigation/screen-names';
 
 
 
-function GroupsScreen() {
+function GroupsScreen({navigation}) {
 
   // const [heartActive1, setHeartActive1] = useState(false)
   let hearts = [true, false, true]
@@ -34,7 +35,7 @@ function GroupsScreen() {
       <FAB
         style={styles.fab}
         icon="plus"
-        onPress={() => alert("Congrats! Pressing the FAB does nothing at this point")}
+        onPress={() => navigation.navigate(CREATE_GROUP)}
       />
     </View>
   );
