@@ -1,8 +1,8 @@
 #!/bin/bash
 FILE=api/.env
 if [ -f "$FILE" ]; then
-    echo ".env file already exists
-    To view Cluster connection string run:
+    echo ".env file already exists    
+To view Cluster connection string run:
     bash scripts/dbString.sh"
 else
     cd api

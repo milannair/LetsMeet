@@ -12,4 +12,4 @@ frontend/web-build
 
 # VSCode
 .history/
-
+.vs
