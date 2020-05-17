@@ -1,9 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-import ReferenceScreen from './screens/reference_screen/index';
-import SignupScreen from './screens/SignupScreen/index';
 import Constants from 'expo-constants';
+import Navigator from './navigation/index';
 
 const theme = {
   ...DefaultTheme,
@@ -17,9 +16,7 @@ const theme = {
 export default function App() {
   return (
     <PaperProvider theme={theme}>
-      <View style={styles.container}>
-        <SignupScreen />
-      </View>
+      <Navigator />
     </PaperProvider>
   );
 }
