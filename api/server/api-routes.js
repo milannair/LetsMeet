@@ -9,7 +9,7 @@ router.get("/", function (req, res) {
   });
 });
 // Import user controller
-var userController = require("./userController");
+var userController = require("./controllers/userController");
 
 // User routes
 
