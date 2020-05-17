@@ -1,7 +1,7 @@
 const axios = require('axios').default;
 
 const protocol = 'http://';
-const baseUrl = '192.168.1.16'; // change to your ipv4 address
+const baseUrl = '192.168.1.5'; // change to your ipv4 address
 const port = 8000;
 const route = '/lm';
 
@@ -16,6 +16,15 @@ export async function postUser(username, email, phone, password, displayName) {
       });
     console.log(response);
     return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getUser(id) {
+  try {
+    const response = await axios.get(protocol + baseUrl + ':' + port + route + '/user/' + id);
+    return response.data.data;
   } catch (error) {
     console.error(error);
   }
