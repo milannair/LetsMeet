@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as Screen from './screen-names';
 import ProfileScreen from '../../../../screens/ProfileScreen/index';
 import EditProfileScreen from '../../../../screens/EditProfileScreen/index';
+import ChangePasswordDialog from '../../../../screens/EditProfileScreen/ChangePassword';
 
 const ProfileStack = createStackNavigator();
 
