@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { View, Alert } from 'react-native';
 import {
-  Text, Appbar, TextInput, Button, Portal, Dialog,
+  Appbar, TextInput, Button,
 } from 'react-native-paper';
 import styles from './styles';
 import { getUser } from '../../controllers/UserController';
 import * as Screen from '../../navigation/tab_navigator/stacks/profile/screen-names';
 import ChangePasswordDialog from './ChangePassword';
+import DeleteAccountDialog from './DeleteAccount';
 
 function EditProfile({ navigation }) {
-  const [user, setUser] = useState(JSON.parse('{"username" : "", "email" : "", "displayName" : ""}'));
+  const [user, setUser] = useState(JSON.parse('{"username" : "", "email" : "", "displayName" : "", "password": ""}'));
   const [displayName, setDisplayName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+
   const [visibleChangePassword, setVisibleChangePassword] = useState(false);
+  const [showCurrPasswordHelperText, setCurrPasswordHelperText] = useState(false);
+  const [showNewPasswordHelperText, setNewPasswordHelperText] = useState(false);
+
   const [visibleDeleteAccount, setVisibleDeleteAccount] = useState(false);
+  const [showDeleteHelperText, setShowDeleteHelperText] = useState(false);
 
   useEffect(() => {
     const showUser = async () => {
@@ -46,12 +52,35 @@ function EditProfile({ navigation }) {
     console.log('change email');
   };
 
-  const handleChangePassword = () => {
-    setVisibleChangePassword(true);
+  const handleChangePassword = (currPassword, newPassword) => {
+    let flag = false;
+    if (currPassword !== user.password) { // 'password' is placeholder password
+      setCurrPasswordHelperText(true);
+      flag = true;
+    } else {
+      setCurrPasswordHelperText(false);
+    }
+    if (newPassword.length < 6) {
+      setNewPasswordHelperText(true);
+      flag = true;
+    } else {
+      setNewPasswordHelperText(false);
+    }
+
+    if (!flag) {
+      setVisibleChangePassword(false);
+      Alert.alert('changed password'); // this doesn't show up for some reason
+      console.log('changed password'); // change password
+    }
   };
 
-  const handleDeleteAccount = () => {
-    setVisibleDeleteAccount(true);
+  const handleDeleteAccount = (password) => {
+    if (password === user.password) { // 'password' is placeholder password
+      setVisibleDeleteAccount(false);
+      console.log('Account deleted'); // navigate to login page
+    } else {
+      setShowDeleteHelperText(true);
+    }
   };
 
   return (
@@ -65,6 +94,7 @@ function EditProfile({ navigation }) {
         value={displayName}
         onChangeText={(text) => setDisplayName(text)}
         onBlur={(text) => handleChangeDisplayName(text)}
+        autoFocus={false}
       />
       <TextInput
         style={styles.textInput}
@@ -83,7 +113,7 @@ function EditProfile({ navigation }) {
       <Button
         style={styles.button}
         mode="contained"
-        onPress={() => handleChangePassword()}
+        onPress={() => setVisibleChangePassword(true)}
       >
         Change Password
       </Button>
@@ -91,51 +121,23 @@ function EditProfile({ navigation }) {
         style={styles.button}
         mode="contained"
         color="#db0000"
-        onPress={() => handleDeleteAccount()}
+        onPress={() => setVisibleDeleteAccount(true)}
       >
         Delete Account
       </Button>
-      <Portal>
-        <Dialog
-          visible={visibleChangePassword}
-          onDismiss={() => setVisibleChangePassword(false)}
-        >
-          <Dialog.Title>Change Password</Dialog.Title>
-          <Dialog.Content>
-            <TextInput
-              mode="outlined"
-              label="Current Password"
-            />
-            <TextInput
-              mode="outlined"
-              label="New Password"
-            />
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={() => setVisibleChangePassword(false)}>Cancel</Button>
-            <Button onPress={() => setVisibleChangePassword(false)}>Confirm</Button>
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
-      <Portal>
-        <Dialog
-          visible={visibleDeleteAccount}
-          onDismiss={() => setVisibleDeleteAccount(false)}
-        >
-          <Dialog.Title>Delete Account</Dialog.Title>
-          <Dialog.Content>
-            <Text>Please confirm your password to delete your account</Text>
-            <TextInput
-              mode="outlined"
-              label="Current Password"
-            />
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={() => setVisibleDeleteAccount(false)}>Cancel</Button>
-            <Button onPress={() => setVisibleDeleteAccount(false)}>Confirm</Button>
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
+      <ChangePasswordDialog
+        isVisible={visibleChangePassword}
+        visibleCallback={() => setVisibleChangePassword(false)}
+        changeCallback={(currPassword, newPassword) => handleChangePassword(currPassword, newPassword)}
+        showHelperText1={showCurrPasswordHelperText}
+        showHelperText2={showNewPasswordHelperText}
+      />
+      <DeleteAccountDialog
+        isVisible={visibleDeleteAccount}
+        visibleCallback={() => setVisibleDeleteAccount(false)}
+        deleteCallback={(password) => handleDeleteAccount(password)}
+        showHelperText={showDeleteHelperText}
+      />
     </View>
   );
 }

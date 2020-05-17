@@ -1,7 +1,7 @@
 const axios = require('axios').default;
 
 const protocol = 'http://';
-const baseUrl = '192.168.1.5'; // change to your ipv4 address
+const baseUrl = 'localhost'; // change to your ipv4 address
 const port = 8000;
 const route = '/lm';
 

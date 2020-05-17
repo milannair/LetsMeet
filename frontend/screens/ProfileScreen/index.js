@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Alert } from 'react-native';
+import { View } from 'react-native';
 import {
-  List, Text, Appbar, Menu,
+  List, Text, Appbar, Divider,
 } from 'react-native-paper';
 import styles from './styles';
 import { getUser } from '../../controllers/UserController';
@@ -43,6 +43,7 @@ function Profile({ navigation }) {
         right={() => <Text>Tap to edit</Text>}
         onPress={() => navigation.navigate(Screen.EDIT_PROFILE)}
       />
+      <Divider />
       <Text style={styles.text}>Available Times</Text>
     </View>
   );
