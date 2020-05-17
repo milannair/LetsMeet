@@ -4,7 +4,7 @@ import {
   TextInput, Button, HelperText, IconButton,
 } from 'react-native-paper';
 import styles from './styles';
-import { postUser } from '../../controllers/SignupController';
+import { postUser } from '../../controllers/UserController';
 
 const LOGIN_SCREEN_NAME = 'Login';
 
