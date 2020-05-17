@@ -1,23 +1,6 @@
 // Import user model
 User = require("../models/userModel");
 
-// Handle index actions
-exports.index = function (req, res) {
-  User.get(function (err, users) {
-    if (err) {
-      res.json({
-        status: "error",
-        message: err,
-      });
-    }
-    res.json({
-      status: "success",
-      message: "user retrieved successfully",
-      data: users,
-    });
-  });
-};
-
 // Receives details about the new user and creates a new user
 // on the DataBase
 // Returns an error msg
@@ -36,18 +19,19 @@ exports.register = function (req, res) {
         errorMessage: err.message,
         errorName: err.name,        
       });
+    } else {
+      res.json({
+        status: res.statusCode,
+        data: user,
+        message: "User created successfully"
+      });
     }
-    res.json({
-    status: res.statusCode,
-    data: user,
-    message: "User created successfully"
-    });
   });
 };
 
 // Handle view user info
 exports.view = function (req, res) {
-  User.findById(req.params.user_id, function (err, user) {
+  User.findById(req.params.userId, function (err, user) {
     if (err) { 
       res.json({
         status: 500,
@@ -65,7 +49,7 @@ exports.view = function (req, res) {
 
 // Handle update user info
 exports.update = function (req, res) {
-  User.findById(req.params.user_id, function (err, user) {
+  User.findById(req.params.userId, function (err, user) {
     if (err) res.send(err);
     user.name = req.body.name ? req.body.name : user.name;
     user.email = req.body.email;
@@ -86,7 +70,7 @@ exports.update = function (req, res) {
 exports.delete = function (req, res) {
   User.deleteOne(
     {
-      _id: req.params.user_id,
+      _id: req.params.userId,
     },
     function (err, user) {
       if (err) res.send(err);
@@ -101,7 +85,7 @@ exports.delete = function (req, res) {
 
 // Get groups associated to a particular user
 exports.userGroups = function(req, res) {
-  User.findById(req.params.user_id, {stuff: 1}, function(err, data) {
+  User.findById(req.params.userId, {groups: 1}, function(err, data) {
     if (err) { 
       res.json({
         status: 500,
@@ -121,7 +105,7 @@ exports.userGroups = function(req, res) {
 exports.usersByUsername = function(req, res) {
   const reg = "^" + req.params.username;
   console.log(reg)
-  User.find({email: {$regex: reg, $options: "<i>"}, }, {email: 1, username: 1}, function(err, results){
+  User.find({email: {$regex: reg, $options: "<i>"}, }, {email: 1, username: 1}, function(err, data){
     if (err) { 
       res.json({
         status: 500,
@@ -132,7 +116,57 @@ exports.usersByUsername = function(req, res) {
     res.json({
       status: res.statusCode,
       message: "Users with this email",
-      data: results
+      data: data
     })
+  })
+}
+
+// Receives userId and a group_id as input
+// Adds the group_id to the user's groups
+exports.addRequest = function(req, res) {
+  User.update(
+    {_id: req.body.userId},
+    {
+      $push: { requests: req.body.groupId}
+    },
+  function(err, data) {
+    if(err) {
+      res.json({
+        status: 500,
+        errorMessage: err.message,
+        errorName: err.name
+      })
+    } else {
+      res.json({
+        status: res.statusCode,
+        message: "Request successfully added to the user",
+        data: data
+      })
+    }
+  })
+}
+
+// Receives userId and a group_id as input
+// Adds the group_id to the user's groups
+exports.addGroup = function(req, res) {
+  User.update(
+    {_id: req.body.userId},
+    {
+      $push: { groups: req.body.groupId}
+    },
+  function(err, data) {
+    if(err) {
+      res.json({
+        status: 500,
+        errorMessage: err.message,
+        errorName: err.name
+      })
+    } else {
+      res.json({
+        status: res.statusCode,
+        message: "Group successfully added to the user",
+        data: data
+      })
+    }
   })
 }
