@@ -11,15 +11,36 @@ router.get("/", function (req, res) {
 // Import user controller
 var userController = require("./userController");
 
-// user routes
-router.route("/users").get(userController.index).post(userController.register);
+// User routes
 
+// Create user
 router
-  .route("/user/:user_id")
+  .route("/users")
+  .get(userController.index)
+  .post(userController.register);
+
+// Get user by Id
+router
+  .route('/user/:user_id')
   .get(userController.view)
-  .patch(userController.update)
-  .put(userController.update)
-  .delete(userController.delete);
+
+// Get user groups 
+router
+  .route('/userGroups/:user_id')
+  .get(userController.userGroups);
+
+// Get users by email 
+router
+  .route('/users/:username')
+  .get(userController.usersByUsername)
+
+
+// router
+//   .route("/user/:user_id")
+//   .get(userController.view)
+//   .patch(userController.update)
+//   .put(userController.update)
+//   .delete(userController.delete);
 
 // Export API routes
 module.exports = router;

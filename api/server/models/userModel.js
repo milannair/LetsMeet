@@ -9,6 +9,7 @@ var userSchema = mongoose.Schema({
   displayName: { type: String, required: true },
   phone: { type: String, required: true },
   password: String,
+  stuff: {type: [String]},
   create_date: { type: Date, default: Date.now },
   meetings: { type: [mongoose.Types.ObjectId] }, //MeetingID
   requests: { type: [mongoose.Types.ObjectId] }, //GroupID
