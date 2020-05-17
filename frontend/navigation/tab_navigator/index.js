@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import * as Screen from './screen-names';
 import MeetingsStackScreen from './stacks/meetings/index';
 import GroupsStackScreen from './stacks/groups/index';
+import NotificationsScreen from '../../screens/NotificationsScreen/index';
 import ProfileStackScreen from './stacks/profile/index';
 import useSocket from '../../hooks/UseSocket/index';
 
@@ -93,6 +95,16 @@ function TabNavigator() {
             setCurrTab(TABS.Groups);
             setNumNewMeetingRequests(0);
           },
+        }}
+      />
+      <Tab.Screen
+        name={Screen.NOTIFICATIONS}
+        component={NotificationsScreen}
+        options={{
+          tabBarColor: '#b57edc',
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name='notifications' color={color} size={24} />
+          ),
         }}
       />
       <Tab.Screen
