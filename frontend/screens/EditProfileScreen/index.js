@@ -77,7 +77,8 @@ function EditProfile({ navigation }) {
   const handleDeleteAccount = (password) => {
     if (password === user.password) { // 'password' is placeholder password
       setVisibleDeleteAccount(false);
-      console.log('Account deleted'); // navigate to login page
+      console.log('Account deleted');
+      navigation.navigate(Screen.LOGIN); // navigate to login page
     } else {
       setShowDeleteHelperText(true);
     }
