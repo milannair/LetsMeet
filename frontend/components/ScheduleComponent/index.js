@@ -16,7 +16,7 @@ function Schedule() {
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <View style={styles.daysSpacer} />
-        <Days startDay={startDay} endDay={endDay} />
+        <Days startDay={startDay} endDay={endDay} selectable={true} />
       </View>
       <View style={styles.bottomContainer}>
         <Times startTime={startTime} endTime={endTime} />

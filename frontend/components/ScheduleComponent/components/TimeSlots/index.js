@@ -20,8 +20,8 @@ function TimeSlots({ startDay, endDay, startTime, endTime, }) {
   const mapTimeSlotsToComponents = (timeSlots) => {
     console.log(timeSlots);
     if (timeSlots) {
-      return timeSlots.map((timeSlot) => (
-        <TimeSlot startTime={startTime} endTime={endTime} dayTime={timeSlot} />
+      return timeSlots.map((timeSlot, i) => (
+        <TimeSlot startTime={startTime} endTime={endTime} dayTime={timeSlot} key={i} />
       ));
     }
   }

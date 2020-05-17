@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import styles from './styles';
 import { Caption } from 'react-native-paper';
 import Day from '../../Day';
+import { useTheme } from 'react-native-paper';
 
-function Days({ startDay, endDay }) {
+function Days({ startDay, endDay, onDayPress, selectable }) {
+  const [selectedDay, setSelectedDay] = useState(0);
+
+  const { colors } = useTheme();
+
+  const handleDayPress = (selectedDay) => {
+    setSelectedDay(selectedDay);
+    if (onDayPress) {
+      onDayPress(selectedDay);
+    }
+  };
+
   const createDays = () => {
     let days = []
     for (let i = startDay; i <= endDay; i++) {
@@ -30,9 +42,31 @@ function Days({ startDay, endDay }) {
           day = 'F';
           break;
       }
+      const caption = selectable ? (
+        <Caption 
+          style={styles.day} 
+          onPress={() => handleDayPress(i)}
+        >
+          {day}
+        </Caption>
+      ) : (
+        <Caption 
+          style={styles.day} 
+        >
+          {day}
+        </Caption>
+      );
       days.push(
-        <View style={styles.dayContainer} key={i}>
-          <Caption style={styles.day}>{day}</Caption>
+        <View 
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: (selectedDay === i && selectable) ? '#e8aeff' : '#ffffff',
+          }} 
+          key={i}
+        >
+          { caption }
         </View>
       );
     }
@@ -41,7 +75,7 @@ function Days({ startDay, endDay }) {
 
   return (
     <View style={styles.container}>
-      {createDays()}
+      { createDays() }
     </View>
   );
 }
