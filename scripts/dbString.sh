@@ -1,5 +1,5 @@
 #!/bin/bash
-echo 'Remeber to replace DB_USERNAME and DB_PW placeholders in api/.env with your unique DB Credentials:
+echo 'Remember to replace DB_USERNAME and DB_PW placeholders in api/.env with your unique DB Credentials:
 '
 DB_USERNAME=$(grep DB_USERNAME api/.env | cut -d '=' -f 2-)
 DB_PW=$(grep DB_PW api/.env | cut -d '=' -f 2-)
