@@ -4,6 +4,7 @@ api/.env
 frontend/node_modules/
 frontend/npm-debug.log
 frontend/yarn-error.log
+api/server/newUserController.js
 
 # expo
 frontend/.expo
