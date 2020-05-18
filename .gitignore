@@ -12,6 +12,11 @@ frontend/web-build
 # VSCode
 .history/
 
-#VS
-.suo
+# VS
 .vs
+.suo
+.vs/slnx.sqlite
+VSWorkspaceState.json
+
+# env file
+api/.env
