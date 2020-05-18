@@ -11,7 +11,6 @@ exports.register = function (req, res) {
   user.phone = req.body.phone;
   user.password = req.body.password;
   user.displayName = req.body.displayName;
-  user.stuff = req.body.stuff
   user.save(function(err){
     if(err) {
       res.json({
