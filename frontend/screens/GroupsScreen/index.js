@@ -46,7 +46,7 @@ function GroupsScreen({route, navigation}) {
           onPress={()=> alert("Will eventually take you to the settings screen")}
         />
       </Appbar.Header>
-      {groupComponents2()}
+      {groupComponents()}
       <FAB
         style={styles.fab}
         icon="plus"
@@ -55,24 +55,7 @@ function GroupsScreen({route, navigation}) {
     </View>
   );
 
-  function groupComponents(heartStatuses) {
-    let list = []
-    for (let i = 0; i < heartStatuses.length; i++) {
-      list.push (
-        <CardComponent 
-          key={"GroupCard" + i}
-          groupName="No name bro" 
-          heartActiveCallback={(index) => {hearts[index] = !hearts[index];}} 
-          heartActive={hearts[i]}
-          index = {i}
-          heartStatus ={heartStatuses[i]}
-        />
-      )
-    } 
-    return list
-  }
-
-  function groupComponents2() {
+  function groupComponents() {
     let list = []
     for (let i = 0; i < groupsDetails.length; i++) {
       list.push (

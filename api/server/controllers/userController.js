@@ -101,7 +101,7 @@ exports.userGroups = function(req, res) {
 }
 
 // Receieves a string as input
-// Returns the id, username, email of the user
+// Returns the user's id, username, and email
 exports.usersByUsername = function(req, res) {
   const reg = "^" + req.params.username;
   User.find({email: {$regex: reg, $options: "<i>"}, }, {email: 1, username: 1}, function(err, data){
@@ -121,7 +121,7 @@ exports.usersByUsername = function(req, res) {
 }
 
 // Receives userId and a groupId as input
-// Adds the groupId to the user's groups
+// Adds the groupId to the user's groups requests
 exports.addGroupRequest = function(req, res) {
   User.update(
     {_id: req.body.userId},
@@ -145,6 +145,8 @@ exports.addGroupRequest = function(req, res) {
   })
 }
 
+// Receives a groupId and a userId
+// Removes the groupId from the user's group requests
 exports.removeGroupRequest = function(req, res) {
   User.update(
     {_id: req.body.userId},
@@ -195,7 +197,7 @@ exports.addGroup = function(req, res) {
 
 
 // Receives userId and a groupId as input
-// Adds the groupId to the user's groups
+// Removes the groupId from the user's groups
 exports.removeGroup = function(req, res) {
   User.update(
     {_id: req.body.userId},

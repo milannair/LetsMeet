@@ -61,7 +61,7 @@ exports.view = function(req, res) {
     });    
 }
 
-// Gets all the group's name and id
+// Gets the group's name and id
 exports.name = function(req, res) {
     Group.findById(req.params.groupId, {name: 1}, function(err, data){
         if(err) {
@@ -81,7 +81,7 @@ exports.name = function(req, res) {
 }
 
 
-// Receives the groupId and updates the group's name
+// Receives a groupId and a string and updates the group's name to the passed string
 exports.rename = function(req, res) {
     Group.update(
         {_id: req.body.groupId},
@@ -130,7 +130,7 @@ exports.addMember = function(req, res) {
 
 
 // Receives the groupId and the userID as input
-// Removes the userId to the list of group members
+// Removes the userId from the list of group members
 exports.removeMember = function(req, res) {
     Group.update(
         {_id: req.body.groupId},
@@ -180,7 +180,7 @@ exports.addMemberRequest = function(req, res) {
 
 
 // Receives the groupId and the userID as input
-// Removes the userId to the list of group's member requests
+// Removes the userId from the list of group's member requests
 exports.removeMemberRequest = function(req, res) {
     Group.update(
         {_id: req.body.groupId},
@@ -205,7 +205,7 @@ exports.removeMemberRequest = function(req, res) {
 
 
 // Receives the groupId and the meetingRequestId as input
-// Adds the meetingRequestId to the list of group's meeting requests
+// Adds the meetingRequestId from the list of group's meeting requests
 exports.addMeetingRequest = function(req, res) {
     Group.update(
         {_id: req.body.groupId},
@@ -230,7 +230,7 @@ exports.addMeetingRequest = function(req, res) {
 
 
 // Receives the groupId and the meetingRequestId as input
-// Removes the meetingRequestId to the list of group's meeting requests
+// Removes the meetingRequestId from the list of group's meeting requests
 exports.removeMeetingRequest = function(req, res) {
     Group.update(
         {_id: req.body.groupId},
