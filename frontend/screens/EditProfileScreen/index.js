@@ -25,7 +25,7 @@ function EditProfile({ navigation }) {
   useEffect(() => {
     const showUser = async () => {
       try {
-        const user = await getUser('5ebb8c9ad5352752400c7d02');
+        const user = await getUser('5ec3099bb6bc594db0193c0c');
         console.log(user);
         setUser(user);
         setDisplayName(user.displayName);
