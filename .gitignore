@@ -17,3 +17,5 @@ frontend/web-build
 .suo
 .vs/slnx.sqlite
 VSWorkspaceState.json
+
+api/.env
