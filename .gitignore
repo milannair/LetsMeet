@@ -12,10 +12,7 @@ frontend/web-build
 
 # VSCode
 .history/
-<<<<<<< HEAD
 .vs
-=======
 
 #VS
 .suo
->>>>>>> master
