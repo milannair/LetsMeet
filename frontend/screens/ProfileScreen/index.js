@@ -13,8 +13,6 @@ function Profile({ navigation }) {
   useEffect(() => {
     const showUser = async () => {
       try {
-        // nelson's test user: 5ebb8c9ad5352752400c7d02
-        // Brandon's test user: 5eab42ff0da6924cccfefe38
         const user = await getUser('5ebb8c9ad5352752400c7d02');
         console.log(user);
         setUser(user);
@@ -33,7 +31,6 @@ function Profile({ navigation }) {
     <View>
       <Appbar.Header>
         <Appbar.Content title="Profile" />
-        {/* <Appbar.Action icon="bell" onPress={() => console.log('Pressed notifications')} /> */}
         <Appbar.Action icon="dots-vertical" onPress={() => handleSettingsPress} color="#f9f9f9" />
       </Appbar.Header>
       <List.Item

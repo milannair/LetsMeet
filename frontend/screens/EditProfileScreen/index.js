@@ -25,8 +25,6 @@ function EditProfile({ navigation }) {
   useEffect(() => {
     const showUser = async () => {
       try {
-        // nelson's test user: 5ebb8c9ad5352752400c7d02
-        // Brandon's test user: 5eab42ff0da6924cccfefe38
         const user = await getUser('5ebb8c9ad5352752400c7d02');
         console.log(user);
         setUser(user);
@@ -75,7 +73,7 @@ function EditProfile({ navigation }) {
   };
 
   const handleDeleteAccount = (password) => {
-    if (password === user.password) { // 'password' is placeholder password
+    if (password === user.password) {
       setVisibleDeleteAccount(false);
       console.log('Account deleted');
       navigation.navigate(Screen.LOGIN); // navigate to login page
@@ -97,7 +95,6 @@ function EditProfile({ navigation }) {
         onChangeText={(text) => setDisplayName(text)}
         onBlur={(text) => handleChangeDisplayName(text)}
         autoFocus={false}
-        // mode="outlined"
       />
       <TextInput
         style={styles.textInput}
@@ -105,7 +102,6 @@ function EditProfile({ navigation }) {
         value={username}
         onChangeText={(text) => setUsername(text)}
         onBlur={(text) => handleChangeUsername(text)}
-        // mode="outlined"
       />
       <TextInput
         style={styles.textInput}
@@ -113,7 +109,6 @@ function EditProfile({ navigation }) {
         value={email}
         onChangeText={(text) => setEmail(text)}
         onBlur={(text) => handleChangeEmail(text)}
-        // mode="outlined"
       />
       <Button
         style={styles.button}
