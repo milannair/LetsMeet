@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import {
-  Text,
   View,
 } from 'react-native';
 import {
-  TextInput, Button, HelperText,
+  Text, TextInput, Button, HelperText,
 } from 'react-native-paper';
 import styles from './styles';
 
@@ -38,7 +37,7 @@ function Login({ navigation }) {
 
   const handleSignupButtonPress = () => {
     navigation.navigate(SIGNUP_SCREEN_NAME);
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -51,8 +50,9 @@ function Login({ navigation }) {
       </HelperText>
       <TextInput // email field
         style={styles.textField}
+        mode='outlined'
         label="Email"
-        autoCompeleteType="email"
+        autoCompleteType="email"
         keyboardType="email-address"
         textContentType="emailAddress"
         value={email}
@@ -67,6 +67,7 @@ function Login({ navigation }) {
       </HelperText>
       <TextInput // password field
         style={styles.textField}
+        mode='outlined'
         label="Password"
         secureTextEntry
         autoCorrect={false}
