@@ -22,9 +22,13 @@ function CreateGroupScreen({route, navigation}) {
     useEffect(() => {
 
         const results = async () => {
-            if(searchQuery && searchQuery !== previousQuery) {
-                previousQuery = searchQuery
-                searchResults = (await getUsers(searchQuery)) 
+            let query = searchQuery
+            if(query) {
+                query = query.toLowerCase()
+            }
+            if(query && query !== previousQuery) {
+                previousQuery = query
+                searchResults = (await getUsers(query)) 
                 setSearchList(getSearchItems(searchResults))              
             }
         }
@@ -155,7 +159,7 @@ function CreateGroupScreen({route, navigation}) {
             <Searchbar
                 style={styles.searchBar}
                 placeholder="Search"
-                onChangeText={(query) => {setSearchQuery(query.toLowerCase())}}
+                onChangeText={(query) => {setSearchQuery(query)}}
                 value={searchQuery}
             />
 
