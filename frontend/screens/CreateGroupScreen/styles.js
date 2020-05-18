@@ -5,59 +5,60 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        backgroundColor: '#f3ffe7',
+        backgroundColor: '#f9f9f9',
     },
     navbar : {
-        height: '70px',
+        height: 60,
     },
     groupDetailsContainer: {
-        width: '80%',
+        width: "90%",
         marginLeft: 'auto',
         marginRight: 'auto',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: '5px',
-        marginBottom: '20px',
-        height: '100px'
+        marginTop: 5,
+        marginBottom: 15,
     },
     groupAvatarEdit: {
-        height: '100px',
-        paddingTop: '40px'
+        height: '20%',
+        paddingTop: '4%',
+        width: 80
     },
     avatar : {
         marginLeft: 'auto',
         marginRight: 'auto',
-        paddingBottom: '30px'
+        paddingBottom: '8%'
     },
     edit: {
         marginLeft: 'auto',
         marginRight: 'auto',
         backgroundColor: '#bfbfbf',
     },
-    textinput: {
-        backgroundColor: '#f3ffe7',
-        paddingTop: '40px',
+    groupNameContainer: {
+        marginBottom: 'auto',
+        marginTop: 'auto',
     },
-    textinputFocused: {
-        backgroundColor: '#f3ffe7',
-        paddingTop: '40px',
+    textinput: {
+        paddingTop: 15,
+        backgroundColor: '#f9f9f9',
+        width: 250,
     },
     chip: {
-        height: '30px',
-        margin: '5px',
+        margin: '4%',
         backgroundColor: '#b3b3b3'
     },
     chipContainer: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        marginBottom: '15px',
+        marginBottom: 5,
         overflow: 'scroll'
     },
     searchBar: {
-        marginBottom: "5px"
-
+        width: "100%",
+        paddingTop: -3,
+        height: 50,
     },
     buttonText: {
         fontWeight: '600'

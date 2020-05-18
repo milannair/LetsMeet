@@ -133,23 +133,25 @@ function CreateGroupScreen({route, navigation}) {
                         onPress={() => alert('Will allow you to change the photo')}
                     />
                 </View>
-
-                <TextInput
-                    style={textActive ? styles.textinputFocused : styles.textinput}
-                    label={'Group Name'}
-                    value={groupName}
-                    underlineColor='purple'
-                    theme = {{colors: {}}}
-                    onFocus = {() => {setTextActive(true);}}
-                    onBlur = {() => {setTextActive(false);}}
-                    onChange={(e) => {setGroupName(e.nativeEvent.text);}}                
-                />
+                
+                <View>
+                    <TextInput
+                        style={styles.textinput}
+                        label={'Group Name'}
+                        value={groupName}
+                        dense={true}
+                        theme = {{colors: {}}}
+                        // onFocus = {() => {setTextActive(true);}}
+                        // onBlur = {() => {setTextActive(true);}}
+                        onChange={(e) => {setGroupName(e.nativeEvent.text);}}                
+                    />
+                </View>
             </View>
             
             <View style={styles.chipContainer}>
                 {inviteeChips}
             </View>
-
+            
             <Searchbar
                 style={styles.searchBar}
                 placeholder="Search"

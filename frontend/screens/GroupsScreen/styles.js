@@ -5,14 +5,14 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        backgroundColor: "#f3ffe7",
+        backgroundColor: '#f9f9f9',
     },
     navbar : {
-        height: "70px",
+        height: 60,
     },
     fab: {
         position: 'absolute',
-        marginBottom: 100,
+        marginBottom: 30,
         marginRight: 16,
         right: 0,
         bottom: 0,
