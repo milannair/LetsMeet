@@ -1,22 +1,10 @@
-import React, { useState } from 'react';
-import { View } from 'react-native';
+import React from 'react';
+import { View, TouchableWithoutFeedback } from 'react-native';
 import styles from './styles';
 import { Caption } from 'react-native-paper';
 import Day from '../../Day';
-import { useTheme } from 'react-native-paper';
 
-function Days({ startDay, endDay, onDayPress, selectable }) {
-  const [selectedDay, setSelectedDay] = useState(0);
-
-  const { colors } = useTheme();
-
-  const handleDayPress = (selectedDay) => {
-    setSelectedDay(selectedDay);
-    if (onDayPress) {
-      onDayPress(selectedDay);
-    }
-  };
-
+function Days({ startDay, endDay, selectable, selectedDay, onDayPress }) {
   const createDays = () => {
     let days = []
     for (let i = startDay; i <= endDay; i++) {
@@ -42,33 +30,47 @@ function Days({ startDay, endDay, onDayPress, selectable }) {
           day = 'F';
           break;
       }
-      const caption = selectable ? (
-        <Caption 
-          style={styles.day} 
-          onPress={() => handleDayPress(i)}
-        >
-          {day}
-        </Caption>
-      ) : (
-        <Caption 
-          style={styles.day} 
-        >
-          {day}
-        </Caption>
-      );
-      days.push(
-        <View 
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: (selectedDay === i && selectable) ? '#e8aeff' : '#ffffff',
-          }} 
-          key={i}
-        >
-          { caption }
-        </View>
-      );
+      const dayContainer = selectable ? (
+          <View 
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: i === selectedDay ? 'rgba(0, 0, 0, 0.05)' : 'white',
+            }}
+          >
+            <Caption style={styles.day}>
+              {day}
+            </Caption>
+          </View>
+        )
+        :
+        (
+          <View 
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: i === selectedDay ? 'rgba(0, 0, 0, 0.05)' : 'white',
+            }}
+            key={i}
+          >
+            <Caption style={styles.day}>
+              {day}
+            </Caption>
+          </View>
+        );
+      if (selectable) {
+        days.push(
+          <TouchableWithoutFeedback onPress={() => onDayPress(i)} key={i}>
+            {dayContainer}
+          </TouchableWithoutFeedback>
+        );
+      } else {
+        days.push(
+          dayContainer
+        )
+      }
     }
     return days;
   }

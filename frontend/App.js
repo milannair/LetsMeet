@@ -16,7 +16,9 @@ const theme = {
 export default function App() {
   return (
     <PaperProvider theme={theme}>
-      <Navigator />
+      <View style={styles.container}>
+        <Navigator />
+      </View>
     </PaperProvider>
   );
 }

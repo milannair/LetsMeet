@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     // borderColor: 'black'
   },
   time: {
+    paddingRight: 2,
     flex: 1,
     fontSize: 12,
     fontWeight: '600',
