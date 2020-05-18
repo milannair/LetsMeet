@@ -18,7 +18,7 @@ else
     echo ''
     echo 'Remember to replace DB_USERNAME and DB_PW placeholders in api/.env with your unique DB Credentials. 
 Then, run this script again (bash init.sh) to get your unique connection string. 
-(WARNING: If you do not replace credentials you will have read-only access; only GET requests will work)'
+(Note: If you do not replace credentials you will have read-only access; only GET requests)'
     open api/.env
     echo ''
     echo 'To install React Native expo-cli globally, run: 
