@@ -3,10 +3,10 @@ import { View } from 'react-native';
 import styles from './styles';
 import { Caption } from 'react-native-paper';
 
-function Times({ startTime, endTime }) {
+function Times({ firstHour, lastHour }) {
   const createTimeCaptions = () => {
     let timeCaptions = [];
-    for (let i = startTime; i <= endTime; i++) {
+    for (let i = firstHour; i <= lastHour; i++) {
       let hour = i % 12;
       if (i % 12 === 0) {
         hour = 12;

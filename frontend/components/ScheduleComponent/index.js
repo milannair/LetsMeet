@@ -3,16 +3,10 @@ import styles from './styles';
 import { View } from 'react-native';
 import Times from './components/Times/index';
 import Days from './components/Days/index';
-import Day from './Day';
 import TimeSlots from './components/TimeSlots/index';
 
-function Schedule({ schedule, selectable }) {
+function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable }) {
   const [selectedDay, setSelectedDay] = useState(selectable ? 0 : -1);
-
-  const startDay = Day.SUNDAY;
-  const endDay = Day.SATURDAY;
-  const startTime = 0;
-  const endTime = 23; 
 
   const handleDayPress = (selectedDay) => {
     setSelectedDay(selectedDay);
@@ -23,23 +17,28 @@ function Schedule({ schedule, selectable }) {
       <View style={styles.topContainer}>
         <View style={styles.daysSpacer} />
         <Days 
-          startDay={startDay} 
-          endDay={endDay} 
+          firstDay={firstDay} 
+          lastDay={lastDay} 
           selectable={selectable}
           selectedDay={selectedDay}
           onDayPress={handleDayPress} 
         />
       </View>
-      <View style={styles.bottomContainer}>
+      <View 
+        style={{
+          flex: lastHour - firstHour,
+          flexDirection: 'row',
+        }}
+      >
         <Times 
-          startTime={startTime} 
-          endTime={endTime} 
+          firstHour={firstHour} 
+          lastHour={lastHour} 
         />
         <TimeSlots 
-          startDay={startDay} 
-          endDay={endDay} 
-          startTime={startTime} 
-          endTime={endTime} 
+          firstDay={firstDay} 
+          lastDay={lastDay} 
+          firstHour={firstHour} 
+          lastHour={lastHour} 
           timeSlots={schedule.timeSlots} // TODO: add functionality for meetings/events (DateTime's)
           selectable={selectable}
           selectedDay={selectedDay}

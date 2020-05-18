@@ -2,12 +2,12 @@ import React from 'react';
 import { View, TouchableWithoutFeedback } from 'react-native';
 import styles from './styles';
 import { Caption } from 'react-native-paper';
-import Day from '../../Day';
+import Day from '../../../../enums/Day';
 
-function Days({ startDay, endDay, selectable, selectedDay, onDayPress }) {
+function Days({ firstDay, lastDay, selectable, selectedDay, onDayPress }) {
   const createDays = () => {
     let days = []
-    for (let i = startDay; i <= endDay; i++) {
+    for (let i = firstDay; i <= lastDay; i++) {
       let day = '';
       switch (i) {
         case (Day.SUNDAY):

@@ -17,12 +17,6 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: 'black'
   },
-  bottomContainer: {
-    flex: 23,
-    flexDirection: 'row',
-    // borderWidth: 1,
-    // borderColor: 'black'
-  }
 });
 
 export default styles;
