@@ -5,10 +5,10 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        backgroundColor: "#f3ffe7",
+        backgroundColor: '#f9f9f9',
     },
     navbar : {
-        height: "70px",
+        height: 80,
     },
     fab: {
         position: 'absolute',
