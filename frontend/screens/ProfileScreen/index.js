@@ -33,8 +33,8 @@ function Profile({ navigation }) {
     <View>
       <Appbar.Header>
         <Appbar.Content title="Profile" />
-        <Appbar.Action icon="bell" onPress={() => console.log('Pressed notifications')} />
-        <Appbar.Action icon="dots-vertical" onPress={() => handleSettingsPress} />
+        {/* <Appbar.Action icon="bell" onPress={() => console.log('Pressed notifications')} /> */}
+        <Appbar.Action icon="dots-vertical" onPress={() => handleSettingsPress} color="#f9f9f9" />
       </Appbar.Header>
       <List.Item
         title={user.displayName}

@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
   },
   textInput: {
-    backgroundColor: 'white',
+    backgroundColor: '#f2f2f2',
     width: '90%',
     flexDirection: 'column',
     justifyContent: 'flex-start',
