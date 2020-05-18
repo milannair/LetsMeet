@@ -1,13 +1,15 @@
 // Import express
-let express = require("express");
+const express = require("express");
 // Import Body parser
-let bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 // Import Mongoose
-let mongoose = require("mongoose");
-// Initialise the app
-let app = express();
+const mongoose = require("mongoose");
 
-var cors = require('cors')
+const dotenv = require("dotenv");
+// Initialise the app
+const app = express();
+
+var cors = require("cors");
 
 // Import routes
 let apiRoutes = require("./server/api-routes");
@@ -18,12 +20,27 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+dotenv.config();
 
-// Connect to Mongoose and set connection variable
-mongoose.connect("mongodb://localhost/LetsMeet", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// Connect to Mongoose Cluster and set connection variable
+mongoose.connect(
+  "mongodb+srv://" +
+    process.env.DB_USERNAME +
+    ":" +
+    process.env.DB_PW +
+    "@cluster0-kdglj.mongodb.net/LetsMeet?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
+
+// //Connect to MongoDB Local Instance
+// mongoose.connect("mongodb://localhost/LetsMeet", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+
 var db = mongoose.connection;
 
 // Added check for DB connection
