@@ -8,6 +8,25 @@ import TimeSlots from './components/TimeSlots/index';
 import TimeDividers from './components/TimeDividers/index';
 
 function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable, divideHours }) {
+  if (firstDay > lastDay) {
+    throw 'firstDay must be less than or equal to lastDay';
+  } else if (firstHour > lastHour) {
+    throw 'firstHour must be less than or equal to lastHour';
+  } else {
+    // validate schedule
+    if (!schedule) {
+      throw 'Schedule is undefined';
+    } else if (!schedule.timeSlots) {
+      throw 'Schedule.timeSlots is undefined';
+    } else {
+      schedule.timeSlots.forEach((timeSlot) => {
+        if (timeSlot.end != 0 && timeSlot.start > timeSlot.end) {
+          throw 'The following DayTime in Schedule.timeSlots is invalid: ' + JSON.stringify(timeSlot);
+        }
+      });
+    }
+  }
+
   const [selectedDay, setSelectedDay] = useState(selectable ? firstDay : -1);
 
   const handleDayPress = (selectedDay) => {
@@ -28,7 +47,7 @@ function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable
       </View>
       <View 
         style={{
-          flex: lastHour - firstHour,
+          flex: 23,
           flexDirection: 'row',
         }}
       >

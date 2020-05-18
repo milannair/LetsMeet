@@ -13,7 +13,7 @@ function ReferenceScreen() {
     new DayTime(0, 3, 6),
     new DayTime(1, 5, 9),
     new DayTime(4, 4, 0),
-    new DayTime(6, 0, 5),
+    new DayTime(6, 5, 7),
     new DayTime(2, 12, 0),
     new DayTime(2, 3, 7)
   ];
@@ -21,7 +21,7 @@ function ReferenceScreen() {
   const firstDay = Day.SUNDAY;
   const lastDay = Day.SATURDAY;
   const firstHour = 0;
-  const lastHour = 23; 
+  const lastHour = 24; 
 
   return (
     <View style={styles.container}>
