@@ -1,33 +1,24 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  backButton: {
-    position: 'absolute',
-    left: 5,
-    top: 5,
-  },
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 20,
+    justifyContent: 'flex-start',
   },
   text: {
-    textAlign: 'center',
+    textAlign: 'left',
     fontSize: 25,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
-  textField: {
-    width: '90%',
-    height: 50,
-  },
-  button: {
-    justifyContent: 'center',
-    width: '90%',
-    height: 64,
-  },
-  buttonText: {
-    fontSize: 25,
+  fab: {
+    position: 'absolute',
+    marginBottom: 30,
+    marginRight: 16,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#663399',
   },
 });
 
