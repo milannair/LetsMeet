@@ -20,8 +20,8 @@ function ReferenceScreen() {
 
   const firstDay = Day.SUNDAY;
   const lastDay = Day.SATURDAY;
-  const firstHour = 5;
-  const lastHour = 17; 
+  const firstHour = 0;
+  const lastHour = 23; 
 
   return (
     <View style={styles.container}>
@@ -31,6 +31,7 @@ function ReferenceScreen() {
         lastDay={lastDay}
         firstHour={firstHour}
         lastHour={lastHour}
+        divideHours={true}
         schedule={schedule} 
         selectable={true} 
       />

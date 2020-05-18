@@ -36,7 +36,7 @@ function Days({ firstDay, lastDay, selectable, selectedDay, onDayPress }) {
               flex: 1,
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor: i === selectedDay ? 'rgba(0, 0, 0, 0.05)' : 'white',
+              backgroundColor: i === selectedDay ? 'rgba(0, 0, 0, 0.04)' : 'white',
             }}
           >
             <Caption style={styles.day}>

@@ -11,7 +11,6 @@ function TimeSlots({ firstDay, lastDay, firstHour, lastHour, timeSlots, selectab
     }
     timeSlotsSeparated[timeSlot.day].push(timeSlot);
   });
-  console.log(timeSlotsSeparated)
 
   const mapTimeSlotsToComponents = (timeSlots) => {
     if (timeSlots) {
@@ -33,7 +32,7 @@ function TimeSlots({ firstDay, lastDay, firstHour, lastHour, timeSlots, selectab
             style={{
               flex: 1,
               flexDirection: 'row',
-              backgroundColor: i === selectedDay ? 'rgba(0, 0, 0, 0.05)' : 'white',
+              backgroundColor: i === selectedDay ? 'rgba(0, 0, 0, 0.04)' : 'rgba(0, 0, 0, 0)',
               // elevation: i === 0 ? 2 : 0
             }}
           >

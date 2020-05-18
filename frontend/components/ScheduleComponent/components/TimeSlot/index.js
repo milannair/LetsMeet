@@ -41,7 +41,7 @@ function TimeSlot({ firstHour, lastHour, dayTime, dateTime }) {
             width: '100%',
             position: 'absolute',
             top: top + '%',
-            backgroundColor: colors.accent
+            backgroundColor: colors.accent,
         }}
         onPress={() => handlePress()}                      
       />

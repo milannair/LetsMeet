@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import styles from './styles';
 import { View } from 'react-native';
+import { Divider } from 'react-native-paper';
 import Times from './components/Times/index';
 import Days from './components/Days/index';
 import TimeSlots from './components/TimeSlots/index';
+import TimeDividers from './components/TimeDividers/index';
 
-function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable }) {
-  const [selectedDay, setSelectedDay] = useState(selectable ? 0 : -1);
+function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable, divideHours }) {
+  const [selectedDay, setSelectedDay] = useState(selectable ? firstDay : -1);
 
   const handleDayPress = (selectedDay) => {
     setSelectedDay(selectedDay);
@@ -30,6 +32,7 @@ function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable
           flexDirection: 'row',
         }}
       >
+        { divideHours && <TimeDividers firstHour={firstHour} lastHour={lastHour} /> }
         <Times 
           firstHour={firstHour} 
           lastHour={lastHour} 
