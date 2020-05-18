@@ -6,7 +6,7 @@ User = require("../models/userModel");
 // Returns an error msg
 exports.register = function (req, res) {
   var user = new User();
-  user.username = req.body.username;
+  user.username = req.body.username.toLowerCase();
   user.email = req.body.email;
   user.phone = req.body.phone;
   user.password = req.body.password;
@@ -94,8 +94,9 @@ exports.userGroups = function(req, res) {
       });
     }
     res.json({
+      status: 200,
       message: "user's group details",
-      data: data
+      data: data.groups
     });
   });
 }
@@ -121,9 +122,9 @@ exports.usersByUsername = function(req, res) {
   })
 }
 
-// Receives userId and a group_id as input
-// Adds the group_id to the user's groups
-exports.addRequest = function(req, res) {
+// Receives userId and a groupId as input
+// Adds the groupId to the user's groups
+exports.addGroupRequest = function(req, res) {
   User.update(
     {_id: req.body.userId},
     {
@@ -146,13 +147,62 @@ exports.addRequest = function(req, res) {
   })
 }
 
-// Receives userId and a group_id as input
-// Adds the group_id to the user's groups
+exports.removeGroupRequest = function(req, res) {
+  User.update(
+    {_id: req.body.userId},
+    {
+      $pull: { requests: req.body.groupId}
+    },
+  function(err, data) {
+    if(err) {
+      res.json({
+        status: 500,
+        errorMessage: err.message,
+        errorName: err.name
+      })
+    } else {
+      res.json({
+        status: res.statusCode,
+        message: "Request successfully added to the user",
+        data: data
+      })
+    }
+  })
+}
+
+// Receives userId and a groupId as input
+// Adds the groupId to the user's groups
 exports.addGroup = function(req, res) {
   User.update(
     {_id: req.body.userId},
     {
       $push: { groups: req.body.groupId}
+    },
+  function(err, data) {
+    if(err) {
+      res.json({
+        status: 500,
+        errorMessage: err.message,
+        errorName: err.name
+      })
+    } else {
+      res.json({
+        status: res.statusCode,
+        message: "Group successfully added to the user",
+        data: data
+      })
+    }
+  })
+}
+
+
+// Receives userId and a groupId as input
+// Adds the groupId to the user's groups
+exports.removeGroup = function(req, res) {
+  User.update(
+    {_id: req.body.userId},
+    {
+      $pull: { groups: req.body.groupId}
     },
   function(err, data) {
     if(err) {
