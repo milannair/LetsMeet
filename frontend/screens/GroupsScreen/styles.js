@@ -8,11 +8,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#f9f9f9',
     },
     navbar : {
-        height: 80,
+        height: 60,
     },
     fab: {
         position: 'absolute',
-        marginBottom: 100,
+        marginBottom: 30,
         marginRight: 16,
         right: 0,
         bottom: 0,

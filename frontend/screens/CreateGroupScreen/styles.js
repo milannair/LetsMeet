@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f9f9f9',
     },
     navbar : {
-        height: 45,
+        height: 60,
     },
     groupDetailsContainer: {
         width: "90%",
