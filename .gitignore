@@ -14,5 +14,11 @@ frontend/web-build
 .history/
 .vs
 
-#VS
+# VS
+.vs
 .suo
+.vs/slnx.sqlite
+VSWorkspaceState.json
+
+# env file
+api/.env

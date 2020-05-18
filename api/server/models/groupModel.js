@@ -8,6 +8,7 @@ var groupSchema = mongoose.Schema({
   memberRequests: [mongoose.Types.ObjectId], //UserID
   members: [mongoose.Types.ObjectId], //UserID
   owner: mongoose.Types.ObjectId, //UserID
+  name: {type: String, required : true}
   //schedule: [Schedule],
 });
 
