@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { Appbar, Avatar, IconButton, Button, Colors, TextInput, Chip, Searchbar, List} from 'react-native-paper';
 import styles from './styles'
-import { GROUPS } from '../../navigation/screen-names';
+import { GROUPS } from '../../navigation/tab_navigator/stacks/groups/screen-names';
 
 
 let allUsernames = ['Jay', 'Jonah', 'Jameson', 'Peter', 'Parker', 'Mary', 'Jane']

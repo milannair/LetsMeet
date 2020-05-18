@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { Appbar, FAB } from 'react-native-paper';
 import CardComponent from '../../components/GroupCardComponent/index';
 import styles from './styles'
-import { CREATE_GROUP } from '../../navigation/screen-names';
+import { CREATE_GROUP } from '../../navigation/tab_navigator/stacks/groups/screen-names';
 
 
 
@@ -18,12 +18,6 @@ function GroupsScreen({navigation}) {
         <Appbar.Content
           title="LetsMeet"
         />
-        <Appbar.Action 
-          icon="bell-ring" 
-          color="yellow" 
-          size={20} 
-          onPress={()=> alert("Will eventually take you to the notifications screen")}
-          />
         <Appbar.Action 
           icon="dots-vertical" 
           color="white" 
