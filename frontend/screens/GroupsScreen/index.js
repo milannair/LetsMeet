@@ -1,16 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { Appbar, FAB } from 'react-native-paper';
 import CardComponent from '../../components/GroupCardComponent/index';
 import styles from './styles'
 import { CREATE_GROUP } from '../../navigation/tab_navigator/stacks/groups/screen-names';
+import {getUserGroups} from '../../controllers/GroupController'
 
+const userId = '5ec07929b5169a2a249e2d95'
+let userGroups = {}
 
+function GroupsScreen({route, navigation}) {
 
-function GroupsScreen({navigation}) {
+  const[groupsDetails, setGroupDetails] = useState([])
+  const[groupsUpdated, setGroupsUpdated] = useState(true)
 
-  // const [heartActive1, setHeartActive1] = useState(false)
-  let hearts = [true, false, true]
+  useEffect( () => {
+    const getGroups = async () =>{
+      if(groupsUpdated || (route.params && route.params.reload)) {
+        setGroupDetails(await getUserGroups(userId));
+        setGroupsUpdated(false)
+        if(route.params && route.params.reload) {
+          route.params.reload = false
+        }
+      }
+    }
+    getGroups()
+   })
 
   return (
     <View style={styles.container}>
@@ -25,26 +40,26 @@ function GroupsScreen({navigation}) {
           onPress={()=> alert("Will eventually take you to the settings screen")}
         />
       </Appbar.Header>
-      {groupComponents(hearts)}
+      {groupComponents()}
       <FAB
         style={styles.fab}
         icon="plus"
-        onPress={() => navigation.navigate(CREATE_GROUP)}
+        onPress={() =>{navigation.navigate(CREATE_GROUP, {userId: userId});}}
       />
     </View>
   );
 
-  function groupComponents(heartStatuses) {
+  function groupComponents() {
     let list = []
-    for (let i = 0; i < heartStatuses.length; i++) {
+    for (let i = 0; i < groupsDetails.length; i++) {
       list.push (
         <CardComponent 
           key={"GroupCard" + i}
-          groupName="No name bro" 
-          heartActiveCallback={(index) => {hearts[index] = !hearts[index]; /*console.log(hearts)*/}} 
-          heartActive={hearts[i]}
+          groupName={groupsDetails[i].name} 
+          heartActiveCallback={(index) => console.log("Heart does nothing for now")} 
+          heartActive={Math.random() >= 0.5}
           index = {i}
-          heartStatus ={heartStatuses[i]}
+          heartStatus ={Math.random() >= 0.5}
         />
       )
     } 

@@ -3,45 +3,64 @@ import { View } from 'react-native';
 import { Appbar, Avatar, IconButton, Button, Colors, TextInput, Chip, Searchbar, List} from 'react-native-paper';
 import styles from './styles'
 import { GROUPS } from '../../navigation/tab_navigator/stacks/groups/screen-names';
+import {getUsers, createUserGroup} from '../../controllers/GroupController';
 
 
-let allUsernames = ['Jay', 'Jonah', 'Jameson', 'Peter', 'Parker', 'Mary', 'Jane']
-let invitedMembers = []
+let invitedMemberUsernames = []
+let invitedMemberIds = []
+let previousQuery = ""
 let searchResults = []
-function CreateGroupScreen({navigation}) {
+
+function CreateGroupScreen({route, navigation}) {
 
     const [groupName, setGroupName] = useState('')
     const [textActive, setTextActive] = useState(false)
-    const [inviteeChips, setInviteeChips] = useState(getInviteeChips(invitedMembers))
-    const [searchQuery, setSearchQuery] = useState('')
-    const [searchList, setSearchList] = useState([])
+    const [inviteeChips, setInviteeChips] = useState(getInviteeChips(invitedMemberUsernames))
+    const [searchQuery, setSearchQuery] = useState()
+    const [searchList, setSearchList] = useState()
 
-    const removeInvitee = (username) => {
-        const index = invitedMembers.indexOf(username)
-        invitedMembers.splice(index, 1)
-        setInviteeChips(getInviteeChips(invitedMembers))
+    useEffect(() => {
+
+        const results = async () => {
+            if(searchQuery && searchQuery !== previousQuery) {
+                previousQuery = searchQuery
+                searchResults = (await getUsers(searchQuery)) 
+                setSearchList(getSearchItems(searchResults))              
+            }
+        }
+        results() 
+    })
+
+
+    const removeInvitee = (user) => {
+        const index = invitedMemberUsernames.indexOf(user)
+        invitedMemberUsernames.splice(index, 1)
+        invitedMemberIds.splice(index, 1)
+        setInviteeChips(getInviteeChips(invitedMemberUsernames))
         setSearchList(getSearchItems(searchResults));
     }
 
     
-    function inviteOrUninviteUser(username) {
-        const index = invitedMembers.indexOf(username)
+    function inviteOrUninviteUser(username, id) {
+        const index = invitedMemberUsernames.indexOf(username)
         if(index >= 0) {
             removeInvitee(username)
         } else {
-            invitedMembers = [...invitedMembers, username]
-            setInviteeChips(getInviteeChips(invitedMembers))
+            invitedMemberUsernames = [...invitedMemberUsernames, username]
+            invitedMemberIds = [...invitedMemberIds, id]
+            setInviteeChips(getInviteeChips(invitedMemberUsernames))
         }
     }
 
     function getInviteeChips(invitees) {
         let chips = []
         for (let i = 0; i < invitees.length; i++) {
+            const user = invitees[i]
             chips.push (
                 <Chip 
                     style={styles.chip} 
-                    key={invitees[i] + 'Chip' + i} 
-                    onClose={() => removeInvitee(invitees[i])}
+                    key={user.username + 'Chip' + i} 
+                    onClose={() => removeInvitee(user)}
                     avatar= {<Avatar.Image size={23} source={{uri: 'https://picsum.photos/60' + i}}/>}
                 >
                     {invitees[i]}
@@ -51,17 +70,11 @@ function CreateGroupScreen({navigation}) {
         return chips
     }
 
-    const searchMembers = (query) => {
-        searchResults = allUsernames.filter(el => el.toLowerCase().startsWith(query))
-        const list = getSearchItems(searchResults)
-        setSearchList(list)
-    }
-
     function getSearchItems(usernames) {
         let items = []
             for (let i = 0; i < usernames.length; i++) {
-                const username = usernames[i]
-                const icon = invitedMembers.indexOf(username) > -1 ? 'checkbox-marked-circle' : 'circle-outline'
+                const username = usernames[i].username
+                const icon = invitedMemberUsernames.indexOf(username) > -1 ? 'checkbox-marked-circle' : 'circle-outline'
                 const color = icon === 'circle-outline' ? 'grey' : 'black'
                 items.push(
                     <List.Item 
@@ -71,7 +84,7 @@ function CreateGroupScreen({navigation}) {
                         left={() => <Avatar.Image size={40} source={{uri: 'https://picsum.photos/60' + i}} />}
                         right = {() => <IconButton color={color} icon={icon}/> }
                         onPress={()=> {
-                                    inviteOrUninviteUser(username); 
+                                    inviteOrUninviteUser(username, usernames[i]._id); 
                                     setSearchList(getSearchItems(searchResults));
                                 }}
                     />
@@ -80,12 +93,26 @@ function CreateGroupScreen({navigation}) {
         return items
     }
 
+    function createGroup() {
+        const memberRequests = invitedMemberIds
+        const owner = route.params.userId
+        const name = groupName ? groupName : "New Group"
+        createUserGroup(owner, name, memberRequests)
+        navigation.navigate(GROUPS, {reload: true})
+    }
+
     return(
         <View style={styles.container}>
             <Appbar.Header style={styles.navbar}>
-                <Appbar.BackAction onPress={() => navigation.navigate(GROUPS)}/>
+                <Appbar.BackAction onPress={() => {
+                    setSearchQuery("");
+                    previousQuery = "";
+                    invitedMemberUsernames = [];
+                    searchResults = [];
+                    navigation.navigate(GROUPS);
+                    }}/>
                 <Appbar.Content title='Create a Group'/>
-                <Button color='white' labelStyle={styles.buttonText} onPress={() => alert('Will eventually allow you to finish creating the group')}>
+                <Button color='white' labelStyle={styles.buttonText} onPress={() => createGroup()}>
                     DONE
                 </Button>
                 
@@ -113,9 +140,9 @@ function CreateGroupScreen({navigation}) {
                     value={groupName}
                     underlineColor='purple'
                     theme = {{colors: {}}}
-                    onFocus = {() => {setTextActive(true); console.log(textActive)}}
-                    onBlur = {() => {setTextActive(false); console.log(textActive)}}
-                    onChange={(e) => {setGroupName(e.nativeEvent.text); console.log(groupName)}}                
+                    onFocus = {() => {setTextActive(true);}}
+                    onBlur = {() => {setTextActive(false);}}
+                    onChange={(e) => {setGroupName(e.nativeEvent.text);}}                
                 />
             </View>
             
@@ -126,7 +153,7 @@ function CreateGroupScreen({navigation}) {
             <Searchbar
                 style={styles.searchBar}
                 placeholder="Search"
-                onChangeText={(query) => {setSearchQuery(query); searchMembers(query.toLowerCase())}}
+                onChangeText={(query) => {setSearchQuery(query.toLowerCase())}}
                 value={searchQuery}
             />
 
