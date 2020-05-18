@@ -1,16 +1,23 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  textInput: {
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
   },
-  text: {
-    textAlign: 'left',
-    fontSize: 25,
-    paddingHorizontal: 20,
+  textInput: {
+    backgroundColor: 'white',
+    width: '90%',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    marginTop: 20,
+    alignSelf: 'center',
   },
   button: {
     marginTop: 25,
-    marginHorizontal: '20%',
+    marginHorizontal: '25%',
     padding: 5,
   },
 });

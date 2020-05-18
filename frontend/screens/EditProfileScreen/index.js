@@ -85,9 +85,10 @@ function EditProfile({ navigation }) {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Appbar.Header>
         <Appbar.BackAction onPress={() => navigation.navigate(Screen.PROFILE)} />
+        <Appbar.Content title="Edit Profile" />
       </Appbar.Header>
       <TextInput
         style={styles.textInput}
@@ -96,6 +97,7 @@ function EditProfile({ navigation }) {
         onChangeText={(text) => setDisplayName(text)}
         onBlur={(text) => handleChangeDisplayName(text)}
         autoFocus={false}
+        // mode="outlined"
       />
       <TextInput
         style={styles.textInput}
@@ -103,6 +105,7 @@ function EditProfile({ navigation }) {
         value={username}
         onChangeText={(text) => setUsername(text)}
         onBlur={(text) => handleChangeUsername(text)}
+        // mode="outlined"
       />
       <TextInput
         style={styles.textInput}
@@ -110,6 +113,7 @@ function EditProfile({ navigation }) {
         value={email}
         onChangeText={(text) => setEmail(text)}
         onBlur={(text) => handleChangeEmail(text)}
+        // mode="outlined"
       />
       <Button
         style={styles.button}
