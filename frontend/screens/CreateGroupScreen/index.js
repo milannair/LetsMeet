@@ -3,14 +3,13 @@ import { View } from 'react-native';
 import { Appbar, Avatar, IconButton, Button, Colors, TextInput, Chip, Searchbar, List} from 'react-native-paper';
 import styles from './styles'
 import { GROUPS } from '../../navigation/screen-names';
-import {getUsers} from '../../controllers/GroupController';
+import {getUsers, createUserGroup} from '../../controllers/GroupController';
 
 
 let invitedMemberUsernames = []
 let invitedMemberIds = []
 let previousQuery = ""
 let searchResults = []
-let userId = null
 
 function CreateGroupScreen({route, navigation}) {
 
@@ -21,7 +20,6 @@ function CreateGroupScreen({route, navigation}) {
     const [searchList, setSearchList] = useState()
 
     useEffect(() => {
-        userId = route.params;
 
         const results = async () => {
             if(searchQuery && searchQuery !== previousQuery) {
@@ -97,9 +95,10 @@ function CreateGroupScreen({route, navigation}) {
 
     function createGroup() {
         const memberRequests = invitedMemberIds
-        const owner = userId
+        const owner = route.params.userId
         const name = groupName ? groupName : "New Group"
-        console.log({name: name, owner: owner, memberRequests: memberRequests})
+        createUserGroup(owner, name, memberRequests)
+        navigation.navigate(GROUPS, {reload: true})
     }
 
     return(

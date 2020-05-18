@@ -11,16 +11,17 @@ let userGroups = {}
 
 function GroupsScreen({route, navigation}) {
 
-  // const [heartActive1, setHeartActive1] = useState(false)
   const[groupsDetails, setGroupDetails] = useState([])
-  const[groupsUpdated, setGroupsUpdated] = useState(route.updated === undefined? true : route.undefined)
-  // console.log(groupsDetails)
+  const[groupsUpdated, setGroupsUpdated] = useState(true)
 
   useEffect( () => {
     const getGroups = async () =>{
-      if(groupsUpdated) {
+      if(groupsUpdated || (route.params && route.params.reload)) {
         setGroupDetails(await getUserGroups(userId));
         setGroupsUpdated(false)
+        if(route.params && route.params.reload) {
+          route.params.reload = false
+        }
       }
     }
     getGroups()
@@ -37,7 +38,6 @@ function GroupsScreen({route, navigation}) {
           color="yellow" 
           size={20} 
           onPress={()=> alert("Will eventually take you to the notifications screen")}
-          // onPress={async ()=> {console.log( await getUserGroups(userId))}}
           />
         <Appbar.Action 
           icon="dots-vertical" 
@@ -62,7 +62,7 @@ function GroupsScreen({route, navigation}) {
         <CardComponent 
           key={"GroupCard" + i}
           groupName="No name bro" 
-          heartActiveCallback={(index) => {hearts[index] = !hearts[index]; /*console.log(hearts)*/}} 
+          heartActiveCallback={(index) => {hearts[index] = !hearts[index];}} 
           heartActive={hearts[i]}
           index = {i}
           heartStatus ={heartStatuses[i]}
@@ -79,7 +79,7 @@ function GroupsScreen({route, navigation}) {
         <CardComponent 
           key={"GroupCard" + i}
           groupName={groupsDetails[i].name} 
-          heartActiveCallback={(index) => console.log(index)} 
+          heartActiveCallback={(index) => console.log("Heart does nothing for now")} 
           heartActive={Math.random() >= 0.5}
           index = {i}
           heartStatus ={Math.random() >= 0.5}

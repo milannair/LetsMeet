@@ -105,7 +105,6 @@ exports.userGroups = function(req, res) {
 // Returns the id, username, email of the user
 exports.usersByUsername = function(req, res) {
   const reg = "^" + req.params.username;
-  console.log(reg)
   User.find({email: {$regex: reg, $options: "<i>"}, }, {email: 1, username: 1}, function(err, data){
     if (err) { 
       res.json({

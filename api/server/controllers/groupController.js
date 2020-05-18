@@ -18,7 +18,7 @@ exports.create = function(req, res) {
             })
         }
         res.json({
-            statusCode: 200,
+            status: res.statusCode,
             message: "Group created successfully",
             data: group
         })
@@ -71,7 +71,6 @@ exports.name = function(req, res) {
                 errorName: err.name
             })
         } else {
-            console.log(res)
             res.json({
                 status: res.statusCode,
                 data: data,
