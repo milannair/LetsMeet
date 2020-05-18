@@ -1,8 +1,10 @@
 # node
 api/node_modules/
+api/.env
 frontend/node_modules/
 frontend/npm-debug.log
 frontend/yarn-error.log
+api/server/newUserController.js
 
 # expo
 frontend/.expo
@@ -11,6 +13,11 @@ frontend/web-build
 
 # VSCode
 .history/
+.vs
 
-#VS
+# VS
+.vs
 .suo
+.vs/slnx.sqlite
+.vscode
+VSWorkspaceState.json
