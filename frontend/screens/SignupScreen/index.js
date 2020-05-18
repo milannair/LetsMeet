@@ -6,7 +6,9 @@ import {
 import styles from './styles';
 import { postUser } from '../../controllers/SignupController';
 
-function index() {
+const LOGIN_SCREEN_NAME = 'Login';
+
+function Signup({ navigation }) {
   const [displayName, setDisplayName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -21,7 +23,7 @@ function index() {
   const maxFieldLength = 25;
   const minFieldLength = 3;
 
-  const handleButtonPress = () => {
+  const handleSignupButtonPress = () => {
     let flag = false;
     if (password !== confirmPassword) {
       setShowConfirmPassError(true);
@@ -54,8 +56,25 @@ function index() {
     if (!flag) {
       console.log('sending account to database');
       setLoadingIcon(true);
-      postUser(username, email, phone, password, displayName);
+      postUser(username, email, phone, password, displayName)
+        .then((response) => {
+          console.log(response);
+          if (response.status >= 200 && response.status < 300) {
+            console.log('account created');
+            navigation.navigate('Tabs');
+          } else {
+            // TODO: some error message on UI
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          // TODO: some error message on UI
+        })
     }
+  };
+
+  const handleBackButtonPress = () => {
+    navigation.navigate(LOGIN_SCREEN_NAME);
   };
 
   return (
@@ -64,6 +83,7 @@ function index() {
         icon="arrow-left"
         size={25}
         style={styles.backButton}
+        onPress={() => handleBackButtonPress()}
       />
       <Text style={styles.text}>LetsMeet</Text>
       <Text style={styles.text}>Create Your Account</Text>
@@ -164,7 +184,7 @@ function index() {
         Passwords do not match
       </HelperText>
       <Button // create account button
-        onPress={() => handleButtonPress()}
+        onPress={() => handleSignupButtonPress()}
         style={styles.button}
         mode="contained"
         disabled={!(displayName && username && email && password && confirmPassword && phone)}
@@ -179,4 +199,4 @@ function index() {
   );
 }
 
-export default index;
+export default Signup;

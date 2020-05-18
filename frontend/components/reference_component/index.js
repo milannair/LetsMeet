@@ -7,7 +7,6 @@ import { View } from 'react-native';
 import styles from './styles';
 import { Button, Text } from 'react-native-paper';
 import * as referenceController from '../../controllers/ReferenceController';
-import * as signupController from '../../controllers/SignupController';
 
 function ReferenceComponent(props) {
   // state
@@ -17,8 +16,8 @@ function ReferenceComponent(props) {
   // use effect (called when component loads)
   useEffect(() => {
     const getUser = async () => {
-      const user = await referenceController.getUser('5eb9f120b582611adc9914c0');
-      setUser(user);
+      // const user = await referenceController.getUser('5eb9f120b582611adc9914c0');
+      // setUser(user);
     }
     getUser();
   });

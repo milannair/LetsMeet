@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   button: {
-    backgroundColor: 'black',
+    // backgroundColor: 'black',
     width: '50%'
   }
 });
