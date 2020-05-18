@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import {
-  List, Text, Appbar, Divider,
+  List, Text, Appbar, Divider, FAB,
 } from 'react-native-paper';
 import styles from './styles';
 import { getUser } from '../../controllers/UserController';
@@ -28,7 +28,7 @@ function Profile({ navigation }) {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Appbar.Header>
         <Appbar.Content title="Profile" />
         <Appbar.Action icon="dots-vertical" onPress={() => handleSettingsPress} color="#f9f9f9" />
@@ -42,6 +42,11 @@ function Profile({ navigation }) {
       />
       <Divider />
       <Text style={styles.text}>Available Times</Text>
+      <FAB
+        style={styles.fab}
+        icon="pencil"
+        onPress={() => { console.log('navigate to edit schedule'); }}
+      />
     </View>
   );
 }
