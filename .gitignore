@@ -16,11 +16,7 @@ frontend/web-build
 .vs
 .suo
 .vs/slnx.sqlite
-<<<<<<< HEAD
-VSWorkspaceState.json
-=======
 VSWorkspaceState.json
 
 # env file
 api/.env
->>>>>>> fa3239476579c75b644b68000a6bfc27861c8903
