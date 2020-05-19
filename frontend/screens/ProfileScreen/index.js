@@ -15,7 +15,11 @@ function Profile({ navigation }) {
       try {
         const user = await getUser('5ec3099bb6bc594db0193c0c');
         console.log(user);
-        setUser(user);
+        if (user !== undefined) {
+          setUser(user);
+        } else {
+          console.error('user not found');
+        }
       } catch (error) {
         console.error(error);
       }

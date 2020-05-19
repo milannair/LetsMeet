@@ -33,6 +33,11 @@ router
   .route('/users/:username')
   .get(userController.usersByUsername)
 
+// Delete user by id
+router
+  .route('/users/:userid')
+  .delete(userController.delete)
+
 // Add group to list of group requests the user has
 router
   .route('/user/addGroupRequest')
