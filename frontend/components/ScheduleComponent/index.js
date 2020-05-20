@@ -16,14 +16,14 @@ function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable
     // validate schedule
     if (!schedule) {
       throw 'Schedule is undefined';
-    } else if (!schedule.timeSlots) {
+    } else if (!schedule.availability) {
       throw 'Schedule.timeSlots is undefined';
     } else {
-      schedule.timeSlots.forEach((timeSlot) => {
-        if (timeSlot.end != 0 && timeSlot.start > timeSlot.end) {
-          throw 'The following DayTime in Schedule.timeSlots is invalid: ' + JSON.stringify(timeSlot);
-        }
-      });
+      // schedule.availability.forEach((timeSlot) => {
+      //   if (timeSlot.end != 0 && timeSlot.start > timeSlot.end) {
+      //     throw 'The following DayTime in Schedule.timeSlots is invalid: ' + JSON.stringify(timeSlot);
+      //   }
+      // });
     }
   }
 
@@ -61,7 +61,7 @@ function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable
           lastDay={lastDay} 
           firstHour={firstHour} 
           lastHour={lastHour} 
-          timeSlots={schedule.timeSlots} // TODO: add functionality for meetings/events (DateTime's)
+          availability={schedule.availability} // TODO: add functionality for meetings/events (DateTime's)
           selectable={selectable}
           selectedDay={selectedDay}
           onDayPress={handleDayPress} 

@@ -1,34 +1,24 @@
 import React from 'react';
 import { View, TouchableWithoutFeedback } from 'react-native';
 import { useTheme } from 'react-native-paper';
+import moment from 'moment';
 
-function TimeSlot({ firstHour, lastHour, dayTime, dateTime }) {
+function TimeSlot({ firstHour, lastHour, start, end }) {
   const { colors } = useTheme();
-  let hoursOnSchedule = dayTime.end - dayTime.start;
-  // if the DayTime ends at 12 AM
-  if (dayTime.end === 0) {
-    hoursOnSchedule = lastHour - dayTime.start;
-  }
-  // if the DayTime is off the schedule hours
-  else if ((dayTime.start < firstHour && dayTime.end < firstHour) || (dayTime.start > lastHour && dayTime.end > lastHour)) {
-    hoursOnSchedule = 0;
-  // if DayTime start is before schedule hours, but DayTime end is within schedule hours
-  } else if (dayTime.start < firstHour && dayTime.end >= firstHour) {
-    hoursOnSchedule = (dayTime.end - firstHour);
-  // if DayTime start is within schedule hours, but DayTime end is after schedule hours
-  } else if (dayTime.start >= firstHour && dayTime.end > lastHour) {
-    hoursOnSchedule = (lastHour - dayTime.start);
-  }
-  // if time slot ends at 12 AM
-  if (dayTime.end === 0) {
-    hoursOnSchedule = 24 - dayTime.start;
-  }
-  const height = (100 / (lastHour - firstHour + 1)) * hoursOnSchedule // TODO: make this accurate to 15 or 30 mins
-  const top = dayTime.start - firstHour >= 0 ? 
-    (100 / (lastHour - firstHour + 1)) * (dayTime.start - firstHour)
-    :
-    0 // TODO: make this accurate to 15 or 30 mins
 
+  const startMoment = moment(start);
+  const endMoment = moment(end);
+
+  // TODO: how do users input 12 AM as end time? 
+  const fifteenMinIntervals = endMoment.diff(startMoment, 'minutes') / 15;
+
+  const fifteenMinPercentage = (100 / ((lastHour - firstHour + 1) * 4));
+
+  const height = fifteenMinPercentage * fifteenMinIntervals
+  const top = start.getHours() - firstHour >= 0 ? 
+    fifteenMinPercentage * ((startMoment.diff(moment().day(startMoment.day()).hour(firstHour).minutes(0), 'minutes') + 1) / 15)
+    :
+    0;
   const handlePress = () => {
     // TODO: implement functionality when user touches a timeslot (ie: allow user to remove)
     // TODO: only use onPress when parent has props.selectable = true

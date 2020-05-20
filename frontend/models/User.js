@@ -7,6 +7,7 @@ function User(userId = '',
               meetings = [],
               requests = [],
               groups = [],
+              schedule = null,
               createDate = null) {
   this.userId = userId;
   this.email = email;
@@ -18,6 +19,7 @@ function User(userId = '',
   this.meetings = meetings;
   this.requests = requests;
   this.groups = groups;
+  this.schedule = schedule;
 }
 
 export default User;

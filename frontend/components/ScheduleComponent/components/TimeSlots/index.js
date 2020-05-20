@@ -3,19 +3,20 @@ import { View, TouchableWithoutFeedback } from 'react-native';
 import styles from './styles';
 import TimeSlot from '../TimeSlot/index';
 
-function TimeSlots({ firstDay, lastDay, firstHour, lastHour, timeSlots, selectable, selectedDay, onDayPress }) {
-  let timeSlotsSeparated = [];
-  timeSlots.forEach((timeSlot) => {
-    if (!timeSlotsSeparated[timeSlot.day]) {
-      timeSlotsSeparated[timeSlot.day] = [];
+function TimeSlots({ firstDay, lastDay, firstHour, lastHour, availability, selectable, selectedDay, onDayPress }) {
+  let timeSlotsSeparated = {};
+  availability.forEach((timeSlot) => {
+    const day = timeSlot.start.getDay();
+    if (!timeSlotsSeparated[day]) {
+      timeSlotsSeparated[day] = [];
     }
-    timeSlotsSeparated[timeSlot.day].push(timeSlot);
+    timeSlotsSeparated[day].push(timeSlot);
   });
 
   const mapTimeSlotsToComponents = (timeSlots) => {
     if (timeSlots) {
       return timeSlots.map((timeSlot, i) => (
-        <TimeSlot firstHour={firstHour} lastHour={lastHour} dayTime={timeSlot} key={i} />
+        <TimeSlot firstHour={firstHour} lastHour={lastHour} start={timeSlot.start} end={timeSlot.end} key={i} />
       ));
     }
   }

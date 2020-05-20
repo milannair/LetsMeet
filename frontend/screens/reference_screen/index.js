@@ -2,26 +2,33 @@ import React from 'react';
 import { View } from 'react-native';
 import styles from './styles';
 import Schedule from '../../models/Schedule';
-import DayTime from '../../models/DayTime';
 import ReferenceComponent from '../../components/reference_component/index';
 import ScheduleComponent from '../../components/ScheduleComponent/index';
 import Day from '../../enums/Day';
+import moment from 'moment';
 
 function ReferenceScreen() {
   const schedule = new Schedule();
-  schedule.timeSlots = [
-    new DayTime(0, 3, 6),
-    new DayTime(1, 5, 9),
-    new DayTime(4, 4, 0),
-    new DayTime(6, 5, 7),
-    new DayTime(2, 12, 0),
-    new DayTime(2, 3, 7)
+  schedule.availability = [
+    {
+      start: moment().day(0).hour(19).minutes(0).toDate(),
+      end: moment().day(0).hour(19).minutes(45).toDate()
+    },
+    {
+      start: moment().day(0).hour(0).minutes(0).toDate(),
+      end: moment().day(0).hour(0).minutes(15).toDate()
+    },
+    {
+      start: moment().day(3).hour(3).minutes(0).toDate(),
+      end: moment().day(3).hour(5).minutes(0).toDate()
+    },
+
   ];
 
   const firstDay = Day.SUNDAY;
   const lastDay = Day.SATURDAY;
   const firstHour = 0;
-  const lastHour = 24; 
+  const lastHour = 23; 
 
   return (
     <View style={styles.container}>
