@@ -7,7 +7,6 @@ function Schedule(scheduleId = '',
   this.scheduleId = scheduleId;
   this.user = user;
   this.availability = availability;
-  this.meetings = meetings;
   this.name = name;
   this.createDate = createDate;
 }
