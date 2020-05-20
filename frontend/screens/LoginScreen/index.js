@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
 } from 'react-native';
@@ -52,7 +52,6 @@ function Login({ navigation }) {
         style={styles.textField}
         mode='outlined'
         label="Email"
-        autoCompleteType="email"
         keyboardType="email-address"
         textContentType="emailAddress"
         value={email}

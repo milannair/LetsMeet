@@ -8,6 +8,8 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 // Initialise the app
 const app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
 var cors = require("cors");
 
@@ -57,6 +59,14 @@ app.get("/", cors(), (req, res) => res.send("LetsMeet API"));
 // Use Api routes in the App
 app.use("/lm", cors(), apiRoutes);
 // Launch app to listen to specified port
-app.listen(port, function () {
+server.listen(port, function () {
   console.log("Running LetsMeet API @ localhost:" + port);
+});
+
+io.on('connection', (socket) => {
+  console.log(io.engine.clientsCount);
+  socket.on('test', () => {
+    console.log('receive');
+    io.emit('test');
+  })
 });
