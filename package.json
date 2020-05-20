@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "react-native-gesture-handler": "^1.6.1",
+    "react-native-reanimated": "^1.8.0",
+    "react-native-tab-view": "^2.14.0"
+  }
+}
