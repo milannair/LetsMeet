@@ -58,6 +58,8 @@ app.get("/", cors(), (req, res) => res.send("LetsMeet API"));
 // Use Api routes in the App
 app.use("/lm", cors(), apiRoutes);
 // Launch app to listen to specified port
-app.listen(port, function () {
+var server = app.listen(port, function () {
   console.log("Running LetsMeet API @ localhost:" + port);
 });
+
+module.exports = server
