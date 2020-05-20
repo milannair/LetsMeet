@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 dotenv.config();
 
 let dbUri;
-if (process.env.USE_LOCAL_DB) {
+if (process.env.USE_LOCAL_DB === 'true') {
   console.log("Connecting to local MongoDB database");
   dbUri = "mongodb://localhost/LetsMeet";
 } else {
