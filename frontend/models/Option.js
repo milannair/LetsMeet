@@ -1,6 +1,8 @@
-function Option(dateTime = null,
+function Option(start = null,
+                end = null,
                 votes = []) {
-  this.dateTime = dateTime;
+  this.start = start;
+  this.end = end;
   this.votes = votes;
 }
 

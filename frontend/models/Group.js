@@ -1,11 +1,13 @@
 function Group(groupId = '',
-               image = '',
+               name = '',
+              //  image = '',
                members = [],
                meetingRequests = [],
                memberRequests = [],
               //  schedule = 
                owner = '') {
   this.groupId = groupId;
+  this.name = name;
   this.image = image;
   this.members = members;
   this.meetingRequests = meetingRequests;
