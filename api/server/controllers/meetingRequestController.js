@@ -153,29 +153,7 @@ exports.updatePollType = function(req, res) {
     })
 }
 
-// Update total votes in the meeting request
-exports.updateTotalVotes = function(req, res) {
-    MeetingRequest.updateOne({_id : req.params.meetingRequestId}, 
-        {
-            totalVotes: req.params.totalVotes
-        }, 
-        function(err, data) {
-        if(err) {
-            res.json({
-                status: 500,
-                erroMessage :err.message,
-                errorName: err.name
-            })
-        } else {
-            res.json({
-                status: res.statusCode,
-                data: data
-            })
-        }
-    })
-}
-
-// Update total votes in the meeting request
+// Update request status in the meeting request
 exports.updateRequestStatus = function(req, res) {
     MeetingRequest.updateOne({_id : req.params.meetingRequestId}, 
         {

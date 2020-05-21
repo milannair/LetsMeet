@@ -1,9 +1,10 @@
 var mongoose = require("mongoose");
 
 var optionSchema = mongoose.Schema({
-  time: Date,
+  time: {type: Date, required: true},
   votes: [mongoose.Types.ObjectId], //UserID
-  label: String,
+  start: {type : Date, required: true},
+  end: {type: Date, required: true}
 });
 
 var Option = (module.exports = mongoose.model("option", optionSchema));

@@ -22,11 +22,33 @@ exports.create = function(req, res) {
     })
 }
 
-// Update option label
-exports.updateLabel = function(req, res) {
+// Update option start time
+exports.updateStart = function(req, res) {
     MeetingRequest.updateOne({_id : req.params.optionId}, 
         {
-            label: req.params.label
+            start: req.params.start
+        }, 
+        function(err, data) {
+        if(err) {
+            res.json({
+                status: 500,
+                erroMessage :err.message,
+                errorName: err.name
+            })
+        } else {
+            res.json({
+                status: res.statusCode,
+                data: data
+            })
+        }
+    })
+}
+
+// Update option end time
+exports.updateStart = function(req, res) {
+    MeetingRequest.updateOne({_id : req.params.optionId}, 
+        {
+            end: req.params.end
         }, 
         function(err, data) {
         if(err) {
@@ -48,7 +70,7 @@ exports.updateLabel = function(req, res) {
 exports.updateVotes = function(req, res) {
     MeetingRequest.updateOne({_id : req.params.optionId}, 
         {
-            votes: req.params.votes
+            $push : {votes: req.params.vote}
         }, 
         function(err, data) {
         if(err) {

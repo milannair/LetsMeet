@@ -10,8 +10,6 @@ var meetingRequestSchema = mongoose.Schema({
   uniPoll: Option,
   status: Number,
   isUniPoll: {type : Boolean, required: true},
-  // count of votes so we don't need to do the sum of all options to display total votes
-  totalVotes: Number, 
   name: String,
 });
 
