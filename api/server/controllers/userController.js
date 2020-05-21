@@ -1,12 +1,13 @@
 // Import user model
 User = require("../models/userModel");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 var socket = require('../../server');
 
 module.exports = {
   register: async (req, res) => {
-    const user = await User.findOne({ username: req.body.username });
+    const user = await User.findOne({ username: req.body.cred });
     const checkPhone = await User.findOne({ phone: req.body.phone });
     const checkEmail = await User.findOne({ email: req.body.email });
     if (user)
@@ -28,19 +29,20 @@ module.exports = {
         errorName: err.name,
       })
     );
-    res.status(200).json(newUser);
+    res.json(newUser);
   },
 
   login: async (req, res) => {
     const usernameCheck = await User.findOne({ username: req.body.cred });
     const emailCheck = await User.findOne({ email: req.body.cred });
     if (!usernameCheck && !emailCheck)
-      return res.status(404).send("Invalid email/username or password");
+      return res.status(400).send("Invalid email/username or password");
     const user = !usernameCheck ? emailCheck : usernameCheck;
     const validPass = await bcrypt.compare(req.body.password, user.password);
     if (!validPass)
       return res.status(400).send("Invalid email/username or password");
-    res.send(true);
+    const token = jwt.sign({ _id: user._id }, "privateKey");
+    res.header("x-auth-token", token).send(true);
   },
 
   view: async (req, res) => {

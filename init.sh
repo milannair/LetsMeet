@@ -13,6 +13,7 @@ else
     echo 'DB_PW=devpass' >> .env
     echo 'USE_LOCAL_DB=false' >> .env
     echo 'privateKey=peerKey' >> .env
+    echo 'jwtPrivateKey=' >> .env
     npm install
     cd ../frontend
     npm install
