@@ -12,7 +12,7 @@ function ReferenceScreen() {
   return (
     <View style={styles.container}>
       <ReferenceComponent text='hello!' />
-      <Button onPress={() => sendData('reference screen')} />
+      <Button title='send data' onPress={() => sendData('reference screen')} />
     </View>
   );
 }

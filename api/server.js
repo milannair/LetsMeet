@@ -64,9 +64,6 @@ server.listen(port, function () {
 });
 
 io.on('connection', (socket) => {
-  console.log(io.engine.clientsCount);
-  socket.on('test', () => {
-    console.log('receive');
-    io.emit('test');
-  })
+  require('./server-socket').socketEvents(socket);
+  require('./db-socket');
 });
