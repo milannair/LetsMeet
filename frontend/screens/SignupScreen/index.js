@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Alert } from 'react-native';
 import {
   TextInput, Button, HelperText, IconButton,
 } from 'react-native-paper';
 import styles from './styles';
-import { postUser } from '../../controllers/SignupController';
+import { postUser } from '../../controllers/UserController';
 
 const LOGIN_SCREEN_NAME = 'Login';
 
@@ -64,10 +64,12 @@ function Signup({ navigation }) {
             navigation.navigate('Tabs');
           } else {
             // TODO: some error message on UI
+            Alert.alert('Failed to create account. Please try again.');
           }
         })
         .catch((error) => {
           console.error(error);
+          Alert.alert('Failed to create account. Please try again.');
           // TODO: some error message on UI
         })
     }
@@ -95,7 +97,8 @@ function Signup({ navigation }) {
       </HelperText>
       <TextInput // display name field
         style={styles.textField}
-        label="DisplayName"
+        mode='outlined'
+        label="Display Name"
         autoCompleteType="name"
         value={displayName}
         onChange={(e) => setDisplayName(e.nativeEvent.text)}
@@ -109,6 +112,7 @@ function Signup({ navigation }) {
       </HelperText>
       <TextInput // username field
         style={styles.textField}
+        mode='outlined'
         label="Username"
         autoCompleteType="username"
         value={username}
@@ -123,8 +127,9 @@ function Signup({ navigation }) {
       </HelperText>
       <TextInput // email field
         style={styles.textField}
+        mode='outlined'
         label="Email"
-        autoCompeleteType="email"
+        autoCompleteType="email"
         keyboardType="email-address"
         textContentType="emailAddress"
         value={email}
@@ -139,8 +144,9 @@ function Signup({ navigation }) {
       </HelperText>
       <TextInput // phone field
         style={styles.textField}
+        mode='outlined'
         label="Phone Number"
-        autoCompeleteType="tel"
+        autoCompleteType="tel"
         keyboardType="phone-pad"
         textContentType="telephoneNumber"
         value={phone}
@@ -155,6 +161,7 @@ function Signup({ navigation }) {
       </HelperText>
       <TextInput // password field
         style={styles.textField}
+        mode='outlined'
         label="Password"
         secureTextEntry
         autoCorrect={false}
@@ -170,6 +177,7 @@ function Signup({ navigation }) {
       </HelperText>
       <TextInput // confirm password field
         style={styles.textField}
+        mode='outlined'
         label="Confirm Password"
         secureTextEntry
         autoCorrect={false}

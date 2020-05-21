@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --forceExit --runInBand",
     "start": "nodemon server.js"
   },
   "keywords": [],
@@ -19,12 +19,31 @@
     "nodemon": "^2.0.4"
   },
   "devDependencies": {
+    "axios": "^0.19.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.19.0",
-    "jest": "^26.0.1"
+    "jest": "^26.0.1",
+    "kill-port": "^1.6.0"
+  },
+  "jest": {
+    "globalSetup": "./__tests__/ignored/globalSetup",
+    "setupFilesAfterEnv": [
+      "./__tests__/ignored/setup.js"
+    ],
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "__tests__/ignored"
+    ]
+  },
+  "nodemonConfig": {
+    "events": {
+      "start": "kill-port 8000",
+      "crash": "kill-port 8000"
+    },
+    "delay": "1500"
   }
 }

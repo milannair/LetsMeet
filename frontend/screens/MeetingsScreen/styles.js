@@ -14,6 +14,9 @@ const styles = StyleSheet.create({
     //     borderColor: 'lightgray',
     //     borderWidth: 20,
     // },
+    tabview: {
+        backgroundColor: 'ghostwhite',
+    },
 });
 
 export default styles

@@ -17,16 +17,17 @@ const styles = StyleSheet.create({
   },
   button: {
     justifyContent: 'center',
-    width: '40%',
+    width: '50%',
     height: 50,
     margin: 10,
   },
   buttonText: {
-    fontSize: 25,
+    fontSize: 18,
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
+    width: '85%'
   },
 });
 

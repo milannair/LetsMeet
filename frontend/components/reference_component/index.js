@@ -18,7 +18,7 @@ function ReferenceComponent(props) {
     const getUser = async () => {
       // const user = await referenceController.getUser('5eb9f120b582611adc9914c0');
       // setUser(user);
-    }
+    };
     getUser();
   });
 
@@ -31,7 +31,7 @@ function ReferenceComponent(props) {
     <View style={styles.container}>
       <Button
         onPress={handleButtonPress}
-        mode='contained'
+        mode="contained"
         style={styles.button}
       >
         {props.text}

@@ -62,7 +62,9 @@ function MeetingsScreen({ navigation }) {
             />
           </Appbar.Header>
         
-          <TabView
+          <TabView 
+          color={'white'}
+          style={styles.tabview}
             navigationState={{ index, routes }}
             renderScene={renderScene}
             onIndexChange={setIndex}
