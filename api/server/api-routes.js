@@ -10,113 +10,81 @@ router.get("/", function (req, res) {
 });
 // Import user controller
 let userController = require("./controllers/userController");
-let groupController = require("./controllers/groupController")
+let groupController = require("./controllers/groupController");
 // User routes
 
 // Create user
-router
-  .route("/users")
-  .post(userController.register);
+router.route("/user/create").post(userController.register);
+
+//Login user
+router.route("/user/login").post(userController.login);
 
 // Get user by Id
-router
-  .route('/user/:userId')
-  .get(userController.view)
+router.route("/user/:userId").get(userController.view);
 
-// Get user groups 
-router
-  .route('/user/groups/:userId')
-  .get(userController.userGroups);
+//Get user groups
+router.route("/user/groups/:userId").get(userController.userGroups);
 
-// Get users by username 
-router
-  .route('/users/:username')
-  .get(userController.usersByUsername)
+//Get users by username
+router.route("/users/:username").get(userController.usersByUsername);
 
-// Add group to list of group requests the user has
-router
-  .route('/user/addGroupRequest')
-  .post(userController.addGroupRequest)
+//Add group to list of group requests the user has
+router.route("/user/addGroupRequest").post(userController.addGroupRequest);
 
 // Remove group request from the list of group requests the user has
 router
-  .route('/user/removeGroupRequest')
-  .post(userController.removeGroupRequest)
+  .route("/user/removeGroupRequest")
+  .post(userController.removeGroupRequest);
 
 // Add group to the list of user's groups
-router
-  .route('/user/addGroup')
-  .post(userController.addGroup)
+router.route("/user/addGroup").post(userController.addGroup);
 
 // Remove group from the list of user's groups
-router
-  .route('/user/removeGroup')
-  .post(userController.removeGroup)
+router.route("/user/removeGroup").post(userController.removeGroup);
 
-
-
-  //// Group paths ////
-
+//// Group paths ////
 
 // Create a group
-router
-  .route('/groups')
-  .post(groupController.create)
+// router.route("/groups").post(groupController.create);
 
 // Delete a group
-router
-  .route('/group/delete')
-  .delete(groupController.delete)
+// router.route("/group/delete").delete(groupController.delete);
 
 //Get all the details about the group
-router
-  .route('/group/:groupId')
-  .get(groupController.view)
+// router.route("/group/:groupId").get(groupController.view);
 
-// Get the group's name and id
-router
-  .route('/group/name/:groupId')
-  .get(groupController.name)
+// // Get the group's name and id
+// router.route("/group/name/:groupId").get(groupController.name);
 
-// Change the group's name
-router
-  .route('/group/rename')
-  .post(groupController.rename)
+// // Change the group's name
+// router.route("/group/rename").post(groupController.rename);
 
-//Add member to the group
-router
-  .route('/group/addMemeber')
-  .post(groupController.addMember)
+// //Add member to the group
+// router.route("/group/addMemeber").post(groupController.addMember);
 
-//Add member to the group
-router
-  .route('/group/addMemeber')
-  .post(groupController.addMember)
+// //Add member to the group
+// router.route("/group/addMemeber").post(groupController.addMember);
 
-//Remove member the group
-router
-  .route('/group/removeMemeber')
-  .post(groupController.removeMember)
+// //Remove member the group
+// router.route("/group/removeMemeber").post(groupController.removeMember);
 
-// Add member request to the group
-router
-  .route('/group/addMemberRequest')
-  .post(groupController.addMemberRequest)
+// // Add member request to the group
+// router.route("/group/addMemberRequest").post(groupController.addMemberRequest);
 
-// Remove member request from the group
-router
-  .route('/group/removeMemberRequest')
-  .post(groupController.removeMemberRequest)
+// // Remove member request from the group
+// router
+//   .route("/group/removeMemberRequest")
+//   .post(groupController.removeMemberRequest);
 
-// Add meeting request to the group
-router
-  .route('/group/addMeetingRequest')
-  .post(groupController.addMeetingRequest)
+// // Add meeting request to the group
+// router
+//   .route("/group/addMeetingRequest")
+//   .post(groupController.addMeetingRequest);
 
-// Remove meeting request from the group
-router
-  .route('/group/removeMeetingRequest')
-  .post(groupController.removeMeetingRequest)
+// // Remove meeting request from the group
+// router
+//   .route("/group/removeMeetingRequest")
+//   .post(groupController.removeMeetingRequest);
 
 // Export API routes
 module.exports = router;
