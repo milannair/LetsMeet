@@ -28,6 +28,7 @@ module.exports = {
     );
     res.status(200).json(newUser);
   },
+
   login: async (req, res) => {
     const usernameCheck = await User.findOne({ username: req.body.cred });
     const emailCheck = await User.findOne({ email: req.body.cred });
@@ -35,9 +36,11 @@ module.exports = {
       return res.status(404).send("Invalid email/username or password");
     const user = !usernameCheck ? emailCheck : usernameCheck;
     const validPass = await bcrypt.compare(req.body.password, user.password);
-    if (!validPass) return res.status(400).send("Invalid email or password");
+    if (!validPass)
+      return res.status(400).send("Invalid email/username or password");
     res.send(true);
   },
+
   view: async (req, res) => {
     const singleUser = await User.findById(req.params.userId).catch((err) =>
       res.json({
