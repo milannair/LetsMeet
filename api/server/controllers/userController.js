@@ -6,8 +6,19 @@ var socket = require('../../server');
 
 module.exports = {
   register: async (req, res) => {
-    let user = await User.findOne({ username: req.body.username });
-    if (user) return res.status(400).send("Username is taken");
+    const user = await User.findOne({ username: req.body.username });
+    const checkPhone = await User.findOne({ phone: req.body.phone });
+    const checkEmail = await User.findOne({ email: req.body.email });
+    if (user)
+      return res.status(400).send("Username is taken. Choose another username");
+    if (checkPhone)
+      return res
+        .status(400)
+        .send("Looks like that phone number is registered to another account");
+    if (checkEmail)
+      return res
+        .status(400)
+        .send("Looks like that email is registered to another account");
     const salt = await bcrypt.genSalt(10);
     req.body.password = await bcrypt.hash(req.body.password, salt);
     const newUser = await User.create(req.body).catch((err) =>
@@ -20,9 +31,11 @@ module.exports = {
     res.status(200).json(newUser);
   },
   login: async (req, res) => {
-    const user = await User.findOne({ username: req.body.username });
-    if (!user) return res.status(404).send("Invalid email or password");
-
+    const usernameCheck = await User.findOne({ username: req.body.cred });
+    const emailCheck = await User.findOne({ email: req.body.cred });
+    if (!usernameCheck && !emailCheck)
+      return res.status(404).send("Invalid email/username or password");
+    const user = !usernameCheck ? emailCheck : usernameCheck;
     const validPass = await bcrypt.compare(req.body.password, user.password);
     if (!validPass) return res.status(400).send("Invalid email or password");
     res.send(true);
