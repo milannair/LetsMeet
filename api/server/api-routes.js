@@ -93,46 +93,46 @@ router
 //// Group paths ////
 
 // Create a group
-// router.route("/groups").post(groupController.create);
+router.route("/groups").post(groupController.create);
 
 // Delete a group
-// router.route("/group/delete").delete(groupController.delete);
+router.route("/group/delete").delete(groupController.delete);
 
 //Get all the details about the group
-// router.route("/group/:groupId").get(groupController.view);
+router.route("/group/:groupId").get(groupController.view);
 
 // // Get the group's name and id
-// router.route("/group/name/:groupId").get(groupController.name);
+router.route("/group/name/:groupId").get(groupController.name);
 
 // // Change the group's name
-// router.route("/group/rename").post(groupController.rename);
+router.route("/group/rename").post(groupController.rename);
 
 // //Add member to the group
-// router.route("/group/addMemeber").post(groupController.addMember);
+router.route("/group/addMemeber").post(groupController.addMember);
 
 // //Add member to the group
-// router.route("/group/addMemeber").post(groupController.addMember);
+router.route("/group/addMemeber").post(groupController.addMember);
 
 // //Remove member the group
-// router.route("/group/removeMemeber").post(groupController.removeMember);
+router.route("/group/removeMemeber").post(groupController.removeMember);
 
 // // Add member request to the group
-// router.route("/group/addMemberRequest").post(groupController.addMemberRequest);
+router.route("/group/addMemberRequest").post(groupController.addMemberRequest);
 
 // // Remove member request from the group
-// router
-//   .route("/group/removeMemberRequest")
-//   .post(groupController.removeMemberRequest);
+router
+  .route("/group/removeMemberRequest")
+  .post(groupController.removeMemberRequest);
 
 // // Add meeting request to the group
-// router
-//   .route("/group/addMeetingRequest")
-//   .post(groupController.addMeetingRequest);
+router
+  .route("/group/addMeetingRequest")
+  .post(groupController.addMeetingRequest);
 
 // // Remove meeting request from the group
-// router
-//   .route("/group/removeMeetingRequest")
-//   .post(groupController.removeMeetingRequest);
+router
+  .route("/group/removeMeetingRequest")
+  .post(groupController.removeMeetingRequest);
 
 
 
