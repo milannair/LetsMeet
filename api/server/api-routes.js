@@ -8,9 +8,12 @@ router.get("/", function (req, res) {
     message: "LetsMeet API",
   });
 });
-// Import user controller
+// Import all controllers for our models
 let userController = require("./controllers/userController");
-let groupController = require("./controllers/groupController")
+let groupController = require("./controllers/groupController");
+let meetingRequestController = require("./controllers/meetingRequestController");
+let optionController = require("./controllers/optionController");
+
 // User routes
 
 // Create user
@@ -117,6 +120,89 @@ router
 router
   .route('/group/removeMeetingRequest')
   .post(groupController.removeMeetingRequest)
+
+
+
+///// MeetingRequest routes ////
+
+// Create a meeting request
+router
+  .route('/meetingRequest/create/:author&:groupId&:name&:isUniPOll&:multiPoll&:uniPoll&:deadlin&:status')
+  .post(meetingRequestController.create)
+
+// Delete a meeting request
+router
+  .route('/meetingRequest/delete/:meetingRequestId')
+  .delete(meetingRequestController.delete)
+
+// Get all data about the meeting request
+router
+  .route('/meetingRequest/:meetingRequestId')
+  .get(meetingRequestController.view)
+
+// Update meeting name
+router
+  .route('/meetingRequest/rename/:meetingRequestId&:name')
+  .post(meetingRequestController.rename)
+
+// Update poll type
+router
+  .route('/meetingRequest/updatePollType/:meetingRequestId&:isUniPoll')
+  .post(meetingRequestController.updatePollType)
+
+// Update multiPoll options
+router
+  .route('/meetingRequest/updateMultiPoll/:meetingRequestId&:multiPoll')
+  .post(meetingRequestController.updateMultiPollOptions)
+
+// Update uniPoll options
+router
+  .route('/meetingRequest/updateUniPoll/:meetingRequestId&:uniPoll')
+  .post(meetingRequestController.updateUniPollOptions)
+
+// Update request status
+router
+  .route('/meetingRequest/updateStatus/:meetingRequestId&:status')
+  .post(meetingRequestController.updateStatus)
+
+
+///// Option routes ////
+
+
+// Create an Option
+router
+  .route('/option/create/:start&:end&:votes')
+  .post(optionController.create)
+
+// Delete an Option
+router
+  .route('/option/delete/:optionId')
+  .delete(optionController.delete)
+
+// View an Option
+router
+  .route('/option/:optionId')
+  .get(optionController.view)
+
+// Update start time
+router
+.route('/option/updateStart/:optionId&:start')
+.post(optionController.updateStart)
+
+// Update end time
+router
+.route('/option/updateEnd/:optionId&:end')
+.post(optionController.updateEnd)
+
+// Add a vote
+router
+.route('/option/addVote/:optionId&:userId')
+.post(optionController.addVote)
+
+// Remove a vote
+router
+.route('/option/removeVote/:optionId&:userId')
+.post(optionController.removeVote)
 
 // Export API routes
 module.exports = router;
