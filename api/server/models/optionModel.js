@@ -3,6 +3,7 @@ var mongoose = require("mongoose");
 var optionSchema = mongoose.Schema({
   time: Date,
   votes: [mongoose.Types.ObjectId], //UserID
+  label: String,
 });
 
 var Option = (module.exports = mongoose.model("option", optionSchema));

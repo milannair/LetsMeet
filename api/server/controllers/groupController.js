@@ -20,7 +20,6 @@ exports.create = function(req, res) {
         res.json({
             status: res.statusCode,
             message: "Group created successfully",
-            data: group
         })
     })
 }
