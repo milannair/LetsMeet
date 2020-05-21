@@ -39,7 +39,7 @@ module.exports = {
     const validPass = await bcrypt.compare(req.body.password, user.password);
     if (!validPass)
       return res.status(400).send("Invalid email/username or password");
-    const token = jwt.sign({ _id: user._id }, "privateKey");
+    const token = jwt.sign({ _id: user._id }, process.env.privateKey);
     res.header("x-auth-token", token).send(true);
   },
 
@@ -55,7 +55,7 @@ module.exports = {
   },
 
   delete: async (req, res) => {
-    const deleteRes = await User.findByIdAndDelete(req.params.userId).catch(
+    const deleteUser = await User.findByIdAndDelete(req.params.userId).catch(
       (err) =>
         res.json({
           status: 500,
@@ -63,7 +63,7 @@ module.exports = {
           errorName: err.name,
         })
     );
-    res.status(200).json(deleteRes);
+    res.status(200).json(deleteUser);
   },
 
   update: async (req, res) => {
