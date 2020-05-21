@@ -64,21 +64,6 @@ router
   .route("/user/removeGroup/:userId/:groupId")
   .post(userController.removeGroup);
 
-// Get user meetings
-router
-  .route('/user/meetings/:userId')
-  .get(userController.userMeetings);
-
-// Add meeting to the list of user's meetings
-router
-  .route('/user/addMeeting')
-  .post(userController.addMeeting);
-
-// Remove meeting from the list of user's meetings
-router
-  .route('/user/removeMeeting')
-  .post(userController.removeMeeting);
-
 // Get user schedule
 router
   .route('/user/schedule/:userId')
@@ -88,7 +73,6 @@ router
 router
   .route('/user/setSchedule')
   .post(userController.setSchedule);
-
 
 //// Group paths ////
 
@@ -217,35 +201,22 @@ router
 .route('/option/removeVote/:optionId&:userId')
 .post(optionController.removeVote)
 
-
-  //// Meeting paths ////
-
+//// Meeting paths ////
 
 // Create a meeting
-router
-  .route('/meetings')
-  .post(meetingController.create);
+router.route("/meetings").post(meetingController.create);
 
 // Delete a meeting
-router
-  .route('/meeting/delete/:meetingId')
-  .delete(meetingController.delete);
+router.route("/meeting/delete/:meetingId").delete(meetingController.delete);
 
 // Get all the details about a meeting
-router
-  .route('/meeting/:meetingId')
-  .get(meetingController.view);
+router.route("/meeting/:meetingId").get(meetingController.view);
 
 // Confirm a meeting
-router
-  .route('/meeting/confirm/:meetingId')
-  .post(meetingController.confirm);
+router.route("/meeting/confirm/:meetingId").post(meetingController.confirm);
 
 // Unconfirm a meeting
-router
-  .route('/meeting/unconfirm/:meetingId')
-  .post(meetingController.unconfirm);
-
+router.route("/meeting/unconfirm/:meetingId").post(meetingController.unconfirm);
 
 // Export API routes
 module.exports = router;
