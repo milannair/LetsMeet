@@ -1,13 +1,11 @@
 var mongoose = require("mongoose");
 
-var Group = require("./groupModel");
-
 var userSchema = mongoose.Schema({
-  email: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true, index: true },
   password: { type: String, required: true },
-  username: { type: String, required: true, unique: true },
-  displayName: { type: String, required: true, unique: true },
-  phone: { type: String, required: true, unique: true },
+  username: { type: String, required: true, unique: true, index: true },
+  displayName: { type: String, required: true },
+  phone: { type: String, required: true, unique: true, index: true },
   password: String,
   create_date: { type: Date, default: Date.now },
   meetings: { type: [mongoose.Types.ObjectId] }, //MeetingID
