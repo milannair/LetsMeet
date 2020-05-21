@@ -11,7 +11,7 @@ else
     touch .env
     echo 'DB_USERNAME=dev' >> .env
     echo 'DB_PW=devpass' >> .env
-    echo 'jwtPrivateKey=' >> .env
+    echo 'privateKey=' >> .env
     npm install
     cd ../frontend
     npm install
