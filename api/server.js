@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 dotenv.config();
 
 let dbUri;
-if (process.env.USE_LOCAL_DB) {
+if (process.env.USE_LOCAL_DB === "true") {
   console.log("Connecting to local MongoDB database");
   dbUri = "mongodb://localhost/LetsMeet";
 } else {
@@ -64,6 +64,8 @@ app.get("/", cors(), (req, res) => res.send("LetsMeet API"));
 // Use Api routes in the App
 app.use("/lm", cors(), apiRoutes);
 // Launch app to listen to specified port
-app.listen(port, function () {
+var server = app.listen(port, function () {
   console.log("Running LetsMeet API @ localhost:" + port);
 });
+
+module.exports = server;

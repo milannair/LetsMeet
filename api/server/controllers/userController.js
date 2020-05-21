@@ -159,7 +159,89 @@ module.exports = {
         errorMessage: err.message,
         errorName: err.name,
       })
+<<<<<<< HEAD
     );
     res.status(200).json(removeGroup);
   },
 };
+=======
+    }
+  })
+}
+
+// Gets meetings for a particular user
+exports.userMeetings = function(req, res) {
+  User.findById(req.params.userId, function (err, user) {
+    if (err) {
+      res.json({
+        status: 500,
+        errorMessage: err.message,
+        errorName: err.name,
+      });
+    } else if (user) {
+      res.json({
+        status: 200,
+        message: "User's meetings",
+        data: user.meetings,
+      });
+    } else {
+      res.json({
+        status: 404,
+        message: "User not exist",
+      });
+    }
+  });
+}
+
+// Receives an userId and a meetingId as input
+// Adds the meetingId to the user's meetings list
+exports.addMeeting = function(req, res) {
+  User.update(
+    {_id: req.body.userId},
+    {
+      $push: {meetings: req.body.meetingId}
+    },
+    function(err, data) {
+      if (err) {
+        res.json({
+          status: 500,
+          errorMessage: err.message,
+          errorName: err.name,
+        });
+      } else {
+        res.json({
+          status: res.statusCode,
+          message: "Meeting successfully added to the user",
+          data: data,
+        });
+      }
+    }
+  );
+}
+
+// Receives an userId and a meetingId as input
+// Removes the meetingId from the user's meetings list
+exports.removeMeeting = function(req, res) {
+  User.update(
+    {_id: req.body.userId},
+    {
+      $pull: {meetings: req.body.meetingId}
+    },
+    function(err, data) {
+      if (err) {
+        res.json({
+          status: 500,
+          errorMessage: err.message,
+          errorName: err.name,
+        });
+      } else {
+        res.json({
+          status: res.statusCode,
+          message: "Meeting successfully deleted from the user",
+          data: data,
+        });
+      }
+    }
+  );
+}
+>>>>>>> 8acf7fb689d52c7616fd7f4322c8bc2e5062b8c5

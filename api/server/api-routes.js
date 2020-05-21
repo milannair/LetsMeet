@@ -10,7 +10,14 @@ router.get("/", function (req, res) {
 });
 // Import user controller
 let userController = require("./controllers/userController");
+<<<<<<< HEAD
 let groupController = require("./controllers/groupController");
+=======
+let groupController = require("./controllers/groupController")
+// Import meeting controller
+var meetingController = require("./controllers/meetingController");
+
+>>>>>>> 8acf7fb689d52c7616fd7f4322c8bc2e5062b8c5
 // User routes
 
 // Create user
@@ -47,8 +54,31 @@ router.route("/user/addGroup/:userId/:groupId").post(userController.addGroup);
 
 // Remove group from the list of user's groups
 router
+<<<<<<< HEAD
   .route("/user/removeGroup/:userId/:groupId")
   .post(userController.removeGroup);
+=======
+  .route('/user/removeGroup')
+  .post(userController.removeGroup)
+
+// Get user meetings
+router
+  .route('/user/meetings/:userId')
+  .get(userController.userMeetings);
+
+// Add meeting to the list of user's meetings
+router
+  .route('/user/addMeeting')
+  .post(userController.addMeeting);
+
+// Remove meeting from the list of user's meetings
+router
+  .route('/user/removeMeeting')
+  .post(userController.removeMeeting);
+
+
+  //// Group paths ////
+>>>>>>> 8acf7fb689d52c7616fd7f4322c8bc2e5062b8c5
 
 //// Group paths ////
 
@@ -93,6 +123,36 @@ router
 router
   .route("/group/removeMeetingRequest")
   .post(groupController.removeMeetingRequest);
+
+
+  //// Meeting paths ////
+
+
+// Create a meeting
+router
+  .route('/meetings')
+  .post(meetingController.create);
+
+// Delete a meeting
+router
+  .route('/meeting/delete/:meetingId')
+  .delete(meetingController.delete);
+
+// Get all the details about a meeting
+router
+  .route('/meeting/:meetingId')
+  .get(meetingController.view);
+
+// Confirm a meeting
+router
+  .route('/meeting/confirm/:meetingId')
+  .post(meetingController.confirm);
+
+// Unconfirm a meeting
+router
+  .route('/meeting/unconfirm/:meetingId')
+  .post(meetingController.unconfirm);
+
 
 // Export API routes
 module.exports = router;
