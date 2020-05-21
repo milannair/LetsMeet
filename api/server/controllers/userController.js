@@ -122,7 +122,7 @@ module.exports = {
   },
 
   addGroup: async (req, res) => {
-    const addGroup = User.findByIdAndUpdate(req.params.id, {
+    const addGroup = User.findByIdAndUpdate(req.params.userId, {
       $push: { groups: req.body.groupId },
     }).catch((err) =>
       res.json({
@@ -135,7 +135,7 @@ module.exports = {
   },
 
   removeGroup: async (req, res) => {
-    const removeGroup = User.findByIdAndUpdate(req.params.id, {
+    const removeGroup = User.findByIdAndUpdate(req.params.userId, {
       $pull: { groups: req.body.groupId },
     }).catch((err) =>
       res.json({
