@@ -20,7 +20,11 @@ router.route("/user/create").post(userController.register);
 router.route("/user/login").post(userController.login);
 
 // Get user by Id
-router.route("/user/:userId").get(userController.view);
+router
+  .route("/user/:userId")
+  .get(userController.view)
+  .delete(userController.delete)
+  .patch(userController.update);
 
 //Get user groups
 router.route("/user/groups/:userId").get(userController.userGroups);
@@ -29,18 +33,22 @@ router.route("/user/groups/:userId").get(userController.userGroups);
 router.route("/users/:username").get(userController.usersByUsername);
 
 //Add group to list of group requests the user has
-router.route("/user/addGroupRequest").post(userController.addGroupRequest);
+router
+  .route("/user/addGroupRequest/:userId/:groupId")
+  .post(userController.addGroupRequest);
 
 // Remove group request from the list of group requests the user has
 router
-  .route("/user/removeGroupRequest")
+  .route("/user/removeGroupRequest/:userId/:groupId")
   .post(userController.removeGroupRequest);
 
 // Add group to the list of user's groups
-router.route("/user/addGroup").post(userController.addGroup);
+router.route("/user/addGroup/:userId/:groupId").post(userController.addGroup);
 
 // Remove group from the list of user's groups
-router.route("/user/removeGroup").post(userController.removeGroup);
+router
+  .route("/user/removeGroup/:userId/:groupId")
+  .post(userController.removeGroup);
 
 //// Group paths ////
 

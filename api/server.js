@@ -42,6 +42,7 @@ mongoose.set("useCreateIndex", true);
 mongoose.connect(dbUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 var db = mongoose.connection;
