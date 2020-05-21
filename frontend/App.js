@@ -17,7 +17,7 @@ export default function App() {
   return (
     <PaperProvider theme={theme}>
       <View style={styles.container}>
-        <Navigator/>
+        <Navigator />
       </View>
     </PaperProvider>
   );
