@@ -13,6 +13,7 @@ var cors = require("cors");
 
 // Import routes
 let apiRoutes = require("./server/api-routes");
+
 // Configure bodyparser to handle post requests
 app.use(
   bodyParser.urlencoded({
@@ -54,7 +55,7 @@ else console.log("DB connected");
 // Setup server port
 var port = process.env.PORT || 8000;
 
-//Loggin from morgan
+//Logging from morgan
 app.use(morgan("dev"));
 
 // Send message for default URL
