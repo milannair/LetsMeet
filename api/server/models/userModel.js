@@ -12,7 +12,6 @@ var userSchema = mongoose.Schema({
     index: true,
     minlength: 10,
   },
-  password: String,
   create_date: { type: Date, default: Date.now },
   meetings: { type: [mongoose.Types.ObjectId] }, //MeetingID
   requests: { type: [mongoose.Types.ObjectId] }, //GroupID
