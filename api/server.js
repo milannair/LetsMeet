@@ -24,24 +24,25 @@ app.use(
 app.use(bodyParser.json());
 dotenv.config();
 
-// Connect to Mongoose Cluster and set connection variable
-mongoose.connect(
-  "mongodb+srv://" +
+let dbUri;
+if (process.env.USE_LOCAL_DB === 'true') {
+  console.log("Connecting to local MongoDB database");
+  dbUri = "mongodb://localhost/LetsMeet";
+} else {
+  console.log("Connecting to MongoDB Cluster");
+  dbUri = "mongodb+srv://" +
     process.env.DB_USERNAME +
     ":" +
     process.env.DB_PW +
-    "@cluster0-kdglj.mongodb.net/LetsMeet?retryWrites=true&w=majority",
-  {
+    "@cluster0-kdglj.mongodb.net/LetsMeet?retryWrites=true&w=majority";
+}
+
+// Connect to the selected Mongoose instance and set connection variable
+mongoose.connect(dbUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   }
 );
-
-// //Connect to MongoDB Local Instance
-// mongoose.connect("mongodb://localhost/LetsMeet", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
 
 var db = mongoose.connection;
 

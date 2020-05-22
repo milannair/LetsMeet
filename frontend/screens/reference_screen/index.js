@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Button } from 'react-native';
 import styles from './styles';
+import Schedule from '../../models/Schedule';
 import ReferenceComponent from '../../components/reference_component/index';
 import useSocket from '../../hooks/UseSocket/index';
 
