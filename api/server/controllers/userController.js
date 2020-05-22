@@ -164,49 +164,81 @@ module.exports = {
     );
     res.status(200).json(removeGroup);
   },
+
+  /*
+   * Gets meetings for a particular user.
+   *
+   * Required query parameters:
+   *  userId: ObjectId - the ID of the user
+   *
+   * Returns:
+   *  500 if an internal server error occurs
+   *  404 if the user does not exist
+   *  The array of the user's meetings for the user if the operation was
+   *    successful
+   */
   userMeetings: async (req, res) => {
-    const findUser = User.findById(req.params.userId).catch((err) =>
+    const user = await User.findById(
+      req.params.userId
+    ).catch((err) =>
       res.json({
         status: 500,
         errorMessage: err.message,
         errorName: err.name,
       })
     );
-    if (findUser) return res.status(200).json(findUser.meetings);
-    res.json({
-      status: 404,
-      message: "User not exist",
-    });
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+    res.status(200).json(user.meetings);
   },
+
+  /*
+   * Adds a meeting to a particular user.
+   *
+   * Required query parameters:
+   *  userId: ObjectId - the ID of the user
+   *  meetingId: ObjectId - the ID of the meeting
+   *
+   * Returns:
+   *  500 if an internal server error occurs
+   *  Information about the user if the operation was successful
+   */
   addMeeting: async (req, res) => {
-    const addMeet = User.update(
-      { _id: req.params.userId },
-      {
-        $push: { meetings: req.params.meetingId },
-      }
-    ).catch((err) =>
+    const user = User.findByIdAndUpdate(req.params.userId, {
+      $push: { meetings: req.params.meetingId },
+    }).catch((err) =>
       res.json({
         status: 500,
         errorMessage: err.message,
         errorName: err.name,
       })
     );
-    res.status(200).json(removeGroup);
+    res.status(200).json(user);
   },
+
+  /*
+   * Removes a meeting from a particular user.
+   *
+   * Required query parameters:
+   *  userId: ObjectId - the ID of the user
+   *  meetingId: ObjectId - the ID of the meeting
+   *
+   * Returns:
+   *  500 if an internal server error occurs
+   *  Information about the user if the operation was successful
+   */
   removeMeeting: async (req, res) => {
-    const removeMeet = User.update(
-      { _id: req.params.userId },
-      {
-        $push: { meetings: req.params.meetingId },
-      }
-    ).catch((err) =>
+    const user = User.findByIdAndUpdate(req.params.userId, {
+      $pull: { meetings: req.params.meetingId },
+    }).catch((err) =>
       res.json({
         status: 500,
         errorMessage: err.message,
         errorName: err.name,
       })
     );
-    res.status(200).json(removeGroup);
+    res.status(200).json(user);
   },
 };
 

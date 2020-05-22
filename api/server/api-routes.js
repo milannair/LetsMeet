@@ -73,7 +73,6 @@ router
 router
   .route('/user/setSchedule')
   .post(userController.setSchedule);
-router.route("/user/removeGroup").post(userController.removeGroup);
 
 // Get user meetings
 router.route("/user/meetings/:userId").get(userController.userMeetings);
