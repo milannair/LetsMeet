@@ -113,7 +113,7 @@ module.exports = {
 
   addGroupRequest: async (req, res) => {
     const addReq = User.findByIdAndUpdate(req.params.userId, {
-      $push: { requests: req.body.groupId },
+      $push: { requests: req.params.groupId },
     }).catch((err) =>
       res.json({
         status: 500,
@@ -126,7 +126,7 @@ module.exports = {
 
   removeGroupRequest: async (req, res) => {
     const removeReq = User.findByIdAndUpdate(req.params.userId, {
-      $pull: { requests: req.body.groupId },
+      $pull: { requests: req.params.groupId },
     }).catch((err) =>
       res.json({
         status: 500,
@@ -139,7 +139,7 @@ module.exports = {
 
   addGroup: async (req, res) => {
     const addGroup = User.findByIdAndUpdate(req.params.userId, {
-      $push: { groups: req.body.groupId },
+      $push: { groups: req.params.groupId },
     }).catch((err) =>
       res.json({
         status: 500,
@@ -152,7 +152,7 @@ module.exports = {
 
   removeGroup: async (req, res) => {
     const removeGroup = User.findByIdAndUpdate(req.params.userId, {
-      $pull: { groups: req.body.groupId },
+      $pull: { groups: req.params.groupId },
     }).catch((err) =>
       res.json({
         status: 500,
@@ -176,9 +176,7 @@ module.exports = {
    *    successful
    */
   userMeetings: async (req, res) => {
-    const user = await User.findById(
-      req.params.userId
-    ).catch((err) =>
+    const user = await User.findById(req.params.userId).catch((err) =>
       res.json({
         status: 500,
         errorMessage: err.message,
