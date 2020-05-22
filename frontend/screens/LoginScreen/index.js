@@ -6,6 +6,7 @@ import {
   Text, TextInput, Button, HelperText,
 } from 'react-native-paper';
 import styles from './styles';
+import useSocket from '../../hooks/UseSocket/index';
 
 const SIGNUP_SCREEN_NAME = 'Signup';
 const HOME_SCREEN_NAME = 'Tabs';
@@ -17,6 +18,8 @@ function Login({ navigation }) {
   const [loadingIcon, setLoadingIcon] = useState(false);
   const maxFieldLength = 25;
   const minFieldLength = 3;
+
+  const { sendData } = useSocket('user authenticated', null);
 
   const handleLoginButtonPress = () => {
     let flag = false;
@@ -33,6 +36,7 @@ function Login({ navigation }) {
 
     // TODO: check username and password in database
     navigation.navigate(HOME_SCREEN_NAME);
+    sendData('5ec309cdeb54b1ff07806432');
   };
 
   const handleSignupButtonPress = () => {

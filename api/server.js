@@ -63,7 +63,8 @@ server.listen(port, function () {
   console.log("Running LetsMeet API @ localhost:" + port);
 });
 
+const users = [];
+
 io.on('connection', (socket) => {
   require('./server-socket').socketEvents(socket);
-  require('./db-socket');
 });

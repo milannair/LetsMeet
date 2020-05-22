@@ -5,14 +5,14 @@ import ReferenceComponent from '../../components/reference_component/index';
 import useSocket from '../../hooks/UseSocket/index';
 
 function ReferenceScreen() {
-  const { sendData } = useSocket('test', () => {
-    console.log('callback 1');
+  const { sendData } = useSocket('change', () => {
+    console.log('user changed');
   });
 
   return (
     <View style={styles.container}>
       <ReferenceComponent text='hello!' />
-      <Button title='send data' onPress={() => sendData('reference screen')} />
+      <Button title='send data' onPress={() => sendData('5ec309cdeb54b1ff07806432')} />
     </View>
   );
 }
