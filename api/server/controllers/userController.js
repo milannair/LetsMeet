@@ -170,7 +170,7 @@ module.exports = {
    *  userId: ObjectId - the ID of the user
    *
    * Returns:
-   *  500 if an internal server error occurs
+   *  An error message if an internal server error occurs
    *  'null' if no user with the specified ID is found
    *  The array of the user's meetings for the user if the operation was
    *    successful
@@ -196,7 +196,7 @@ module.exports = {
    *  meetingId: ObjectId - the ID of the meeting
    *
    * Returns:
-   *  500 if an internal server error occurs
+   *  An error message if an internal server error occurs
    *  Information about the user if the operation was successful
    */
   addMeeting: async (req, res) => {
@@ -220,7 +220,7 @@ module.exports = {
    *  meetingId: ObjectId - the ID of the meeting
    *
    * Returns:
-   *  500 if an internal server error occurs
+   *  An error message if an internal server error occurs
    *  Information about the user if the operation was successful
    */
   removeMeeting: async (req, res) => {

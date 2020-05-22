@@ -19,7 +19,7 @@ module.exports = {
    *  confirmed: Boolean (default: false) - whether the meeting is confirmed
    *
    * Returns:
-   *  500 if an internal server error occurs
+   *  An error message if an internal server error occurs
    *  The created meeting if the operation was successful
    */
   create: async (req, res) => {
@@ -41,7 +41,7 @@ module.exports = {
    *  meetingId: ObjectId - the meeting's ID
    *
    * Returns:
-   *  500 if an internal server error occurs
+   *  An error message if an internal server error occurs
    *  'null' if no meeting with the specified ID is found
    *  The deleted meeting if the operation was successful
    */
@@ -64,7 +64,7 @@ module.exports = {
    *  meetingId: ObjectId - the meeting's ID
    *
    * Returns:
-   *  500 if an internal server error occurs
+   *  An error message if an internal server error occurs
    *  'null' if no meeting with the specified ID is found
    *  The meeting's data if the operation was successful
    */
@@ -86,7 +86,7 @@ module.exports = {
    *  meetingId: ObjectId - the meeting's ID
    *
    * Returns:
-   *  500 if an internal server error occurs
+   *  An error message if an internal server error occurs
    *  'null' if no meeting with the specified ID is found
    *  The updated meeting if the operation was successful
    */
