@@ -113,12 +113,12 @@ router
 
 // Add meeting request to the group
 router
-  .route('/group/addMeetingRequest')
+  .route('/group/addMeetingRequest/:groupId&:meetingRequestId')
   .post(groupController.addMeetingRequest)
 
 // Remove meeting request from the group
 router
-  .route('/group/removeMeetingRequest')
+  .route('/group/removeMeetingRequest/:groupId&:meetingRequestId')
   .post(groupController.removeMeetingRequest)
 
 
