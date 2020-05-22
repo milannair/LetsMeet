@@ -4,16 +4,11 @@ const constants = require("./ignored/constants");
 const axios = require("axios").default;
 
 describe("/user/meetings/:userId", () => {
-  it("gets 404 status when invalid user is given", async () => {
-    try {
-      await axios.get(
-        `${constants.API_URI}/user/meetings/${constants.FAKE_OBJECT_ID}`
-      );
-      fail("No errors detected for the test request");
-    } catch (err) {
-      // Errors are expected
-      expect(err.response.status).toBe(404);
-    }
+  it("gets null data when invalid meeting is given", async () => {
+    const response = await axios.get(
+      `${constants.API_URI}/user/meetings/${constants.FAKE_OBJECT_ID}`
+    );
+    expect(response.data).toBeNull();
   });
 });
 

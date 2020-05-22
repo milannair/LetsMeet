@@ -171,22 +171,21 @@ module.exports = {
    *
    * Returns:
    *  500 if an internal server error occurs
-   *  404 if the user does not exist
+   *  'null' if no user with the specified ID is found
    *  The array of the user's meetings for the user if the operation was
    *    successful
    */
   userMeetings: async (req, res) => {
-    const user = await User.findById(req.params.userId).catch((err) =>
+    const userMeetings = await User.findById(req.params.userId, {
+      meetings: 1,
+    }).catch((err) =>
       res.json({
         status: 500,
         errorMessage: err.message,
         errorName: err.name,
       })
     );
-    if (!user) {
-      return res.status(404).send("User not found");
-    }
-    res.status(200).json(user.meetings);
+    res.status(200).json(userMeetings);
   },
 
   /*
