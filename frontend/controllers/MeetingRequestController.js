@@ -15,7 +15,7 @@ export async function createGroupMeetingRequest(author, groupId, name, isUnanimo
 
     }
 
-export async function getMeetingRequestData(meetingRequestId) {
+export async function getMeetingRequest(meetingRequestId) {
     try{
         const response = (await axios.get(url + '/meetingRequest/' + meetingRequestId)).data;
         if(data.status === 200) {
