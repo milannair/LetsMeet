@@ -1,4 +1,4 @@
-// Tests for the /user and /users endpoints
+// Tests for the /user endpoints
 
 const constants = require("./ignored/constants");
 const axios = require("axios").default;
@@ -41,7 +41,7 @@ describe("/user/addMeeting", () => {
       expect(response.data.meetings).toContain(meetingId);
     } finally {
       // Tear down
-      axios.delete(`${constants.API_URI}/user/${userId}`);
+      await axios.delete(`${constants.API_URI}/user/${userId}`);
     }
   });
 });
@@ -73,7 +73,7 @@ describe("/user/removeMeeting", () => {
       expect(response.data.meetings).toHaveLength(0);
     } finally {
       // Tear down
-      axios.delete(`${constants.API_URI}/user/${userId}`);
+      await axios.delete(`${constants.API_URI}/user/${userId}`);
     }
   });
 });
