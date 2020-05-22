@@ -162,4 +162,48 @@ module.exports = {
     );
     res.status(200).json(removeGroup);
   },
+  userMeetings: async (req, res) => {
+    const findUser = User.findById(req.params.userId).catch((err) =>
+      res.json({
+        status: 500,
+        errorMessage: err.message,
+        errorName: err.name,
+      })
+    );
+    if (findUser) return res.status(200).json(findUser.meetings);
+    res.json({
+      status: 404,
+      message: "User not exist",
+    });
+  },
+  addMeeting: async (req, res) => {
+    const addMeet = User.update(
+      { _id: req.params.userId },
+      {
+        $push: { meetings: req.params.meetingId },
+      }
+    ).catch((err) =>
+      res.json({
+        status: 500,
+        errorMessage: err.message,
+        errorName: err.name,
+      })
+    );
+    res.status(200).json(removeGroup);
+  },
+  removeMeeting: async (req, res) => {
+    const removeMeet = User.update(
+      { _id: req.params.userId },
+      {
+        $push: { meetings: req.params.meetingId },
+      }
+    ).catch((err) =>
+      res.json({
+        status: 500,
+        errorMessage: err.message,
+        errorName: err.name,
+      })
+    );
+    res.status(200).json(removeGroup);
+  },
 };

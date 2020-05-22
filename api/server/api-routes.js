@@ -54,6 +54,21 @@ router
   .route("/user/removeGroup/:userId/:groupId")
   .post(userController.removeGroup);
 
+router.route("/user/removeGroup").post(userController.removeGroup);
+
+// Get user meetings
+router.route("/user/meetings/:userId").get(userController.userMeetings);
+
+// Add meeting to the list of user's meetings
+router
+  .route("/user/addMeeting/:userId/:meetingId")
+  .post(userController.addMeeting);
+
+// Remove meeting from the list of user's meetings
+router
+  .route("/user/removeMeeting/:userId/:meetingId")
+  .post(userController.removeMeeting);
+
 //// Group paths ////
 
 // Create a group
