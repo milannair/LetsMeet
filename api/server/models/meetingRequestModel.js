@@ -6,9 +6,8 @@ var meetingRequestSchema = mongoose.Schema({
   author: {type : mongoose.Types.ObjectId, required: true},
   groupID: {type : mongoose.Types.ObjectId, required: true},
   name: String,
-  isUniPoll: {type : Boolean, required: true},
-  multiPoll: [Option],
-  uniPoll: Option,
+  isUnanimousMeetingRequest: {type : Boolean, required: true},
+  requestedOptions: [Option],
   deadline: { type: Date, required: true },
   status: Number,
 });

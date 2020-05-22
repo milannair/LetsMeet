@@ -127,7 +127,7 @@ router
 
 // Create a meeting request
 router
-  .route('/meetingRequest/create/:author&:groupId&:name&:isUniPOll&:multiPoll&:uniPoll&:deadlin&:status')
+  .route('/meetingRequest/create/:author&:groupId&:name&:isUnanimousMeetingRequest&:requestedOptions&:deadlin&:status')
   .post(meetingRequestController.create)
 
 // Delete a meeting request
@@ -145,20 +145,20 @@ router
   .route('/meetingRequest/rename/:meetingRequestId&:name')
   .post(meetingRequestController.rename)
 
-// Update poll type
+// Update request type
 router
-  .route('/meetingRequest/updatePollType/:meetingRequestId&:isUniPoll')
-  .post(meetingRequestController.updatePollType)
+  .route('/meetingRequest/updateRequestType/:meetingRequestId&:isUnanimousMeetingRequest')
+  .post(meetingRequestController.updateRequestType)
 
-// Update multiPoll options
+// Add specified options to the meeting request options
 router
-  .route('/meetingRequest/updateMultiPoll/:meetingRequestId&:multiPoll')
-  .post(meetingRequestController.updateMultiPollOptions)
+  .route('/meetingRequest/addRequestedOptions/:meetingRequestId&:requestedOptions')
+  .post(meetingRequestController.addRequestedOptions)
 
-// Update uniPoll options
+// Remove specified options from the meeting request
 router
-  .route('/meetingRequest/updateUniPoll/:meetingRequestId&:uniPoll')
-  .post(meetingRequestController.updateUniPollOptions)
+  .route('/meetingRequest/removeRequestedOptions/:meetingRequestId&:requestedOptions')
+  .post(meetingRequestController.removeRequestedOptions)
 
 // Update request status
 router

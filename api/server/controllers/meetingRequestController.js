@@ -6,9 +6,8 @@ exports.create = function(req, res) {
     meetingRequest.author = req.params.author;
     meetingRequest.groupId = req.params.groupId;
     meetingRequest.name = req.params.name ? req.params.name : 'Meeting';
-    meetingRequest.isUniPoll = req.params.isUniPoll;
-    meetingRequest.multiPoll = req.params.multipoll ? req.params.multipoll : [];
-    meetingRequest.uniPoll = req.params.uniPoll;
+    meetingRequest.isUnanimousMeetingRequest = req.params.isUnanimousMeetingRequest;
+    meetingRequest.requestedOptions = req.params.requestedOptions;
     meetingRequest.deadline = req.params.deadline;
     meetingRequest.status = req.params.status;
 
@@ -87,10 +86,10 @@ exports.rename = function(req, res) {
 }
 
 // Update poll type
-exports.updatePollType = function(req, res) {
-    MeetingRequest.updateOne({_id : req.params.meetingRequestId}, 
+exports.updateRequestType = function(req, res) {
+    MeetingRequest.updateOne({_id : req.params.isUnanimousMeetingRequest}, 
         {
-            isUniPoll: req.params.isUniPoll
+            isUnanimousMeetingRequest: req.params.isUnanimousMeetingRequest
         }, 
         function(err, data) {
         if(err) {
@@ -108,11 +107,12 @@ exports.updatePollType = function(req, res) {
     })
 }
 
-// Update multipoll meeting request options
-exports.updateMultiPollOptions = function(req, res) {
+// Receives an array of options and adds them 
+// to the existing array of requested times
+exports.addRequestedOptions = function(req, res) {
     MeetingRequest.updateOne({_id : req.params.meetingRequestId}, 
         {
-            multiPoll: req.params.multiPoll
+           $push: {requestedTimes: {$each: req.params.requestedOptions}}
         }, 
         function(err, data) {
         if(err) {
@@ -130,11 +130,12 @@ exports.updateMultiPollOptions = function(req, res) {
     })
 }
 
-// Update unipoll meeting request options
-exports.updateUniPollOptions = function(req, res) {
+// Receives an array of new requested times and removes them 
+// from the existing array of requested times
+exports.removeRequestedOptions = function(req, res) {
     MeetingRequest.updateOne({_id : req.params.meetingRequestId}, 
         {
-            uniPoll: req.params.uniPoll
+           $pull: {requestedOptions: {$each: req.params.requestedOptions}}
         }, 
         function(err, data) {
         if(err) {
@@ -173,7 +174,3 @@ exports.updateRequestStatus = function(req, res) {
         }
     })
 }
-
-
-
-
