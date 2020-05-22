@@ -3,9 +3,9 @@ var mongoose = require("mongoose");
 var meetingSchema = mongoose.Schema({
   author: mongoose.Types.ObjectId, //UserID
   name: String,
-  groupID: mongoose.Types.ObjectId,
-  startTime: Date,
-  endTime: Date,
+  group: mongoose.Types.ObjectId,
+  start: Date,
+  end: Date,
   confirmed: Boolean,
 });
 
