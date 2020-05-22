@@ -205,19 +205,14 @@ router
 //// Meeting paths ////
 
 // Create a meeting
-router.route("/meetings").post(meetingController.create);
+router.route("/meeting/create").post(meetingController.create);
 
-// Delete a meeting
-router.route("/meeting/delete/:meetingId").delete(meetingController.delete);
-
-// Get all the details about a meeting
-router.route("/meeting/:meetingId").get(meetingController.view);
-
-// Confirm a meeting
-router.route("/meeting/confirm/:meetingId").post(meetingController.confirm);
-
-// Unconfirm a meeting
-router.route("/meeting/unconfirm/:meetingId").post(meetingController.unconfirm);
+// View, update, and delete a meeting
+router
+  .route("/meeting/:meetingId")
+  .get(meetingController.view)
+  .delete(meetingController.delete)
+  .patch(meetingController.update);
 
 // Export API routes
 module.exports = router;
