@@ -9,6 +9,7 @@ describe("/user/meetings/:userId", () => {
       await axios.get(
         `${constants.API_URI}/user/meetings/${constants.FAKE_OBJECT_ID}`
       );
+      fail("No errors detected for the test request");
     } catch (err) {
       // Errors are expected
       expect(err.response.status).toBe(404);
@@ -39,6 +40,7 @@ describe("/user/addMeeting", () => {
       const response = await axios.get(`${constants.API_URI}/user/${userId}`);
       expect(response.data.meetings).toContain(meetingId);
     } finally {
+      // Tear down
       axios.delete(`${constants.API_URI}/user/${userId}`);
     }
   });
@@ -70,6 +72,7 @@ describe("/user/removeMeeting", () => {
       const response = await axios.get(`${constants.API_URI}/user/${userId}`);
       expect(response.data.meetings).toHaveLength(0);
     } finally {
+      // Tear down
       axios.delete(`${constants.API_URI}/user/${userId}`);
     }
   });
