@@ -70,7 +70,6 @@ router
   .post(userController.removeMeeting);
 
 //// Group paths ////
-
 // Create a group
 router.route("/groups").post(groupController.create);
 
