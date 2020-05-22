@@ -123,7 +123,7 @@ module.exports = {
         errorName: err.name,
       })
     );
-    res.status(200).json(groupReq);
+    res.status(200).json(addReq);
   },
 
   removeGroupRequest: async (req, res) => {
