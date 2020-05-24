@@ -13,7 +13,7 @@ function TabNavigator() {
   const [numNewGroupRequests, setNumNewGroupRequests] = useState(0);
 
   const { sendData } = useSocket('add group request', () => {
-    setNumNewGroupRequests(numNewGroupRequests => numNewGroupRequests + 1);
+    setNumNewGroupRequests((prev) => prev + 1);
   });
 
   return (
