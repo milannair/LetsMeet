@@ -7,7 +7,7 @@ const url = protocol + baseUrl + ':' + port + route
 
 export async function createGroupMeetingRequest(author, groupId, name, isUnanimousMeetingRequest,
     requestedOptions, deadline, status) {
-        let response = (await createGroupMeetingRequest(author, groupId, name, isUnanimousMeetingRequest, requestedOptions,
+        let response = (await createMeetingRequest(author, groupId, name, isUnanimousMeetingRequest, requestedOptions,
             deadline, status)).data;
             if(response.status == 200) {
                 addMeetingRequestToGroup(groupId, data._id);
