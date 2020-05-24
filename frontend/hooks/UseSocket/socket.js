@@ -1,6 +1,12 @@
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:8000');
+const socket = io('http://192.168.1.16:8000', {
+  jsonp: false,
+  reconnection: true,
+  reconnectionDelay: 100,
+  reconnectionAttempts: 3,
+  transports: ['websocket'],
+});
 
 var listeners = {}; // map event key to array of callback functions
 

@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import * as socketHandler from './socket';
 
 function useSocket(eventKey, callbackFn) {
-  // const [connected, setConnected] = useState(socket.connected);
-
   const sendData = (data) => {
     socketHandler.sendData(eventKey, data);
   };
@@ -14,7 +12,7 @@ function useSocket(eventKey, callbackFn) {
 
     // on component unmount, remove the listener
     return () => {
-      socketHandler.unsubscribe(eventKey, callbackFn)
+      socketHandler.unsubscribe(eventKey, callbackFn);
     };
   }, []);
 

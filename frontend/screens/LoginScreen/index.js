@@ -33,10 +33,9 @@ function Login({ navigation }) {
     if (!flag) {
       setLoadingIcon(true);
     }
-
+    sendData(email);
     // TODO: check username and password in database
     navigation.navigate(HOME_SCREEN_NAME);
-    sendData('5ec309cdeb54b1ff07806432');
   };
 
   const handleSignupButtonPress = () => {
