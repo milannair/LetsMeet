@@ -162,8 +162,8 @@ router
 
 // Update request status
 router
-  .route('/meetingRequest/updateStatus/:meetingRequestId&:status')
-  .post(meetingRequestController.updateStatus)
+  .route('/meetingRequest/updateRequestStatus/:meetingRequestId&:status')
+  .post(meetingRequestController.updateRequestStatus)
 
 
 ///// Option routes ////

@@ -7,7 +7,7 @@ var meetingRequestSchema = mongoose.Schema({
   groupID: {type : mongoose.Types.ObjectId, required: true},
   name: String,
   isUnanimousMeetingRequest: {type : Boolean, required: true},
-  requestedOptions: [Option],
+  requestedOptions: [mongoose.Types.ObjectId], // list of options
   deadline: { type: Date, required: true },
   status: Number,
 });
