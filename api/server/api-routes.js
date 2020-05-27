@@ -113,7 +113,7 @@ router
 
 // Add meeting request to the group
 router
-  .route('/group/addMeetingRequest/:groupId&:meetingRequestId')
+  .route('/group/addMeetingRequest/')
   .post(groupController.addMeetingRequest)
 
 // Remove meeting request from the group
@@ -127,7 +127,7 @@ router
 
 // Create a meeting request
 router
-  .route('/meetingRequest/create/:author&:groupId&:name&:isUnanimousMeetingRequest&:requestedOptions&:deadlin&:status')
+  .route('/meetingRequests/')
   .post(meetingRequestController.create)
 
 // Delete a meeting request
@@ -171,7 +171,7 @@ router
 
 // Create an Option
 router
-  .route('/option/create/:start&:end&:votes')
+  .route('/options/')
   .post(optionController.create)
 
 // Delete an Option

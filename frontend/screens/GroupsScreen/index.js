@@ -60,6 +60,7 @@ function GroupsScreen({route, navigation}) {
           key={"GroupCard" + i}
           groupName={groupsDetails[i].name} 
           groupId = {groupsDetails[i]._id}
+          userId = {userId}
           heartActiveCallback={(index) => console.log("Heart does nothing for now")} 
           index = {i}
           heartStatus ={Math.random() >= 0.5}

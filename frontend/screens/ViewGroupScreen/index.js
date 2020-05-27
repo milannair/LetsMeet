@@ -18,7 +18,7 @@ function ViewGroupScreen({route, navigation}) {
             <FAB
                 style={styles.fab}
                 icon='plus'
-                onPress={() => navigation.navigate(CREATE_MEETING_REQUEST, {text: 'hello'})}
+                onPress={() => navigation.navigate(CREATE_MEETING_REQUEST, {userId: route.params.userId, groupId: route.params.groupId})}
             />
         </View>
     );

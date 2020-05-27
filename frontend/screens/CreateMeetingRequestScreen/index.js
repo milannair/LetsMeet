@@ -4,7 +4,9 @@ import {TextInput, RadioButton, Text, Title, IconButton, Appbar, Button} from 'r
 import styles from './styles'
 import DateTimePickerComponent from '../../components/DatePickerComponent/index'
 import {VIEW_GROUP} from '../../navigation/tab_navigator/stacks/groups/screen-names'
-
+import {createGroupMeetingRequest} from '../../controllers/MeetingRequestController'
+import {createOption} from '../../controllers/OptionsController'
+ 
 function CreateMeetingRequest({route, navigation}) {
     const [meetingName, setMeetingName] = useState("");
     const [isUnanimousMeetingRequest, setIsUnanimousMeetingRequest] = useState(false);
@@ -14,7 +16,7 @@ function CreateMeetingRequest({route, navigation}) {
     const [displayOptions, setDisplayOptions] = useState([]);
     
     useEffect(() => {
-        console.log(deadlineDate.toLocaleDateString() + ' ' + deadlineDate.toLocaleTimeString());
+        // console.log(deadlineDate.toLocaleDateString() + ' ' + deadlineDate.toLocaleTimeString());
         const getOptions = () => {
             let pollOptions = [];
             for(let i = 0; i < options.length; i++) {
@@ -97,12 +99,30 @@ function CreateMeetingRequest({route, navigation}) {
         );
     }
 
+    async function submitMeetingRequest() {
+        const name = meetingName ? meetingName : 'Meeting'
+        const requestedOptions = []
+        for(let i = 0; i < options.length; i++) {
+            let start = new Date(options[i].date);
+            let end = new Date(start);
+            start.setHours(options[i].start.getHours(), options[i].start.getMinutes());
+            end.setHours(options[i].end.getHours(), options[i].end.getMinutes());
+            let option = createOption(start, end, []);
+            let id = (await option)._id;
+            requestedOptions.push(id);
+        }
+        const status = 0
+        createGroupMeetingRequest(route.params.userId, route.params.groupId, name, isUnanimousMeetingRequest, requestedOptions,
+            deadlineDate, status);
+        navigation.navigate(VIEW_GROUP, {groupId: route.params.groupId, userId: route.params.userId})
+    }
+
     return(
         <View style={styles.container}>
             <Appbar.Header style={styles.navbar}>
                 <Appbar.BackAction onPress={() => {navigation.navigate(VIEW_GROUP)}}/>
                 <Appbar.Content title='Request a Meeting'/>
-                <Button color='white' labelStyle={styles.buttonText} onPress={() => alert('will create the meeting')}>
+                <Button color='white' labelStyle={styles.buttonText} onPress={() => submitMeetingRequest()}>
                     DONE
                 </Button>
                 

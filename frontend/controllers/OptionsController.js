@@ -7,7 +7,12 @@ const url = protocol + baseUrl + ':' + port + route
 
 export async function createOption(start, end, votes) {
     try {
-        const response =(await axios.post(url + '/options/' + start + '&' + end + '&' + votes)).data
+        console.log('got here')
+        const response =(await axios.post(url + '/options/', {
+            start: start,
+            end: end,
+            votes: votes,
+        })).data
         if(response.status === 200) {
             return response.data;
         } else {

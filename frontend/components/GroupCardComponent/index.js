@@ -6,7 +6,7 @@ import {VIEW_GROUP} from '../../navigation/tab_navigator/stacks/groups/screen-na
 
 
 
-function CardComponent({navigation, groupName, groupId, heartActiveCallback, index, heartStatus=false, groupDescription="Buenas Tardes Amigo"}) {
+function CardComponent({navigation, groupName, groupId, userId, heartActiveCallback, index, heartStatus=false, groupDescription="Buenas Tardes Amigo"}) {
 
     const [heart, setHeart] = useState(heartStatus)
     const LeftContent = () => (<Avatar.Image size={40} source={{ uri: "https://picsum.photos/60" + index}} />);
@@ -23,7 +23,7 @@ function CardComponent({navigation, groupName, groupId, heartActiveCallback, ind
     return (
     <View style={styles.container}>
         <Card style={styles.card} 
-             onPress={() => {navigation.navigate(VIEW_GROUP, {groupId: groupId, text: "hello"})}}>
+             onPress={() => {navigation.navigate(VIEW_GROUP, {groupId: groupId, userId: userId})}}>
             <Card.Title title={groupName} subtitle={groupDescription} left={LeftContent} right={RightContent}/>
         </Card>
     </View>

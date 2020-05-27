@@ -61,9 +61,8 @@ const styles = StyleSheet.create({
         height: 60,
     },
     optionTimePicker: {
-        width: 90,
+        width: 95,
         height: 60,
-        elevation: 0,
     },
     removeOptionButton: {
         backgroundColor: 'black',

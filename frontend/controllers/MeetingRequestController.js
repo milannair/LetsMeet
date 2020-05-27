@@ -9,8 +9,12 @@ export async function createGroupMeetingRequest(author, groupId, name, isUnanimo
     requestedOptions, deadline, status) {
         let response = (await createMeetingRequest(author, groupId, name, isUnanimousMeetingRequest, requestedOptions,
             deadline, status)).data;
+            console.log(response);
             if(response.status == 200) {
-                addMeetingRequestToGroup(groupId, data._id);
+                let id = response.data._id;
+                response = await addMeetingRequestToGroup(groupId, id);
+                console.log(response);
+
             }
 
     }
@@ -32,9 +36,16 @@ async function createMeetingRequest(author, groupId, name, isUnanimousMeetingReq
     requestedOptions, deadline, status) {
 
     try{
-        return axios.post(url + '/meetingRequest/' + author + '&'+
-        groupId + '&' + name + '&' + isUnanimousMeetingRequest + '&' + requestedOptions + '&' + 
-        deadline + '&' + status);
+        const response = await axios.post(url + '/meetingRequests/', {
+            author: author,
+            groupId: groupId,
+            name: name,
+            isUnanimousMeetingRequest: isUnanimousMeetingRequest,
+            requestedOptions: requestedOptions,
+            deadline: deadline,
+            status: status,
+        });
+        return response
     } catch(err) {
         console.log(err)
     }
@@ -43,7 +54,10 @@ async function createMeetingRequest(author, groupId, name, isUnanimousMeetingReq
 
 async function addMeetingRequestToGroup(groupId, meetingRequestId) {
     try{
-        return response = axios.post(url + '/addMeetingRequest/' + groupId + '&' + meetingRequestId);
+        return axios.post(url + '/group/addMeetingRequest/', {
+            groupId: groupId,
+            meetingRequestId: meetingRequestId
+        });
     } catch(err) {
         console.log(err);
     }
