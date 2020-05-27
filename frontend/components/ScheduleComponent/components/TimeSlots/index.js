@@ -50,7 +50,7 @@ function TimeSlots({ firstDay, lastDay, firstHour, lastHour, availability, selec
             style={{
               flex: 1,
               flexDirection: 'row',
-              backgroundColor: i === selectedDay ? 'rgba(0, 0, 0, 0.05)' : 'white',
+              backgroundColor: i === selectedDay ? 'rgba(0, 0, 0, 0.05)' : 'rgba(0, 0, 0, 0)',
             }}
             key={i}
           >
