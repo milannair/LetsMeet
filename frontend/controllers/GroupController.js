@@ -1,6 +1,6 @@
 const axios = require('axios').default;
 const protocol = 'http://';
-const baseUrl = '127.0.0.1';
+const baseUrl = '10.0.0.224';
 const port = 8000;
 const route = '/lm';
 const url = protocol + baseUrl + ':' + port + route
@@ -41,7 +41,6 @@ export async function getUserGroups(userId) {
 export async function getGroupData(groupId) {
     try {
         const response = (await axios.get(url + '/group/' + groupId)).data
-        console.log(response);
         if(response.status === 200) {
             return response.data
         }
