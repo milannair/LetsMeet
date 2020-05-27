@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { Appbar, FAB } from 'react-native-paper';
 import CardComponent from '../../components/GroupCardComponent/index';
 import styles from './styles'
@@ -40,7 +40,9 @@ function GroupsScreen({route, navigation}) {
           onPress={()=> alert("Will eventually take you to the settings screen")}
         />
       </Appbar.Header>
-      {groupComponents()}
+      <ScrollView style={{flex: 1, flexDirection: 'column'}} scrollEnabled={true}>
+        {groupComponents()}
+      </ScrollView>
       <FAB
         style={styles.fab}
         icon="plus"
