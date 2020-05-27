@@ -26,6 +26,11 @@ router
   .route('/user/:userId')
   .get(userController.view)
 
+// Get user's identifiers
+router
+  .route('/user/identifiers/:userId')
+  .get(userController.getUserIdentifiers)
+
 // Get user groups 
 router
   .route('/user/groups/:userId')

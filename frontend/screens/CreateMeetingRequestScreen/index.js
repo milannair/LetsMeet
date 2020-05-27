@@ -16,7 +16,6 @@ function CreateMeetingRequest({route, navigation}) {
     const [displayOptions, setDisplayOptions] = useState([]);
     
     useEffect(() => {
-        // console.log(deadlineDate.toLocaleDateString() + ' ' + deadlineDate.toLocaleTimeString());
         const getOptions = () => {
             let pollOptions = [];
             for(let i = 0; i < options.length; i++) {
