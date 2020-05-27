@@ -1,3 +1,4 @@
+
 // Import express
 const express = require("express");
 // Import Body parser
@@ -10,6 +11,12 @@ const dotenv = require("dotenv");
 const app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+const clients = {}; // map userId to socket id
+
+module.exports = {
+  io: io,
+  clients: clients
+};
 
 var cors = require("cors");
 
@@ -64,10 +71,36 @@ server.listen(port, function () {
   console.log("Running LetsMeet API @ localhost:" + port);
 });
 
-const eventHandler = require('./server-socket');
-eventHandler.dbEvents(io);
+// SOCKET.IO
+const User = require('./server/models/userModel');
 
 io.on('connection', (socket) => {
-  console.log('connection')
-  eventHandler.socketEvents(socket);
+  socket.on('user authenticated', (userId) => {
+    console.log('user authenticated: ' + userId);
+    socket.userId = userId;
+    clients[userId] = socket.id;
+
+    User.findById(userId, {groups: 1}, function(err, data) {
+      if (err) {
+        console.error(err);
+      } else {
+        if (data) {
+          data.groups.forEach((groupId) => {
+            socket.join(groupId);
+          });
+        } else {
+          console.error(err);
+        }
+      }
+    });
+  });
+
+  socket.on('hi', () => {
+    console.log('hi');
+  });
+
+  socket.on('disconnect', () => {
+    delete clients[socket.userId];
+  });
 });
+

@@ -14,6 +14,17 @@ function TabNavigator() {
 
   const { sendData } = useSocket('add group request', () => {
     setNumNewGroupRequests((prev) => prev + 1);
+    console.log('receive');
+  });
+
+  useSocket('remove group request', () => {
+    setNumNewGroupRequests((prev) => {
+      if (prev > 0) {
+        return prev - 1;
+      } else {
+        return 0;
+      }
+    });
   });
 
   return (

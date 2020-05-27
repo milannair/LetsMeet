@@ -1,6 +1,7 @@
 import io from 'socket.io-client';
+import { socketUrl } from '../../api-routes';
 
-const socket = io('http://192.168.1.16:8000', {
+const socket = io('http://9bda9754.ngrok.io', {
   jsonp: false,
   reconnection: true,
   reconnectionDelay: 100,

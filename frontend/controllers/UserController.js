@@ -1,13 +1,9 @@
+import { url } from '../api-routes';
 const axios = require('axios').default;
-
-const protocol = 'http://';
-const baseUrl = '192.168.1.16'; // change to your ipv4 address
-const port = 8000;
-const route = '/lm';
 
 export async function postUser(username, email, phone, password, displayName) {
   try {
-    const response = await axios.post(protocol + baseUrl + ':' + port + route + '/users', {
+    const response = await axios.post(url + '/users', {
         username: username,
         email: email,
         phone: phone,
@@ -23,7 +19,7 @@ export async function postUser(username, email, phone, password, displayName) {
 
 export async function getUser(id) {
   try {
-    const response = await axios.get(protocol + baseUrl + ':' + port + route + '/user/' + id);
+    const response = await axios.get(url + '/user/' + id);
     return response.data.data;
   } catch (error) {
     console.error(error);

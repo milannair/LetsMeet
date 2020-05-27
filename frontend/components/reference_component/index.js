@@ -7,11 +7,16 @@ import { View } from 'react-native';
 import styles from './styles';
 import { Button, Text } from 'react-native-paper';
 import * as referenceController from '../../controllers/ReferenceController';
+import useSocket from '../../hooks/UseSocket';
 
 function ReferenceComponent(props) {
   // state
   const [count, setCount] = useState(1);
   const [user, setUser] = useState({});
+
+  const { sendData } = useSocket('hi', () => {
+    console.log('hi');
+  })
 
   // use effect (called when component loads)
   useEffect(() => {
@@ -24,7 +29,8 @@ function ReferenceComponent(props) {
 
   const handleButtonPress = () => {
     setCount(count + 1);
-    alert('You pressed the button ' + count + ' times!');
+    // alert('You pressed the button ' + count + ' times!');
+    sendData();
   };
 
   return (

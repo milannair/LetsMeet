@@ -1,6 +1,8 @@
 // Import user model
 User = require("../models/userModel");
 
+var socket = require('../../server');
+
 // Receives details about the new user and creates a new user
 // on the DataBase
 // Returns an error msg
@@ -141,6 +143,10 @@ exports.addGroupRequest = function(req, res) {
         message: "Request successfully added to the user",
         data: data
       })
+      // console.log(io);
+      console.log(socket.clients);
+      console.log(req.body.userId);
+      socket.io.to(socket.clients[req.body.userId]).emit('add group request');
     }
   })
 }
@@ -166,6 +172,7 @@ exports.removeGroupRequest = function(req, res) {
         message: "Request successfully added to the user",
         data: data
       })
+      socket.io.to(socket.clients[req.body.userId]).emit('remove group request');
     }
   })
 }
