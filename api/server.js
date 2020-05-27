@@ -95,10 +95,6 @@ io.on('connection', (socket) => {
     });
   });
 
-  socket.on('hi', () => {
-    console.log('hi');
-  });
-
   socket.on('disconnect', () => {
     delete clients[socket.userId];
   });

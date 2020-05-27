@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
 import { socketUrl } from '../../api-routes';
 
-const socket = io('http://9bda9754.ngrok.io', {
+const socket = io(socketUrl, {
   jsonp: false,
   reconnection: true,
   reconnectionDelay: 100,
