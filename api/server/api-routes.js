@@ -11,6 +11,9 @@ router.get("/", function (req, res) {
 // Import user controller
 let userController = require("./controllers/userController");
 let groupController = require("./controllers/groupController")
+// Import meeting controller
+var meetingController = require("./controllers/meetingController");
+
 // User routes
 
 // Create user
@@ -53,6 +56,20 @@ router
   .route('/user/removeGroup')
   .post(userController.removeGroup)
 
+// Get user meetings
+router
+  .route('/user/meetings/:userId')
+  .get(userController.userMeetings);
+
+// Add meeting to the list of user's meetings
+router
+  .route('/user/addMeeting')
+  .post(userController.addMeeting);
+
+// Remove meeting from the list of user's meetings
+router
+  .route('/user/removeMeeting')
+  .post(userController.removeMeeting);
 
 
   //// Group paths ////
@@ -117,6 +134,36 @@ router
 router
   .route('/group/removeMeetingRequest')
   .post(groupController.removeMeetingRequest)
+
+
+  //// Meeting paths ////
+
+
+// Create a meeting
+router
+  .route('/meetings')
+  .post(meetingController.create);
+
+// Delete a meeting
+router
+  .route('/meeting/delete/:meetingId')
+  .delete(meetingController.delete);
+
+// Get all the details about a meeting
+router
+  .route('/meeting/:meetingId')
+  .get(meetingController.view);
+
+// Confirm a meeting
+router
+  .route('/meeting/confirm/:meetingId')
+  .post(meetingController.confirm);
+
+// Unconfirm a meeting
+router
+  .route('/meeting/unconfirm/:meetingId')
+  .post(meetingController.unconfirm);
+
 
 // Export API routes
 module.exports = router;

@@ -1,12 +1,12 @@
 var mongoose = require("mongoose");
 
-var DayTime = require("./dayTimeModel");
-
 var meetingSchema = mongoose.Schema({
   author: mongoose.Types.ObjectId, //UserID
   name: String,
   groupID: mongoose.Types.ObjectId,
-  time: DayTime,
+  startTime: Date,
+  endTime: Date,
+  confirmed: Boolean,
 });
 
 var Meeting = (module.exports = mongoose.model("meeting", meetingSchema));
