@@ -9,11 +9,9 @@ export async function createGroupMeetingRequest(author, groupId, name, isUnanimo
     requestedOptions, deadline, status) {
         let response = (await createMeetingRequest(author, groupId, name, isUnanimousMeetingRequest, requestedOptions,
             deadline, status)).data;
-            console.log(response);
             if(response.status == 200) {
                 let id = response.data._id;
                 response = await addMeetingRequestToGroup(groupId, id);
-                console.log(response);
 
             }
 
@@ -22,7 +20,7 @@ export async function createGroupMeetingRequest(author, groupId, name, isUnanimo
 export async function getMeetingRequest(meetingRequestId) {
     try{
         const response = (await axios.get(url + '/meetingRequest/' + meetingRequestId)).data;
-        if(data.status === 200) {
+        if(response.status === 200) {
             return response.data;
         } else {
             console.log(response);
