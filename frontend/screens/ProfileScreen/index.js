@@ -115,8 +115,7 @@ function Profile({ navigation }) {
         firstHour={firstHour}
         lastHour={lastHour}
         divideHours={true}
-        schedule={schedule} 
-        selectable={true} 
+        schedule={schedule}
       />
       <FAB
         style={styles.fab}
