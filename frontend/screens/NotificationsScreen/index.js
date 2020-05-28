@@ -1,6 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import NotificationComponent from "../../components/NotificationComponent/index";
+import AppbarComponent from "../../components/AppbarComponent";
 
 /*
  * TODO: determine a notification's model
@@ -29,6 +30,7 @@ function NotificationsScreen({route, navigation}) {
 
   return (
       <View>
+        <AppbarComponent />
         {components}
       </View>
   );
