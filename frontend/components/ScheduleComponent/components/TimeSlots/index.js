@@ -3,20 +3,20 @@ import { View, TouchableWithoutFeedback } from 'react-native';
 import styles from './styles';
 import TimeSlot from '../TimeSlot/index';
 
-function TimeSlots({ firstDay, lastDay, firstHour, lastHour, availability, selectable, selectedDay, onDayPress }) {
+function TimeSlots({ firstDay, lastDay, firstHour, lastHour, schedule, selectable, selectedDay, onDayPress, onTimeSlotPress }) {
   let timeSlotsSeparated = {};
-  availability.forEach((timeSlot) => {
-    const day = timeSlot.start.getDay();
+  schedule.forEach((timeSlot) => {
+    const day = timeSlot.startTime.getDay();
     if (!timeSlotsSeparated[day]) {
       timeSlotsSeparated[day] = [];
     }
     timeSlotsSeparated[day].push(timeSlot);
   });
 
-  const mapTimeSlotsToComponents = (timeSlots) => {
+  const mapTimeSlotsToComponents = (timeSlots, i) => {
     if (timeSlots) {
       return timeSlots.map((timeSlot, i) => (
-        <TimeSlot firstHour={firstHour} lastHour={lastHour} start={timeSlot.start} end={timeSlot.end} key={i} />
+        <TimeSlot firstHour={firstHour} lastHour={lastHour} start={timeSlot.startTime} end={timeSlot.endTime} onTimeSlotPress={onTimeSlotPress} key={i} />
       ));
     }
   }
@@ -33,13 +33,13 @@ function TimeSlots({ firstDay, lastDay, firstHour, lastHour, availability, selec
             style={{
               flex: 1,
               flexDirection: 'row',
-              backgroundColor: i === selectedDay ? 'rgba(0, 0, 0, 0.04)' : 'rgba(0, 0, 0, 0)',
+              backgroundColor: i === selectedDay ? 'rgba(0, 0, 0, 0.05)' : 'rgba(0, 0, 0, 0)',
               // elevation: i === 0 ? 2 : 0
             }}
           >
             <View style={styles.timeSlotSpacer} />
             <View style={styles.timeSlotContainer}>
-              { mapTimeSlotsToComponents(timeSlotsSeparated[i]) }
+              { mapTimeSlotsToComponents(timeSlotsSeparated[i], i) }
             </View>
             <View style={styles.timeSlotSpacer} />
           </View>
@@ -50,7 +50,7 @@ function TimeSlots({ firstDay, lastDay, firstHour, lastHour, availability, selec
             style={{
               flex: 1,
               flexDirection: 'row',
-              backgroundColor: i === selectedDay ? 'rgba(0, 0, 0, 0.05)' : 'rgba(0, 0, 0, 0)',
+              backgroundColor: 'rgba(0, 0, 0, 0)',
             }}
             key={i}
           >

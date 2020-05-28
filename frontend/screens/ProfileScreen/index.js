@@ -45,7 +45,7 @@ function Profile({ navigation }) {
       <FAB
         style={styles.fab}
         icon="pencil"
-        onPress={() => { console.log('navigate to edit schedule'); }}
+        onPress={() => navigation.navigate(Screen.EDIT_SCHEDULE, { schedule: [] })}
       />
     </View>
   );

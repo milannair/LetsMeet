@@ -3,7 +3,7 @@ import { View, TouchableWithoutFeedback } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import moment from 'moment';
 
-function TimeSlot({ firstHour, lastHour, start, end }) {
+function TimeSlot({ firstHour, lastHour, start, end, onTimeSlotPress }) {
   const { colors } = useTheme();
 
   const startMoment = moment(start);
@@ -19,21 +19,16 @@ function TimeSlot({ firstHour, lastHour, start, end }) {
     fifteenMinPercentage * ((startMoment.diff(moment().day(startMoment.day()).hour(firstHour).minutes(0), 'minutes') + 1) / 15)
     :
     0;
-  const handlePress = () => {
-    // TODO: implement functionality when user touches a timeslot (ie: allow user to remove)
-    // TODO: only use onPress when parent has props.selectable = true
-  };
 
   return (
-    <TouchableWithoutFeedback>
+    <TouchableWithoutFeedback onPress={() => onTimeSlotPress(startMoment.day(), start, end)}>
       <View 
         style={{ height: height + '%',
             width: '100%',
             position: 'absolute',
             top: top + '%',
             backgroundColor: colors.accent,
-        }}
-        onPress={() => handlePress()}                      
+        }}                   
       />
     </TouchableWithoutFeedback>
   )

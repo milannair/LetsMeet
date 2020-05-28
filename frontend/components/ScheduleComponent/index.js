@@ -7,7 +7,7 @@ import Days from './components/Days/index';
 import TimeSlots from './components/TimeSlots/index';
 import TimeDividers from './components/TimeDividers/index';
 
-function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable, divideHours }) {
+function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable, divideHours, onDayPress, onTimeSlotPress }) {
   if (firstDay > lastDay) {
     throw 'firstDay must be less than or equal to lastDay';
   } else if (firstHour > lastHour) {
@@ -16,8 +16,6 @@ function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable
     // validate schedule
     if (!schedule) {
       throw 'Schedule is undefined';
-    } else if (!schedule.availability) {
-      throw 'Schedule.timeSlots is undefined';
     } else {
       // schedule.availability.forEach((timeSlot) => {
       //   if (timeSlot.end != 0 && timeSlot.start > timeSlot.end) {
@@ -31,6 +29,7 @@ function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable
 
   const handleDayPress = (selectedDay) => {
     setSelectedDay(selectedDay);
+    onDayPress(selectedDay);
   }
 
   return (
@@ -61,10 +60,11 @@ function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable
           lastDay={lastDay} 
           firstHour={firstHour} 
           lastHour={lastHour} 
-          availability={schedule.availability} // TODO: add functionality for meetings/events (DateTime's)
+          schedule={schedule} // TODO: add functionality for meetings/events (DateTime's)
           selectable={selectable}
           selectedDay={selectedDay}
           onDayPress={handleDayPress} 
+          onTimeSlotPress={onTimeSlotPress}
         />
       </View>
     </View>
