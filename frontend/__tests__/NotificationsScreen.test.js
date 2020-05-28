@@ -6,7 +6,9 @@ it('renders correctly', () => {
   const tree = renderer
     .create(
       <NotificationsScreen
-        notifications={["Dummy notification 1", "Dummy notification 2"]}
+        route={{params: {
+          notifications: ["Dummy notification 1", "Dummy notification 2"],
+        }}}
       />
     )
     .toJSON();

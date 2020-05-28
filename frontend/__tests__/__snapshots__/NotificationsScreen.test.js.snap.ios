@@ -182,7 +182,7 @@ exports[`renders correctly 1`] = `
         <View
           style={
             Object {
-              "backgroundColor": "grey",
+              "backgroundColor": "#808080",
               "borderColor": "transparent",
               "borderRadius": 4,
               "borderStyle": "solid",
@@ -473,7 +473,7 @@ exports[`renders correctly 1`] = `
         <View
           style={
             Object {
-              "backgroundColor": "grey",
+              "backgroundColor": "#808080",
               "borderColor": "transparent",
               "borderRadius": 4,
               "borderStyle": "solid",

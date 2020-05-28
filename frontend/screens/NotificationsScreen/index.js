@@ -9,16 +9,18 @@ import NotificationComponent from "../../components/NotificationComponent/index"
  */
 
 /*
- * Props:
+ * Route parameters:
  * - notifications: the array of notification messages
  */
-function NotificationsScreen(props) {
+function NotificationsScreen({route, navigation}) {
+  const { notifications } = route.params;
+
   let components = [];
 
-  for (let i = 0; i < props.notifications.length; i++) {
+  for (let i = 0; i < notifications.length; i++) {
     components.push(
       <NotificationComponent
-        text={props.notifications[i]}
+        text={notifications[i]}
         positiveAction={() => console.log("+")}
         negativeAction={() => console.log("-")}
       />
