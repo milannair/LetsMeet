@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     paddingHorizontal: 20,
     paddingVertical: 10,
+    backgroundColor: 'white',
   },
   fab: {
     position: 'absolute',
@@ -20,6 +21,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: '#663399',
   },
+  item: {
+    backgroundColor: 'white',
+  }
 });
 
 export default styles;

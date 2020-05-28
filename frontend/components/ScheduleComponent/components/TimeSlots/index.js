@@ -33,7 +33,7 @@ function TimeSlots({ firstDay, lastDay, firstHour, lastHour, availability, selec
             style={{
               flex: 1,
               flexDirection: 'row',
-              backgroundColor: i === selectedDay ? 'rgba(0, 0, 0, 0.04)' : 'rgba(0, 0, 0, 0)',
+              backgroundColor: i === selectedDay ? 'rgba(0, 0, 0, 0.09)' : 'rgba(0, 0, 0, 0)',
               // elevation: i === 0 ? 2 : 0
             }}
           >

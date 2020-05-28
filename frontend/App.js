@@ -10,6 +10,7 @@ const theme = {
     ...DefaultTheme.colors,
     primary: '#b57edc',
     accent: '#aaf0d1',
+    background: 'white',
   },
 };
 
