@@ -5,7 +5,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import * as Screen from './screen-names';
 import MeetingsStackScreen from './stacks/meetings/index';
 import GroupsStackScreen from './stacks/groups/index';
-import NotificationsScreen from '../../screens/NotificationsScreen/index';
+import NotificationsScreen from './stacks/notifications/index';
 import ProfileStackScreen from './stacks/profile/index';
 import useSocket from '../../hooks/UseSocket/index';
 
