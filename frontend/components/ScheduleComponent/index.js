@@ -7,7 +7,7 @@ import Days from './components/Days/index';
 import TimeSlots from './components/TimeSlots/index';
 import TimeDividers from './components/TimeDividers/index';
 
-function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable, divideHours, onDayPress, onTimeSlotPress }) {
+function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, divideHours, onDayPress, onTimeSlotPress, isGroupSchedule }) {
   if (firstDay > lastDay) {
     throw 'firstDay must be less than or equal to lastDay';
   } else if (firstHour > lastHour) {
@@ -25,7 +25,9 @@ function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable
     }
   }
 
-  const [selectedDay, setSelectedDay] = useState(selectable ? firstDay : -1);
+
+
+  const [selectedDay, setSelectedDay] = useState(onDayPress ? firstDay : -1);
 
   const handleDayPress = (selectedDay) => {
     setSelectedDay(selectedDay);
@@ -38,8 +40,7 @@ function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable
         <View style={styles.daysSpacer} />
         <Days 
           firstDay={firstDay} 
-          lastDay={lastDay} 
-          selectable={selectable}
+          lastDay={lastDay}
           selectedDay={selectedDay}
           onDayPress={handleDayPress} 
         />
@@ -61,10 +62,10 @@ function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable
           firstHour={firstHour} 
           lastHour={lastHour} 
           schedule={schedule} // TODO: add functionality for meetings/events (DateTime's)
-          selectable={selectable}
           selectedDay={selectedDay}
           onDayPress={handleDayPress} 
           onTimeSlotPress={onTimeSlotPress}
+          isGroupSchedule={isGroupSchedule}
         />
       </View>
     </View>

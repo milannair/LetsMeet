@@ -28,12 +28,11 @@ function EditScheduleScreen({ route, navigation }) {
     if (startTime && endTime) {
       const startTimeMoment = moment(startTime);
       const endTimeMoment = moment(endTime);
-      const daysDiff = endTimeMoment.day() - startTimeMoment.day();
       setSchedule([
         ...schedule,
         {
           startTime: startTimeMoment.day(selectedDay).toDate(),
-          endTime: endTimeMoment.day(selectedDay + daysDiff).toDate()
+          endTime: endTimeMoment.day(selectedDay).toDate()
         }
       ]);
     }
@@ -191,6 +190,7 @@ function EditScheduleScreen({ route, navigation }) {
           divideHours={true}
           onDayPress={setSelectedDay}
           onTimeSlotPress={handleTimeSlotPress}
+          isGroupSchedule={false}
         />
       </View>
       <RemoveTimeSlotDialog

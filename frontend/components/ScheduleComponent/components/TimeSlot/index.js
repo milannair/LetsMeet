@@ -1,11 +1,8 @@
 import React from 'react';
 import { View, TouchableWithoutFeedback } from 'react-native';
-import { useTheme } from 'react-native-paper';
 import moment from 'moment';
 
-function TimeSlot({ firstHour, lastHour, start, end, onTimeSlotPress }) {
-  const { colors } = useTheme();
-
+function TimeSlot({ firstHour, lastHour, start, end, onTimeSlotPress, color, countAvailable }) {
   const startMoment = moment(start);
   const endMoment = moment(end);
 
@@ -21,13 +18,13 @@ function TimeSlot({ firstHour, lastHour, start, end, onTimeSlotPress }) {
     0;
 
   return (
-    <TouchableWithoutFeedback onPress={() => onTimeSlotPress(startMoment.day(), start, end)}>
+    <TouchableWithoutFeedback onPress={() => onTimeSlotPress && onTimeSlotPress(startMoment.day(), start, end, countAvailable)}>
       <View 
         style={{ height: height + '%',
             width: '100%',
             position: 'absolute',
             top: top + '%',
-            backgroundColor: colors.accent,
+            backgroundColor: color,
         }}                   
       />
     </TouchableWithoutFeedback>
