@@ -16,16 +16,3 @@ export async function postUser(username, email, phone, password, displayName) {
     console.error(error);
   }
 }
-
-export async function getUser(id) {
-  let responseData = {}
-  try {
-    responseData = (await axios.get(url+ '/user/' + id)).data;
-    if(responseData.status === 200) {
-      return responseData.data
-    }
-  } catch (error) {
-    console.error(error);
-  }
-  return responseData;
-}
