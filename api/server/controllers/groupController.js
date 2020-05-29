@@ -208,9 +208,9 @@ exports.removeMemberRequest = function(req, res) {
 // Adds the meetingRequestId from the list of group's meeting requests
 exports.addMeetingRequest = function(req, res) {
     Group.update(
-        {_id: req.params.groupId},
+        {_id: req.body.groupId},
         {
-            $push: {meetingRequests : req.params.meetingRequestId}
+            $push: {meetingRequests : req.body.meetingRequestId}
         },
     function(err, data) {
         if(err) {

@@ -2,8 +2,9 @@ Option = require('../models/optionModel')
 
 // Create an option
 exports.create = function(req, res) {
+    console.log('In the controller')
     let option = new Option();
-    option.time = {start : req.params.start, end: req.params.end}
+    option.time = {start : req.body.start, end: req.body.end}
     option.votes = req.params.votes;
     
     option.save(function(err) {

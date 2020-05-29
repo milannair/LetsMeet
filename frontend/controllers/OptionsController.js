@@ -1,13 +1,18 @@
 const axios = require('axios').default;
 const protocol = 'http://';
-const baseUrl = '127.0.0.1';
+const baseUrl = '10.0.0.224';
 const port = 8000;
 const route = '/lm';
 const url = protocol + baseUrl + ':' + port + route
 
 export async function createOption(start, end, votes) {
     try {
-        const response =(await axios.post(url + '/options/' + start + '&' + end + '&' + votes)).data
+        console.log('got here')
+        const response =(await axios.post(url + '/options/', {
+            start: start,
+            end: end,
+            votes: votes,
+        })).data
         if(response.status === 200) {
             return response.data;
         } else {

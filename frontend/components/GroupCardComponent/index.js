@@ -1,11 +1,12 @@
 import React, { useState} from 'react';
 import { View } from 'react-native';
 import { Avatar, Card, IconButton } from 'react-native-paper';
-import styles from './styles'
+import styles from './styles';
+import {VIEW_GROUP} from '../../navigation/tab_navigator/stacks/groups/screen-names';
 
 
 
-function CardComponent({groupName, heartActiveCallback, index, heartStatus=false, groupDescription="Buenas Tardes Amigo"}) {
+function CardComponent({navigation, groupName, groupId, userId, heartActiveCallback, index, heartStatus=false, groupDescription="Buenas Tardes Amigo"}) {
 
     const [heart, setHeart] = useState(heartStatus)
     const LeftContent = () => (<Avatar.Image size={40} source={{ uri: "https://picsum.photos/60" + index}} />);
@@ -21,7 +22,8 @@ function CardComponent({groupName, heartActiveCallback, index, heartStatus=false
 
     return (
     <View style={styles.container}>
-        <Card style={styles.card} onPress={()=> alert("Will eventually take you to the group")}>
+        <Card style={styles.card} 
+             onPress={() => {navigation.navigate(VIEW_GROUP, {groupId: groupId, userId: userId})}}>
             <Card.Title title={groupName} subtitle={groupDescription} left={LeftContent} right={RightContent}/>
         </Card>
     </View>

@@ -1,6 +1,6 @@
 const axios = require('axios').default;
 const protocol = 'http://';
-const baseUrl = '127.0.0.1';
+const baseUrl = '10.0.0.224';
 const port = 8000;
 const route = '/lm';
 const url = protocol + baseUrl + ':' + port + route
@@ -10,7 +10,9 @@ export async function createGroupMeetingRequest(author, groupId, name, isUnanimo
         let response = (await createMeetingRequest(author, groupId, name, isUnanimousMeetingRequest, requestedOptions,
             deadline, status)).data;
             if(response.status == 200) {
-                addMeetingRequestToGroup(groupId, data._id);
+                let id = response.data._id;
+                response = await addMeetingRequestToGroup(groupId, id);
+
             }
 
     }
@@ -18,7 +20,7 @@ export async function createGroupMeetingRequest(author, groupId, name, isUnanimo
 export async function getMeetingRequest(meetingRequestId) {
     try{
         const response = (await axios.get(url + '/meetingRequest/' + meetingRequestId)).data;
-        if(data.status === 200) {
+        if(response.status === 200) {
             return response.data;
         } else {
             console.log(response);
@@ -32,9 +34,16 @@ async function createMeetingRequest(author, groupId, name, isUnanimousMeetingReq
     requestedOptions, deadline, status) {
 
     try{
-        return axios.post(url + '/meetingRequest/' + author + '&'+
-        groupId + '&' + name + '&' + isUnanimousMeetingRequest + '&' + requestedOptions + '&' + 
-        deadline + '&' + status);
+        const response = await axios.post(url + '/meetingRequests/', {
+            author: author,
+            groupId: groupId,
+            name: name,
+            isUnanimousMeetingRequest: isUnanimousMeetingRequest,
+            requestedOptions: requestedOptions,
+            deadline: deadline,
+            status: status,
+        });
+        return response
     } catch(err) {
         console.log(err)
     }
@@ -43,7 +52,10 @@ async function createMeetingRequest(author, groupId, name, isUnanimousMeetingReq
 
 async function addMeetingRequestToGroup(groupId, meetingRequestId) {
     try{
-        return response = axios.post(url + '/addMeetingRequest/' + groupId + '&' + meetingRequestId);
+        return axios.post(url + '/group/addMeetingRequest/', {
+            groupId: groupId,
+            meetingRequestId: meetingRequestId
+        });
     } catch(err) {
         console.log(err);
     }
