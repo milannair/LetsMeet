@@ -50,9 +50,63 @@ module.exports = {
         errorMessage: err.message,
         errorName: err.name,
       })
+<<<<<<< HEAD
     );
     res.json(singleUser);
   },
+=======
+    }
+    res.json({
+      status: res.statusCode,
+      message: "User retreived!",
+      data: user,
+    });
+  });
+};
+
+// Handle update user info
+exports.update = function (req, res) {
+  User.findById(req.params.userId, function (err, user) {
+    if (err) res.send(err);
+    user.name = req.body.name ? req.body.name : user.name;
+    user.email = req.body.email;
+    user.phone = req.body.phone;
+    user.password = req.body.password;
+    // save the user and check for errors
+    user.save(function (err) {
+      if (err) res.json(err);
+      res.json({
+        message: "user Info updated",
+        data: user,
+      });
+    });
+  });
+};
+
+// Handle delete user
+exports.delete = function (req, res) {
+  User.deleteOne(
+    {
+      _id: req.params.userId,
+    },
+    function (err, data) {
+      if (err) {
+        res.json({
+          status: 500,
+          errorMessage: err.message,
+          errorName: err.name
+        });
+      } else {
+        res.json({
+          status: res.statusCode,
+          message: "user deleted",
+          data: data,
+        });
+      }
+    }
+  );
+};
+>>>>>>> efd6885030780aad6266c674aa0f59b7c7b3465c
 
   delete: async (req, res) => {
     const deleteUser = await User.findByIdAndDelete(req.params.userId).catch(
