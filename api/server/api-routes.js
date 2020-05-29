@@ -36,16 +36,7 @@ router.route("/user/groups/:userId").get(userController.userGroups);
 //Get users by username
 router.route("/users/:username").get(userController.usersByUsername);
 
-<<<<<<< HEAD
 //Add group to list of group requests the user has
-=======
-// Delete user by id
-router
-  .route('/users/:userid')
-  .delete(userController.delete)
-
-// Add group to list of group requests the user has
->>>>>>> efd6885030780aad6266c674aa0f59b7c7b3465c
 router
   .route("/user/addGroupRequest/:userId/:groupId")
   .post(userController.addGroupRequest);
