@@ -137,7 +137,7 @@ export async function addGroupRequest(userId, groupId) {
           route +
           "/user/addGroupRequest/" +
           userId +
-          "/" +
+          "&" +
           groupId
       )
     ).data;
@@ -187,7 +187,7 @@ export async function addGroup(userId, groupId) {
           route +
           "/user/addGroup/" +
           userId +
-          "/" +
+          "&" +
           groupId
       )
     ).data;
@@ -212,7 +212,7 @@ export async function removeGroup(userId, groupId) {
           route +
           "/user/addGroup/" +
           userId +
-          "/" +
+          "&" +
           groupId
       )
     ).data;
@@ -254,7 +254,7 @@ export async function addMeeting(userId, meetingId) {
           route +
           "/user/addMeeting/" +
           userId +
-          "/" +
+          "&" +
           meetingId
       )
     ).data;
@@ -279,7 +279,7 @@ export async function removeMeeting(userId, meetingId) {
           route +
           "/user/removeMeeting/" +
           userId +
-          "/" +
+          "&" +
           meetingId
       )
     ).data;
