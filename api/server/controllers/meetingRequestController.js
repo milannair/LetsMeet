@@ -2,14 +2,15 @@ MeetingRequest = require('../models/meetingRequestModel')
 
 // Create a new meeting request
 exports.create = function(req, res) {
+    console.log("got here 2")
     let meetingRequest = new MeetingRequest();
-    meetingRequest.author = req.params.author;
-    meetingRequest.groupId = req.params.groupId;
-    meetingRequest.name = req.params.name ? req.params.name : 'Meeting';
-    meetingRequest.isUnanimousMeetingRequest = req.params.isUnanimousMeetingRequest;
-    meetingRequest.requestedOptions = req.params.requestedOptions;
-    meetingRequest.deadline = req.params.deadline;
-    meetingRequest.status = req.params.status;
+    meetingRequest.author = req.body.author;
+    meetingRequest.groupId = req.body.groupId;
+    meetingRequest.name = req.body.name ? req.body.name : 'Meeting';
+    meetingRequest.isUnanimousMeetingRequest = req.body.isUnanimousMeetingRequest;
+    meetingRequest.requestedOptions = req.body.requestedOptions;
+    meetingRequest.deadline = req.body.deadline;
+    meetingRequest.status = req.body.status;
 
     meetingRequest.save(function(err){
         if(err) {

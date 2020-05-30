@@ -2,8 +2,9 @@ Option = require('../models/optionModel')
 
 // Create an option
 exports.create = function(req, res) {
+    console.log('In the controller')
     let option = new Option();
-    option.time = {start : req.params.start, end: req.params.end}
+    option.time = {start : req.body.start, end: req.body.end}
     option.votes = req.params.votes;
     
     option.save(function(err) {
@@ -24,7 +25,7 @@ exports.create = function(req, res) {
 
 // Delete a Meeting Request
 exports.delete = function(req, res) {
-    MeetingRequest.findByIdAndRemove(req.params.optionId , function(err, data){
+    Option.findByIdAndRemove(req.params.optionId , function(err, data){
         if(err) {
             res.json({
                 status: 500,
@@ -42,7 +43,7 @@ exports.delete = function(req, res) {
 
 // Gets all the data in the option
 exports.view = function(req, res) {
-    MeetingRequest.findById(req.params.optionId, function(err, data){
+    Option.findById(req.params.optionId, function(err, data){
         if(err) {
             res.json({
                 status: 500,
@@ -60,7 +61,7 @@ exports.view = function(req, res) {
 
 // Update option start time
 exports.updateStart = function(req, res) {
-    MeetingRequest.updateOne({_id : req.params.optionId}, 
+    Option.updateOne({_id : req.params.optionId}, 
         {
             $set : {'time.start' : req.params.start}
         }, 
@@ -82,7 +83,7 @@ exports.updateStart = function(req, res) {
 
 // Update option end time
 exports.updateEnd = function(req, res) {
-    MeetingRequest.updateOne({_id : req.params.optionId}, 
+    Option.updateOne({_id : req.params.optionId}, 
         {
             $set : {'time.end' : req.params.end}
         }, 
@@ -104,7 +105,7 @@ exports.updateEnd = function(req, res) {
 
 // Add a vote
 exports.addVote = function(req, res) {
-    MeetingRequest.updateOne({_id : req.params.optionId}, 
+    Option.updateOne({_id : req.params.optionId}, 
         {
             $push : {votes: req.params.userId}
         }, 
@@ -126,7 +127,7 @@ exports.addVote = function(req, res) {
 
 // Remove a vote
 exports.removeVote = function(req, res) {
-    MeetingRequest.updateOne({_id : req.params.optionId}, 
+    Option.updateOne({_id : req.params.optionId}, 
         {
             $pull : {votes: req.params.userId}
         }, 

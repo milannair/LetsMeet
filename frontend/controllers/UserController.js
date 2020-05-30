@@ -25,3 +25,17 @@ export async function getUser(id) {
     console.error(error);
   }
 }
+
+export async function getUserIdentifiers(id) {
+  try {
+    const response = (await axios.get(url + '/user/identifiers/' + id)).data;
+    if(response.status === 200) {
+      return response.data
+    } else {
+      console.log(response);
+    }
+    
+  } catch (error) {
+    console.error('Error: ' +error);
+  }
+}

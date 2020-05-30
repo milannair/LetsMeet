@@ -34,6 +34,17 @@ export async function getUserGroups(userId) {
     return groups
 }
 
+export async function getGroupData(groupId) {
+    try {
+        const response = (await axios.get(url + '/group/' + groupId)).data
+        if(response.status === 200) {
+            return response.data
+        }
+    }catch(err) {
+        console.log(err)
+    }
+}
+
 export async function createUserGroup(owner, name, memberRequests) {
     let response = await createGroup(owner, name, memberRequests)
     if(response.status === 200) {
@@ -95,7 +106,6 @@ async function addUserGroupRequest(userId, groupId) {
             userId: userId,
             groupId: groupId
         });
-        console.log(response.data)
         return response.data
     } catch(error) {
         console.log(error)

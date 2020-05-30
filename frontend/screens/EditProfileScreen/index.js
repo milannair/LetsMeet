@@ -113,6 +113,7 @@ function EditProfile({ navigation }) {
       <Button
         style={styles.button}
         mode="contained"
+        uppercase={false}
         onPress={() => setVisibleChangePassword(true)}
       >
         Change Password
@@ -121,6 +122,7 @@ function EditProfile({ navigation }) {
         style={styles.button}
         mode="contained"
         color="#db0000"
+        uppercase={false}
         onPress={() => setVisibleDeleteAccount(true)}
       >
         Delete Account

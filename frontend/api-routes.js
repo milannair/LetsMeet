@@ -1,6 +1,6 @@
 export const protocol = 'http://';
-export const baseUrl = 'b66022ee.ngrok.io';
+export const baseUrl = '192.168.1.15';
 export const port = 8000;
 export const route = '/lm';
-export const url = protocol + baseUrl + route;
-export const socketUrl = protocol + baseUrl;
+export const url = protocol + baseUrl + ':' + port + route;
+export const socketUrl = protocol + baseUrl + ':' + port;

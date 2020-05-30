@@ -10,11 +10,10 @@ router.get("/", function (req, res) {
 });
 // Import all controllers for our models
 let userController = require("./controllers/userController");
-let groupController = require("./controllers/groupController")
-// Import meeting controller
-var meetingController = require("./controllers/meetingController");
+let groupController = require("./controllers/groupController");
 let meetingRequestController = require("./controllers/meetingRequestController");
 let optionController = require("./controllers/optionController");
+var meetingController = require("./controllers/meetingController");
 
 // User routes
 
@@ -27,6 +26,11 @@ router
 router
   .route('/user/:userId')
   .get(userController.view)
+
+// Get user's identifiers
+router
+  .route('/user/identifiers/:userId')
+  .get(userController.getUserIdentifiers)
 
 // Get user groups 
 router
@@ -129,12 +133,12 @@ router
 
 // Add meeting request to the group
 router
-  .route('/group/addMeetingRequest')
+  .route('/group/addMeetingRequest/')
   .post(groupController.addMeetingRequest)
 
 // Remove meeting request from the group
 router
-  .route('/group/removeMeetingRequest')
+  .route('/group/removeMeetingRequest/:groupId&:meetingRequestId')
   .post(groupController.removeMeetingRequest)
 
 
@@ -171,7 +175,7 @@ router
 
 // Create a meeting request
 router
-  .route('/meetingRequest/create/:author&:groupId&:name&:isUnanimousMeetingRequest&:requestedOptions&:deadlin&:status')
+  .route('/meetingRequests/')
   .post(meetingRequestController.create)
 
 // Delete a meeting request
@@ -206,7 +210,7 @@ router
 
 // Update request status
 router
-  .route('/meetingRequest/updateStatus/:meetingRequestId&:status')
+  .route('/meetingRequest/updateRequestStatus/:meetingRequestId&:status')
   .post(meetingRequestController.updateRequestStatus)
 
 
@@ -215,7 +219,7 @@ router
 
 // Create an Option
 router
-  .route('/option/create/:start&:end&:votes')
+  .route('/options/')
   .post(optionController.create)
 
 // Delete an Option
