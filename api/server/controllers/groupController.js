@@ -20,7 +20,7 @@ exports.create = function(req, res) {
         res.json({
             status: res.statusCode,
             message: "Group created successfully",
-            data: {_id : group._id}
+            data: group
         })
     })
 }
@@ -233,9 +233,9 @@ exports.addMeetingRequest = function(req, res) {
 // Removes the meetingRequestId from the list of group's meeting requests
 exports.removeMeetingRequest = function(req, res) {
     Group.update(
-        {_id: req.params.groupId},
+        {_id: req.body.groupId},
         {
-            $pull: {meetingRequests : req.params.meetingRequestId}
+            $pull: {meetingRequests : req.body.meetingRequestId}
         },
     function(err, data) {
         if(err) {
