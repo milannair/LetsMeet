@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { Appbar, FAB } from 'react-native-paper';
 import CardComponent from '../../components/GroupCardComponent/index';
 import styles from './styles'
-import { CREATE_GROUP } from '../../navigation/tab_navigator/stacks/groups/screen-names';
+import { CREATE_GROUP} from '../../navigation/tab_navigator/stacks/groups/screen-names';
 import {getUserGroups} from '../../controllers/GroupController'
 
 const userId = '5ec07929b5169a2a249e2d95'
@@ -36,11 +36,12 @@ function GroupsScreen({route, navigation}) {
         <Appbar.Action 
           icon="dots-vertical" 
           color="white" 
-          size={20}
           onPress={()=> alert("Will eventually take you to the settings screen")}
         />
       </Appbar.Header>
-      {groupComponents()}
+      <ScrollView style={{flex: 1, flexDirection: 'column'}} scrollEnabled={true}>
+        {groupComponents()}
+      </ScrollView>
       <FAB
         style={styles.fab}
         icon="plus"
@@ -54,10 +55,12 @@ function GroupsScreen({route, navigation}) {
     for (let i = 0; i < groupsDetails.length; i++) {
       list.push (
         <CardComponent 
+          navigation={navigation}
           key={"GroupCard" + i}
           groupName={groupsDetails[i].name} 
+          groupId = {groupsDetails[i]._id}
+          userId = {userId}
           heartActiveCallback={(index) => console.log("Heart does nothing for now")} 
-          heartActive={Math.random() >= 0.5}
           index = {i}
           heartStatus ={Math.random() >= 0.5}
         />
