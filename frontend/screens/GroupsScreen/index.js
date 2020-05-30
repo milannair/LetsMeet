@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView } from 'react-native';
-import { Appbar, FAB } from 'react-native-paper';
+import { FAB } from 'react-native-paper';
 import CardComponent from '../../components/GroupCardComponent/index';
+import AppbarComponent from "../../components/AppbarComponent";
 import styles from './styles'
 import { CREATE_GROUP} from '../../navigation/tab_navigator/stacks/groups/screen-names';
 import {getUserGroups} from '../../controllers/GroupController'
@@ -29,16 +30,7 @@ function GroupsScreen({route, navigation}) {
 
   return (
     <View style={styles.container}>
-      <Appbar.Header style={styles.navbar} >
-        <Appbar.Content
-          title="LetsMeet"
-        />
-        <Appbar.Action 
-          icon="dots-vertical" 
-          color="white" 
-          onPress={()=> alert("Will eventually take you to the settings screen")}
-        />
-      </Appbar.Header>
+      <AppbarComponent />
       <ScrollView style={{flex: 1, flexDirection: 'column'}} scrollEnabled={true}>
         {groupComponents()}
       </ScrollView>
@@ -60,7 +52,7 @@ function GroupsScreen({route, navigation}) {
           groupName={groupsDetails[i].name} 
           groupId = {groupsDetails[i]._id}
           userId = {userId}
-          heartActiveCallback={(index) => console.log("Heart does nothing for now")} 
+          heartActiveCallback={(index) => console.log("Heart does nothing for now")}
           index = {i}
           heartStatus ={Math.random() >= 0.5}
         />

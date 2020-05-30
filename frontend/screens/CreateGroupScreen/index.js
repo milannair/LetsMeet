@@ -4,6 +4,7 @@ import { Appbar, Avatar, IconButton, Button, Colors, TextInput, Chip, Searchbar,
 import styles from './styles'
 import { GROUPS } from '../../navigation/tab_navigator/stacks/groups/screen-names';
 import {getUsers, createUserGroup} from '../../controllers/GroupController';
+import AppbarComponent from "../../components/AppbarComponent";
 
 
 let invitedMemberUsernames = []
@@ -107,20 +108,22 @@ function CreateGroupScreen({route, navigation}) {
 
     return(
         <View style={styles.container}>
-            <Appbar.Header style={styles.navbar}>
-                <Appbar.BackAction onPress={() => {
-                    setSearchQuery("");
-                    previousQuery = "";
-                    invitedMemberUsernames = [];
-                    searchResults = [];
-                    navigation.navigate(GROUPS);
-                    }}/>
-                <Appbar.Content title='Create a Group'/>
-                <Button color='white' labelStyle={styles.buttonText} onPress={() => createGroup()}>
-                    DONE
-                </Button>
-                
-            </Appbar.Header>
+            <AppbarComponent
+              showBack={true}
+              backOnPress={() => {
+                  setSearchQuery("");
+                  previousQuery = "";
+                  invitedMemberUsernames = [];
+                  searchResults = [];
+                  navigation.navigate(GROUPS);
+              }}
+              buttons={[
+                  <Button color='white' labelStyle={styles.buttonText}
+                          onPress={() => createGroup()}>
+                      DONE
+                  </Button>
+              ]}
+            />
 
             <View style={styles.groupDetailsContainer}>
                 <View style={styles.groupAvatarEdit}>
