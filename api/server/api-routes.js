@@ -8,11 +8,10 @@ router.get("/", function (req, res) {
     message: "LetsMeet API",
   });
 });
-// Import all controllers for our models
+// Import user controller
 let userController = require("./controllers/userController");
-let groupController = require("./controllers/groupController");
-let meetingRequestController = require("./controllers/meetingRequestController");
-let optionController = require("./controllers/optionController");
+let groupController = require("./controllers/groupController")
+// Import meeting controller
 var meetingController = require("./controllers/meetingController");
 
 // User routes
@@ -26,11 +25,6 @@ router
 router
   .route('/user/:userId')
   .get(userController.view)
-
-// Get user's identifiers
-router
-  .route('/user/identifiers/:userId')
-  .get(userController.getUserIdentifiers)
 
 // Get user groups 
 router
@@ -138,96 +132,43 @@ router
 
 // Add meeting request to the group
 router
-  .route('/group/addMeetingRequest/')
+  .route('/group/addMeetingRequest')
   .post(groupController.addMeetingRequest)
 
 // Remove meeting request from the group
 router
-  .route('/group/removeMeetingRequest/:groupId&:meetingRequestId')
+  .route('/group/removeMeetingRequest')
   .post(groupController.removeMeetingRequest)
 
 
+  //// Meeting paths ////
 
-///// MeetingRequest routes ////
 
-// Create a meeting request
+// Create a meeting
 router
-  .route('/meetingRequests/')
-  .post(meetingRequestController.create)
+  .route('/meetings')
+  .post(meetingController.create);
 
-// Delete a meeting request
+// Delete a meeting
 router
-  .route('/meetingRequest/delete/:meetingRequestId')
-  .delete(meetingRequestController.delete)
+  .route('/meeting/delete/:meetingId')
+  .delete(meetingController.delete);
 
-// Get all data about the meeting request
+// Get all the details about a meeting
 router
-  .route('/meetingRequest/:meetingRequestId')
-  .get(meetingRequestController.view)
+  .route('/meeting/:meetingId')
+  .get(meetingController.view);
 
-// Update meeting name
+// Confirm a meeting
 router
-  .route('/meetingRequest/rename/:meetingRequestId&:name')
-  .post(meetingRequestController.rename)
+  .route('/meeting/confirm/:meetingId')
+  .post(meetingController.confirm);
 
-// Update request type
+// Unconfirm a meeting
 router
-  .route('/meetingRequest/updateRequestType/:meetingRequestId&:isUnanimousMeetingRequest')
-  .post(meetingRequestController.updateRequestType)
+  .route('/meeting/unconfirm/:meetingId')
+  .post(meetingController.unconfirm);
 
-// Add specified options to the meeting request options
-router
-  .route('/meetingRequest/addRequestedOptions/:meetingRequestId&:requestedOptions')
-  .post(meetingRequestController.addRequestedOptions)
-
-// Remove specified options from the meeting request
-router
-  .route('/meetingRequest/removeRequestedOptions/:meetingRequestId&:requestedOptions')
-  .post(meetingRequestController.removeRequestedOptions)
-
-// Update request status
-router
-  .route('/meetingRequest/updateRequestStatus/:meetingRequestId&:status')
-  .post(meetingRequestController.updateRequestStatus)
-
-
-///// Option routes ////
-
-
-// Create an Option
-router
-  .route('/options/')
-  .post(optionController.create)
-
-// Delete an Option
-router
-  .route('/option/delete/:optionId')
-  .delete(optionController.delete)
-
-// View an Option
-router
-  .route('/option/:optionId')
-  .get(optionController.view)
-
-// Update start time
-router
-.route('/option/updateStart/:optionId&:start')
-.post(optionController.updateStart)
-
-// Update end time
-router
-.route('/option/updateEnd/:optionId&:end')
-.post(optionController.updateEnd)
-
-// Add a vote
-router
-.route('/option/addVote/:optionId&:userId')
-.post(optionController.addVote)
-
-// Remove a vote
-router
-.route('/option/removeVote/:optionId&:userId')
-.post(optionController.removeVote)
 
 // Export API routes
 module.exports = router;
