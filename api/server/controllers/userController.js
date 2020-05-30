@@ -311,3 +311,48 @@ exports.removeMeeting = function(req, res) {
     }
   );
 }
+
+// Receives userId as input
+// Sends the user's schedule
+exports.viewSchedule = function(req, res) {
+  User.findById(req.params.userId, {schedule: 1}, function(err, data) {
+    if(err) {
+      res.json({
+        status: 500,
+        errorMessage: err.message,
+        errorName: err.name
+      });
+    } else {
+      res.json({
+        status: res.statusCode,
+        message: "Successfully retrieved user schedule",
+        data: data
+      });
+    }
+  });
+}
+
+// Receives userId and schedule as input
+// Sets the schedule for the user to the given schedule
+exports.setSchedule = function(req, res) {
+  User.update(
+    { _id: req.body.userId },
+    {
+      $set: { schedule: req.body.schedule }
+    },
+  function(err, data) {
+    if(err) {
+      res.json({
+        status: 500,
+        errorMessage: err.message,
+        errorName: err.name
+      });
+    } else {
+      res.json({
+        status: res.statusCode,
+        message: "Successfully updated user schedule",
+        data: data
+      });
+    }
+  });
+}
