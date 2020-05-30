@@ -22,12 +22,16 @@ export async function postUser(username, email, phone, password, displayName) {
 }
 
 export async function getUser(id) {
+  let responseData = {}
   try {
-    const response = await axios.get(protocol + baseUrl + ':' + port + route + '/user/' + id);
-    return response.data.data;
+    responseData = (await axios.get(protocol + baseUrl + ':' + port + route + '/user/' + id)).data;
+    if(responseData.status === 200) {
+      return responseData.data
+    }
   } catch (error) {
     console.error(error);
   }
+  return responseData;
 }
 
 export async function getUserIdentifiers(id) {
