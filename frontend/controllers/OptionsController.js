@@ -39,12 +39,9 @@ export async function getOption(optionId) {
 
 export async function addVote(optionId, userId) {
     try {
-        const response = (await axios.get(url + '/option/addVote/', {
-            optionId: optionId,
-            userId: userId,
-        })).data;
+        const response = (await axios.post(url + '/option/addVote/' + optionId + '&' + userId)).data;
         if (response.status === 200) {
-            return response.daata;
+            return response.data;
         } else {
             console.log(response);
         }
@@ -55,10 +52,7 @@ export async function addVote(optionId, userId) {
 
 export async function removeVote(optionId, userId) {
     try {
-        const response = (await axios.get(url + '/option/removeVote/', {
-            optionId: optionId,
-            userId: userId,
-        })).data;
+        const response = (await axios.post(url + '/option/removeVote/' + optionId + '&' + userId)).data;
         if (response.status === 200) {
             return response.daata;
         } else {
