@@ -26,7 +26,7 @@ function ViewPollScreen({route, navigation}) {
     //     return;
     //   }
     // }
-    // // console.log("add vote");
+    // console.log("add vote");
     // addVote(option._id, route.params.userId)
   }
 
@@ -61,7 +61,7 @@ function ViewPollScreen({route, navigation}) {
                 title={moment(startTime).format("dddd, MMMM Do YYYY")}
                 description={moment(startTime).format("LT") + " to " + moment(endTime).format("LT")}
                 right={() => <Text style={styles.numVotes}>{numVotes}</Text>}
-                onPress={(option) => optionPressed(option)}
+                onPress={() => addVote(option._id, route.params.userId)}
               />
               <Divider />
             </View>
