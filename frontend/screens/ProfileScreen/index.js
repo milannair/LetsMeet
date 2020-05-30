@@ -8,8 +8,6 @@ import { getUser } from '../../controllers/UserController';
 import * as Screen from '../../navigation/tab_navigator/stacks/profile/screen-names';
 import ScheduleComponent from '../../components/ScheduleComponent/index'
 import Day from '../../enums/Day';
-import moment from 'moment';
-import Schedule from '../../models/Schedule';
 import { useIsFocused } from '@react-navigation/native'
 
 function Profile({ navigation }) {

@@ -4,7 +4,7 @@ var MeetingRequest = require("./meetingRequestModel");
 //var Schedule = require("./scheduleModel");
 
 var groupSchema = mongoose.Schema({
-  meetingRequests: [MeetingRequest],
+  meetingRequests: [mongoose.Types.ObjectId],
   memberRequests: [mongoose.Types.ObjectId], //UserID
   members: [mongoose.Types.ObjectId], //UserID
   owner: mongoose.Types.ObjectId, //UserID
