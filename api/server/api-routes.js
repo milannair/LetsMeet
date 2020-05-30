@@ -229,5 +229,33 @@ router
 .route('/option/removeVote/:optionId&:userId')
 .post(optionController.removeVote)
 
+//// Meeting paths ////
+
+// Create a meeting
+router
+  .route('/meetings')
+  .post(meetingController.create);
+
+// Delete a meeting
+router
+  .route('/meeting/delete/:meetingId')
+  .delete(meetingController.delete);
+
+// Get all the details about a meeting
+router
+  .route('/meeting/:meetingId')
+  .get(meetingController.view);
+
+// Confirm a meeting
+router
+  .route('/meeting/confirm/:meetingId')
+  .post(meetingController.confirm);
+
+// Unconfirm a meeting
+router
+  .route('/meeting/unconfirm/:meetingId')
+  .post(meetingController.unconfirm);
+
+
 // Export API routes
 module.exports = router;
