@@ -2,10 +2,9 @@ import { StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
-      height: 80,
-      width: '100%',
-      alignItems: 'center',
-      justifyContent: 'center'
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
     },
     button: {
       backgroundColor: 'black',
@@ -14,7 +13,7 @@ const styles = StyleSheet.create({
     card: {
         width: "100%",
         height: "100%",
-        paddingTop: "5%",
+        // paddingTop: "5%",
         borderBottomWidth: 1,
         borderBottomColor: "rgb(211,211,211)",
         borderTopStartRadius: 0,
