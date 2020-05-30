@@ -48,6 +48,24 @@ exports.view = function (req, res) {
   });
 };
 
+// Get user's name, username, and email
+exports.getUserIdentifiers = function(req, res) {
+  User.find({_id: req.params.userId}, {displayName: 1, username: 1, email: 1}, function (err, data) {
+    if (err) { 
+      res.json({
+        status: 500,
+        errorMessage: err.message,
+        errorName: err.name
+      })
+    }
+    res.json({
+      status: res.statusCode,
+      message: "User retreived!",
+      data: data,
+    });
+  });
+}
+
 // Handle update user info
 exports.update = function (req, res) {
   User.findById(req.params.userId, function (err, user) {
@@ -73,12 +91,20 @@ exports.delete = function (req, res) {
     {
       _id: req.params.userId,
     },
-    function (err, user) {
-      if (err) res.send(err);
-      res.json({
-        status: "success",
-        message: "user deleted",
-      });
+    function (err, data) {
+      if (err) {
+        res.json({
+          status: 500,
+          errorMessage: err.message,
+          errorName: err.name
+        });
+      } else {
+        res.json({
+          status: res.statusCode,
+          message: "user deleted",
+          data: data,
+        });
+      }
     }
   );
 };
@@ -143,9 +169,6 @@ exports.addGroupRequest = function(req, res) {
         message: "Request successfully added to the user",
         data: data
       })
-      // console.log(io);
-      console.log(socket.clients);
-      console.log(req.body.userId);
       socket.io.to(socket.clients[req.body.userId]).emit('add group request');
     }
   })
@@ -302,4 +325,49 @@ exports.removeMeeting = function(req, res) {
       }
     }
   );
+}
+
+// Receives userId as input
+// Sends the user's schedule
+exports.viewSchedule = function(req, res) {
+  User.findById(req.params.userId, {schedule: 1}, function(err, data) {
+    if(err) {
+      res.json({
+        status: 500,
+        errorMessage: err.message,
+        errorName: err.name
+      });
+    } else {
+      res.json({
+        status: res.statusCode,
+        message: "Successfully retrieved user schedule",
+        data: data
+      });
+    }
+  });
+}
+
+// Receives userId and schedule as input
+// Sets the schedule for the user to the given schedule
+exports.setSchedule = function(req, res) {
+  User.updateOne(
+    { _id: req.body.userId },
+    {
+      $set: { schedule: req.body.schedule }
+    },
+  function(err, data) {
+    if(err) {
+      res.json({
+        status: 500,
+        errorMessage: err.message,
+        errorName: err.name
+      });
+    } else {
+      res.json({
+        status: res.statusCode,
+        message: "Successfully updated user schedule",
+        data: data
+      });
+    }
+  });
 }

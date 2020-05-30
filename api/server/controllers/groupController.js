@@ -1,5 +1,5 @@
 Group = require("../models/groupModel")
-
+var socket = require('../../server');
 
 // Creates a new group
 exports.create = function(req, res) {
@@ -20,7 +20,7 @@ exports.create = function(req, res) {
         res.json({
             status: res.statusCode,
             message: "Group created successfully",
-            data: group
+            data: {_id : group._id}
         })
     })
 }
@@ -224,6 +224,7 @@ exports.addMeetingRequest = function(req, res) {
                 status: res.statusCode,
                 data: data
             })
+            socket.io.to(req.body.groupId).emit('add meeting request');
         }
     });
 }
@@ -249,6 +250,7 @@ exports.removeMeetingRequest = function(req, res) {
                 status: res.statusCode,
                 data: data
             })
+            socket.io.to(req.body.groupId).emit('remove meeting request');
         }
     });
 }
