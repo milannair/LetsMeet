@@ -14,6 +14,10 @@ let groupController = require("./controllers/groupController");
 let meetingRequestController = require("./controllers/meetingRequestController");
 let optionController = require("./controllers/optionController");
 
+let groupController = require("./controllers/groupController")
+// Import meeting controller
+var meetingController = require("./controllers/meetingController");
+
 // User routes
 
 // Create user
@@ -61,6 +65,20 @@ router
   .route('/user/removeGroup')
   .post(userController.removeGroup)
 
+// Get user meetings
+router
+  .route('/user/meetings/:userId')
+  .get(userController.userMeetings);
+
+// Add meeting to the list of user's meetings
+router
+  .route('/user/addMeeting')
+  .post(userController.addMeeting);
+
+// Remove meeting from the list of user's meetings
+router
+  .route('/user/removeMeeting')
+  .post(userController.removeMeeting);
 
 
   //// Group paths ////

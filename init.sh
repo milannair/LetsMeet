@@ -11,6 +11,8 @@ else
     touch .env
     echo 'DB_USERNAME=dev' >> .env
     echo 'DB_PW=devpass' >> .env
+    echo 'USE_LOCAL_DB=false' >> .env
+    echo 'privateKey=peerKey' >> .env
     npm install
     cd ../frontend
     npm install

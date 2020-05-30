@@ -16,6 +16,11 @@ dist: bionic
 jobs:
   include:
     - name: "api"
+      services:
+        - docker
+      before_script:
+      - docker run -d -p 27017:27017 --rm mongo
+      - echo "USE_LOCAL_DB=true" >> api/.env
     - name: "frontend"
 
 install: npm ci --prefix ${TRAVIS_JOB_NAME}

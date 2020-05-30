@@ -32,13 +32,15 @@ exports[`renders correctly 1`] = `
   }
 >
   <div
-    aria-disabled={true}
-    className="css-view-1dbjc4n"
-    disabled={true}
+    className="css-cursor-18t94o4 css-view-1dbjc4n"
+    data-focusable={true}
+    disabled={false}
     onKeyDown={[Function]}
+    onKeyPress={[Function]}
     onKeyUp={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
+    onResponderRelease={[Function]}
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
@@ -54,6 +56,7 @@ exports[`renders correctly 1`] = `
         "borderBottomRightRadius": "18.75px",
         "borderTopLeftRadius": "18.75px",
         "borderTopRightRadius": "18.75px",
+        "cursor": "pointer",
         "height": "37.5px",
         "justifyContent": "center",
         "left": "5px",
@@ -63,13 +66,16 @@ exports[`renders correctly 1`] = `
         "marginTop": "6px",
         "msFlexAlign": "center",
         "msFlexPack": "center",
+        "msTouchAction": "manipulation",
         "overflowX": "hidden",
         "overflowY": "hidden",
         "position": "absolute",
         "top": "5px",
+        "touchAction": "manipulation",
         "width": "37.5px",
       }
     }
+    tabIndex="0"
   >
     <span
       className="css-hitSlop-mjp8i1"
