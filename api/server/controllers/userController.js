@@ -89,12 +89,20 @@ exports.delete = function (req, res) {
     {
       _id: req.params.userId,
     },
-    function (err, user) {
-      if (err) res.send(err);
-      res.json({
-        status: "success",
-        message: "user deleted",
-      });
+    function (err, data) {
+      if (err) {
+        res.json({
+          status: 500,
+          errorMessage: err.message,
+          errorName: err.name
+        });
+      } else {
+        res.json({
+          status: res.statusCode,
+          message: "user deleted",
+          data: data,
+        });
+      }
     }
   );
 };
