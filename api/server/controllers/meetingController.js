@@ -31,7 +31,7 @@ module.exports = {
         errorName: err.name,
       })
     );
-    res.json(newMeeting);
+    res.status(200).json(newMeeting);
   },
 
   /*
@@ -76,7 +76,7 @@ module.exports = {
         errorName: err.name,
       })
     );
-    res.json(meeting);
+    res.status(200).json(meeting);
   },
 
   /*
