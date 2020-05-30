@@ -151,9 +151,6 @@ exports.addGroupRequest = function(req, res) {
         message: "Request successfully added to the user",
         data: data
       })
-      // console.log(io);
-      console.log(socket.clients);
-      console.log(req.body.userId);
       socket.io.to(socket.clients[req.body.userId]).emit('add group request');
     }
   })
@@ -335,7 +332,7 @@ exports.viewSchedule = function(req, res) {
 // Receives userId and schedule as input
 // Sets the schedule for the user to the given schedule
 exports.setSchedule = function(req, res) {
-  User.update(
+  User.updateOne(
     { _id: req.body.userId },
     {
       $set: { schedule: req.body.schedule }
