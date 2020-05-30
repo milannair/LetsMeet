@@ -1,7 +1,10 @@
 var mongoose = require("mongoose");
 
 var optionSchema = mongoose.Schema({
-  time: Date,
+  time: {
+    start: {type : Date, required: true},
+    end: {type: Date, required: true},
+  },
   votes: [mongoose.Types.ObjectId], //UserID
 });
 
