@@ -76,7 +76,7 @@ function EditProfile({ navigation }) {
     if (password === user.password) {
       setVisibleDeleteAccount(false);
       console.log('Account deleted');
-      navigation.navigate(Screen.LOGIN); // navigate to login page
+      navigation.navigate('Login'); // navigate to login page
     } else {
       setShowDeleteHelperText(true);
     }

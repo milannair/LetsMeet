@@ -7,7 +7,7 @@ import Days from './components/Days/index';
 import TimeSlots from './components/TimeSlots/index';
 import TimeDividers from './components/TimeDividers/index';
 
-function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable, divideHours }) {
+function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, divideHours, onDayPress, onTimeSlotPress, isGroupSchedule }) {
   if (firstDay > lastDay) {
     throw 'firstDay must be less than or equal to lastDay';
   } else if (firstHour > lastHour) {
@@ -16,8 +16,6 @@ function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable
     // validate schedule
     if (!schedule) {
       throw 'Schedule is undefined';
-    } else if (!schedule.availability) {
-      throw 'Schedule.timeSlots is undefined';
     } else {
       // schedule.availability.forEach((timeSlot) => {
       //   if (timeSlot.end != 0 && timeSlot.start > timeSlot.end) {
@@ -27,10 +25,13 @@ function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable
     }
   }
 
-  const [selectedDay, setSelectedDay] = useState(selectable ? firstDay : -1);
+
+
+  const [selectedDay, setSelectedDay] = useState(onDayPress ? firstDay : -1);
 
   const handleDayPress = (selectedDay) => {
     setSelectedDay(selectedDay);
+    onDayPress(selectedDay);
   }
 
   return (
@@ -39,8 +40,7 @@ function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable
         <View style={styles.daysSpacer} />
         <Days 
           firstDay={firstDay} 
-          lastDay={lastDay} 
-          selectable={selectable}
+          lastDay={lastDay}
           selectedDay={selectedDay}
           onDayPress={handleDayPress} 
         />
@@ -61,10 +61,11 @@ function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, selectable
           lastDay={lastDay} 
           firstHour={firstHour} 
           lastHour={lastHour} 
-          availability={schedule.availability} // TODO: add functionality for meetings/events (DateTime's)
-          selectable={selectable}
+          schedule={schedule} // TODO: add functionality for meetings/events (DateTime's)
           selectedDay={selectedDay}
-          onDayPress={handleDayPress} 
+          onDayPress={onDayPress ? handleDayPress : null} 
+          onTimeSlotPress={onTimeSlotPress}
+          isGroupSchedule={isGroupSchedule}
         />
       </View>
     </View>

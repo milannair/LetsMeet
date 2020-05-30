@@ -4,7 +4,7 @@ import styles from './styles';
 import { Caption } from 'react-native-paper';
 import Day from '../../../../enums/Day';
 
-function Days({ firstDay, lastDay, selectable, selectedDay, onDayPress }) {
+function Days({ firstDay, lastDay, selectedDay, onDayPress }) {
   const createDays = () => {
     let days = []
     for (let i = firstDay; i <= lastDay; i++) {
@@ -30,7 +30,7 @@ function Days({ firstDay, lastDay, selectable, selectedDay, onDayPress }) {
           day = 'F';
           break;
       }
-      const dayContainer = selectable ? (
+      const dayContainer = onDayPress ? (
           <View 
             style={{
               flex: 1,
@@ -60,7 +60,7 @@ function Days({ firstDay, lastDay, selectable, selectedDay, onDayPress }) {
             </Caption>
           </View>
         );
-      if (selectable) {
+      if (onDayPress) {
         days.push(
           <TouchableWithoutFeedback onPress={() => onDayPress(i)} key={i}>
             {dayContainer}

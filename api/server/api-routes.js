@@ -82,6 +82,16 @@ router
   .route('/user/removeMeeting')
   .post(userController.removeMeeting);
 
+// Get user schedule
+router
+  .route('/user/schedule/:userId')
+  .get(userController.viewSchedule);
+
+// Set the schedule of user
+router
+  .route('/user/setSchedule')
+  .post(userController.setSchedule);
+
 
   //// Group paths ////
 

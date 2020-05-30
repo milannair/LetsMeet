@@ -1,9 +1,5 @@
+import { url } from '../api-routes';
 const axios = require('axios').default;
-const protocol = 'http://';
-const baseUrl = 'localhost';
-const port = 8000;
-const route = '/lm';
-const url = protocol + baseUrl + ':' + port + route
 
 export async function getUsers(username) {
     let responseData = {}

@@ -1,6 +1,8 @@
 // Import user model
 User = require("../models/userModel");
 
+var socket = require('../../server');
+
 // Receives details about the new user and creates a new user
 // on the DataBase
 // Returns an error msg
@@ -167,6 +169,7 @@ exports.addGroupRequest = function(req, res) {
         message: "Request successfully added to the user",
         data: data
       })
+      socket.io.to(socket.clients[req.body.userId]).emit('add group request');
     }
   })
 }
@@ -192,6 +195,7 @@ exports.removeGroupRequest = function(req, res) {
         message: "Request successfully added to the user",
         data: data
       })
+      socket.io.to(socket.clients[req.body.userId]).emit('remove group request');
     }
   })
 }
@@ -321,4 +325,49 @@ exports.removeMeeting = function(req, res) {
       }
     }
   );
+}
+
+// Receives userId as input
+// Sends the user's schedule
+exports.viewSchedule = function(req, res) {
+  User.findById(req.params.userId, {schedule: 1}, function(err, data) {
+    if(err) {
+      res.json({
+        status: 500,
+        errorMessage: err.message,
+        errorName: err.name
+      });
+    } else {
+      res.json({
+        status: res.statusCode,
+        message: "Successfully retrieved user schedule",
+        data: data
+      });
+    }
+  });
+}
+
+// Receives userId and schedule as input
+// Sets the schedule for the user to the given schedule
+exports.setSchedule = function(req, res) {
+  User.updateOne(
+    { _id: req.body.userId },
+    {
+      $set: { schedule: req.body.schedule }
+    },
+  function(err, data) {
+    if(err) {
+      res.json({
+        status: 500,
+        errorMessage: err.message,
+        errorName: err.name
+      });
+    } else {
+      res.json({
+        status: res.statusCode,
+        message: "Successfully updated user schedule",
+        data: data
+      });
+    }
+  });
 }

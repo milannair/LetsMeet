@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
 } from 'react-native';
@@ -6,6 +6,7 @@ import {
   Text, TextInput, Button, HelperText,
 } from 'react-native-paper';
 import styles from './styles';
+import useSocket from '../../hooks/UseSocket/index';
 
 const SIGNUP_SCREEN_NAME = 'Signup';
 const HOME_SCREEN_NAME = 'Tabs';
@@ -17,6 +18,8 @@ function Login({ navigation }) {
   const [loadingIcon, setLoadingIcon] = useState(false);
   const maxFieldLength = 25;
   const minFieldLength = 3;
+
+  const { sendData } = useSocket('user authenticated', null);
 
   const handleLoginButtonPress = () => {
     let flag = false;
@@ -30,7 +33,7 @@ function Login({ navigation }) {
     if (!flag) {
       setLoadingIcon(true);
     }
-
+    sendData(email);
     // TODO: check username and password in database
     navigation.navigate(HOME_SCREEN_NAME);
   };
@@ -52,7 +55,6 @@ function Login({ navigation }) {
         style={styles.textField}
         mode='outlined'
         label="Email"
-        autoCompleteType="email"
         keyboardType="email-address"
         textContentType="emailAddress"
         value={email}

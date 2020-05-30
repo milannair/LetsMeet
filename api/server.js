@@ -1,3 +1,4 @@
+
 // Import express
 const express = require("express");
 // Import Body parser
@@ -8,6 +9,15 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 // Initialise the app
 const app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+const clients = {}; // map userId to socket id
+
+module.exports = {
+  io: io,
+  clients: clients,
+  server: server // for tests
+};
 
 var cors = require("cors");
 
@@ -58,8 +68,36 @@ app.get("/", cors(), (req, res) => res.send("LetsMeet API"));
 // Use Api routes in the App
 app.use("/lm", cors(), apiRoutes);
 // Launch app to listen to specified port
-var server = app.listen(port, function () {
+server.listen(port, function () {
   console.log("Running LetsMeet API @ localhost:" + port);
 });
 
-module.exports = server
+// SOCKET.IO
+const User = require('./server/models/userModel');
+
+io.on('connection', (socket) => {
+  socket.on('user authenticated', (userId) => {
+    console.log('user authenticated: ' + userId);
+    socket.userId = userId;
+    clients[userId] = socket.id;
+
+    User.findById(userId, {groups: 1}, function(err, data) {
+      if (err) {
+        console.error(err);
+      } else {
+        if (data) {
+          data.groups.forEach((groupId) => {
+            socket.join(groupId);
+          });
+        } else {
+          console.error(err);
+        }
+      }
+    });
+  });
+
+  socket.on('disconnect', () => {
+    delete clients[socket.userId];
+  });
+});
+
