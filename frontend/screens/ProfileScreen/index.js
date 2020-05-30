@@ -13,7 +13,7 @@ function Profile({ navigation }) {
   useEffect(() => {
     const showUser = async () => {
       try {
-        const user = await getUser('5ec3099bb6bc594db0193c0c');
+        const user = await getUser('5ec078fdb5169a2a249e2d94');
         console.log(user);
         setUser(user);
       } catch (error) {
