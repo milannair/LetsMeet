@@ -38,7 +38,7 @@ router.route("/user/byUserName/:username").get(userController.usersByUsername);
 
 //Add group to list of group requests the user has -d
 router
-  .route("/user/addGroupRequest/:userId/:groupId")
+  .route("/user/addGroupRequest/:userId&:groupId")
   .post(userController.addGroupRequest);
 
 // Remove group request from the list of group requests the user has - d
