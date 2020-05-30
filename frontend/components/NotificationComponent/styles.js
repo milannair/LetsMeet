@@ -10,6 +10,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
   },
 
+  bodyContainer: {
+    flex: 1,
+  },
+
   button: {
     width: 100,
     marginEnd: 40,

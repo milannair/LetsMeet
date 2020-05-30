@@ -18,7 +18,7 @@ function NotificationComponent({ text, positiveAction, negativeAction }) {
                    style={styles.notificationAvatar} />
 
       {/* Message and buttons */}
-      <View>
+      <View style={styles.bodyContainer}>
         <Text>{text}</Text>
         <View style={styles.buttonsContainer}>
           <Button
