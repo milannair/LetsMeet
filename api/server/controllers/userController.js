@@ -29,7 +29,7 @@ module.exports = {
         errorName: err.name,
       })
     );
-    res.json(newUser);
+    res.status(200).json(newUser);
   },
 
   login: async (req, res) => {
@@ -42,7 +42,7 @@ module.exports = {
     if (!validPass)
       return res.status(400).send("Invalid email/username or password");
     const token = jwt.sign({ _id: user._id }, process.env.privateKey);
-    res.header("x-auth-token", token).send(true);
+    res.status(200).header("x-auth-token", token).send(true);
   },
 
   view: async (req, res) => {
@@ -53,7 +53,7 @@ module.exports = {
         errorName: err.name,
       })
     );
-    res.json(singleUser);
+    res.status(200).json(singleUser);
   },
 
   delete: async (req, res) => {

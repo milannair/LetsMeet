@@ -17,67 +17,52 @@ var meetingController = require("./controllers/meetingController");
 
 // User routes
 
-// Create user
+// Create user - d
 router.route("/user/create").post(userController.register);
 
-//Login user
+//Login user - d
 router.route("/user/login").post(userController.login);
 
-// Get user by Id
+// Get user by Id - d
 router
   .route("/user/:userId")
   .get(userController.view)
   .delete(userController.delete)
   .patch(userController.update);
 
-// Get user's identifiers
-router
-  .route('/user/identifiers/:userId')
-  .get(userController.getUserIdentifiers)
+//Get user groups - d
+router.route("/user/group/:userId").get(userController.userGroups);
 
-//Get user groups
-router.route("/user/groups/:userId").get(userController.userGroups);
+//Get users by username - d
+router.route("/user/byUserName/:username").get(userController.usersByUsername);
 
-//Get users by username
-router.route("/users/:username").get(userController.usersByUsername);
-
-//Add group to list of group requests the user has
+//Add group to list of group requests the user has -d
 router
   .route("/user/addGroupRequest/:userId/:groupId")
   .post(userController.addGroupRequest);
 
-// Remove group request from the list of group requests the user has
+// Remove group request from the list of group requests the user has - d
 router
   .route("/user/removeGroupRequest/:userId/:groupId")
   .post(userController.removeGroupRequest);
 
-// Add group to the list of user's groups
+// Add group to the list of user's groups - d
 router.route("/user/addGroup/:userId/:groupId").post(userController.addGroup);
 
-// Remove group from the list of user's groups
+// Remove group from the list of user's groups - d
 router
   .route("/user/removeGroup/:userId/:groupId")
   .post(userController.removeGroup);
 
-// Get user schedule
-router
-  .route('/user/schedule/:userId')
-  .get(userController.viewSchedule);
-
-// Set the schedule of user
-router
-  .route('/user/setSchedule')
-  .post(userController.setSchedule);
-
-// Get user meetings
+// Get user meetings - d
 router.route("/user/meetings/:userId").get(userController.userMeetings);
 
-// Add meeting to the list of user's meetings
+// Add meeting to the list of user's meetings - d
 router
   .route("/user/addMeeting/:userId/:meetingId")
   .post(userController.addMeeting);
 
-// Remove meeting from the list of user's meetings
+// Remove meeting from the list of user's meetings - d
 router
   .route("/user/removeMeeting/:userId/:meetingId")
   .post(userController.removeMeeting);
