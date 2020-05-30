@@ -1,6 +1,6 @@
 const axios = require('axios').default;
 const protocol = 'http://';
-const baseUrl = '10.0.0.224';
+const baseUrl = 'localhost';
 const port = 8000;
 const route = '/lm';
 const url = protocol + baseUrl + ':' + port + route
@@ -29,6 +29,38 @@ export async function getOption(optionId) {
         const response = (await axios.get(url + '/option/' + optionId)).data
         if(response.status === 200) {
             return response.data;
+        } else {
+            console.log(response);
+        }
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+export async function addVote(optionId, userId) {
+    try {
+        const response = (await axios.get(url + '/option/addVote/', {
+            optionId: optionId,
+            userId: userId,
+        })).data;
+        if (response.status === 200) {
+            return response.daata;
+        } else {
+            console.log(response);
+        }
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+export async function removeVote(optionId, userId) {
+    try {
+        const response = (await axios.get(url + '/option/removeVote/', {
+            optionId: optionId,
+            userId: userId,
+        })).data;
+        if (response.status === 200) {
+            return response.daata;
         } else {
             console.log(response);
         }
