@@ -1,4 +1,4 @@
-// Tests for the /user and /users endpoints
+// Tests for the /user endpoints
 
 const constants = require("./ignored/constants");
 const axios = require("axios").default;
@@ -9,6 +9,7 @@ describe("/user/meetings/:userId", () => {
       await axios.get(
         `${constants.API_URI}/user/meetings/${constants.FAKE_OBJECT_ID}`
       );
+      fail("No errors detected for the test request");
     } catch (err) {
       // Errors are expected
       expect(err.response.status).toBe(404);
@@ -39,7 +40,8 @@ describe("/user/addMeeting", () => {
       const response = await axios.get(`${constants.API_URI}/user/${userId}`);
       expect(response.data.meetings).toContain(meetingId);
     } finally {
-      axios.delete(`${constants.API_URI}/user/${userId}`);
+      // Tear down
+      await axios.delete(`${constants.API_URI}/user/${userId}`);
     }
   });
 });
@@ -70,7 +72,8 @@ describe("/user/removeMeeting", () => {
       const response = await axios.get(`${constants.API_URI}/user/${userId}`);
       expect(response.data.meetings).toHaveLength(0);
     } finally {
-      axios.delete(`${constants.API_URI}/user/${userId}`);
+      // Tear down
+      await axios.delete(`${constants.API_URI}/user/${userId}`);
     }
   });
 });
