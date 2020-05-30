@@ -12,60 +12,58 @@ describe('/user/meetings/:userId', () => {
   });
 });
 
-// describe('/user/addMeeting', () => {
-//   it('removes a meeting from a user', async () => {
-//     let userId;
-//     try {
-//       const meetingId = constants.FAKE_OBJECT_ID
+describe('/user/addMeeting', () => {
+  it('removes a meeting from a user', async () => {
+    let userId;
+    try {
+      const meetingId = constants.FAKE_OBJECT_ID
 
-//       const userRes = await axios.post(constants.API_URI + '/users', {
-//         username: 'testuser',
-//         email: 'test@example.com',
-//         phone: '123456789',
-//         password: 'DontUseThisPassword',
-//         displayName: 'TestUser',
-//       });
-//       console.log(userRes)
-//       // userId = userRes.data.data._id;
-//       // await axios.post(constants.API_URI + '/user/addMeeting', {
-//       //   userId: userId,
-//       //   meetingId: meetingId,
-//       // });
-//       // const response = await axios.get(constants.API_URI + '/user/' + userId);
-//       // expect(response.data.data.meetings).toContain(meetingId);
-//     } finally {
-//       // TODO: tear down with REST API when user deletion endpoint is available
-//     }
-//   });
-// });
+      const userRes = await axios.post(constants.API_URI + '/users', {
+        username: 'testuser',
+        email: 'test@example.com',
+        phone: '123456789',
+        password: 'DontUseThisPassword',
+        displayName: 'TestUser',
+      });
+      userId = userRes.data.data._id;
+      await axios.post(constants.API_URI + '/user/addMeeting', {
+        userId: userId,
+        meetingId: meetingId,
+      });
+      const response = await axios.get(constants.API_URI + '/user/' + userId);
+      expect(response.data.data.meetings).toContain(meetingId);
+    } finally {
+      // TODO: tear down with REST API when user deletion endpoint is available
+    }
+  });
+});
 
-// describe('/user/removeMeeting', () => {
-//   it('adds a meeting to a user', async () => {
-//     let userId;
-//     try {
-//       const meetingId = constants.FAKE_OBJECT_ID
+describe('/user/removeMeeting', () => {
+  it('adds a meeting to a user', async () => {
+    let userId;
+    try {
+      const meetingId = constants.FAKE_OBJECT_ID
 
-//       const userRes = await axios.post(constants.API_URI + '/users', {
-//         username: 'testuser',
-//         email: 'test@example.com',
-//         phone: '123456789',
-//         password: 'DontUseThisPassword',
-//         displayName: 'TestUser',
-//       });
-//       console.log(userRes)
-//       // userId = userRes.data.data._id;
-//       // await axios.post(constants.API_URI + '/user/addMeeting', {
-//       //   userId: userId,
-//       //   meetingId: meetingId,
-//       // });
-//       // await axios.post(constants.API_URI + '/user/removeMeeting', {
-//       //   userId: userId,
-//       //   meetingId: meetingId,
-//       // });
-//       // const response = await axios.get(constants.API_URI + '/user/' + userId);
-//       // expect(response.data.data.meetings).toHaveLength(0);
-//     } finally {
-//       // TODO: tear down with REST API when user deletion endpoint is available
-//     }
-//   });
-// });
+      const userRes = await axios.post(constants.API_URI + '/users', {
+        username: 'testuser',
+        email: 'test@example.com',
+        phone: '123456789',
+        password: 'DontUseThisPassword',
+        displayName: 'TestUser',
+      });
+      userId = userRes.data.data._id;
+      await axios.post(constants.API_URI + '/user/addMeeting', {
+        userId: userId,
+        meetingId: meetingId,
+      });
+      await axios.post(constants.API_URI + '/user/removeMeeting', {
+        userId: userId,
+        meetingId: meetingId,
+      });
+      const response = await axios.get(constants.API_URI + '/user/' + userId);
+      expect(response.data.data.meetings).toHaveLength(0);
+    } finally {
+      // TODO: tear down with REST API when user deletion endpoint is available
+    }
+  });
+});
