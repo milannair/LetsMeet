@@ -6,3 +6,4 @@ export const ADD_MEMBERS = "Add Members";
 export const GROUP = "Group";
 export const NOTIFICATIONS = "Notifications";
 export const REFERENCE = "Reference";
+export const VIEW_POLL = "View Poll";

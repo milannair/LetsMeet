@@ -36,7 +36,6 @@ function GroupsScreen({route, navigation}) {
         <Appbar.Action 
           icon="dots-vertical" 
           color="white" 
-          size={20}
           onPress={()=> alert("Will eventually take you to the settings screen")}
         />
       </Appbar.Header>
