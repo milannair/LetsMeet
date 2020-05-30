@@ -6,12 +6,12 @@ function TimeSlot({ firstHour, lastHour, start, end, onTimeSlotPress, color, cou
   const startMoment = moment(start);
   const endMoment = moment(end);
 
-  // TODO: how do users input 12 AM as end time? 
+  let offScreenIntervals = startMoment.hour() < firstHour ? ((firstHour - startMoment.hour()) * 4) - (startMoment.minutes() / 15) : 0;
   const fifteenMinIntervals = endMoment.diff(startMoment, 'minutes') / 15;
 
   const fifteenMinPercentage = (100 / ((lastHour - firstHour + 1) * 4));
 
-  const height = fifteenMinPercentage * fifteenMinIntervals
+  const height = fifteenMinPercentage * (fifteenMinIntervals - offScreenIntervals);
   const top = start.getHours() - firstHour >= 0 ? 
     fifteenMinPercentage * ((startMoment.diff(moment().day(startMoment.day()).hour(firstHour).minutes(0), 'minutes') + 1) / 15)
     :

@@ -55,7 +55,6 @@ function TimeSlots({ firstDay, lastDay, firstHour, lastHour, schedule, selectedD
         }
       });
     }
-    
     let result = [];
     let prevCount = 0;
     let prevStart = null;

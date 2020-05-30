@@ -63,7 +63,7 @@ function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, divideHour
           lastHour={lastHour} 
           schedule={schedule} // TODO: add functionality for meetings/events (DateTime's)
           selectedDay={selectedDay}
-          onDayPress={handleDayPress} 
+          onDayPress={onDayPress ? handleDayPress : null} 
           onTimeSlotPress={onTimeSlotPress}
           isGroupSchedule={isGroupSchedule}
         />

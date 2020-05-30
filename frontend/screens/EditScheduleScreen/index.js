@@ -6,6 +6,7 @@ import { Menu, Button, Appbar } from 'react-native-paper';
 import moment from 'moment';
 import Day from '../../enums/Day';
 import RemoveTimeSlotDialog from '../../components/RemoveTimeSlotDialog';
+import { setUserSchedule } from '../../controllers/UserController';
 
 function EditScheduleScreen({ route, navigation }) {
   const [startTime, setStartTime] = useState(null);
@@ -99,6 +100,15 @@ function EditScheduleScreen({ route, navigation }) {
     showDialog();
   };
 
+  const handleSave = async () => {
+    try {
+      await setUserSchedule('5ec078fdb5169a2a249e2d94', schedule);
+      navigation.goBack();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const startTimeMenuOptions = () => {
     const firstMoment = moment().startOf('day');
     const lastMoment = endTime ? moment(endTime) : firstMoment.clone().add(1, 'day');
@@ -151,6 +161,7 @@ function EditScheduleScreen({ route, navigation }) {
       <Appbar.Header>
         <Appbar.BackAction color='white' onPress={navigation.goBack} />
         <Appbar.Content color='white' title='LetsMeet' />
+        <Button color='white' onPress={handleSave}>SAVE</Button>
       </Appbar.Header>
       <View style={styles.topContainer}>
         <Menu
