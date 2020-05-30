@@ -35,8 +35,6 @@ function ViewGroupScreen({route, navigation}) {
 
         if(updatePage && logData.length > 0) {
             let list = []
-            console.log("log data: " + logData.length);
-            console.log(logData)
             for(let i=0; i < logData.length; i++) {
                 let data = logData[i];
                 let date = new Date(data.meetingRequest.deadline);
