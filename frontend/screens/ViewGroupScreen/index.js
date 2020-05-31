@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import {getGroupData} from '../../controllers/GroupController';
-import {FAB, Text, Appbar, List, Title, Button, Divider} from 'react-native-paper';
+import {FAB, Text, Appbar, Menu, Title, Button, Divider} from 'react-native-paper';
 import styles from './styles';
 import {CREATE_MEETING_REQUEST, GROUPS, VIEW_POLL} from '../../navigation/tab_navigator/stacks/groups/screen-names';
 import {getMeetingRequest} from '../../controllers/MeetingRequestController';
@@ -11,15 +11,16 @@ import moment from 'moment';
 function ViewGroupScreen({route, navigation}) {
     const [groupData, setGroupData] = useState({});
     const [updatePage, setUpdatePage] = useState(true);
-    const [logData, setLogData] = useState([])
+    const [logData, setLogData] = useState([]);
     const [requestsLog, setRequestsLog] = useState([]);
+    const [showMenu, setShowMenu] = useState(false);
 
     useEffect(() => {
         const getData = async () => {  // get all meetingRequests for this group and their authors
             const data = await getGroupData(route.params.groupId);
             setGroupData(data);
-            const meetingRequests = data.meetingRequests
-            let newLogData = []
+            const meetingRequests = data.meetingRequests;
+            let newLogData = [];
             for(let i = 0; i < meetingRequests.length; i++) {
                 const meetingRequestId = meetingRequests[i];
                 let meetingRequest = await getMeetingRequest(meetingRequestId);
@@ -34,7 +35,7 @@ function ViewGroupScreen({route, navigation}) {
         }
 
         if(updatePage && logData.length > 0) {
-            let list = []
+            let list = [];
             for(let i=0; i < logData.length; i++) {
                 let data = logData[i];
                 let date = new Date(data.meetingRequest.deadline);
@@ -104,13 +105,26 @@ function ViewGroupScreen({route, navigation}) {
                     color="white"
                     title={groupData.name}
                 />
-                <Appbar.Action 
-                icon="dots-vertical" 
-                color="white" 
-                onPress={()=> alert("Will eventually take you to the settings screen")}
-                />
+                <Menu
+                    visible={showMenu}
+                    onDismiss={() => setShowMenu(false)}
+                    anchor={
+                        <Appbar.Action 
+                        icon="dots-vertical" 
+                        color="white" 
+                        onPress={()=> setShowMenu(true)}
+                        />
+                    }
+                >
+                    <Menu.Item onPress={() => {}} title="Item 1" />
+                    <Menu.Item onPress={() => {}} title="Item 2" />
+                    {/* <Divider /> */}
+                    <Menu.Item onPress={() => {}} title="Item 3" />
+                </Menu>
             </Appbar.Header>
-            {requestsLog}
+            <ScrollView style={{flex: 1, flexDirection: 'column'}} scrollEnabled={true}>
+                {requestsLog}
+            </ScrollView>
             <FAB
                 style={styles.fab}
                 icon='plus'
