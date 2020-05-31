@@ -13,7 +13,6 @@ var userSchema = mongoose.Schema({
   meetings: { type: [mongoose.Types.ObjectId] }, //MeetingID
   requests: { type: [mongoose.Types.ObjectId] }, //GroupID
   groups: { type: [mongoose.Types.ObjectId] }, //GroupID
-  schedule: [{ startTime: Date, endTime: Date }]
 });
 
 var User = (module.exports = mongoose.model("user", userSchema));

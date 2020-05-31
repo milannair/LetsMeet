@@ -13,7 +13,7 @@ function Navigator() {
     <NavigationContainer>
       <Stack.Navigator headerMode='none'>
         <Stack.Screen name={Screen.LOGIN} component={LoginScreen} />
-        {/* <Stack.Screen name={Screen.SIGNUP} component={SignupScreen} /> */}
+        <Stack.Screen name={Screen.SIGNUP} component={SignupScreen} />
         <Stack.Screen name={Screen.TABS} component={TabNavigation} />
       </Stack.Navigator>
     </NavigationContainer>

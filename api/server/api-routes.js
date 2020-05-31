@@ -42,6 +42,11 @@ router
   .route('/users/:username')
   .get(userController.usersByUsername)
 
+// Delete user by id
+router
+  .route('/users/:userid')
+  .delete(userController.delete)
+
 // Add group to list of group requests the user has
 router
   .route('/user/addGroupRequest')
@@ -76,6 +81,16 @@ router
 router
   .route('/user/removeMeeting')
   .post(userController.removeMeeting);
+
+// Get user schedule
+router
+  .route('/user/schedule/:userId')
+  .get(userController.viewSchedule);
+
+// Set the schedule of user
+router
+  .route('/user/setSchedule')
+  .post(userController.setSchedule);
 
 
   //// Group paths ////
@@ -141,34 +156,6 @@ router
   .route('/group/removeMeetingRequest/:groupId&:meetingRequestId')
   .post(groupController.removeMeetingRequest)
 
-
-  //// Meeting paths ////
-
-
-// Create a meeting
-router
-  .route('/meetings')
-  .post(meetingController.create);
-
-// Delete a meeting
-router
-  .route('/meeting/delete/:meetingId')
-  .delete(meetingController.delete);
-
-// Get all the details about a meeting
-router
-  .route('/meeting/:meetingId')
-  .get(meetingController.view);
-
-// Confirm a meeting
-router
-  .route('/meeting/confirm/:meetingId')
-  .post(meetingController.confirm);
-
-// Unconfirm a meeting
-router
-  .route('/meeting/unconfirm/:meetingId')
-  .post(meetingController.unconfirm);
 
 
 ///// MeetingRequest routes ////
@@ -251,6 +238,36 @@ router
 router
 .route('/option/removeVote/:optionId&:userId')
 .post(optionController.removeVote)
+
+
+  //// Meeting paths ////
+
+
+// Create a meeting
+router
+  .route('/meetings')
+  .post(meetingController.create);
+
+// Delete a meeting
+router
+  .route('/meeting/delete/:meetingId')
+  .delete(meetingController.delete);
+
+// Get all the details about a meeting
+router
+  .route('/meeting/:meetingId')
+  .get(meetingController.view);
+
+// Confirm a meeting
+router
+  .route('/meeting/confirm/:meetingId')
+  .post(meetingController.confirm);
+
+// Unconfirm a meeting
+router
+  .route('/meeting/unconfirm/:meetingId')
+  .post(meetingController.unconfirm);
+
 
 // Export API routes
 module.exports = router;

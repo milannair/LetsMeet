@@ -15,7 +15,8 @@ const clients = {}; // map userId to socket id
 
 module.exports = {
   io: io,
-  clients: clients
+  clients: clients,
+  server: server // for tests
 };
 
 var cors = require("cors");
