@@ -7,7 +7,6 @@ import { CREATE_GROUP} from '../../navigation/tab_navigator/stacks/groups/screen
 import {getUserGroups} from '../../controllers/GroupController'
 import { useIsFocused } from '@react-navigation/native';
 
-const userId = '5ec07929b5169a2a249e2d95'
 let userGroups = {}
 
 function GroupsScreen({route, navigation}) {

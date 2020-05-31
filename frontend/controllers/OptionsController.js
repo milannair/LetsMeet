@@ -3,7 +3,6 @@ const axios = require('axios').default;
 
 export async function createOption(start, end, votes) {
     try {
-        console.log('got here')
         const response =(await axios.post(url + '/options/', {
             start: start,
             end: end,
@@ -33,9 +32,9 @@ export async function getOption(optionId) {
     }
 }
 
-export async function addVote(optionId, userId) {
+export async function addVote(optionId, userId, groupId) {
     try {
-        const response = (await axios.post(url + '/option/addVote/' + optionId + '&' + userId)).data;
+        const response = (await axios.post(url + '/option/addVote/' + optionId + '&' + userId + '&' + groupId)).data;
         if (response.status === 200) {
             return response.data;
         } else {
@@ -46,9 +45,9 @@ export async function addVote(optionId, userId) {
     }
 }
 
-export async function removeVote(optionId, userId) {
+export async function removeVote(optionId, userId, groupId) {
     try {
-        const response = (await axios.post(url + '/option/removeVote/' + optionId + '&' + userId)).data;
+        const response = (await axios.post(url + '/option/removeVote/' + optionId + '&' + userId + '&' + groupId)).data;
         if (response.status === 200) {
             return response.daata;
         } else {

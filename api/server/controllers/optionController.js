@@ -1,8 +1,8 @@
-Option = require('../models/optionModel')
+Option = require('../models/optionModel');
+var socket = require('../../server');
 
 // Create an option
 exports.create = function(req, res) {
-    console.log('In the controller')
     let option = new Option();
     option.time = {start : req.body.start, end: req.body.end}
     option.votes = req.params.votes;
@@ -121,6 +121,7 @@ exports.addVote = function(req, res) {
                 status: res.statusCode,
                 data: data
             })
+            socket.io.in(req.params.groupId).emit('add vote', req.params.userId);
         }
     })
 }
@@ -143,6 +144,7 @@ exports.removeVote = function(req, res) {
                 status: res.statusCode,
                 data: data
             })
+            socket.io.in(req.params.groupId).emit('remove vote', req.params.userId);
         }
     })
 }

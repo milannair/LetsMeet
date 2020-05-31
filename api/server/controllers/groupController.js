@@ -224,7 +224,7 @@ exports.addMeetingRequest = function(req, res) {
                 status: res.statusCode,
                 data: data
             })
-            socket.io.to(req.body.groupId).emit('add meeting request');
+            socket.io.in(req.body.groupId).emit('add meeting request');
         }
     });
 }
@@ -250,7 +250,7 @@ exports.removeMeetingRequest = function(req, res) {
                 status: res.statusCode,
                 data: data
             })
-            socket.io.to(req.body.groupId).emit('remove meeting request');
+            socket.io.in(req.body.groupId).emit('remove meeting request');
         }
     });
 }

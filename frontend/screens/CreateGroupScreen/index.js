@@ -97,11 +97,11 @@ function CreateGroupScreen({route, navigation}) {
         return items
     }
 
-    function createGroup() {
+    async function createGroup() {
         const memberRequests = invitedMemberIds
         const owner = route.params.userId
         const name = groupName ? groupName : "New Group"
-        createUserGroup(owner, name, memberRequests)
+        await createUserGroup(owner, name, memberRequests)
         navigation.navigate(GROUPS, {reload: true})
     }
 

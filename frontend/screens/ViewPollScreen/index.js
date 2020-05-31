@@ -25,13 +25,11 @@ function ViewPollScreen({route, navigation}) {
     for (let i = 0; i < votes.length; i++) {
       let vote = votes[i];
       if (vote === route.params.userId) {
-        console.log("remove vote");
-        removeVote(option._id, route.params.userId);
+        removeVote(option._id, route.params.userId, route.params.groupId);
         return;
       }
     }
-    console.log("add vote");
-    addVote(option._id, route.params.userId);
+    addVote(option._id, route.params.userId, route.params.groupId);
   }
 
   useEffect( () => {
@@ -39,7 +37,6 @@ function ViewPollScreen({route, navigation}) {
       try {
         const meetingReq = await getMeetingRequest(route.params.meetingId);
         const userIdentifiers = (await getUserIdentifiers(meetingReq.author))[0];
-        console.log(meetingReq);
         setAuthor(userIdentifiers.displayName);
         setMeetingData(meetingReq);
         let newOptionData = [];
@@ -54,7 +51,6 @@ function ViewPollScreen({route, navigation}) {
         let numVotesList = [];
         for (let i = 0; i < newOptionData.length; i++) {
           let option = newOptionData[i];
-          console.log(option);
           let startTime = new Date(option.time.start);
           let endTime = new Date(option.time.end);
           let numVotes = option.votes.length;
