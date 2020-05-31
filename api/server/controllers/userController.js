@@ -1,44 +1,71 @@
 // Import user model
 User = require("../models/userModel");
 
-var socket = require('../../server');
+var socket = require("../../server");
 
 // Receives details about the new user and creates a new user
 // on the DataBase
 // Returns an error msg
-exports.register = function (req, res) {
-  var user = new User();
-  user.username = req.body.username.toLowerCase();
-  user.email = req.body.email;
-  user.phone = req.body.phone;
-  user.password = req.body.password;
-  user.displayName = req.body.displayName;
-  user.save(function(err){
-    if(err) {
-      res.json({
-        status: 500,
-        errorMessage: err.message,
-        errorName: err.name,        
+exports.register = async function (req, res) {
+  const user = await User.findOne({ username: req.body.cred });
+  const checkPhone = await User.findOne({ phone: req.body.phone });
+  const checkEmail = await User.findOne({ email: req.body.email });
+  if (user)
+    return res
+      .status(400)
+      .json({ message: "Username is taken. Choose another username" });
+  if (checkPhone)
+    return res.status(400).json({
+      message: "Looks like that phone number is registered to another account",
+    });
+  if (checkEmail)
+    return res
+      .status(400)
+      .json({
+        message: "Looks like that email is registered to another account",
       });
-    } else {
-      res.json({
-        status: res.statusCode,
-        data: user,
-        message: "User created successfully"
-      });
-    }
-  });
+  const salt = await bcrypt.genSalt(10);
+  req.body.password = await bcrypt.hash(req.body.password, salt);
+  const newUser = await User.create(req.body).catch((err) =>
+    res.json({
+      status: 500,
+      errorMessage: err.message,
+      errorName: err.name,
+    })
+  );
+  res.status(200).json(newUser);
+};
+
+exports.login = async function (req, res) {
+  const usernameCheck = await User.findOne({ username: req.body.cred });
+  const emailCheck = await User.findOne({ email: req.body.cred });
+  if (!usernameCheck && !emailCheck)
+    return res
+      .status(400)
+      .json({ message: "Invalid email/username or password" });
+  const user = !usernameCheck ? emailCheck : usernameCheck;
+  const validPass = await bcrypt.compare(req.body.password, user.password);
+  if (!validPass)
+    return res
+      .status(400)
+      .json({ message: "Invalid email/username or password" });
+  const token = jwt.sign({ _id: user._id }, process.env.privateKey);
+  res
+    .status(200)
+    .header("x-auth-token", token)
+    .header("userId", user._id)
+    .send(true);
 };
 
 // Handle view user info
-exports.view = function (req, res) {
+exports.view = async function (req, res) {
   User.findById(req.params.userId, function (err, user) {
-    if (err) { 
+    if (err) {
       res.json({
         status: 500,
         errorMessage: err.message,
-        errorName: err.name
-      })
+        errorName: err.name,
+      });
     }
     res.json({
       status: res.statusCode,
@@ -49,25 +76,29 @@ exports.view = function (req, res) {
 };
 
 // Get user's name, username, and email
-exports.getUserIdentifiers = function(req, res) {
-  User.find({_id: req.params.userId}, {displayName: 1, username: 1, email: 1}, function (err, data) {
-    if (err) { 
+exports.getUserIdentifiers = async function (req, res) {
+  User.find(
+    { _id: req.params.userId },
+    { displayName: 1, username: 1, email: 1 },
+    function (err, data) {
+      if (err) {
+        res.json({
+          status: 500,
+          errorMessage: err.message,
+          errorName: err.name,
+        });
+      }
       res.json({
-        status: 500,
-        errorMessage: err.message,
-        errorName: err.name
-      })
+        status: res.statusCode,
+        message: "User retreived!",
+        data: data,
+      });
     }
-    res.json({
-      status: res.statusCode,
-      message: "User retreived!",
-      data: data,
-    });
-  });
-}
+  );
+};
 
 // Handle update user info
-exports.update = function (req, res) {
+exports.update = async function (req, res) {
   User.findById(req.params.userId, function (err, user) {
     if (err) res.send(err);
     user.name = req.body.name ? req.body.name : user.name;
@@ -86,7 +117,7 @@ exports.update = function (req, res) {
 };
 
 // Handle delete user
-exports.delete = function (req, res) {
+exports.delete = async function (req, res) {
   User.deleteOne(
     {
       _id: req.params.userId,
@@ -96,7 +127,7 @@ exports.delete = function (req, res) {
         res.json({
           status: 500,
           errorMessage: err.message,
-          errorName: err.name
+          errorName: err.name,
         });
       } else {
         res.json({
@@ -109,150 +140,158 @@ exports.delete = function (req, res) {
   );
 };
 
-
 // Get groups associated to a particular user
-exports.userGroups = function(req, res) {
-  User.findById(req.params.userId, {groups: 1}, function(err, data) {
-    if (err) { 
+exports.userGroups = async function (req, res) {
+  User.findById(req.params.userId, { groups: 1 }, function (err, data) {
+    if (err) {
       res.json({
         status: 500,
         errorMessage: err.message,
-        errorName: err.name
+        errorName: err.name,
       });
     }
     res.json({
       status: 200,
       message: "user's group details",
-      data: data.groups
+      data: data.groups,
     });
   });
-}
+};
 
 // Receieves a string as input
 // Returns the user's id, username, and email
-exports.usersByUsername = function(req, res) {
+exports.usersByUsername = async function (req, res) {
   const reg = "^" + req.params.username;
-  User.find({username: {$regex: reg, $options: "<i>"}, }, {email: 1, username: 1}, function(err, data){
-    if (err) { 
+  User.find(
+    { username: { $regex: reg, $options: "<i>" } },
+    { email: 1, username: 1 },
+    function (err, data) {
+      if (err) {
+        res.json({
+          status: 500,
+          errorMessage: err.message,
+          errorName: err.name,
+        });
+      }
       res.json({
-        status: 500,
-        errorMessage: err.message,
-        errorName: err.name
-      })
+        status: res.statusCode,
+        message: "Users with this email",
+        data: data,
+      });
     }
-    res.json({
-      status: res.statusCode,
-      message: "Users with this email",
-      data: data
-    })
-  })
-}
+  );
+};
 
 // Receives userId and a groupId as input
 // Adds the groupId to the user's groups requests
-exports.addGroupRequest = function(req, res) {
+exports.addGroupRequest = async function (req, res) {
   User.update(
-    {_id: req.body.userId},
+    { _id: req.body.userId },
     {
-      $push: { requests: req.body.groupId}
+      $push: { requests: req.body.groupId },
     },
-  function(err, data) {
-    if(err) {
-      res.json({
-        status: 500,
-        errorMessage: err.message,
-        errorName: err.name
-      })
-    } else {
-      res.json({
-        status: res.statusCode,
-        message: "Request successfully added to the user",
-        data: data
-      })
-      socket.io.to(socket.clients[req.body.userId]).emit('add group request');
+    function (err, data) {
+      if (err) {
+        res.json({
+          status: 500,
+          errorMessage: err.message,
+          errorName: err.name,
+        });
+      } else {
+        res.json({
+          status: res.statusCode,
+          message: "Request successfully added to the user",
+          data: data,
+        });
+        socket.io.to(socket.clients[req.body.userId]).emit("add group request");
+      }
     }
-  })
-}
+  );
+};
 
 // Receives a groupId and a userId
 // Removes the groupId from the user's group requests
-exports.removeGroupRequest = function(req, res) {
+exports.removeGroupRequest = async function (req, res) {
   User.update(
-    {_id: req.body.userId},
+    { _id: req.body.userId },
     {
-      $pull: { requests: req.body.groupId}
+      $pull: { requests: req.body.groupId },
     },
-  function(err, data) {
-    if(err) {
-      res.json({
-        status: 500,
-        errorMessage: err.message,
-        errorName: err.name
-      })
-    } else {
-      res.json({
-        status: res.statusCode,
-        message: "Request successfully added to the user",
-        data: data
-      })
-      socket.io.to(socket.clients[req.body.userId]).emit('remove group request');
+    function (err, data) {
+      if (err) {
+        res.json({
+          status: 500,
+          errorMessage: err.message,
+          errorName: err.name,
+        });
+      } else {
+        res.json({
+          status: res.statusCode,
+          message: "Request successfully added to the user",
+          data: data,
+        });
+        socket.io
+          .to(socket.clients[req.body.userId])
+          .emit("remove group request");
+      }
     }
-  })
-}
+  );
+};
 
 // Receives userId and a groupId as input
 // Adds the groupId to the user's groups
-exports.addGroup = function(req, res) {
+exports.addGroup = async function (req, res) {
   User.update(
-    {_id: req.body.userId},
+    { _id: req.body.userId },
     {
-      $push: { groups: req.body.groupId}
+      $push: { groups: req.body.groupId },
     },
-  function(err, data) {
-    if(err) {
-      res.json({
-        status: 500,
-        errorMessage: err.message,
-        errorName: err.name
-      })
-    } else {
-      res.json({
-        status: res.statusCode,
-        message: "Group successfully added to the user",
-        data: data
-      })
+    function (err, data) {
+      if (err) {
+        res.json({
+          status: 500,
+          errorMessage: err.message,
+          errorName: err.name,
+        });
+      } else {
+        res.json({
+          status: res.statusCode,
+          message: "Group successfully added to the user",
+          data: data,
+        });
+      }
     }
-  })
-}
-
+  );
+};
 
 // Receives userId and a groupId as input
 // Removes the groupId from the user's groups
-exports.removeGroup = function(req, res) {
+exports.removeGroup = async function (req, res) {
   User.update(
-    {_id: req.body.userId},
+    { _id: req.body.userId },
     {
-      $pull: { groups: req.body.groupId}
+      $pull: { groups: req.body.groupId },
     },
-  function(err, data) {
-    if(err) {
-      res.json({
-        status: 500,
-        errorMessage: err.message,
-        errorName: err.name
-      })
-    } else {
-      res.json({
-        status: res.statusCode,
-        message: "Group successfully added to the user",
-        data: data
-      })
+    function (err, data) {
+      if (err) {
+        res.json({
+          status: 500,
+          errorMessage: err.message,
+          errorName: err.name,
+        });
+      } else {
+        res.json({
+          status: res.statusCode,
+          message: "Group successfully added to the user",
+          data: data,
+        });
+      }
     }
-  })
-}
+  );
+};
 
 // Gets meetings for a particular user
-exports.userMeetings = function(req, res) {
+exports.userMeetings = async function (req, res) {
   User.findById(req.params.userId, function (err, user) {
     if (err) {
       res.json({
@@ -273,17 +312,17 @@ exports.userMeetings = function(req, res) {
       });
     }
   });
-}
+};
 
 // Receives an userId and a meetingId as input
 // Adds the meetingId to the user's meetings list
-exports.addMeeting = function(req, res) {
+exports.addMeeting = async function (req, res) {
   User.update(
-    {_id: req.body.userId},
+    { _id: req.body.userId },
     {
-      $push: {meetings: req.body.meetingId}
+      $push: { meetings: req.body.meetingId },
     },
-    function(err, data) {
+    function (err, data) {
       if (err) {
         res.json({
           status: 500,
@@ -299,17 +338,17 @@ exports.addMeeting = function(req, res) {
       }
     }
   );
-}
+};
 
 // Receives an userId and a meetingId as input
 // Removes the meetingId from the user's meetings list
-exports.removeMeeting = function(req, res) {
+exports.removeMeeting = async function (req, res) {
   User.update(
-    {_id: req.body.userId},
+    { _id: req.body.userId },
     {
-      $pull: {meetings: req.body.meetingId}
+      $pull: { meetings: req.body.meetingId },
     },
-    function(err, data) {
+    function (err, data) {
       if (err) {
         res.json({
           status: 500,
@@ -325,49 +364,50 @@ exports.removeMeeting = function(req, res) {
       }
     }
   );
-}
+};
 
 // Receives userId as input
 // Sends the user's schedule
-exports.viewSchedule = function(req, res) {
-  User.findById(req.params.userId, {schedule: 1}, function(err, data) {
-    if(err) {
+exports.viewSchedule = async function (req, res) {
+  User.findById(req.params.userId, { schedule: 1 }, function (err, data) {
+    if (err) {
       res.json({
         status: 500,
         errorMessage: err.message,
-        errorName: err.name
+        errorName: err.name,
       });
     } else {
       res.json({
         status: res.statusCode,
         message: "Successfully retrieved user schedule",
-        data: data
+        data: data,
       });
     }
   });
-}
+};
 
 // Receives userId and schedule as input
 // Sets the schedule for the user to the given schedule
-exports.setSchedule = function(req, res) {
+exports.setSchedule = async function (req, res) {
   User.updateOne(
     { _id: req.body.userId },
     {
-      $set: { schedule: req.body.schedule }
+      $set: { schedule: req.body.schedule },
     },
-  function(err, data) {
-    if(err) {
-      res.json({
-        status: 500,
-        errorMessage: err.message,
-        errorName: err.name
-      });
-    } else {
-      res.json({
-        status: res.statusCode,
-        message: "Successfully updated user schedule",
-        data: data
-      });
+    function (err, data) {
+      if (err) {
+        res.json({
+          status: 500,
+          errorMessage: err.message,
+          errorName: err.name,
+        });
+      } else {
+        res.json({
+          status: res.statusCode,
+          message: "Successfully updated user schedule",
+          data: data,
+        });
+      }
     }
-  });
-}
+  );
+};
