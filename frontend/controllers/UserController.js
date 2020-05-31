@@ -162,7 +162,7 @@ export async function removeGroupRequest(userId, groupId) {
           route +
           "/user/removeGroupRequest/" +
           userId +
-          "/" +
+          "&" +
           groupId
       )
     ).data;
