@@ -35,6 +35,7 @@ function ViewGroupScreen({route, navigation}) {
         }
 
         if(updatePage && logData.length > 0) {
+            console.log('setting page data')
             let list = [];
             for(let i=0; i < logData.length; i++) {
                 let data = logData[i];
@@ -116,10 +117,10 @@ function ViewGroupScreen({route, navigation}) {
                         />
                     }
                 >
-                    <Menu.Item onPress={() => {}} title="Item 1" />
-                    <Menu.Item onPress={() => {}} title="Item 2" />
+                    <Menu.Item onPress={() => {}} title="Add Members" />
+                    <Menu.Item onPress={() => {}} title="Members" />
                     {/* <Divider /> */}
-                    <Menu.Item onPress={() => {}} title="Item 3" />
+                    <Menu.Item onPress={() => {}} title="Leave group" />
                 </Menu>
             </Appbar.Header>
             <ScrollView style={{flex: 1, flexDirection: 'column'}} scrollEnabled={true}>
