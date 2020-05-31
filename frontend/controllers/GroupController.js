@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 const axios = require("axios").default;
 const protocol = "http://";
 const baseUrl = "127.0.0.1";
 const port = 8000;
 const route = "/lm";
 const url = protocol + baseUrl + ":" + port + route;
+=======
+import { url } from '../api-routes';
+const axios = require('axios').default;
+>>>>>>> d76392c6702fa4339e10a52aee720ec9bbfd5294
 
 export async function getUsers(username) {
   let responseData = {};
@@ -35,6 +40,17 @@ export async function getUserGroups(userId) {
     console.log(error);
   }
   return groups;
+}
+
+export async function getGroupData(groupId) {
+    try {
+        const response = (await axios.get(url + '/group/' + groupId)).data
+        if(response.status === 200) {
+            return response.data
+        }
+    }catch(err) {
+        console.log(err)
+    }
 }
 
 export async function createUserGroup(owner, name, memberRequests) {
@@ -91,6 +107,7 @@ async function addUserGroup(userId, groupId) {
 }
 
 async function addUserGroupRequest(userId, groupId) {
+<<<<<<< HEAD
   try {
     const response = await axios.post(url + "/user/addGroupRequest", {
       userId: userId,
@@ -102,3 +119,15 @@ async function addUserGroupRequest(userId, groupId) {
     console.log(error);
   }
 }
+=======
+    try {
+        const response = await axios.post(url + '/user/addGroupRequest', {
+            userId: userId,
+            groupId: groupId
+        });
+        return response.data
+    } catch(error) {
+        console.log(error)
+    }
+}
+>>>>>>> d76392c6702fa4339e10a52aee720ec9bbfd5294

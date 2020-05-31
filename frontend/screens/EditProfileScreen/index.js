@@ -76,7 +76,7 @@ function EditProfile({ navigation }) {
     if (password === user.password) {
       setVisibleDeleteAccount(false);
       console.log('Account deleted');
-      navigation.navigate(Screen.LOGIN); // navigate to login page
+      navigation.navigate('Login'); // navigate to login page
     } else {
       setShowDeleteHelperText(true);
     }
@@ -113,6 +113,7 @@ function EditProfile({ navigation }) {
       <Button
         style={styles.button}
         mode="contained"
+        uppercase={false}
         onPress={() => setVisibleChangePassword(true)}
       >
         Change Password
@@ -121,6 +122,7 @@ function EditProfile({ navigation }) {
         style={styles.button}
         mode="contained"
         color="#db0000"
+        uppercase={false}
         onPress={() => setVisibleDeleteAccount(true)}
       >
         Delete Account

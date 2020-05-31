@@ -16,7 +16,11 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+<<<<<<< HEAD
     "jsonwebtoken": "^8.5.1",
+=======
+    "socket.io": "^2.3.0",
+>>>>>>> d76392c6702fa4339e10a52aee720ec9bbfd5294
     "moment": "^2.26.0",
     "mongoose": "^5.9.10",
     "morgan": "^1.10.0",

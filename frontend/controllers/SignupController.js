@@ -1,13 +1,9 @@
+import { url } from '../api-routes';
 const axios = require('axios').default;
-
-const protocol = 'http://';
-const baseUrl = '192.168.1.5';
-const port = 8000;
-const route = '/lm';
 
 export async function postUser(username, email, phone, password, displayName) {
   try {
-    const response = await axios.post(protocol + baseUrl + ':' + port + route + '/users', {
+    const response = await axios.post(url + '/users', {
         username: username,
         email: email,
         phone: phone,

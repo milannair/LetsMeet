@@ -87,8 +87,6 @@ function MeetingsScreen({route, navigation }) {
         let start = moment(meetingsDetails[i].startTime).format("LT");
         let end = moment(meetingsDetails[i].endTime).format("LT");
         let day = moment(meetingsDetails[i].startTime).format("dddd, MMMM Do");
-        console.log("tentativeMeetingComponents");
-        console.log(meetingsDetails);
         if (!(meetingsDetails[i].confirmed)) {
           list.push (
             <List.Section>
