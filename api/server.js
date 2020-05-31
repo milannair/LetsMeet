@@ -78,9 +78,7 @@ server.listen(port, function () {
   console.log("Running LetsMeet API @ localhost:" + port);
 });
 
-<<<<<<< HEAD
 module.exports = server;
-=======
 // SOCKET.IO
 const User = require('./server/models/userModel');
 
@@ -110,4 +108,3 @@ io.on('connection', (socket) => {
   });
 });
 
->>>>>>> d76392c6702fa4339e10a52aee720ec9bbfd5294

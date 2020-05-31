@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const axios = require("axios").default;
 
 const protocol = "http://";
@@ -11,14 +10,6 @@ export async function postUser(username, email, phone, password, displayName) {
     const response = await axios.post(
       protocol + baseUrl + ":" + port + route + "/user/create",
       {
-=======
-import { url } from '../api-routes';
-const axios = require('axios').default;
-
-export async function postUser(username, email, phone, password, displayName) {
-  try {
-    const response = await axios.post(url + '/users', {
->>>>>>> d76392c6702fa4339e10a52aee720ec9bbfd5294
         username: username,
         email: email,
         phone: phone,
@@ -36,7 +27,6 @@ export async function postUser(username, email, phone, password, displayName) {
 export async function getUser(id) {
   let responseData = {};
   try {
-<<<<<<< HEAD
     responseData = (
       await axios.get(protocol + baseUrl + ":" + port + route + "/user/" + id)
     ).data;
@@ -295,11 +285,6 @@ export async function removeMeeting(userId, meetingId) {
     ).data;
     if (responseData.status === 200) {
       return responseData.data;
-=======
-    responseData = (await axios.get(url+ '/user/' + id)).data;
-    if(responseData.status === 200) {
-      return responseData.data
->>>>>>> d76392c6702fa4339e10a52aee720ec9bbfd5294
     }
   } catch (error) {
     console.error(error);
@@ -309,11 +294,11 @@ export async function removeMeeting(userId, meetingId) {
 
 export async function getUserSchedule(userId) {
   try {
-    const response = await axios.get(url + '/user/schedule/' + userId);
+    const response = await axios.get(url + "/user/schedule/" + userId);
     if (response && response.data && response.status === 200) {
       return response.data.data;
     } else {
-      console.error('Error retrieving user schedule'); 
+      console.error("Error retrieving user schedule");
     }
   } catch (error) {
     console.error(error);
@@ -322,9 +307,9 @@ export async function getUserSchedule(userId) {
 
 export async function setUserSchedule(userId, schedule) {
   try {
-    const response = await axios.post(url + '/user/setSchedule', {
+    const response = await axios.post(url + "/user/setSchedule", {
       userId: userId,
-      schedule: schedule
+      schedule: schedule,
     });
     if (response.status === 200) {
       return response;
@@ -339,14 +324,13 @@ export async function setUserSchedule(userId, schedule) {
 
 export async function getUserIdentifiers(id) {
   try {
-    const response = (await axios.get(url + '/user/identifiers/' + id)).data;
-    if(response.status === 200) {
-      return response.data
+    const response = (await axios.get(url + "/user/identifiers/" + id)).data;
+    if (response.status === 200) {
+      return response.data;
     } else {
       console.log(response);
     }
-    
   } catch (error) {
-    console.error('Error: ' +error);
+    console.error("Error: " + error);
   }
 }

@@ -107,19 +107,6 @@ async function addUserGroup(userId, groupId) {
 }
 
 async function addUserGroupRequest(userId, groupId) {
-<<<<<<< HEAD
-  try {
-    const response = await axios.post(url + "/user/addGroupRequest", {
-      userId: userId,
-      groupId: groupId,
-    });
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-}
-=======
     try {
         const response = await axios.post(url + '/user/addGroupRequest', {
             userId: userId,
@@ -130,4 +117,3 @@ async function addUserGroupRequest(userId, groupId) {
         console.log(error)
     }
 }
->>>>>>> d76392c6702fa4339e10a52aee720ec9bbfd5294

@@ -11,13 +11,10 @@ router.get("/", function (req, res) {
 // Import all controllers for our models
 let userController = require("./controllers/userController");
 let groupController = require("./controllers/groupController");
-<<<<<<< HEAD
 
 // Import meeting controller
-=======
 let meetingRequestController = require("./controllers/meetingRequestController");
 let optionController = require("./controllers/optionController");
->>>>>>> d76392c6702fa4339e10a52aee720ec9bbfd5294
 var meetingController = require("./controllers/meetingController");
 
 // User routes
@@ -35,10 +32,8 @@ router
   .delete(userController.delete)
   .patch(userController.update);
 
-<<<<<<< HEAD
 //Get user groups - d
 router.route("/user/group/:userId").get(userController.userGroups);
-=======
 // Get user's identifiers
 router
   .route('/user/identifiers/:userId')
@@ -48,7 +43,6 @@ router
 router
   .route('/user/groups/:userId')
   .get(userController.userGroups);
->>>>>>> d76392c6702fa4339e10a52aee720ec9bbfd5294
 
 //Get users by username - d
 router.route("/user/byUserName/:username").get(userController.usersByUsername);
@@ -84,9 +78,7 @@ router
   .route("/user/removeMeeting/:userId/:meetingId")
   .post(userController.removeMeeting);
 
-<<<<<<< HEAD
 //// Group paths ////
-=======
 // Get user schedule
 router
   .route('/user/schedule/:userId')
@@ -100,7 +92,6 @@ router
 
   //// Group paths ////
 
->>>>>>> d76392c6702fa4339e10a52aee720ec9bbfd5294
 
 // Create a group
 router.route("/groups").post(groupController.create);
@@ -136,20 +127,11 @@ router
 
 // // Add meeting request to the group
 router
-<<<<<<< HEAD
-  .route("/group/addMeetingRequest")
-  .post(groupController.addMeetingRequest);
-=======
   .route('/group/addMeetingRequest/')
   .post(groupController.addMeetingRequest)
->>>>>>> d76392c6702fa4339e10a52aee720ec9bbfd5294
 
 // // Remove meeting request from the group
 router
-<<<<<<< HEAD
-  .route("/group/removeMeetingRequest")
-  .post(groupController.removeMeetingRequest);
-=======
   .route('/group/removeMeetingRequest/:groupId&:meetingRequestId')
   .post(groupController.removeMeetingRequest)
 
@@ -238,7 +220,6 @@ router
 
 
   //// Meeting paths ////
->>>>>>> d76392c6702fa4339e10a52aee720ec9bbfd5294
 
 //// Meeting paths ////
 
