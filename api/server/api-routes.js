@@ -202,8 +202,6 @@ router
 
 //// Meeting paths ////
 
-//// Meeting paths ////
-
 // Create a meeting
 router.route("/meeting/create").post(meetingController.create);
 
