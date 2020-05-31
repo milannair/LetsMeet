@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import {getGroupData} from '../../controllers/GroupController';
 import {FAB, Text, Appbar, List, Title, Button, Divider} from 'react-native-paper';
 import styles from './styles';
@@ -110,7 +110,9 @@ function ViewGroupScreen({route, navigation}) {
                 onPress={()=> alert("Will eventually take you to the settings screen")}
                 />
             </Appbar.Header>
-            {requestsLog}
+            <ScrollView style={{flex: 1, flexDirection: 'column'}} scrollEnabled={true}>
+                {requestsLog}
+            </ScrollView>
             <FAB
                 style={styles.fab}
                 icon='plus'
