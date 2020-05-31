@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest --env=jsdom"
   },
   "dependencies": {
     "@babel/runtime": "^7.9.6",
@@ -37,7 +38,12 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
-    "babel-preset-expo": "~8.1.0"
+    "babel-preset-expo": "~8.1.0",
+    "jest": "^26.0.1",
+    "jest-expo": "^37.0.0"
+  },
+  "jest": {
+    "preset": "jest-expo/universal"
   },
   "private": true
 }

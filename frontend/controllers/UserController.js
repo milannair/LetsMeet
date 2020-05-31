@@ -1,9 +1,5 @@
-const axios = require("axios").default;
-
-const protocol = "http://";
-const baseUrl = "localhost"; // change to your ipv4 address
-const port = 8000;
-const route = "/lm";
+import { url } from '../api-routes';
+const axios = require('axios').default;
 
 export async function postUser(username, email, phone, password, displayName) {
   try {

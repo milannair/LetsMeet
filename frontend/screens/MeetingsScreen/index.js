@@ -1,11 +1,12 @@
 import React, { useState, useEffect} from 'react';
 import { View, AsyncStorage} from 'react-native';
-import { Appbar, List, useTheme } from 'react-native-paper';
+import { List, useTheme } from 'react-native-paper';
 import styles from './styles';
 import {getUserMeetingsWithGroups} from '../../controllers/MeetingController';
 import moment from 'moment';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { useIsFocused } from '@react-navigation/native';
+import AppbarComponent from "../../components/AppbarComponent";
 
 function MeetingsScreen({ navigation }) {
     const { colors } = useTheme();
@@ -57,16 +58,7 @@ function MeetingsScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-          <Appbar.Header style={styles.navbar} >
-            <Appbar.Content
-              title="LetsMeet"
-            />
-            <Appbar.Action 
-              icon="dots-vertical" 
-              color="white"
-              onPress={()=> alert("Will eventually take you to the settings screen")}
-            />
-          </Appbar.Header>
+          <AppbarComponent />
         
           <TabView 
             renderTabBar={renderTabBar}
