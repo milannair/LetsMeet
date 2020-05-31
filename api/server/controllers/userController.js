@@ -3,8 +3,6 @@ User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-var socket = require('../../server');
-
 module.exports = {
   register: async (req, res) => {
     const user = await User.findOne({ username: req.body.cred });
@@ -239,67 +237,3 @@ module.exports = {
     res.status(200).json(user);
   },
 };
-
-
-// Get user's name, username, and email
-exports.getUserIdentifiers = function(req, res) {
-  User.find({_id: req.params.userId}, {displayName: 1, username: 1, email: 1}, function (err, data) {
-    if (err) {
-      res.json({
-        status: 500,
-        errorMessage: err.message,
-        errorName: err.name
-      })
-    }
-    res.json({
-      status: res.statusCode,
-      message: "User retreived!",
-      data: data,
-    });
-  });
-}
-
-// Receives userId as input
-// Sends the user's schedule
-exports.viewSchedule = function(req, res) {
-  User.findById(req.params.userId, {schedule: 1}, function(err, data) {
-    if(err) {
-      res.json({
-        status: 500,
-        errorMessage: err.message,
-        errorName: err.name
-      });
-    } else {
-      res.json({
-        status: res.statusCode,
-        message: "Successfully retrieved user schedule",
-        data: data
-      });
-    }
-  });
-}
-
-// Receives userId and schedule as input
-// Sets the schedule for the user to the given schedule
-exports.setSchedule = function(req, res) {
-  User.updateOne(
-    { _id: req.body.userId },
-    {
-      $set: { schedule: req.body.schedule }
-    },
-  function(err, data) {
-    if(err) {
-      res.json({
-        status: 500,
-        errorMessage: err.message,
-        errorName: err.name
-      });
-    } else {
-      res.json({
-        status: res.statusCode,
-        message: "Successfully updated user schedule",
-        data: data
-      });
-    }
-  });
-}

@@ -1,5 +1,9 @@
-import { url } from '../api-routes';
-const axios = require('axios').default;
+const axios = require("axios").default;
+const protocol = "http://";
+const baseUrl = "127.0.0.1";
+const port = 8000;
+const route = "/lm";
+const url = protocol + baseUrl + ":" + port + route;
 
 export async function getUsers(username) {
   let responseData = {};
@@ -34,14 +38,14 @@ export async function getUserGroups(userId) {
 }
 
 export async function getGroupData(groupId) {
-    try {
-        const response = (await axios.get(url + '/group/' + groupId)).data
-        if(response.status === 200) {
-            return response.data
-        }
-    }catch(err) {
-        console.log(err)
+  try {
+    const response = (await axios.get(url + "/group/" + groupId)).data;
+    if (response.status === 200) {
+      return response.data;
     }
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 export async function createUserGroup(owner, name, memberRequests) {
@@ -103,7 +107,6 @@ async function addUserGroupRequest(userId, groupId) {
       userId: userId,
       groupId: groupId,
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);

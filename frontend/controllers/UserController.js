@@ -1,9 +1,15 @@
-import { url } from '../api-routes';
 const axios = require("axios").default;
+
+const protocol = "http://";
+const baseUrl = "localhost"; // change to your ipv4 address
+const port = 8000;
+const route = "/lm";
 
 export async function postUser(username, email, phone, password, displayName) {
   try {
-    const response = await axios.post(url + '/users', {
+    const response = await axios.post(
+      protocol + baseUrl + ":" + port + route + "/user/create",
+      {
         username: username,
         email: email,
         phone: phone,
@@ -288,11 +294,11 @@ export async function removeMeeting(userId, meetingId) {
 
 export async function getUserSchedule(userId) {
   try {
-    const response = await axios.get(url + '/user/schedule/' + userId);
+    const response = await axios.get(url + "/user/schedule/" + userId);
     if (response && response.data && response.status === 200) {
       return response.data.data;
     } else {
-      console.error('Error retrieving user schedule'); 
+      console.error("Error retrieving user schedule");
     }
   } catch (error) {
     console.error(error);
@@ -301,9 +307,9 @@ export async function getUserSchedule(userId) {
 
 export async function setUserSchedule(userId, schedule) {
   try {
-    const response = await axios.post(url + '/user/setSchedule', {
+    const response = await axios.post(url + "/user/setSchedule", {
       userId: userId,
-      schedule: schedule
+      schedule: schedule,
     });
     if (response.status === 200) {
       return response;
@@ -318,14 +324,13 @@ export async function setUserSchedule(userId, schedule) {
 
 export async function getUserIdentifiers(id) {
   try {
-    const response = (await axios.get(url + '/user/identifiers/' + id)).data;
-    if(response.status === 200) {
-      return response.data
+    const response = (await axios.get(url + "/user/identifiers/" + id)).data;
+    if (response.status === 200) {
+      return response.data;
     } else {
       console.log(response);
     }
-    
   } catch (error) {
-    console.error('Error: ' +error);
+    console.error("Error: " + error);
   }
 }
