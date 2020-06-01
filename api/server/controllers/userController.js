@@ -100,6 +100,11 @@ module.exports = {
   },
 
   userGroups: async (req, res) => {
+    try {
+      jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+      res.status(400).send("Invalid Token");
+    }
     const userGroup = await User.findById(req.params.userId, {
       groups: 1,
     }).catch((err) =>
@@ -113,24 +118,38 @@ module.exports = {
   },
 
   usersByUsername: async (req, res) => {
+    try {
+      jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+      res.status(400).send("Invalid Token");
+    }
     const reg = "^" + req.params.username;
-    User.find({username: {$regex: reg, $options: "<i>"}, }, {email: 1, username: 1}, function(err, data){
-      if (err) { 
+    User.find(
+      { username: { $regex: reg, $options: "<i>" } },
+      { email: 1, username: 1 },
+      function (err, data) {
+        if (err) {
+          res.json({
+            status: 500,
+            errorMessage: err.message,
+            errorName: err.name,
+          });
+        }
         res.json({
-          status: 500,
-          errorMessage: err.message,
-          errorName: err.name
-        })
+          status: res.statusCode,
+          message: "Users with this email",
+          data: data,
+        });
       }
-      res.json({
-        status: res.statusCode,
-        message: "Users with this email",
-        data: data
-      })
-    })
+    );
   },
 
   addGroupRequest: async (req, res) => {
+    try {
+      jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+      res.status(400).send("Invalid Token");
+    }
     const addReq = User.findByIdAndUpdate(req.params.userId, {
       $push: { requests: req.params.groupId },
     }).catch((err) =>
@@ -144,6 +163,11 @@ module.exports = {
   },
 
   removeGroupRequest: async (req, res) => {
+    try {
+      jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+      res.status(400).send("Invalid Token");
+    }
     const removeReq = User.findByIdAndUpdate(req.params.userId, {
       $pull: { requests: req.params.groupId },
     }).catch((err) =>
@@ -158,6 +182,11 @@ module.exports = {
 
   addGroup: async (req, res) => {
     console.log("here");
+    try {
+      jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+      res.status(400).send("Invalid Token");
+    }
     const addGroup = User.findByIdAndUpdate(req.params.userId, {
       $push: { groups: req.params.groupId },
     }).catch((err) =>
@@ -167,10 +196,15 @@ module.exports = {
         errorName: err.name,
       })
     );
-    res.status(200).json({addGroup});
+    res.status(200).json({ addGroup });
   },
 
   removeGroup: async (req, res) => {
+    try {
+      jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+      res.status(400).send("Invalid Token");
+    }
     const removeGroup = User.findByIdAndUpdate(req.params.userId, {
       $pull: { groups: req.params.groupId },
     }).catch((err) =>
@@ -196,6 +230,11 @@ module.exports = {
    *    successful
    */
   userMeetings: async (req, res) => {
+    try {
+      jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+      res.status(400).send("Invalid Token");
+    }
     const user = await User.findById(req.params.userId).catch((err) =>
       res.json({
         status: 500,
@@ -221,6 +260,11 @@ module.exports = {
    *  Information about the user if the operation was successful
    */
   addMeeting: async (req, res) => {
+    try {
+      jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+      res.status(400).send("Invalid Token");
+    }
     const user = User.findByIdAndUpdate(req.params.userId, {
       $push: { meetings: req.params.meetingId },
     }).catch((err) =>
@@ -245,6 +289,11 @@ module.exports = {
    *  Information about the user if the operation was successful
    */
   removeMeeting: async (req, res) => {
+    try {
+      jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+      res.status(400).send("Invalid Token");
+    }
     const user = User.findByIdAndUpdate(req.params.userId, {
       $pull: { meetings: req.params.meetingId },
     }).catch((err) =>
@@ -259,6 +308,11 @@ module.exports = {
 
   // Get user's name, username, and email
   getUserIdentifiers: async (req, res) => {
+    try {
+      jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+      res.status(400).send("Invalid Token");
+    }
     User.find(
       { _id: req.params.userId },
       { displayName: 1, username: 1, email: 1 },

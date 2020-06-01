@@ -17,7 +17,7 @@ export async function postUser(username, email, phone, password, displayName) {
   }
 }
 
-export async function getUser(id, token) {
+export async function getUser(id) {
   let responseData = {};
   try {
     responseData = await axios.get(url + "/user/" + id + "&" + token).data;
@@ -30,7 +30,7 @@ export async function getUser(id, token) {
   return responseData;
 }
 
-export async function deleteUser(id, token) {
+export async function deleteUser(id) {
   let responseData = {};
   try {
     responseData = (await axios.delete(url + "/user/" + id + "&" + token)).data;
@@ -42,7 +42,7 @@ export async function deleteUser(id, token) {
   }
   return responseData;
 }
-export async function updateUser(id, token) {
+export async function updateUser(id) {
   let responseData = {};
   try {
     responseData = (
@@ -81,7 +81,8 @@ export async function loginUser(credential, password) {
 export async function userGroups(id) {
   let responseData = {};
   try {
-    responseData = (await axios.get(url + "/user/group/" + id)).data;
+    responseData = (await axios.get(url + "/user/group/" + id + "&" + token))
+      .data;
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -95,7 +96,9 @@ export async function getUserByUsername(username) {
   console.log(username);
   let responseData = {};
   try {
-    responseData = (await axios.get(url + "/user/byUserName/" + username)).data;
+    responseData = (
+      await axios.get(url + "/user/byUserName/" + username + "&" + token)
+    ).data;
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -109,7 +112,9 @@ export async function addGroupRequest(userId, groupId) {
   let responseData = {};
   try {
     responseData = (
-      await axios.post(url + "/user/addGroupRequest/" + userId + "&" + groupId)
+      await axios.post(
+        url + "/user/addGroupRequest/" + userId + "&" + groupId + "&" + token
+      )
     ).data;
     if (responseData.status === 200) {
       return responseData.data;
@@ -124,7 +129,7 @@ export async function removeGroupRequest(userId, groupId) {
   let responseData = {};
   try {
     responseData = await axios.post(
-      url + "/user/removeGroupRequest/" + userId + "&" + groupId
+      url + "/user/removeGroupRequest/" + userId + "&" + groupId + "&" + token
     );
     if (responseData.status === 200) {
       return responseData.data;
@@ -139,7 +144,9 @@ export async function addGroup(userId, groupId) {
   let responseData = {};
   try {
     responseData = (
-      await axios.post(url + "/user/addGroup/" + userId + "&" + groupId)
+      await axios.post(
+        url + "/user/addGroup/" + userId + "&" + groupId + "&" + token
+      )
     ).data;
     if (responseData.status === 200) {
       return responseData.data;
@@ -153,9 +160,9 @@ export async function addGroup(userId, groupId) {
 export async function removeGroup(userId, groupId) {
   let responseData = {};
   try {
-    responseData = (
-      await axios.post(url + "/user/addGroup/" + userId + "&" + groupId)
-    ).data;
+    responseData = await axios.post(
+      url + "/user/removeGroup/" + userId + "&" + groupId + "&" + token
+    );
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -168,7 +175,9 @@ export async function removeGroup(userId, groupId) {
 export async function userMeetings(userId) {
   let responseData = {};
   try {
-    responseData = (await axios.post(url + "/user/meetings/" + userId)).data;
+    responseData = (
+      await axios.post(url + "/user/meetings/" + userId + "&" + token)
+    ).data;
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -182,7 +191,9 @@ export async function addMeeting(userId, meetingId) {
   let responseData = {};
   try {
     responseData = (
-      await axios.post(url + "/user/addMeeting/" + userId + "&" + meetingId)
+      await axios.post(
+        url + "/user/addMeeting/" + userId + "&" + meetingId + "&" + token
+      )
     ).data;
     if (responseData.status === 200) {
       return responseData.data;
@@ -197,7 +208,9 @@ export async function removeMeeting(userId, meetingId) {
   let responseData = {};
   try {
     responseData = (
-      await axios.post(url + "/user/removeMeeting/" + userId + "&" + meetingId)
+      await axios.post(
+        url + "/user/removeMeeting/" + userId + "&" + meetingId + "&" + token
+      )
     ).data;
     if (responseData.status === 200) {
       return responseData.data;
@@ -210,7 +223,9 @@ export async function removeMeeting(userId, meetingId) {
 
 export async function getUserSchedule(userId) {
   try {
-    const response = await axios.get(url + "/user/schedule/" + userId);
+    const response = await axios.get(
+      url + "/user/schedule/" + userId + "&" + token
+    );
     if (response && response.data && response.status === 200) {
       return response.data.data;
     } else {
@@ -223,7 +238,7 @@ export async function getUserSchedule(userId) {
 
 export async function setUserSchedule(userId, schedule) {
   try {
-    const response = await axios.post(url + "/user/setSchedule", {
+    const response = await axios.post(url + "/user/setSchedule" + "&" + token, {
       userId: userId,
       schedule: schedule,
     });
@@ -240,7 +255,9 @@ export async function setUserSchedule(userId, schedule) {
 
 export async function getUserIdentifiers(id) {
   try {
-    const response = (await axios.get(url + "/user/identifiers/" + id)).data;
+    const response = (
+      await axios.get(url + "/user/identifiers/" + id + "&" + token)
+    ).data;
     if (response.status === 200) {
       return response.data;
     } else {

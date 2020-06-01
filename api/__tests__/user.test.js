@@ -31,6 +31,7 @@ describe("/user/addMeeting", () => {
         displayName: "TestUser",
       });
       userId = userRes.data._id;
+      console.log(userRes);
       token = userRes.headers["x-auth-token"];
       await axios.post(
         `${constants.API_URI}/user/addMeeting/${userId}/${meetingId}`
@@ -41,7 +42,7 @@ describe("/user/addMeeting", () => {
       expect(response.data.meetings).toContain(meetingId);
     } finally {
       // Tear down
-      await axios.delete(`${constants.API_URI}/user/${userId}`);
+      await axios.delete(`${constants.API_URI}/user/${userId}&${token}`);
     }
   });
 });
@@ -59,8 +60,8 @@ describe("/user/removeMeeting", () => {
         password: "DontUseThisPassword",
         displayName: "TestUser",
       });
+      console.log(userRes);
       userId = userRes.data._id;
-      token = userRes.headers["x-auth-token"];
       await axios.post(
         `${constants.API_URI}/user/addMeeting/${userId}/${meetingId}`
       );

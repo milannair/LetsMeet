@@ -34,6 +34,9 @@ const styles = StyleSheet.create({
     },
     medText: { // white text 60% opacity for medium emphasis text
         color: 'rgba(0, 0, 0, .6)'
+    },
+    spinnerText: {
+        color: 'white',
     }
 });
 
