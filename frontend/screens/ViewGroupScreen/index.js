@@ -7,6 +7,7 @@ import {CREATE_MEETING_REQUEST, GROUPS, VIEW_POLL} from '../../navigation/tab_na
 import {getMeetingRequest} from '../../controllers/MeetingRequestController';
 import {getUserIdentifiers} from '../../controllers/UserController';
 import moment from 'moment';
+import { useFocusEffect } from '@react-navigation/native';
 
 function ViewGroupScreen({route, navigation}) {
     const [groupData, setGroupData] = useState({});
@@ -14,6 +15,22 @@ function ViewGroupScreen({route, navigation}) {
     const [logData, setLogData] = useState([]);
     const [requestsLog, setRequestsLog] = useState([]);
     const [showMenu, setShowMenu] = useState(false);
+    const [updateLog, setUpdateLog] = useState(true);
+
+    useFocusEffect(
+        React.useCallback(() => {
+          setUpdatePage(true);
+          setLogData([]);
+          setUpdateLog(true);
+          console.log("focused");
+          return () => {
+            setLogData([]);
+            // setUpdateLog(true);
+            // setUpdateLog([]);
+            console.log("unfocused");
+          };
+        }, [])
+      );
 
     useEffect(() => {
         const getData = async () => {  // get all meetingRequests for this group and their authors
@@ -31,11 +48,15 @@ function ViewGroupScreen({route, navigation}) {
         };
 
         if(updatePage) {
+            console.log('getting data');
             getData();
+            setUpdatePage(false);
+            setUpdateLog(true);
         }
 
-        if(updatePage && logData.length > 0) {
-            console.log('setting page data')
+        if(updateLog && logData.length > 0) {
+            console.log('setting page data');
+            console.log("Data length:" + logData.length);
             let list = [];
             for(let i=0; i < logData.length; i++) {
                 let data = logData[i];
@@ -92,7 +113,7 @@ function ViewGroupScreen({route, navigation}) {
                 list.push(<Divider key={'request' + 'request' + i} />);
             }
             setRequestsLog(list);
-            setUpdatePage(false);
+            setUpdateLog(false);
         }
 
         
