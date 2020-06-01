@@ -92,6 +92,7 @@ export async function userGroups(id) {
 }
 
 export async function getUserByUsername(username) {
+  console.log(username);
   let responseData = {};
   try {
     responseData = (await axios.get(url + "/user/byUserName/" + username)).data;
@@ -122,11 +123,9 @@ export async function addGroupRequest(userId, groupId) {
 export async function removeGroupRequest(userId, groupId) {
   let responseData = {};
   try {
-    responseData = (
-      await axios.post(
-        url + "/user/removeGroupRequest/" + userId + "&" + groupId
-      )
-    ).data;
+    responseData = await axios.post(
+      url + "/user/removeGroupRequest/" + userId + "&" + groupId
+    );
     if (responseData.status === 200) {
       return responseData.data;
     }
