@@ -9,6 +9,7 @@ import { getMeetingRequest } from '../../controllers/MeetingRequestController';
 import { getUserIdentifiers } from '../../controllers/UserController';
 import { getOption, addVote, removeVote } from '../../controllers/OptionsController';
 import moment from 'moment';
+import useSocket from '../../hooks/UseSocket/index';
 
 function ViewPollScreen({route, navigation}) {
   const [meetingData, setMeetingData] = useState({"name": "", "deadline": "", "requestedOptions": []});
@@ -17,8 +18,10 @@ function ViewPollScreen({route, navigation}) {
   const [pollOptions, setPollOptions] = useState([]);
   const [numVotes, setNumVotes] = useState([]);
   const [isHighlighted, setIsHighlighted] = useState([]);
+  const [updateOptions, setUpdateOptions] = useState(false);
   const { colors } = useTheme();
   useSocket('add vote', ({userId, optionId}) => {
+    console.log('add: ' + userId);
     setOptionData((prev) => {
       prev.forEach((option) => {
         if (option._id === optionId) {
@@ -27,9 +30,11 @@ function ViewPollScreen({route, navigation}) {
       });
       return prev;
     });
+    setUpdateOptions(true);
   });
 
   useSocket('remove vote', ({userId, optionId}) => {
+    console.log('remove: ' + userId);
     setOptionData((prev) => {
       prev.forEach((option) => {
         if (option._id === optionId) {
@@ -40,7 +45,8 @@ function ViewPollScreen({route, navigation}) {
         }
       });
       return prev;
-    })
+    });
+    setUpdateOptions(true);
   });
 
   const optionPressed = (option) => {
@@ -57,6 +63,7 @@ function ViewPollScreen({route, navigation}) {
   }
 
   useEffect( () => {
+    console.log('re-render')
     const getMeetingReq = async () => {
       try {
         const meetingReq = await getMeetingRequest(route.params.meetingId);
@@ -94,12 +101,13 @@ function ViewPollScreen({route, navigation}) {
         }
         setPollOptions(list);
         setNumVotes(numVotesList);
+        setUpdateOptions(false);
       } catch (error) {
         console.error(error);
       }
     };
     getMeetingReq();
-   }, []);
+   }, [updateOptions]);
 
   return(
     <View>

@@ -44,7 +44,7 @@ function Login({ navigation }) {
     }
     // TODO: send data AFTER authentication (authentication will return userId, so don't use 'email' either)
     await loginUser(email, password);
-    // sendData(email);
+    sendData(email);
     setUserIdInAsyncStorage(email);
     
     // TODO: check username and password in database
