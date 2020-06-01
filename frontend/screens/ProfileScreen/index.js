@@ -54,7 +54,6 @@ function Profile({ navigation }) {
       <AppbarComponent title='Profile' />
       <List.Item
         style={styles.item}
-        background='white'
         title={user.displayName}
         description={user.email}
         left={() => <List.Icon icon="account-circle" />}
