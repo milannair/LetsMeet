@@ -61,6 +61,17 @@ function ViewPollScreen({route, navigation}) {
     }
     addVote(option._id, route.params.userId, route.params.groupId);
   }
+  
+  function highlightIfVotedByCurrUser(option) {
+    let votes = option.votes;
+    for (let i = 0; i < votes.length; i++) {
+      let vote = votes[i];
+      if (vote === route.params.userId) {
+        return {backgroundColor: colors.accent};
+      }
+    }
+    return {backgroundColor: 'white'};
+  }
 
   useEffect( () => {
     console.log('re-render')
@@ -89,7 +100,8 @@ function ViewPollScreen({route, navigation}) {
           list.push(
             <View key={'option' + i}>
               <List.Item
-                style={{backgroundColor: colors.accent}}
+                // style={{backgroundColor: colors.accent}}
+                style={highlightIfVotedByCurrUser}
                 title={moment(startTime).format("dddd, MMMM Do YYYY")}
                 description={moment(startTime).format("LT") + " to " + moment(endTime).format("LT")}
                 right={() => <Text style={styles.numVotes}>{numVotes}</Text>}
