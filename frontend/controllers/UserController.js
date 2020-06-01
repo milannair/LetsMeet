@@ -1,18 +1,15 @@
-import { url } from '../api-routes';
-const axios = require('axios').default;
+import { url } from "../api-routes";
+const axios = require("axios").default;
 
 export async function postUser(username, email, phone, password, displayName) {
   try {
-    const response = await axios.post(
-      url + "/user/create",
-      {
-        username: username,
-        email: email,
-        phone: phone,
-        password: password,
-        displayName: displayName,
-      }
-    );
+    const response = await axios.post(url + "/user/create", {
+      username: username,
+      email: email,
+      phone: phone,
+      password: password,
+      displayName: displayName,
+    });
     console.log(response);
     return response;
   } catch (error) {
@@ -20,12 +17,10 @@ export async function postUser(username, email, phone, password, displayName) {
   }
 }
 
-export async function getUser(id) {
+export async function getUser(id, token) {
   let responseData = {};
   try {
-    responseData = (
-      await axios.get(url + "/user/" + id)
-    ).data;
+    responseData = await axios.get(url + "/user/" + id + "&" + token).data;
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -35,14 +30,10 @@ export async function getUser(id) {
   return responseData;
 }
 
-export async function deleteUser(id) {
+export async function deleteUser(id, token) {
   let responseData = {};
   try {
-    responseData = (
-      await axios.delete(
-        url + "/user/" + id
-      )
-    ).data;
+    responseData = (await axios.delete(url + "/user/" + id + "&" + token)).data;
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -51,12 +42,12 @@ export async function deleteUser(id) {
   }
   return responseData;
 }
-export async function updateUser(id) {
+export async function updateUser(id, token) {
   let responseData = {};
   try {
     responseData = (
       await axios.patch(
-        url + "/user/" + id
+        url + "/user/" + id + "&" + token
         //ADD JSON BODY
       )
     ).data;
@@ -90,11 +81,7 @@ export async function loginUser(credential, password) {
 export async function userGroups(id) {
   let responseData = {};
   try {
-    responseData = (
-      await axios.get(
-        url + "/user/group/" + id
-      )
-    ).data;
+    responseData = (await axios.get(url + "/user/group/" + id)).data;
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -107,11 +94,7 @@ export async function userGroups(id) {
 export async function getUserByUsername(username) {
   let responseData = {};
   try {
-    responseData = (
-      await axios.get(
-        url + "/user/byUserName/" + username
-      )
-    ).data;
+    responseData = (await axios.get(url + "/user/byUserName/" + username)).data;
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -125,13 +108,7 @@ export async function addGroupRequest(userId, groupId) {
   let responseData = {};
   try {
     responseData = (
-      await axios.post(
-        url +
-          "/user/addGroupRequest/" +
-          userId +
-          "&" +
-          groupId
-      )
+      await axios.post(url + "/user/addGroupRequest/" + userId + "&" + groupId)
     ).data;
     if (responseData.status === 200) {
       return responseData.data;
@@ -147,11 +124,7 @@ export async function removeGroupRequest(userId, groupId) {
   try {
     responseData = (
       await axios.post(
-        url +
-          "/user/removeGroupRequest/" +
-          userId +
-          "&" +
-          groupId
+        url + "/user/removeGroupRequest/" + userId + "&" + groupId
       )
     ).data;
     if (responseData.status === 200) {
@@ -167,13 +140,7 @@ export async function addGroup(userId, groupId) {
   let responseData = {};
   try {
     responseData = (
-      await axios.post(
-        url +
-          "/user/addGroup/" +
-          userId +
-          "&" +
-          groupId
-      )
+      await axios.post(url + "/user/addGroup/" + userId + "&" + groupId)
     ).data;
     if (responseData.status === 200) {
       return responseData.data;
@@ -188,13 +155,7 @@ export async function removeGroup(userId, groupId) {
   let responseData = {};
   try {
     responseData = (
-      await axios.post(
-        url +
-          "/user/addGroup/" +
-          userId +
-          "&" +
-          groupId
-      )
+      await axios.post(url + "/user/addGroup/" + userId + "&" + groupId)
     ).data;
     if (responseData.status === 200) {
       return responseData.data;
@@ -208,11 +169,7 @@ export async function removeGroup(userId, groupId) {
 export async function userMeetings(userId) {
   let responseData = {};
   try {
-    responseData = (
-      await axios.post(
-        url + "/user/meetings/" + userId
-      )
-    ).data;
+    responseData = (await axios.post(url + "/user/meetings/" + userId)).data;
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -226,13 +183,7 @@ export async function addMeeting(userId, meetingId) {
   let responseData = {};
   try {
     responseData = (
-      await axios.post(
-        url +
-          "/user/addMeeting/" +
-          userId +
-          "&" +
-          meetingId
-      )
+      await axios.post(url + "/user/addMeeting/" + userId + "&" + meetingId)
     ).data;
     if (responseData.status === 200) {
       return responseData.data;
@@ -247,13 +198,7 @@ export async function removeMeeting(userId, meetingId) {
   let responseData = {};
   try {
     responseData = (
-      await axios.post(
-        url +
-          "/user/removeMeeting/" +
-          userId +
-          "&" +
-          meetingId
-      )
+      await axios.post(url + "/user/removeMeeting/" + userId + "&" + meetingId)
     ).data;
     if (responseData.status === 200) {
       return responseData.data;

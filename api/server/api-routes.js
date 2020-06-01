@@ -27,7 +27,7 @@ router.route("/user/login").post(userController.login);
 
 // Get user by Id - d
 router
-  .route("/user/:userId")
+  .route("/user/:userId&:auth_token")
   .get(userController.view)
   .delete(userController.delete)
   .patch(userController.update);

@@ -27,7 +27,8 @@ module.exports = {
         errorName: err.name,
       })
     );
-    res.status(200).json(newUser);
+    const token = jwt.sign({ _id: newUser._id }, process.env.ACCESS_TOKEN);
+    res.status(200).header("x-auth-token", token).json(newUser);
   },
 
   login: async (req, res) => {
@@ -39,11 +40,16 @@ module.exports = {
     const validPass = await bcrypt.compare(req.body.password, user.password);
     if (!validPass)
       return res.status(400).send("Invalid email/username or password");
-    const token = jwt.sign({ _id: user._id }, process.env.privateKey);
+    const token = jwt.sign({ _id: user._id }, process.env.ACCESS_TOKEN);
     res.status(200).header("x-auth-token", token).send(true);
   },
 
   view: async (req, res) => {
+    try {
+      jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+      res.status(400).send("Invalid Token");
+    }
     const singleUser = await User.findById(req.params.userId).catch((err) =>
       res.json({
         status: 500,
@@ -55,6 +61,11 @@ module.exports = {
   },
 
   delete: async (req, res) => {
+    try {
+      jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+      res.status(400).send("Invalid Token");
+    }
     const deleteUser = await User.findByIdAndDelete(req.params.userId).catch(
       (err) =>
         res.json({
@@ -67,6 +78,11 @@ module.exports = {
   },
 
   update: async (req, res) => {
+    try {
+      jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+      res.status(400).send("Invalid Token");
+    }
     const updateUser = await User.findByIdAndUpdate(
       req.params.userId,
       req.body,
@@ -93,7 +109,7 @@ module.exports = {
         errorName: err.name,
       })
     );
-    res.status(200).json({data: userGroup.groups});
+    res.status(200).json({ data: userGroup.groups });
   },
 
   usersByUsername: async (req, res) => {
@@ -239,21 +255,23 @@ module.exports = {
 
   // Get user's name, username, and email
   getUserIdentifiers: async (req, res) => {
-    User.find({_id: req.params.userId}, {displayName: 1, username: 1, email: 1}, function (err, data) {
-      if (err) { 
+    User.find(
+      { _id: req.params.userId },
+      { displayName: 1, username: 1, email: 1 },
+      function (err, data) {
+        if (err) {
+          res.json({
+            status: 500,
+            errorMessage: err.message,
+            errorName: err.name,
+          });
+        }
         res.json({
-          status: 500,
-          errorMessage: err.message,
-          errorName: err.name
-        })
+          status: res.statusCode,
+          message: "User retreived!",
+          data: data,
+        });
       }
-      res.json({
-        status: res.statusCode,
-        message: "User retreived!",
-        data: data,
-      });
-    });
-  }
+    );
+  },
 };
-
-
