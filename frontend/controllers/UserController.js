@@ -4,7 +4,7 @@ const axios = require('axios').default;
 export async function postUser(username, email, phone, password, displayName) {
   try {
     const response = await axios.post(
-       + "/user/create",
+      url + "/user/create",
       {
         username: username,
         email: email,
@@ -105,6 +105,7 @@ export async function userGroups(id) {
 }
 
 export async function getUserByUsername(username) {
+  console.log(username);
   let responseData = {};
   try {
     responseData = (
@@ -126,13 +127,13 @@ export async function addGroupRequest(userId, groupId) {
   try {
     responseData = (
       await axios.post(
-          url +
+        url +
           "/user/addGroupRequest/" +
           userId +
           "&" +
           groupId
       )
-    ).data;
+    );
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -147,13 +148,13 @@ export async function removeGroupRequest(userId, groupId) {
   try {
     responseData = (
       await axios.post(
-          url + 
+        url +
           "/user/removeGroupRequest/" +
           userId +
           "&" +
           groupId
       )
-    ).data;
+    );
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -168,13 +169,13 @@ export async function addGroup(userId, groupId) {
   try {
     responseData = (
       await axios.post(
-        url+
+        url +
           "/user/addGroup/" +
           userId +
           "&" +
           groupId
       )
-    ).data;
+    )
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -189,13 +190,13 @@ export async function removeGroup(userId, groupId) {
   try {
     responseData = (
       await axios.post(
-          url +
+        url +
           "/user/addGroup/" +
           userId +
           "&" +
           groupId
       )
-    ).data;
+    );
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -227,7 +228,7 @@ export async function addMeeting(userId, meetingId) {
   try {
     responseData = (
       await axios.post(
-        url+
+        url +
           "/user/addMeeting/" +
           userId +
           "&" +
@@ -248,7 +249,7 @@ export async function removeMeeting(userId, meetingId) {
   try {
     responseData = (
       await axios.post(
-        url+
+        url +
           "/user/removeMeeting/" +
           userId +
           "&" +
