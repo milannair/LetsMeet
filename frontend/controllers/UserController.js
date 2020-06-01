@@ -1,5 +1,6 @@
 import { url } from "../api-routes";
 const axios = require("axios").default;
+import { AsyncStorage } from "react-native";
 
 export async function postUser(username, email, phone, password, displayName) {
   try {
@@ -10,7 +11,8 @@ export async function postUser(username, email, phone, password, displayName) {
       password: password,
       displayName: displayName,
     });
-    console.log(response);
+    console.log(response.data);
+    console.log(response.token);
     return response;
   } catch (error) {
     console.error(error);
