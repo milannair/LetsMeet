@@ -122,7 +122,7 @@ function ViewPollScreen({route, navigation}) {
 
   return(
     <View>
-      <Appbar.Header style={styles.navbar} >
+      <Appbar.Header style={{backgroundColor: "#663399"}} >
         <Appbar.BackAction 
           onPress={() => {navigation.navigate(VIEW_GROUP, {groupId: route.params.groupId, userId: route.params.userId})}}
           color="white"
