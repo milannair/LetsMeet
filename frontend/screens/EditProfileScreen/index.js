@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Alert } from 'react-native';
+import { View, Alert, AsyncStorage } from 'react-native';
 import {
   Appbar, TextInput, Button,
 } from 'react-native-paper';
@@ -8,6 +8,7 @@ import { getUser } from '../../controllers/UserController';
 import * as Screen from '../../navigation/tab_navigator/stacks/profile/screen-names';
 import ChangePasswordDialog from './ChangePassword';
 import DeleteAccountDialog from './DeleteAccount';
+import { useIsFocused } from '@react-navigation/native'
 
 function EditProfile({ navigation }) {
   const [user, setUser] = useState(JSON.parse('{"username" : "", "email" : "", "displayName" : "", "password": ""}'));
@@ -22,10 +23,14 @@ function EditProfile({ navigation }) {
   const [visibleDeleteAccount, setVisibleDeleteAccount] = useState(false);
   const [showDeleteHelperText, setShowDeleteHelperText] = useState(false);
 
+  const isFocused = useIsFocused();
+
   useEffect(() => {
     const showUser = async () => {
       try {
-        const user = await getUser('5ec3099bb6bc594db0193c0c');
+        const userId = await AsyncStorage.getItem('userId');
+
+        const user = await getUser(userId);
         console.log(user);
         setUser(user);
         setDisplayName(user.displayName);
@@ -36,7 +41,7 @@ function EditProfile({ navigation }) {
       }
     };
     showUser();
-  }, []);
+  }, [isFocused]);
 
   const handleChangeDisplayName = (text) => {
     console.log('change display name');
