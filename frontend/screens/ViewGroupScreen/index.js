@@ -8,26 +8,24 @@ import {getMeetingRequest} from '../../controllers/MeetingRequestController';
 import {getUserIdentifiers} from '../../controllers/UserController';
 import moment from 'moment';
 import { useFocusEffect } from '@react-navigation/native';
+import { reset } from 'expo/build/AR';
+import { set } from 'react-native-reanimated';
 
 function ViewGroupScreen({route, navigation}) {
     const [groupData, setGroupData] = useState({});
-    const [updatePage, setUpdatePage] = useState(true);
+    const [updatePage, setUpdatePage] = useState(false);
     const [logData, setLogData] = useState([]);
     const [requestsLog, setRequestsLog] = useState([]);
     const [showMenu, setShowMenu] = useState(false);
-    const [updateLog, setUpdateLog] = useState(true);
+    const [updateLog, setUpdateLog] = useState(false);
 
     useFocusEffect(
-        React.useCallback(() => {
-          setUpdatePage(true);
-          setLogData([]);
-          setUpdateLog(true);
-          console.log("focused");
-          return () => {
+        React.useCallback( () => {
+            setUpdatePage(true);
+            setLogData(true);
             setLogData([]);
-            // setUpdateLog(true);
-            // setUpdateLog([]);
-            console.log("unfocused");
+            setRequestsLog([]);
+          return () => {
           };
         }, [])
       );
@@ -122,7 +120,7 @@ function ViewGroupScreen({route, navigation}) {
     return(
         <View style={styles.container}>
             <Appbar.Header>
-                <Appbar.BackAction color="white" onPress={() => {setUpdatePage(true); navigation.navigate(GROUPS)}}/>
+                <Appbar.BackAction color="white" onPress={async () => {await setUpdatePage(false); await setLogData([]); navigation.navigate(GROUPS)}}/>
                 <Appbar.Content
                     color="white"
                     title={groupData.name}
@@ -150,7 +148,7 @@ function ViewGroupScreen({route, navigation}) {
             <FAB
                 style={styles.fab}
                 icon='plus'
-                onPress={() =>{setUpdatePage(true); navigation.navigate(CREATE_MEETING_REQUEST, {
+                onPress={() =>{navigation.navigate(CREATE_MEETING_REQUEST, {
                     userId: route.params.userId, 
                     groupId: route.params.groupId,
                 })}}
