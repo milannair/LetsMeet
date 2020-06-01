@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView } from 'react-native';
-import { Text, List, Avatar, Appbar, IconButton, Searchbar} from 'react-native-paper';
+import { Text, List, Avatar, Appbar, IconButton, Searchbar, Chip, Button} from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
 import styles from './styles';
-import {getUserIdentifiers} from '../../controllers/UserController';
-import {getUserByUsername} from '../../controllers/UserController';
+import {getUserIdentifiers, getUserByUsername, addGroupRequest} from '../../controllers/UserController';
 import { VIEW_GROUP } from '../../navigation/tab_navigator/stacks/groups/screen-names';
 
-
+let invitees = []
 function AddMembersScreen({route, navigation}) {
     const memberIds = route.params.groupData.members;
     const [members, setMembers] = useState([]);
@@ -19,13 +18,13 @@ function AddMembersScreen({route, navigation}) {
     const [searchedMembers, setSearchedMembers] = useState([]);
     const [searchedMembersList, setSearchedMembersList] = useState([]);
     const [updateChips, setUpdateChips] = useState([]);
-    const [invitees, setInvitees] = useState([]);
     const [memberChips, setMemberChips] = useState([]);
 
     const colors = ['red', 'orange', 'green', 'blue', 'indigo', 'violet']
     useFocusEffect(
         React.useCallback( () => {
             setQuery('');
+            invitees = [];
             const groupData = route.params.groupData;
             const getMemberDetails = async () => {
                 const memberIds = groupData.members;
@@ -54,13 +53,12 @@ function AddMembersScreen({route, navigation}) {
         }
 
         if(updateChips) {
-            setUpdateChips(false);
+            setInviteeChips(invitees);
         }
 
     })
 
     function getMembers(groupMembers) {
-        console.log(groupMembers)
         let items = []
             for (let i = 0; i < groupMembers.length; i++) {
                 console.log(groupMembers[i])
@@ -83,22 +81,46 @@ function AddMembersScreen({route, navigation}) {
             return items;
     }
 
-    async function inviteOrUninviteUser(user) {
+    function setInviteeChips(invitees) {
+        console.log(invitees)
+        let chips = [];
+        for (let i = 0; i < invitees.length; i++) {
+            const user = invitees[i];
+            const username = user.username
+            chips.push (
+                <Chip 
+                    style={{}} 
+                    key={username + 'Chip' + i} 
+                    onClose={() => inviteOrUninviteUser(user)}
+                    avatar= {<Avatar.Text 
+                        size={30} 
+                        label={username.toUpperCase().substring(0, 2)}
+                        color='white'
+                        style={ {backgroundColor: colors[i % colors.length]} } 
+                    />}
+                >
+                    {username}
+                </Chip>
+            )
+        }
+        setMemberChips(chips);
+        setUpdateChips(false);
+    }
+
+    function inviteOrUninviteUser(user) {
         let newInvitees = [...invitees];
         let removed = false;
-        console.log("invitees initially: " + newInvitees.length)
         for(let i = 0; i < newInvitees.length; i++) {
             if(user.username === newInvitees[i].username) {
                 removed = true;
-                newInvitees = newInvitees.splice(i, 1);
+                newInvitees.splice(i, 1);
             }
         }
         if(!removed) {
-            console.log("not removed");
             newInvitees.push(user);
         }
-        await setInvitees(newInvitees);
-        console.log("invitees " + invitees.length)
+        invitees = newInvitees;
+        console.log(invitees);
         setUpdateChips(true);
     }
 
@@ -126,13 +148,22 @@ function AddMembersScreen({route, navigation}) {
                             style={ {backgroundColor: colors[i % colors.length]} } 
                         />}
                         right = {() => <IconButton color={'black'} icon={'circle-outline'}/> }
-                        onPress={async ()=> {await inviteOrUninviteUser(user);}}
+                        onPress={()=> {inviteOrUninviteUser(user);}}
                     />
                 )
             }
             
         }
         setSearchedMembersList(items);
+    }
+
+    function addMembersToGroup() {
+        let memberRequests = [];
+        const userId = route.params.userId;
+        for(let i = 0; i < invitees; i++) {
+            addGroupRequest(userId, invitees[i]._id);
+        } 
+        navigation.navigate(VIEW_GROUP, {userId: userId, groupId: route.params.groupData._id});
     }
 
     return(
@@ -143,11 +174,17 @@ function AddMembersScreen({route, navigation}) {
                     {
                         userId: route.params.userId,
                         groupId: route.params.groupId
-                    }}}/>
+                    }}}
+                />
                 <Appbar.Content
                     color="white"
                     title={route.params.groupData.name}
                 />
+                {addingMembers && <Button color='white' labelStyle={styles.buttonText}
+                    onPress={() => addMembersToGroup()}>
+                    DONE
+                </Button>}
+                
             </Appbar.Header>
             <View style={{flexDirection: 'row', backgroundColor: '#E1FAE1', marginBottom: 15, height: 55}}>
                 <IconButton
@@ -159,10 +196,10 @@ function AddMembersScreen({route, navigation}) {
                         setQuery('');
                     }}
                 />
-                <Text style={{paddingTop: 15}}>{addingMembers ? 'Back to Members' : 'Add Members'}</Text>
+                <Text style={{paddingTop: 15}}>{addingMembers ? 'Back to Members' : 'Invite Members'}</Text>
             </View>
 
-            <ScrollView>
+            <ScrollView style={{flexDirection : 'column'}} scrollEnabled={true}>
                 {!addingMembers && displayMembers}
 
                 {addingMembers && <Searchbar
@@ -172,6 +209,9 @@ function AddMembersScreen({route, navigation}) {
                     value={query}
                 />}
 
+                <View style={{flex: 1, flexDirection: 'row', overflow: 'scroll', height: 40, marginTop: 10}}>
+                    {addingMembers && memberChips}
+                </View>
                 {addingMembers && searchedMembersList}
             </ScrollView>
         </View>

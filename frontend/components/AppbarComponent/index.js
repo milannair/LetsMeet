@@ -39,7 +39,7 @@ function AppbarComponent({
   }
 
   return (
-    <Appbar.Header style={styles.appbar}>
+    <Appbar.Header style={styles.appbar} key={"Appbar"}>
       {backButton}
       <Appbar.Content
         title={title}

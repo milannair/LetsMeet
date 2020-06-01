@@ -81,17 +81,19 @@ function MeetingsScreen({route, navigation }) {
         let day = moment(meetingsDetails[i].startTime).format("dddd, MMMM Do");
         if (!(meetingsDetails[i].confirmed)) {
           list.push (
-            <List.Section>
+            <List.Section key={"unconfirmed " + i}>
               <List.Subheader 
                 style={{
                     color:'black',
                     fontSize: 18,
-                  }}>
+                  }}
+                  key={"unconfirmed header " + i}>
                 {day}
               </List.Subheader>
                 <List.Item
                   title={meetingsDetails[i].groupName}
                   description={meetingsDetails[i].name + '\n' + `${start} - ${end}`}
+                  key={"unconfirmed meeting " + i}
                 />
             </List.Section>
           )
@@ -110,17 +112,19 @@ function MeetingsScreen({route, navigation }) {
         
         if (meetingsDetails[i].confirmed == true) {
           list.push (
-            <List.Section>
+            <List.Section key={"confirmed " + i}>
               <List.Subheader 
                 style={{
                     color:'black',
                     fontSize: 18,
-                  }}>
+                  }}
+                  key={"confirmed header " + i}>
                 {day}
               </List.Subheader>
               <List.Item
                 title={meetingsDetails[i].groupName}
                 description={meetingsDetails[i].name + '\n' + `${start} - ${end}`}
+                key={"confirmed meeting " + i}
               />
             </List.Section>
           )

@@ -149,8 +149,6 @@ function CreateGroupScreen({route, navigation}) {
                         value={groupName}
                         dense={true}
                         theme = {{colors: {}}}
-                        // onFocus = {() => {setTextActive(true);}}
-                        // onBlur = {() => {setTextActive(true);}}
                         onChange={(e) => {setGroupName(e.nativeEvent.text);}}                
                     />
                 </View>
