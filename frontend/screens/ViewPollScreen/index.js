@@ -74,7 +74,6 @@ function ViewPollScreen({route, navigation}) {
   }
 
   useEffect( () => {
-    console.log('re-render')
     const getMeetingReq = async () => {
       try {
         const meetingReq = await getMeetingRequest(route.params.meetingId);
