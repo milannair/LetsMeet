@@ -105,6 +105,7 @@ export async function userGroups(id) {
 }
 
 export async function getUserByUsername(username) {
+  console.log(username);
   let responseData = {};
   try {
     responseData = (
@@ -132,7 +133,7 @@ export async function addGroupRequest(userId, groupId) {
           "&" +
           groupId
       )
-    ).data;
+    );
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -153,7 +154,7 @@ export async function removeGroupRequest(userId, groupId) {
           "&" +
           groupId
       )
-    ).data;
+    );
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -174,7 +175,7 @@ export async function addGroup(userId, groupId) {
           "&" +
           groupId
       )
-    ).data;
+    )
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -195,7 +196,7 @@ export async function removeGroup(userId, groupId) {
           "&" +
           groupId
       )
-    ).data;
+    );
     if (responseData.status === 200) {
       return responseData.data;
     }

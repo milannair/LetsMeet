@@ -1,4 +1,5 @@
 import { url } from '../api-routes';
+import {addGroup, addGroupRequest} from './UserController';
 const axios = require('axios').default;
 
 export async function getUserGroups(userId) {
@@ -35,9 +36,9 @@ export async function createUserGroup(owner, name, memberRequests) {
   let response = await createGroup(owner, name, memberRequests);
   if (response.status === 200) {
     const groupId = response.data._id;
-    response = await addUserGroup(owner, groupId);
+    response = await addGroup(owner, groupId);
     for (let i = 0; i < memberRequests.length; i++) {
-      await addUserGroupRequest(memberRequests[i], groupId);
+      await addGroupRequest(memberRequests[i], groupId);
     }
   }
 }
@@ -65,30 +66,6 @@ async function createGroup(owner, name, memberRequests) {
       members: owner,
       owner: owner,
       name: name,
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-async function addUserGroup(userId, groupId) {
-  try {
-    const response = await axios.post(url + "/user/addGroup/", {
-      userId: userId,
-      groupId: groupId,
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-async function addUserGroupRequest(userId, groupId) {
-  try {
-    const response = await axios.post(url + "/user/addGroupRequest", {
-      userId: userId,
-      groupId: groupId,
     });
     return response.data;
   } catch (error) {
