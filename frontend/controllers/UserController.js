@@ -4,7 +4,7 @@ const axios = require('axios').default;
 export async function postUser(username, email, phone, password, displayName) {
   try {
     const response = await axios.post(
-       + "/user/create",
+      url + "/user/create",
       {
         username: username,
         email: email,
@@ -126,11 +126,7 @@ export async function addGroupRequest(userId, groupId) {
   try {
     responseData = (
       await axios.post(
-        protocol +
-          baseUrl +
-          ":" +
-          port +
-          route +
+        url +
           "/user/addGroupRequest/" +
           userId +
           "&" +
@@ -151,11 +147,7 @@ export async function removeGroupRequest(userId, groupId) {
   try {
     responseData = (
       await axios.post(
-        protocol +
-          baseUrl +
-          ":" +
-          port +
-          route +
+        url +
           "/user/removeGroupRequest/" +
           userId +
           "&" +
@@ -176,11 +168,7 @@ export async function addGroup(userId, groupId) {
   try {
     responseData = (
       await axios.post(
-        protocol +
-          baseUrl +
-          ":" +
-          port +
-          route +
+        url +
           "/user/addGroup/" +
           userId +
           "&" +
@@ -201,11 +189,7 @@ export async function removeGroup(userId, groupId) {
   try {
     responseData = (
       await axios.post(
-        protocol +
-          baseUrl +
-          ":" +
-          port +
-          route +
+        url +
           "/user/addGroup/" +
           userId +
           "&" +
@@ -243,11 +227,7 @@ export async function addMeeting(userId, meetingId) {
   try {
     responseData = (
       await axios.post(
-        protocol +
-          baseUrl +
-          ":" +
-          port +
-          route +
+        url +
           "/user/addMeeting/" +
           userId +
           "&" +
@@ -268,11 +248,7 @@ export async function removeMeeting(userId, meetingId) {
   try {
     responseData = (
       await axios.post(
-        protocol +
-          baseUrl +
-          ":" +
-          port +
-          route +
+        url +
           "/user/removeMeeting/" +
           userId +
           "&" +
