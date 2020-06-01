@@ -8,30 +8,30 @@ import {getUserByUsername} from '../../controllers/UserController';
 import AppbarComponent from "../../components/AppbarComponent";
 
 
-let invitedMemberUsernames = []
-let invitedMemberIds = []
-let previousQuery = ""
-let searchResults = []
+let invitedMemberUsernames = [];
+let invitedMemberIds = [];
+let previousQuery = "";
+let searchResults = [];
 
 function CreateGroupScreen({route, navigation}) {
 
-    const [groupName, setGroupName] = useState('')
-    const [textActive, setTextActive] = useState(false)
-    const [inviteeChips, setInviteeChips] = useState(getInviteeChips(invitedMemberUsernames))
-    const [searchQuery, setSearchQuery] = useState()
-    const [searchList, setSearchList] = useState()
+    const [groupName, setGroupName] = useState('');
+    const [textActive, setTextActive] = useState(false);
+    const [inviteeChips, setInviteeChips] = useState(getInviteeChips(invitedMemberUsernames));
+    const [searchQuery, setSearchQuery] = useState();
+    const [searchList, setSearchList] = useState();
 
     useEffect(() => {
 
         const results = async () => {
-            let query = searchQuery
+            let query = searchQuery;
             if(query) {
-                query = query.toLowerCase()
+                query = query.toLowerCase();
             }
             if(query && query !== previousQuery) {
-                previousQuery = query
-                searchResults = (await getUserByUsername(query)) 
-                setSearchList(getSearchItems(searchResults))              
+                previousQuery = query;
+                searchResults = (await getUserByUsername(query)); 
+                setSearchList(getSearchItems(searchResults));              
             }
         }
         results() 
@@ -39,10 +39,10 @@ function CreateGroupScreen({route, navigation}) {
 
 
     const removeInvitee = (user) => {
-        const index = invitedMemberUsernames.indexOf(user)
-        invitedMemberUsernames.splice(index, 1)
-        invitedMemberIds.splice(index, 1)
-        setInviteeChips(getInviteeChips(invitedMemberUsernames))
+        const index = invitedMemberUsernames.indexOf(user);
+        invitedMemberUsernames.splice(index, 1);
+        invitedMemberIds.splice(index, 1);
+        setInviteeChips(getInviteeChips(invitedMemberUsernames));
         setSearchList(getSearchItems(searchResults));
     }
 
@@ -50,18 +50,18 @@ function CreateGroupScreen({route, navigation}) {
     function inviteOrUninviteUser(username, id) {
         const index = invitedMemberUsernames.indexOf(username)
         if(index >= 0) {
-            removeInvitee(username)
+            removeInvitee(username);
         } else {
-            invitedMemberUsernames = [...invitedMemberUsernames, username]
-            invitedMemberIds = [...invitedMemberIds, id]
-            setInviteeChips(getInviteeChips(invitedMemberUsernames))
+            invitedMemberUsernames = [...invitedMemberUsernames, username];
+            invitedMemberIds = [...invitedMemberIds, id];
+            setInviteeChips(getInviteeChips(invitedMemberUsernames));
         }
     }
 
     function getInviteeChips(invitees) {
-        let chips = []
+        let chips = [];
         for (let i = 0; i < invitees.length; i++) {
-            const user = invitees[i]
+            const user = invitees[i];
             chips.push (
                 <Chip 
                     style={styles.chip} 
@@ -73,15 +73,15 @@ function CreateGroupScreen({route, navigation}) {
                 </Chip>
             )
         }
-        return chips
+        return chips;
     }
 
     function getSearchItems(usernames) {
-        let items = []
+        let items = [];
             for (let i = 0; i < usernames.length; i++) {
-                const username = usernames[i].username
-                const icon = invitedMemberUsernames.indexOf(username) > -1 ? 'checkbox-marked-circle' : 'circle-outline'
-                const color = icon === 'circle-outline' ? 'grey' : 'black'
+                const username = usernames[i].username;
+                const icon = invitedMemberUsernames.indexOf(username) > -1 ? 'checkbox-marked-circle' : 'circle-outline';
+                const color = icon === 'circle-outline' ? 'grey' : 'black';
                 items.push(
                     <List.Item 
                         style={styles.listItem} 
@@ -100,11 +100,11 @@ function CreateGroupScreen({route, navigation}) {
     }
 
     function createGroup() {
-        const memberRequests = invitedMemberIds
-        const owner = route.params.userId
-        const name = groupName ? groupName : "New Group"
-        createUserGroup(owner, name, memberRequests)
-        navigation.navigate(GROUPS, {reload: true})
+        const memberRequests = invitedMemberIds;
+        const owner = route.params.userId;
+        const name = groupName ? groupName : "New Group";
+        createUserGroup(owner, name, memberRequests);
+        navigation.navigate(GROUPS, {reload: true});
     }
 
     return(
@@ -149,8 +149,6 @@ function CreateGroupScreen({route, navigation}) {
                         value={groupName}
                         dense={true}
                         theme = {{colors: {}}}
-                        // onFocus = {() => {setTextActive(true);}}
-                        // onBlur = {() => {setTextActive(true);}}
                         onChange={(e) => {setGroupName(e.nativeEvent.text);}}                
                     />
                 </View>

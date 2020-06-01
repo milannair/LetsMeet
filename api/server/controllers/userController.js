@@ -114,20 +114,24 @@ module.exports = {
 
   usersByUsername: async (req, res) => {
     const reg = "^" + req.params.username;
-    User.find({username: {$regex: reg, $options: "<i>"}, }, {email: 1, username: 1}, function(err, data){
-      if (err) { 
+    User.find(
+      { username: { $regex: reg, $options: "<i>" } },
+      { email: 1, username: 1 },
+      function (err, data) {
+        if (err) {
+          res.json({
+            status: 500,
+            errorMessage: err.message,
+            errorName: err.name,
+          });
+        }
         res.json({
-          status: 500,
-          errorMessage: err.message,
-          errorName: err.name
-        })
+          status: res.statusCode,
+          message: "Users with this email",
+          data: data,
+        });
       }
-      res.json({
-        status: res.statusCode,
-        message: "Users with this email",
-        data: data
-      })
-    })
+    );
   },
 
   addGroupRequest: async (req, res) => {
@@ -167,7 +171,7 @@ module.exports = {
         errorName: err.name,
       })
     );
-    res.status(200).json({addGroup});
+    res.status(200).json({ addGroup });
   },
 
   removeGroup: async (req, res) => {

@@ -153,9 +153,9 @@ export async function addGroup(userId, groupId) {
 export async function removeGroup(userId, groupId) {
   let responseData = {};
   try {
-    responseData = (
-      await axios.post(url + "/user/addGroup/" + userId + "&" + groupId)
-    ).data;
+    responseData = await axios.post(
+      url + "/user/removeGroup/" + userId + "&" + groupId
+    );
     if (responseData.status === 200) {
       return responseData.data;
     }
