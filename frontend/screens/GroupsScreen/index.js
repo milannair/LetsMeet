@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, AsyncStorage } from 'react-native';
 import { FAB } from 'react-native-paper';
 import CardComponent from '../../components/GroupCardComponent/index';
-import AppbarComponent from "../../components/AppbarComponent";
+import AppbarComponent from "../../components/AppbarComponent/index";
 import styles from './styles'
 import { CREATE_GROUP} from '../../navigation/tab_navigator/stacks/groups/screen-names';
 import {getUserGroups} from '../../controllers/GroupController'

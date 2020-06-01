@@ -93,7 +93,7 @@ module.exports = {
         errorName: err.name,
       })
     );
-    res.status(200).json(userGroup);
+    res.status(200).json({data: userGroup.groups});
   },
 
   usersByUsername: async (req, res) => {
@@ -236,4 +236,24 @@ module.exports = {
     );
     res.status(200).json(user);
   },
+
+  // Get user's name, username, and email
+  getUserIdentifiers: async (req, res) => {
+    User.find({_id: req.params.userId}, {displayName: 1, username: 1, email: 1}, function (err, data) {
+      if (err) { 
+        res.json({
+          status: 500,
+          errorMessage: err.message,
+          errorName: err.name
+        })
+      }
+      res.json({
+        status: res.statusCode,
+        message: "User retreived!",
+        data: data,
+      });
+    });
+  }
 };
+
+

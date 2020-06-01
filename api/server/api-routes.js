@@ -46,6 +46,11 @@ router
   .route("/user/addGroupRequest/:userId&:groupId")
   .post(userController.addGroupRequest);
 
+// Get user's identifiers
+router
+  .route("/user/identifiers/:userId")
+  .get(userController.getUserIdentifiers);
+
 // Remove group request from the list of group requests the user has - d
 router
   .route("/user/removeGroupRequest/:userId/:groupId")
@@ -72,12 +77,11 @@ router
   .route("/user/removeMeeting/:userId/:meetingId")
   .post(userController.removeMeeting);
 
-//// Group paths ////
 // Get user schedule
-//router.route("/user/schedule/:userId").get(userController.viewSchedule);
+router.route("/user/schedule/:userId").get(userController.viewSchedule);
 
 // Set the schedule of user
-//router.route("/user/setSchedule").post(userController.setSchedule);
+router.route("/user/setSchedule").post(userController.setSchedule);
 
 //// Group paths ////
 

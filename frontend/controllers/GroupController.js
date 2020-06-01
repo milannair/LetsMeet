@@ -1,19 +1,6 @@
 import { url } from '../api-routes';
 const axios = require('axios').default;
 
-export async function getUsers(username) {
-  let responseData = {};
-  try {
-    responseData = (await axios.get(url + "/user/" + username)).data;
-    if (responseData.status === 200) {
-      return responseData.data;
-    }
-  } catch (error) {
-    console.log(error);
-  }
-  return responseData;
-}
-
 export async function getUserGroups(userId) {
   let groups = [];
   try {
@@ -58,16 +45,16 @@ export async function createUserGroup(owner, name, memberRequests) {
 // Helper Functions
 
 async function getUserGroupIds(userId) {
-  let responseData = {};
+  let response = {};
   try {
-    responseData = (await axios.get(url + "/user/group/" + userId)).data;
-    if (responseData.status === 200) {
-      return responseData.data;
+    response = await axios.get(url + "/user/group/" + userId);
+    if (response.status === 200) {
+      return response.data.data;
     }
   } catch (error) {
     console.log(error);
   }
-  return responseData;
+  return response;
 }
 
 async function createGroup(owner, name, memberRequests) {
