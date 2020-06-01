@@ -140,7 +140,9 @@ function ViewGroupScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Appbar.Header>
+      <Appbar.Header
+        style = {{backgroundColor: "#663399"}}
+      >
         <Appbar.BackAction color="white" onPress={async () => {await setUpdatePage(false); await setLogData([]); navigation.navigate(GROUPS)}}/>
         <Appbar.Content
           color="white"

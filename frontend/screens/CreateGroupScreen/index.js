@@ -110,6 +110,7 @@ function CreateGroupScreen({route, navigation}) {
     return(
         <View style={styles.container}>
             <AppbarComponent
+            title="Create a Group"
               showBack={true}
               backOnPress={() => {
                   setSearchQuery("");

@@ -84,7 +84,9 @@ function EditProfile({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Appbar.Header>
+      <Appbar.Header
+        style = {{backgroundColor: "#663399"}}
+      >
         <Appbar.BackAction onPress={() => navigation.navigate(Screen.PROFILE)} color="#f9f9f9" />
         <Appbar.Content title="Edit Profile" />
       </Appbar.Header>
