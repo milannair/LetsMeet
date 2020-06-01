@@ -224,7 +224,7 @@ exports.addMeetingRequest = function(req, res) {
                 status: res.statusCode,
                 data: data
             })
-            socket.io.in(req.body.groupId).emit('add meeting request');
+            socket.io.in(req.body.groupId).emit('add meeting request', req.body.meetingRequestId);
         }
     });
 }

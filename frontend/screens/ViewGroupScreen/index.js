@@ -4,7 +4,7 @@ import styles from './styles';
 import { useTheme, Portal, Dialog, Paragraph, Button } from 'react-native-paper';
 import ViewGroupComponent from '../../components/ViewGroupComponent/index';
 import Day from '../../enums/Day';
-import { View } from 'react-native';
+import { View, AsyncStorage } from 'react-native';
 import { Appbar, Menu, Divider } from 'react-native-paper';
 import {getMeetingRequest} from '../../controllers/MeetingRequestController';
 import {getUserIdentifiers, removeGroup, getUsersSchedules} from '../../controllers/UserController';
@@ -13,6 +13,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import ScheduleComponent from '../../components/ScheduleComponent/index';
 import {GROUPS, ADD_MEMBERS} from '../../navigation/tab_navigator/stacks/groups/screen-names';
 import moment from 'moment';
+import useSocket from '../../hooks/UseSocket';
 
 function ViewGroupScreen({ route, navigation }) {
   const { colors } = useTheme();
@@ -29,7 +30,7 @@ function ViewGroupScreen({ route, navigation }) {
   const [showSpinner, setShowSpinner] = useState(false);
   const [groupSchedule, setGroupSchedule] = useState([]);
   const [dialogVisible, setDialogVisible] = useState(false);
-  const [dialogData, setDialogData] = useState({})
+  const [dialogData, setDialogData] = useState({});
 
   useFocusEffect(
     React.useCallback( () => {
@@ -40,6 +41,14 @@ function ViewGroupScreen({ route, navigation }) {
       };
     }, [])
   );
+
+  useSocket('add meeting request', async (meetingRequestId) => {
+    const meetingRequest = await getMeetingRequest(meetingRequestId);
+    if (route.params.userId !== meetingRequest.author) {
+      const userIdentifiers = (await getUserIdentifiers(meetingRequest.author))[0];
+      setLogData((prev) => [...prev, {meetingRequest : meetingRequest, userIdentifiers: userIdentifiers}]);
+    }
+  });
 
   const MeetingRequestRoute = () => (
     <ViewGroupComponent 
