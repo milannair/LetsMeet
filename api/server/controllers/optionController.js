@@ -121,7 +121,6 @@ exports.addVote = function(req, res) {
                 status: res.statusCode,
                 data: data
             })
-            console.log('emit');
             socket.io.in(req.params.groupId).emit('add vote', { 
                 userId: req.params.userId, 
                 optionId: req.params.optionId 
