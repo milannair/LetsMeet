@@ -23,17 +23,16 @@ describe("/user/addMeeting", () => {
     try {
       const meetingId = constants.FAKE_OBJECT_ID;
 
-      const userRes = await axios.post(
-        `${constants.API_URI}/user/create`,
-        {
-          username: "testuser",
-          email: "test@example.com",
-          phone: "1234567890",
-          password: "DontUseThisPassword",
-          displayName: "TestUser",
-        }
-      );
+      const userRes = await axios.post(`${constants.API_URI}/user/create`, {
+        username: "testuser",
+        email: "test@example.com",
+        phone: "1234567890",
+        password: "DontUseThisPassword",
+        displayName: "TestUser",
+      });
       userId = userRes.data._id;
+      token = userRes.headers["x-auth-token"];
+      console.log(token);
       await axios.post(
         `${constants.API_URI}/user/addMeeting/${userId}/${meetingId}`
       );
@@ -52,16 +51,13 @@ describe("/user/removeMeeting", () => {
     try {
       const meetingId = constants.FAKE_OBJECT_ID;
 
-      const userRes = await axios.post(
-        `${constants.API_URI}/user/create`,
-        {
-          username: "testuser",
-          email: "test@example.com",
-          phone: "1234567890",
-          password: "DontUseThisPassword",
-          displayName: "TestUser",
-        }
-      );
+      const userRes = await axios.post(`${constants.API_URI}/user/create`, {
+        username: "testuser",
+        email: "test@example.com",
+        phone: "1234567890",
+        password: "DontUseThisPassword",
+        displayName: "TestUser",
+      });
       userId = userRes.data._id;
       await axios.post(
         `${constants.API_URI}/user/addMeeting/${userId}/${meetingId}`
