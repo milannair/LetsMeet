@@ -1,40 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView } from 'react-native';
 import {getGroupData} from '../../controllers/GroupController';
-import {FAB, Text, Appbar, List, Title, Button, Divider} from 'react-native-paper';
+import {FAB, Text, Appbar, Menu, Title, Button, Divider} from 'react-native-paper';
 import styles from './styles';
-import {CREATE_MEETING_REQUEST, GROUPS, VIEW_POLL} from '../../navigation/tab_navigator/stacks/groups/screen-names';
+import {CREATE_MEETING_REQUEST, GROUPS, VIEW_POLL, ADD_MEMBERS} from '../../navigation/tab_navigator/stacks/groups/screen-names';
 import {getMeetingRequest} from '../../controllers/MeetingRequestController';
-import {getUserIdentifiers} from '../../controllers/UserController';
+import {getUserIdentifiers, removeGroup} from '../../controllers/UserController';
 import moment from 'moment';
+import { useFocusEffect } from '@react-navigation/native';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 function ViewGroupScreen({route, navigation}) {
     const [groupData, setGroupData] = useState({});
-    const [updatePage, setUpdatePage] = useState(true);
-    const [logData, setLogData] = useState([])
+    const [updatePage, setUpdatePage] = useState(false);
+    const [logData, setLogData] = useState([]);
     const [requestsLog, setRequestsLog] = useState([]);
+    const [showMenu, setShowMenu] = useState(false);
+    const [updateLog, setUpdateLog] = useState(false);
+    const [showSpinner, setShowSpinner] = useState(false);
+
+    useFocusEffect(
+        React.useCallback( () => {
+            setUpdatePage(true);
+            setLogData(true);
+            setLogData([]);
+            setRequestsLog([]);
+            setShowSpinner(true);
+          return () => {
+          };
+        }, [])
+      );
 
     useEffect(() => {
         const getData = async () => {  // get all meetingRequests for this group and their authors
             const data = await getGroupData(route.params.groupId);
             setGroupData(data);
-            const meetingRequests = data.meetingRequests
-            let newLogData = []
+            const meetingRequests = data.meetingRequests;
+            let newLogData = [];
             for(let i = 0; i < meetingRequests.length; i++) {
                 const meetingRequestId = meetingRequests[i];
                 let meetingRequest = await getMeetingRequest(meetingRequestId);
                 let userIdentifiers = (await getUserIdentifiers(meetingRequest.author))[0];
                 newLogData.push({meetingRequest : meetingRequest, userIdentifiers: userIdentifiers})
             }
+            if(newLogData.length === 0) {
+                setShowSpinner(false);
+            }
             setLogData(newLogData);
         };
 
         if(updatePage) {
             getData();
+            setUpdatePage(false);
+            setUpdateLog(true);
         }
 
-        if(updatePage && logData.length > 0) {
-            let list = []
+        if(updateLog && logData.length > 0) {
+            let list = [];
             for(let i=0; i < logData.length; i++) {
                 let data = logData[i];
                 let date = new Date(data.meetingRequest.deadline);
@@ -90,7 +112,8 @@ function ViewGroupScreen({route, navigation}) {
                 list.push(<Divider key={'request' + 'request' + i} />);
             }
             setRequestsLog(list);
-            setUpdatePage(false);
+            setUpdateLog(false);
+            setShowSpinner(false);
         }
 
         
@@ -99,24 +122,44 @@ function ViewGroupScreen({route, navigation}) {
     return(
         <View style={styles.container}>
             <Appbar.Header>
-                <Appbar.BackAction color="white" onPress={() => {setUpdatePage(true); navigation.navigate(GROUPS)}}/>
+                <Appbar.BackAction color="white" onPress={async () => {await setUpdatePage(false); await setLogData([]); navigation.navigate(GROUPS)}}/>
                 <Appbar.Content
                     color="white"
                     title={groupData.name}
                 />
-                <Appbar.Action 
-                icon="dots-vertical" 
-                color="white" 
-                onPress={()=> alert("Will eventually take you to the settings screen")}
-                />
+                <Menu
+                    visible={showMenu}
+                    onDismiss={() => setShowMenu(false)}
+                    anchor={
+                        <Appbar.Action 
+                        icon="dots-vertical" 
+                        color="white" 
+                        onPress={()=> setShowMenu(true)}
+                        />
+                    }
+                >
+                    <Menu.Item onPress={() =>{setShowMenu(false); navigation.navigate(ADD_MEMBERS, {groupData: groupData, userId: route.params.userId})}} title="Members" />
+                    <Divider />
+                    <Menu.Item onPress={() => {
+                        removeGroup(route.params.userId, route.params.groupId);
+                        navigation.navigate(GROUPS, {reload: true})
+                        }} 
+                        title="Leave group" 
+                    />
+                </Menu>
             </Appbar.Header>
+            <Spinner
+                visible={showSpinner}
+                textContent={'Loading Requests...'}
+                textStyle= {styles.spinnerText}
+            />
             <ScrollView style={{flex: 1, flexDirection: 'column'}} scrollEnabled={true}>
                 {requestsLog}
             </ScrollView>
             <FAB
                 style={styles.fab}
                 icon='plus'
-                onPress={() =>{setUpdatePage(true); navigation.navigate(CREATE_MEETING_REQUEST, {
+                onPress={() =>{navigation.navigate(CREATE_MEETING_REQUEST, {
                     userId: route.params.userId, 
                     groupId: route.params.groupId,
                 })}}

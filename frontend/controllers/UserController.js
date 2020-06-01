@@ -191,7 +191,7 @@ export async function removeGroup(userId, groupId) {
     responseData = (
       await axios.post(
         url +
-          "/user/addGroup/" +
+          "/user/removeGroup/" +
           userId +
           "&" +
           groupId

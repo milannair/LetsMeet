@@ -111,7 +111,7 @@ function CreateMeetingRequest({route, navigation}) {
             requestedOptions.push(id);
         }
         const status = 0
-        createGroupMeetingRequest(route.params.userId, route.params.groupId, name, isUnanimousMeetingRequest, requestedOptions,
+        await createGroupMeetingRequest(route.params.userId, route.params.groupId, name, isUnanimousMeetingRequest, requestedOptions,
             deadlineDate, status);
         navigation.navigate(VIEW_GROUP, {groupId: route.params.groupId, userId: route.params.userId})
     }
