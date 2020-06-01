@@ -43,20 +43,19 @@ function ViewGroupScreen({route, navigation}) {
                 let userIdentifiers = (await getUserIdentifiers(meetingRequest.author))[0];
                 newLogData.push({meetingRequest : meetingRequest, userIdentifiers: userIdentifiers})
             }
+            if(newLogData.length === 0) {
+                setShowSpinner(false);
+            }
             setLogData(newLogData);
         };
 
         if(updatePage) {
-            console.log('getting data');
             getData();
             setUpdatePage(false);
             setUpdateLog(true);
         }
 
         if(updateLog && logData.length > 0) {
-            console.log('setting page data');
-            console.log('show spinner : ' + showSpinner)
-            console.log("Data length:" + logData.length);
             let list = [];
             for(let i=0; i < logData.length; i++) {
                 let data = logData[i];
@@ -139,7 +138,7 @@ function ViewGroupScreen({route, navigation}) {
                         />
                     }
                 >
-                    <Menu.Item onPress={() =>{setShowMenu(false); navigation.navigate(ADD_MEMBERS, {groupData: groupData})}} title="Add Members" />
+                    <Menu.Item onPress={() =>{setShowMenu(false); navigation.navigate(ADD_MEMBERS, {groupData: groupData, userId: route.params.userId})}} title="Add Members" />
                     <Menu.Item onPress={() => {}} title="Members" />
                     {/* <Divider /> */}
                     <Menu.Item onPress={() => {}} title="Leave group" />
