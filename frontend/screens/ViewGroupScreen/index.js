@@ -3,7 +3,7 @@ import { View, ScrollView } from 'react-native';
 import {getGroupData} from '../../controllers/GroupController';
 import {FAB, Text, Appbar, Menu, Title, Button, Divider} from 'react-native-paper';
 import styles from './styles';
-import {CREATE_MEETING_REQUEST, GROUPS, VIEW_POLL} from '../../navigation/tab_navigator/stacks/groups/screen-names';
+import {CREATE_MEETING_REQUEST, GROUPS, VIEW_POLL, ADD_MEMBERS} from '../../navigation/tab_navigator/stacks/groups/screen-names';
 import {getMeetingRequest} from '../../controllers/MeetingRequestController';
 import {getUserIdentifiers} from '../../controllers/UserController';
 import moment from 'moment';
@@ -136,7 +136,7 @@ function ViewGroupScreen({route, navigation}) {
                         />
                     }
                 >
-                    <Menu.Item onPress={() => {}} title="Add Members" />
+                    <Menu.Item onPress={() =>{setShowMenu(false); navigation.navigate(ADD_MEMBERS, {groupData: groupData})}} title="Add Members" />
                     <Menu.Item onPress={() => {}} title="Members" />
                     {/* <Divider /> */}
                     <Menu.Item onPress={() => {}} title="Leave group" />
