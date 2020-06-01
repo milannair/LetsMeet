@@ -35,9 +35,9 @@ router
 //Get user groups - d
 router.route("/user/group/:userId").get(userController.userGroups);
 // Get user's identifiers
-// router
-//   .route('/user/identifiers/:userId')
-//   .get(userController.getUserIdentifiers)
+router
+  .route("/user/identifiers/:userId")
+  .get(userController.getUserIdentifiers);
 //Get users by username - d
 router.route("/user/byUserName/:username").get(userController.usersByUsername);
 
