@@ -5,7 +5,7 @@ import {FAB, Text, Appbar, Menu, Title, Button, Divider} from 'react-native-pape
 import styles from './styles';
 import {CREATE_MEETING_REQUEST, GROUPS, VIEW_POLL, ADD_MEMBERS} from '../../navigation/tab_navigator/stacks/groups/screen-names';
 import {getMeetingRequest} from '../../controllers/MeetingRequestController';
-import {getUserIdentifiers} from '../../controllers/UserController';
+import {getUserIdentifiers, removeGroup} from '../../controllers/UserController';
 import moment from 'moment';
 import { useFocusEffect } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -138,10 +138,14 @@ function ViewGroupScreen({route, navigation}) {
                         />
                     }
                 >
-                    <Menu.Item onPress={() =>{setShowMenu(false); navigation.navigate(ADD_MEMBERS, {groupData: groupData, userId: route.params.userId})}} title="Add Members" />
-                    <Menu.Item onPress={() => {}} title="Members" />
-                    {/* <Divider /> */}
-                    <Menu.Item onPress={() => {}} title="Leave group" />
+                    <Menu.Item onPress={() =>{setShowMenu(false); navigation.navigate(ADD_MEMBERS, {groupData: groupData, userId: route.params.userId})}} title="Members" />
+                    <Divider />
+                    <Menu.Item onPress={() => {
+                        removeGroup(route.params.userId, route.params.groupId);
+                        navigation.navigate(GROUPS, {reload: true})
+                        }} 
+                        title="Leave group" 
+                    />
                 </Menu>
             </Appbar.Header>
             <Spinner
