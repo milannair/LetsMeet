@@ -158,7 +158,9 @@ function EditScheduleScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Appbar.Header>
+      <Appbar.Header
+        style = {{backgroundColor: "#663399"}}
+      >
         <Appbar.BackAction color='white' onPress={navigation.goBack} />
         <Appbar.Content color='white' title='LetsMeet' />
         <Button color='white' onPress={handleSave}>SAVE</Button>
