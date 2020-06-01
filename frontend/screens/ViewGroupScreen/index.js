@@ -8,8 +8,7 @@ import {getMeetingRequest} from '../../controllers/MeetingRequestController';
 import {getUserIdentifiers} from '../../controllers/UserController';
 import moment from 'moment';
 import { useFocusEffect } from '@react-navigation/native';
-import { reset } from 'expo/build/AR';
-import { set } from 'react-native-reanimated';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 function ViewGroupScreen({route, navigation}) {
     const [groupData, setGroupData] = useState({});
@@ -18,6 +17,7 @@ function ViewGroupScreen({route, navigation}) {
     const [requestsLog, setRequestsLog] = useState([]);
     const [showMenu, setShowMenu] = useState(false);
     const [updateLog, setUpdateLog] = useState(false);
+    const [showSpinner, setShowSpinner] = useState(false);
 
     useFocusEffect(
         React.useCallback( () => {
@@ -25,6 +25,7 @@ function ViewGroupScreen({route, navigation}) {
             setLogData(true);
             setLogData([]);
             setRequestsLog([]);
+            setShowSpinner(true);
           return () => {
           };
         }, [])
@@ -54,6 +55,7 @@ function ViewGroupScreen({route, navigation}) {
 
         if(updateLog && logData.length > 0) {
             console.log('setting page data');
+            console.log('show spinner : ' + showSpinner)
             console.log("Data length:" + logData.length);
             let list = [];
             for(let i=0; i < logData.length; i++) {
@@ -112,6 +114,7 @@ function ViewGroupScreen({route, navigation}) {
             }
             setRequestsLog(list);
             setUpdateLog(false);
+            setShowSpinner(false);
         }
 
         
@@ -142,6 +145,11 @@ function ViewGroupScreen({route, navigation}) {
                     <Menu.Item onPress={() => {}} title="Leave group" />
                 </Menu>
             </Appbar.Header>
+            <Spinner
+                visible={showSpinner}
+                textContent={'Loading Requests...'}
+                textStyle= {styles.spinnerText}
+            />
             <ScrollView style={{flex: 1, flexDirection: 'column'}} scrollEnabled={true}>
                 {requestsLog}
             </ScrollView>
