@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View,
+  View, AsyncStorage,
 } from 'react-native';
 import {
   Text, TextInput, Button, HelperText,
 } from 'react-native-paper';
 import styles from './styles';
 import useSocket from '../../hooks/UseSocket/index';
+import { loginUser } from '../../controllers/UserController';
 
 const SIGNUP_SCREEN_NAME = 'Signup';
 const HOME_SCREEN_NAME = 'Tabs';
@@ -21,7 +22,15 @@ function Login({ navigation }) {
 
   const { sendData } = useSocket('user authenticated', null);
 
-  const handleLoginButtonPress = () => {
+  const setUserIdInAsyncStorage = async (userId) => {
+    try {
+      await AsyncStorage.setItem('userId', userId);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const handleLoginButtonPress = async () => {
     let flag = false;
     if (password.length < 6) {
       setShowPasswordError(true);
@@ -33,7 +42,11 @@ function Login({ navigation }) {
     if (!flag) {
       setLoadingIcon(true);
     }
+    // TODO: send data AFTER authentication (authentication will return userId, so don't use 'email' either)
+    await loginUser(email, password);
     sendData(email);
+    setUserIdInAsyncStorage(email);
+    
     // TODO: check username and password in database
     navigation.navigate(HOME_SCREEN_NAME);
   };

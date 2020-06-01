@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, AsyncStorage } from 'react-native';
 import {
   List, Text, Divider, FAB,
 } from 'react-native-paper';
@@ -23,8 +23,9 @@ function Profile({ navigation }) {
   useEffect(() => {
     const showUser = async () => {
       try {
-        const user = await getUser('5ec078fdb5169a2a249e2d94');
-        console.log(user);
+        const userId = await AsyncStorage.getItem('userId');
+
+        const user = await getUser(userId);
         if (user !== undefined) {
           if (user.schedule) {
             user.schedule = user.schedule.map((timeSlot) => {
@@ -73,7 +74,7 @@ function Profile({ navigation }) {
       <FAB
         style={styles.fab}
         icon="pencil"
-        onPress={() => navigation.navigate(Screen.EDIT_SCHEDULE, { schedule: user.schedule ? user.schedule : [] })}
+        onPress={() => navigation.navigate(Screen.EDIT_SCHEDULE, { userId: user._id, schedule: user.schedule ? user.schedule : [] })}
       />
     </View>
   );

@@ -102,7 +102,7 @@ function EditScheduleScreen({ route, navigation }) {
 
   const handleSave = async () => {
     try {
-      await setUserSchedule('5ec078fdb5169a2a249e2d94', schedule);
+      await setUserSchedule(route.params.userId, schedule);
       navigation.goBack();
     } catch (error) {
       console.error(error);

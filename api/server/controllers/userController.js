@@ -2,6 +2,7 @@
 User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+var socket = require('../../server');
 
 module.exports = {
   register: async (req, res) => {
@@ -141,7 +142,6 @@ module.exports = {
   },
 
   addGroup: async (req, res) => {
-    console.log("here");
     const addGroup = User.findByIdAndUpdate(req.params.userId, {
       $push: { groups: req.params.groupId },
     }).catch((err) =>
@@ -152,6 +152,7 @@ module.exports = {
       })
     );
     res.status(200).json({addGroup});
+    socket.io.sockets.sockets[clients[req.params.userId]].join(req.params.groupId);
   },
 
   removeGroup: async (req, res) => {
@@ -165,6 +166,7 @@ module.exports = {
       })
     );
     res.status(200).json(removeGroup);
+    socket.io.sockets.sockets[clients[req.params.userId]].leave(req.params.groupId);
   },
 
   /*
@@ -281,7 +283,7 @@ module.exports = {
 
   // Receives userId and schedule as input
   // Sets the schedule for the user to the given schedule
-  setSchedule: (req, res) => {
+  setSchedule: async (req, res) => {
     User.updateOne(
       { _id: req.body.userId },
       {
