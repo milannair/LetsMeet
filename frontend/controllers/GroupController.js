@@ -7,7 +7,7 @@ export async function getUserGroups(userId) {
   try {
     const response = await getUserGroupIds(userId);
     for (let i = 0; i < response.length; i++) {
-      const newResponse = (await axios.get(url + "/group/name/" + response[i]))
+      const newResponse = (await axios.get(url + "/group/name/" + response[i] + "&" + token))
         .data;
       if (newResponse.status === 200) {
         groups.push(newResponse.data);
@@ -23,7 +23,7 @@ export async function getUserGroups(userId) {
 
 export async function getGroupData(groupId) {
   try {
-    const response = (await axios.get(url + "/group/" + groupId)).data;
+    const response = (await axios.get(url + "/group/" + groupId + "&" + token)).data;
     if (response.status === 200) {
       return response.data;
     }
@@ -49,7 +49,7 @@ async function getUserGroupIds(userId) {
   let response = {};
   try {
       
-    response = await axios.get(url + "/user/group/" + userId);
+    response = await axios.get(url + "/user/group/" + userId + token);
     if (response.status === 200) {
       return response.data.data;
     }
@@ -62,7 +62,7 @@ async function getUserGroupIds(userId) {
 
 async function createGroup(owner, name, memberRequests) {
   try {
-    const response = await axios.post(url + "/groups", {
+    const response = await axios.post(url + "/groups/" + "&" + token, {
       meeetingRequests: [],
       memberRequests: memberRequests,
       members: owner,

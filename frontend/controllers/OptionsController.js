@@ -4,7 +4,7 @@ const axios = require('axios').default;
 export async function createOption(start, end, votes) {
     try {
         console.log('got here')
-        const response =(await axios.post(url + '/options/', {
+        const response =(await axios.post(url + '/options/' + token, {
             start: start,
             end: end,
             votes: votes,
@@ -22,7 +22,7 @@ export async function createOption(start, end, votes) {
 
 export async function getOption(optionId) {
     try {
-        const response = (await axios.get(url + '/option/' + optionId)).data
+        const response = (await axios.get(url + '/option/' + optionId + "&" + token)).data
         if(response.status === 200) {
             return response.data;
         } else {
@@ -35,7 +35,7 @@ export async function getOption(optionId) {
 
 export async function addVote(optionId, userId) {
     try {
-        const response = (await axios.post(url + '/option/addVote/' + optionId + '&' + userId)).data;
+        const response = (await axios.post(url + '/option/addVote/' + optionId + '&' + userId + "&" + token)).data;
         if (response.status === 200) {
             return response.data;
         } else {
@@ -48,7 +48,7 @@ export async function addVote(optionId, userId) {
 
 export async function removeVote(optionId, userId) {
     try {
-        const response = (await axios.post(url + '/option/removeVote/' + optionId + '&' + userId)).data;
+        const response = (await axios.post(url + '/option/removeVote/' + optionId + '&' + userId + "&" + token)).data;
         if (response.status === 200) {
             return response.data;
         } else {

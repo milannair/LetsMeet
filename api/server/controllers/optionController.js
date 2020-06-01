@@ -2,7 +2,11 @@ Option = require('../models/optionModel')
 
 // Create an option
 exports.create = function(req, res) {
-    console.log('In the controller')
+    try {
+        jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+        res.status(400).send("Invalid Token");
+    }
     let option = new Option();
     option.time = {start : req.body.start, end: req.body.end}
     option.votes = req.params.votes;
@@ -25,6 +29,11 @@ exports.create = function(req, res) {
 
 // Delete a Meeting Request
 exports.delete = function(req, res) {
+    try {
+        jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+        res.status(400).send("Invalid Token");
+    }
     Option.findByIdAndRemove(req.params.optionId , function(err, data){
         if(err) {
             res.json({
@@ -43,6 +52,11 @@ exports.delete = function(req, res) {
 
 // Gets all the data in the option
 exports.view = function(req, res) {
+    try {
+        jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+        res.status(400).send("Invalid Token");
+    }
     Option.findById(req.params.optionId, function(err, data){
         if(err) {
             res.json({
@@ -61,6 +75,11 @@ exports.view = function(req, res) {
 
 // Update option start time
 exports.updateStart = function(req, res) {
+    try {
+        jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+        res.status(400).send("Invalid Token");
+    }
     Option.updateOne({_id : req.params.optionId}, 
         {
             $set : {'time.start' : req.params.start}

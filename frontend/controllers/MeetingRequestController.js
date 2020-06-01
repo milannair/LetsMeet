@@ -15,7 +15,7 @@ export async function createGroupMeetingRequest(author, groupId, name, isUnanimo
 
 export async function getMeetingRequest(meetingRequestId) {
     try{
-        const response = (await axios.get(url + '/meetingRequest/' + meetingRequestId)).data;
+        const response = (await axios.get(url + '/meetingRequest/' + meetingRequestId + "&" + token)).data;
         if(response.status === 200) {
             return response.data;
         } else {
@@ -30,7 +30,7 @@ async function createMeetingRequest(author, groupId, name, isUnanimousMeetingReq
     requestedOptions, deadline, status) {
 
     try{
-        const response = await axios.post(url + '/meetingRequests/', {
+        const response = await axios.post(url + '/meetingRequests/' + token, {
             author: author,
             groupId: groupId,
             name: name,
@@ -48,7 +48,7 @@ async function createMeetingRequest(author, groupId, name, isUnanimousMeetingReq
 
 async function addMeetingRequestToGroup(groupId, meetingRequestId) {
     try{
-        return axios.post(url + '/group/addMeetingRequest/', {
+        return axios.post(url + '/group/addMeetingRequest/' + token, {
             groupId: groupId,
             meetingRequestId: meetingRequestId
         });
