@@ -1,31 +1,91 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import {View} from 'react-native';
-import NotificationComponent from "../../components/NotificationComponent/index";
+import {Text} from 'react-native-paper';
+import NotificationComponent
+  from "../../components/NotificationComponent/index";
 import AppbarComponent from "../../components/AppbarComponent";
-
-/*
- * TODO: determine a notification's model
- *  For now, a notification is represented only by the message,
- *  and no meaningful button action is defined
- */
+import {
+  acceptGroupInvitation,
+  declineGroupInvitation,
+  getUserGroupInvitations
+} from "../../controllers/GroupInvitationController";
+import styles from "./styles";
 
 /*
  * Route parameters:
- * - notifications: the array of notification messages
+ * - invitationsSupplier: a function that returns the array of invitations to
+ *   be displayed. If no argument is specified for this parameter, then
+ *   invitations will be read from the controller.
  */
 function NotificationsScreen({route, navigation}) {
-  const { notifications } = route.params;
+  const userId = "5ed56a7ffb2e2701d17a7f00"; // TODO: retrieve actual user ID
+  const [invitations, setInvitations] = useState(null);
+  const [updateRequired, setUpdateRequired] = useState(false);
+
+  useFocusEffect(
+    React.useCallback( () => {
+      setUpdateRequired(true);
+      return () => {
+      };
+    }, [])
+  );
+
+  useEffect(() => {
+    const getInvitationsFromController = async () => {
+      if (updateRequired) {
+        setInvitations(await getUserGroupInvitations(userId));
+        setUpdateRequired(false);
+      }
+    };
+
+    if (route.params) {
+      const {invitationsSupplier} = route.params;
+      if (invitationsSupplier) {
+        setInvitations(invitationsSupplier());
+      } else {
+        getInvitationsFromController();
+      }
+    } else {
+      getInvitationsFromController();
+    }
+  });
+
+  async function respondToInvitation(accepted, userId, groupId) {
+    if (accepted) {
+      await acceptGroupInvitation(userId, groupId);
+    } else {
+      await declineGroupInvitation(userId, groupId);
+    }
+    setUpdateRequired(true);
+  }
 
   let components = [];
-
-  for (let i = 0; i < notifications.length; i++) {
+  if (invitations) {
+    if (invitations.length === 0) {
+      components.push(
+        <Text key={0} style={styles.message}>No notifications</Text>
+      );
+    } else {
+      for (const invitation of invitations) {
+        components.push(
+          <NotificationComponent
+            key={invitation.groupId}
+            text={`You have been invited to group ${invitation.groupName}.`}
+            positiveAction={() =>
+              respondToInvitation(true, userId, invitation.groupId)}
+            negativeAction={() =>
+              respondToInvitation(false, userId, invitation.groupId)}
+          />
+        );
+      }
+    }
+  } else {
     components.push(
-      <NotificationComponent
-        text={notifications[i]}
-        positiveAction={() => console.log("+")}
-        negativeAction={() => console.log("-")}
-      />
-    )
+      <Text key={0} style={styles.message}>
+        An error occurred when reading invitations
+      </Text>
+    );
   }
 
   return (

@@ -1,8 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  navbar : {
-    height: 60,
+  message: {
+    marginVertical: 12,
+    flex: 1,
+    alignSelf: 'center',
   },
 });
 

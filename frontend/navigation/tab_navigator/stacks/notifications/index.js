@@ -11,9 +11,6 @@ function NotificationsStackScreen() {
       <NotificationsStack.Screen
         name={Screen.NOTIFICATIONS}
         component={NotificationsScreen}
-        initialParams={{
-          notifications: ["Dummy notification 1", "Dummy notification 2"],
-        }}
       />
     </NotificationsStack.Navigator>
   );
