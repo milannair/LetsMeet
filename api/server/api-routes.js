@@ -15,7 +15,7 @@ let groupController = require("./controllers/groupController");
 // Import meeting controller
 let meetingRequestController = require("./controllers/meetingRequestController");
 let optionController = require("./controllers/optionController");
-var meetingController = require("./controllers/meetingController");
+let meetingController = require("./controllers/meetingController");
 
 // User routes
 
