@@ -19,62 +19,68 @@ var meetingController = require("./controllers/meetingController");
 
 // User routes
 
-// Create user - d
+// Create user
 router.route("/user/create").post(userController.register);
 
-//Login user - d
+//Login user
 router.route("/user/login").post(userController.login);
 
-// Get user by Id - d
+// Get user by Id
 router
   .route("/user/:userId&:auth_token")
   .get(userController.view)
   .delete(userController.delete)
   .patch(userController.update);
 
-//Get user groups - d
-router.route("/user/group/:userId").get(userController.userGroups);
+//Get user groups
+router.route("/user/group/:userId&:auth_token").get(userController.userGroups);
 // Get user's identifiers
 router
-  .route("/user/identifiers/:userId")
+  .route("/user/identifiers/:userId&:auth_token")
   .get(userController.getUserIdentifiers);
-//Get users by username - d
-router.route("/user/byUserName/:username").get(userController.usersByUsername);
+//Get users by username
+router
+  .route("/user/byUserName/:username&:auth_token")
+  .get(userController.usersByUsername);
 
 //Add group to list of group requests the user has -d
 router
-  .route("/user/addGroupRequest/:userId&:groupId")
+  .route("/user/addGroupRequest/:userId&:groupId&:auth_token")
   .post(userController.addGroupRequest);
 
 // Get user's identifiers
 router
-  .route("/user/identifiers/:userId")
+  .route("/user/identifiers/:userId&:auth_token")
   .get(userController.getUserIdentifiers);
 
 // Remove group request from the list of group requests the user has - d
 router
-  .route("/user/removeGroupRequest/:userId&:groupId")
+  .route("/user/removeGroupRequest/:userId&:groupId&:auth_token")
   .post(userController.removeGroupRequest);
 
 // Add group to the list of user's groups - d
-router.route("/user/addGroup/:userId&:groupId").post(userController.addGroup);
+router
+  .route("/user/addGroup/:userId&:groupId&:auth_token")
+  .post(userController.addGroup);
 
 // Remove group from the list of user's groups - d
 router
-  .route("/user/removeGroup/:userId&:groupId")
+  .route("/user/removeGroup/:userId&:groupId&:auth_token")
   .post(userController.removeGroup);
 
 // Get user meetings - d
-router.route("/user/meetings/:userId").get(userController.userMeetings);
+router
+  .route("/user/meetings/:userId&:auth_token")
+  .get(userController.userMeetings);
 
 // Add meeting to the list of user's meetings - d
 router
-  .route("/user/addMeeting/:userId/:meetingId")
+  .route("/user/addMeeting/:userId&:meetingId&:auth_token")
   .post(userController.addMeeting);
 
 // Remove meeting from the list of user's meetings - d
 router
-  .route("/user/removeMeeting/:userId/:meetingId")
+  .route("/user/removeMeeting/:userId&:meetingId&:auth_token")
   .post(userController.removeMeeting);
 
 //// Group paths ////
