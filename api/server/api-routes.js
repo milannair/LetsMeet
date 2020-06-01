@@ -77,12 +77,11 @@ router
   .route("/user/removeMeeting/:userId/:meetingId")
   .post(userController.removeMeeting);
 
-//// Group paths ////
 // Get user schedule
-//router.route("/user/schedule/:userId").get(userController.viewSchedule);
+router.route("/user/schedule/:userId").get(userController.viewSchedule);
 
 // Set the schedule of user
-//router.route("/user/setSchedule").post(userController.setSchedule);
+router.route("/user/setSchedule").post(userController.setSchedule);
 
 //// Group paths ////
 

@@ -257,6 +257,51 @@ module.exports = {
         data: data,
       });
     });
+  },
+
+  // Receives userId as input
+  // Sends the user's schedule
+  viewSchedule: async (req, res) => {
+    User.findById(req.params.userId, {schedule: 1}, function(err, data) {
+      if(err) {
+        res.json({
+          status: 500,
+          errorMessage: err.message,
+          errorName: err.name
+        });
+      } else {
+        res.json({
+          status: res.statusCode,
+          message: "Successfully retrieved user schedule",
+          data: data
+        });
+      }
+    });
+  },
+
+  // Receives userId and schedule as input
+  // Sets the schedule for the user to the given schedule
+  setSchedule: (req, res) => {
+    User.updateOne(
+      { _id: req.body.userId },
+      {
+        $set: { schedule: req.body.schedule }
+      },
+    function(err, data) {
+      if(err) {
+        res.json({
+          status: 500,
+          errorMessage: err.message,
+          errorName: err.name
+        });
+      } else {
+        res.json({
+          status: res.statusCode,
+          message: "Successfully updated user schedule",
+          data: data
+        });
+      }
+    });
   }
 };
 
