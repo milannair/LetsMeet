@@ -11,263 +11,218 @@ router.get("/", function (req, res) {
 // Import all controllers for our models
 let userController = require("./controllers/userController");
 let groupController = require("./controllers/groupController");
+
+// Import meeting controller
 let meetingRequestController = require("./controllers/meetingRequestController");
 let optionController = require("./controllers/optionController");
 var meetingController = require("./controllers/meetingController");
 
 // User routes
 
-// Create user
-router
-  .route("/users")
-  .post(userController.register);
+// Create user - d
+router.route("/user/create").post(userController.register);
 
-// Get user by Id
+//Login user - d
+router.route("/user/login").post(userController.login);
+
+// Get user by Id - d
 router
-  .route('/user/:userId')
+  .route("/user/:userId")
   .get(userController.view)
+  .delete(userController.delete)
+  .patch(userController.update);
+
+//Get user groups - d
+router.route("/user/group/:userId").get(userController.userGroups);
+// Get user's identifiers
+// router
+//   .route('/user/identifiers/:userId')
+//   .get(userController.getUserIdentifiers)
+//Get users by username - d
+router.route("/user/byUserName/:username").get(userController.usersByUsername);
+
+//Add group to list of group requests the user has -d
+router
+  .route("/user/addGroupRequest/:userId&:groupId")
+  .post(userController.addGroupRequest);
 
 // Get user's identifiers
 router
-  .route('/user/identifiers/:userId')
-  .get(userController.getUserIdentifiers)
+  .route("/user/identifiers/:userId")
+  .get(userController.getUserIdentifiers);
 
-// Get user groups 
+// Remove group request from the list of group requests the user has - d
 router
-  .route('/user/groups/:userId')
-  .get(userController.userGroups);
+  .route("/user/removeGroupRequest/:userId/:groupId")
+  .post(userController.removeGroupRequest);
 
-// Get users by username 
-router
-  .route('/users/:username')
-  .get(userController.usersByUsername)
+// Add group to the list of user's groups - d
+router.route("/user/addGroup/:userId/:groupId").post(userController.addGroup);
 
-// Delete user by id
+// Remove group from the list of user's groups - d
 router
-  .route('/users/:userid')
-  .delete(userController.delete)
+  .route("/user/removeGroup/:userId/:groupId")
+  .post(userController.removeGroup);
 
-// Add group to list of group requests the user has
-router
-  .route('/user/addGroupRequest')
-  .post(userController.addGroupRequest)
+// Get user meetings - d
+router.route("/user/meetings/:userId").get(userController.userMeetings);
 
-// Remove group request from the list of group requests the user has
+// Add meeting to the list of user's meetings - d
 router
-  .route('/user/removeGroupRequest')
-  .post(userController.removeGroupRequest)
-
-// Add group to the list of user's groups
-router
-  .route('/user/addGroup')
-  .post(userController.addGroup)
-
-// Remove group from the list of user's groups
-router
-  .route('/user/removeGroup')
-  .post(userController.removeGroup)
-
-// Get user meetings
-router
-  .route('/user/meetings/:userId')
-  .get(userController.userMeetings);
-
-// Add meeting to the list of user's meetings
-router
-  .route('/user/addMeeting')
+  .route("/user/addMeeting/:userId/:meetingId")
   .post(userController.addMeeting);
 
-// Remove meeting from the list of user's meetings
+// Remove meeting from the list of user's meetings - d
 router
-  .route('/user/removeMeeting')
+  .route("/user/removeMeeting/:userId/:meetingId")
   .post(userController.removeMeeting);
 
+//// Group paths ////
 // Get user schedule
-router
-  .route('/user/schedule/:userId')
-  .get(userController.viewSchedule);
+//router.route("/user/schedule/:userId").get(userController.viewSchedule);
 
 // Set the schedule of user
-router
-  .route('/user/setSchedule')
-  .post(userController.setSchedule);
+//router.route("/user/setSchedule").post(userController.setSchedule);
 
-
-  //// Group paths ////
-
+//// Group paths ////
 
 // Create a group
-router
-  .route('/groups')
-  .post(groupController.create)
+router.route("/groups").post(groupController.create);
 
 // Delete a group
-router
-  .route('/group/delete')
-  .delete(groupController.delete)
+router.route("/group/delete").delete(groupController.delete);
 
 //Get all the details about the group
+router.route("/group/:groupId").get(groupController.view);
+
+// // Get the group's name and id
+router.route("/group/name/:groupId").get(groupController.name);
+
+// // Change the group's name
+router.route("/group/rename").post(groupController.rename);
+
+// //Add member to the group
+router.route("/group/addMemeber").post(groupController.addMember);
+
+// //Add member to the group
+router.route("/group/addMemeber").post(groupController.addMember);
+
+// //Remove member the group
+router.route("/group/removeMemeber").post(groupController.removeMember);
+
+// // Add member request to the group
+router.route("/group/addMemberRequest").post(groupController.addMemberRequest);
+
+// // Remove member request from the group
 router
-  .route('/group/:groupId')
-  .get(groupController.view)
+  .route("/group/removeMemberRequest")
+  .post(groupController.removeMemberRequest);
 
-// Get the group's name and id
+// // Add meeting request to the group
 router
-  .route('/group/name/:groupId')
-  .get(groupController.name)
+  .route("/group/addMeetingRequest/")
+  .post(groupController.addMeetingRequest);
 
-// Change the group's name
+// // Remove meeting request from the group
 router
-  .route('/group/rename')
-  .post(groupController.rename)
-
-//Add member to the group
-router
-  .route('/group/addMemeber')
-  .post(groupController.addMember)
-
-//Add member to the group
-router
-  .route('/group/addMemeber')
-  .post(groupController.addMember)
-
-//Remove member the group
-router
-  .route('/group/removeMemeber')
-  .post(groupController.removeMember)
-
-// Add member request to the group
-router
-  .route('/group/addMemberRequest')
-  .post(groupController.addMemberRequest)
-
-// Remove member request from the group
-router
-  .route('/group/removeMemberRequest')
-  .post(groupController.removeMemberRequest)
-
-// Add meeting request to the group
-router
-  .route('/group/addMeetingRequest/')
-  .post(groupController.addMeetingRequest)
-
-// Remove meeting request from the group
-router
-  .route('/group/removeMeetingRequest/:groupId&:meetingRequestId')
-  .post(groupController.removeMeetingRequest)
-
-
+  .route("/group/removeMeetingRequest/:groupId&:meetingRequestId")
+  .post(groupController.removeMeetingRequest);
 
 ///// MeetingRequest routes ////
 
 // Create a meeting request
-router
-  .route('/meetingRequests/')
-  .post(meetingRequestController.create)
+router.route("/meetingRequests/").post(meetingRequestController.create);
 
 // Delete a meeting request
 router
-  .route('/meetingRequest/delete/:meetingRequestId')
-  .delete(meetingRequestController.delete)
+  .route("/meetingRequest/delete/:meetingRequestId")
+  .delete(meetingRequestController.delete);
 
 // Get all data about the meeting request
 router
-  .route('/meetingRequest/:meetingRequestId')
-  .get(meetingRequestController.view)
+  .route("/meetingRequest/:meetingRequestId")
+  .get(meetingRequestController.view);
 
 // Update meeting name
 router
-  .route('/meetingRequest/rename/:meetingRequestId&:name')
-  .post(meetingRequestController.rename)
+  .route("/meetingRequest/rename/:meetingRequestId&:name")
+  .post(meetingRequestController.rename);
 
 // Update request type
 router
-  .route('/meetingRequest/updateRequestType/:meetingRequestId&:isUnanimousMeetingRequest')
-  .post(meetingRequestController.updateRequestType)
+  .route(
+    "/meetingRequest/updateRequestType/:meetingRequestId&:isUnanimousMeetingRequest"
+  )
+  .post(meetingRequestController.updateRequestType);
 
 // Add specified options to the meeting request options
 router
-  .route('/meetingRequest/addRequestedOptions/:meetingRequestId&:requestedOptions')
-  .post(meetingRequestController.addRequestedOptions)
+  .route(
+    "/meetingRequest/addRequestedOptions/:meetingRequestId&:requestedOptions"
+  )
+  .post(meetingRequestController.addRequestedOptions);
 
 // Remove specified options from the meeting request
 router
-  .route('/meetingRequest/removeRequestedOptions/:meetingRequestId&:requestedOptions')
-  .post(meetingRequestController.removeRequestedOptions)
+  .route(
+    "/meetingRequest/removeRequestedOptions/:meetingRequestId&:requestedOptions"
+  )
+  .post(meetingRequestController.removeRequestedOptions);
 
 // Update request status
 router
-  .route('/meetingRequest/updateRequestStatus/:meetingRequestId&:status')
-  .post(meetingRequestController.updateRequestStatus)
-
+  .route("/meetingRequest/updateRequestStatus/:meetingRequestId&:status")
+  .post(meetingRequestController.updateRequestStatus);
 
 ///// Option routes ////
 
-
 // Create an Option
-router
-  .route('/options/')
-  .post(optionController.create)
+router.route("/options/").post(optionController.create);
 
 // Delete an Option
-router
-  .route('/option/delete/:optionId')
-  .delete(optionController.delete)
+router.route("/option/delete/:optionId").delete(optionController.delete);
 
 // View an Option
-router
-  .route('/option/:optionId')
-  .get(optionController.view)
+router.route("/option/:optionId").get(optionController.view);
 
 // Update start time
 router
-.route('/option/updateStart/:optionId&:start')
-.post(optionController.updateStart)
+  .route("/option/updateStart/:optionId&:start")
+  .post(optionController.updateStart);
 
 // Update end time
 router
-.route('/option/updateEnd/:optionId&:end')
-.post(optionController.updateEnd)
+  .route("/option/updateEnd/:optionId&:end")
+  .post(optionController.updateEnd);
 
 // Add a vote
 router
-.route('/option/addVote/:optionId&:userId')
-.post(optionController.addVote)
+  .route("/option/addVote/:optionId&:userId")
+  .post(optionController.addVote);
 
 // Remove a vote
 router
-.route('/option/removeVote/:optionId&:userId')
-.post(optionController.removeVote)
+  .route("/option/removeVote/:optionId&:userId")
+  .post(optionController.removeVote);
 
+//// Meeting paths ////
 
-  //// Meeting paths ////
-
+//// Meeting paths ////
 
 // Create a meeting
-router
-  .route('/meetings')
-  .post(meetingController.create);
+router.route("/meetings").post(meetingController.create);
 
 // Delete a meeting
-router
-  .route('/meeting/delete/:meetingId')
-  .delete(meetingController.delete);
+router.route("/meeting/delete/:meetingId").delete(meetingController.delete);
 
 // Get all the details about a meeting
-router
-  .route('/meeting/:meetingId')
-  .get(meetingController.view);
+router.route("/meeting/:meetingId").get(meetingController.view);
 
 // Confirm a meeting
-router
-  .route('/meeting/confirm/:meetingId')
-  .post(meetingController.confirm);
+router.route("/meeting/confirm/:meetingId").post(meetingController.confirm);
 
 // Unconfirm a meeting
-router
-  .route('/meeting/unconfirm/:meetingId')
-  .post(meetingController.unconfirm);
-
+router.route("/meeting/unconfirm/:meetingId").post(meetingController.unconfirm);
 
 // Export API routes
 module.exports = router;

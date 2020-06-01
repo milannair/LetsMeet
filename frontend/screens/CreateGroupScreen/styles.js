@@ -7,9 +7,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         backgroundColor: '#f9f9f9',
     },
-    navbar : {
-        height: 60,
-    },
     groupDetailsContainer: {
         width: "90%",
         marginLeft: 'auto',

@@ -22,6 +22,8 @@ jobs:
       - docker run -d -p 27017:27017 --rm mongo
       - echo "USE_LOCAL_DB=true" >> api/.env
     - name: "frontend"
+      script:
+      - npm test --prefix ${TRAVIS_JOB_NAME} -- --ci
 
 install: npm ci --prefix ${TRAVIS_JOB_NAME}
 
