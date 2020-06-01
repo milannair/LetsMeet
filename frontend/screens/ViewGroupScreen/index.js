@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import styles from './styles';
-import { useTheme } from 'react-native-paper';
+import { useTheme, Portal, Dialog, Paragraph, Button } from 'react-native-paper';
 import ViewGroupComponent from '../../components/ViewGroupComponent/index';
 import Day from '../../enums/Day';
 import { View } from 'react-native';
@@ -12,6 +12,7 @@ import {getGroupData} from '../../controllers/GroupController';
 import { useFocusEffect } from '@react-navigation/native';
 import ScheduleComponent from '../../components/ScheduleComponent/index';
 import {GROUPS, ADD_MEMBERS} from '../../navigation/tab_navigator/stacks/groups/screen-names';
+import moment from 'moment';
 
 function ViewGroupScreen({ route, navigation }) {
   const { colors } = useTheme();
@@ -27,6 +28,8 @@ function ViewGroupScreen({ route, navigation }) {
   const [updateLog, setUpdateLog] = useState(false);
   const [showSpinner, setShowSpinner] = useState(false);
   const [groupSchedule, setGroupSchedule] = useState([]);
+  const [dialogVisible, setDialogVisible] = useState(false);
+  const [dialogData, setDialogData] = useState({})
 
   useFocusEffect(
     React.useCallback( () => {
@@ -59,11 +62,38 @@ function ViewGroupScreen({ route, navigation }) {
         selectable={false}
         divideHours={true}
         onDayPress={null}
-        onTimeSlotPress={null}
+        onTimeSlotPress={(day, start, end, countAvailable) => {
+          setDialogData({
+            day: day,
+            start: start,
+            end: end,
+            countAvailable: countAvailable
+          });
+          setDialogVisible(true);
+        }}
         isGroupSchedule={true}
       />
     </View>
   );
+
+  const getDayString = (day) => {
+    switch (day) {
+      case Day.SUNDAY:
+        return 'Sunday';
+      case Day.MONDAY:
+        return 'Monday';
+      case Day.TUESDAY:
+        return 'Tuesday';
+      case Day.WEDNESDAY:
+        return 'Wednesday';
+      case Day.THURSDAY:
+        return 'Thursday';
+      case Day.FRIDAY:
+        return 'Friday';
+      case Day.SATURDAY:
+        return 'Saturday';
+    }
+  }
 
 
   const renderScene = SceneMap({
@@ -144,6 +174,30 @@ function ViewGroupScreen({ route, navigation }) {
         renderScene={renderScene}
         onIndexChange={setIndex}
       />
+
+      <Portal>
+        <Dialog
+          visible={dialogVisible}
+          onDismiss={() => setDialogVisible(false)}
+        >
+          <Dialog.Title>
+            {
+              dialogData.countAvailable > 1 ? 
+                dialogData.countAvailable + ' members available'
+                :
+                dialogData.countAvailable + ' member available'
+            }  
+          </Dialog.Title> 
+          <Dialog.Content>
+            <Paragraph>
+              {getDayString(dialogData.day)}, {moment(dialogData.start).format('LT')} to {moment(dialogData.end).format('LT')}
+            </Paragraph>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={() => setDialogVisible(false)}>OK</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </View>
   )
 }
