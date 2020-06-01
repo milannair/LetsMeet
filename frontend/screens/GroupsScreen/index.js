@@ -21,7 +21,9 @@ function GroupsScreen({route, navigation}) {
       try {
         const userId = await AsyncStorage.getItem('userId');
         setUserId(userId);
-        setGroupDetails(await getUserGroups(userId));
+        const test = await getUserGroups(userId);
+        console.log(test);
+        setGroupDetails(test);
       } catch (error) {
         console.error(error);
       }

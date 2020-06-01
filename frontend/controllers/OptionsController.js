@@ -49,7 +49,7 @@ export async function removeVote(optionId, userId, groupId) {
     try {
         const response = (await axios.post(url + '/option/removeVote/' + optionId + '&' + userId + '&' + groupId)).data;
         if (response.status === 200) {
-            return response.daata;
+            return response.data;
         } else {
             console.log(response);
         }

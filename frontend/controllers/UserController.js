@@ -4,7 +4,7 @@ const axios = require('axios').default;
 export async function postUser(username, email, phone, password, displayName) {
   try {
     const response = await axios.post(
-      protocol + baseUrl + ":" + port + route + "/user/create",
+      url + "/user/create",
       {
         username: username,
         email: email,
@@ -24,7 +24,7 @@ export async function getUser(id) {
   let responseData = {};
   try {
     responseData = (
-      await axios.get(protocol + baseUrl + ":" + port + route + "/user/" + id)
+      await axios.get(url + "/user/" + id)
     ).data;
     if (responseData.status === 200) {
       return responseData.data;
@@ -40,7 +40,7 @@ export async function deleteUser(id) {
   try {
     responseData = (
       await axios.delete(
-        protocol + baseUrl + ":" + port + route + "/user/" + id
+        url + "/user/" + id
       )
     ).data;
     if (responseData.status === 200) {
@@ -56,7 +56,7 @@ export async function updateUser(id) {
   try {
     responseData = (
       await axios.patch(
-        protocol + baseUrl + ":" + port + route + "/user/" + id
+        url + "/user/" + id
         //ADD JSON BODY
       )
     ).data;
@@ -73,7 +73,7 @@ export async function loginUser(credential, password) {
   let responseData = {};
   try {
     responseData = (
-      await axios.get(protocol + baseUrl + ":" + port + route + "/user/login", {
+      await axios.get(url + "/user/login", {
         cred: credential,
         password: password,
       })
@@ -92,7 +92,7 @@ export async function userGroups(id) {
   try {
     responseData = (
       await axios.get(
-        protocol + baseUrl + ":" + port + route + "/user/group/" + id
+        url + "/user/group/" + id
       )
     ).data;
     if (responseData.status === 200) {
@@ -109,7 +109,7 @@ export async function getUserByUsername(username) {
   try {
     responseData = (
       await axios.get(
-        protocol + baseUrl + ":" + port + route + "/user/byUserName/" + username
+        url + "/user/byUserName/" + username
       )
     ).data;
     if (responseData.status === 200) {
@@ -126,11 +126,7 @@ export async function addGroupRequest(userId, groupId) {
   try {
     responseData = (
       await axios.post(
-        protocol +
-          baseUrl +
-          ":" +
-          port +
-          route +
+        url +
           "/user/addGroupRequest/" +
           userId +
           "&" +
@@ -151,11 +147,7 @@ export async function removeGroupRequest(userId, groupId) {
   try {
     responseData = (
       await axios.post(
-        protocol +
-          baseUrl +
-          ":" +
-          port +
-          route +
+        url +
           "/user/removeGroupRequest/" +
           userId +
           "&" +
@@ -176,11 +168,7 @@ export async function addGroup(userId, groupId) {
   try {
     responseData = (
       await axios.post(
-        protocol +
-          baseUrl +
-          ":" +
-          port +
-          route +
+        url +
           "/user/addGroup/" +
           userId +
           "&" +
@@ -201,11 +189,7 @@ export async function removeGroup(userId, groupId) {
   try {
     responseData = (
       await axios.post(
-        protocol +
-          baseUrl +
-          ":" +
-          port +
-          route +
+        url +
           "/user/addGroup/" +
           userId +
           "&" +
@@ -226,7 +210,7 @@ export async function userMeetings(userId) {
   try {
     responseData = (
       await axios.post(
-        protocol + baseUrl + ":" + port + route + "/user/meetings/" + userId
+        url + "/user/meetings/" + userId
       )
     ).data;
     if (responseData.status === 200) {
@@ -243,11 +227,7 @@ export async function addMeeting(userId, meetingId) {
   try {
     responseData = (
       await axios.post(
-        protocol +
-          baseUrl +
-          ":" +
-          port +
-          route +
+        url +
           "/user/addMeeting/" +
           userId +
           "&" +
@@ -268,11 +248,7 @@ export async function removeMeeting(userId, meetingId) {
   try {
     responseData = (
       await axios.post(
-        protocol +
-          baseUrl +
-          ":" +
-          port +
-          route +
+        url +
           "/user/removeMeeting/" +
           userId +
           "&" +

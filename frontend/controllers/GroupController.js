@@ -60,7 +60,7 @@ export async function createUserGroup(owner, name, memberRequests) {
 async function getUserGroupIds(userId) {
   let responseData = {};
   try {
-    responseData = (await axios.get(url + "/user/groups/" + userId)).data;
+    responseData = (await axios.get(url + "/user/group/" + userId)).data;
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -72,7 +72,7 @@ async function getUserGroupIds(userId) {
 
 async function createGroup(owner, name, memberRequests) {
   try {
-    const response = await axios.post(url + "/groups", {
+    const response = await axios.post(url + "/group", {
       meeetingRequests: [],
       memberRequests: memberRequests,
       members: owner,
