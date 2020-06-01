@@ -1,16 +1,17 @@
-import { url } from '../api-routes';
-import {addGroup, addGroupRequest} from './UserController';
-const axios = require('axios').default;
+import { url } from "../api-routes";
+import { addGroup, addGroupRequest } from "./UserController";
+const axios = require("axios").default;
 import { AsyncStorage } from "react-native";
-let token = AsyncStorage.getItem('token');
+let token = AsyncStorage.getItem("token");
 
 export async function getUserGroups(userId) {
   let groups = [];
   try {
     const response = await getUserGroupIds(userId);
     for (let i = 0; i < response.length; i++) {
-      const newResponse = (await axios.get(url + "/group/name/" + response[i] + "&" + token))
-        .data;
+      const newResponse = (
+        await axios.get(url + "/group/name/" + response[i] + "&" + token)
+      ).data;
       if (newResponse.status === 200) {
         groups.push(newResponse.data);
       } else {
@@ -25,7 +26,8 @@ export async function getUserGroups(userId) {
 
 export async function getGroupData(groupId) {
   try {
-    const response = (await axios.get(url + "/group/" + groupId + "&" + token)).data;
+    const response = (await axios.get(url + "/group/" + groupId + "&" + token))
+      .data;
     if (response.status === 200) {
       return response.data;
     }
@@ -50,12 +52,10 @@ export async function createUserGroup(owner, name, memberRequests) {
 async function getUserGroupIds(userId) {
   let response = {};
   try {
-      
-    response = await axios.get(url + "/user/group/" + userId + token);
+    response = await axios.get(url + "/user/group/" + userId + "&" + token);
     if (response.status === 200) {
       return response.data.data;
     }
-
   } catch (error) {
     console.log(error);
   }

@@ -118,7 +118,7 @@ function CreateMeetingRequest({route, navigation}) {
 
     return(
         <View style={styles.container}>
-            <Appbar.Header style={styles.navbar}>
+            <Appbar.Header style = {{backgroundColor: "#663399"}}>
                 <Appbar.BackAction onPress={() => {navigation.navigate(VIEW_GROUP)}}/>
                 <Appbar.Content title='Request a Meeting'/>
                 <Button color='white' labelStyle={styles.buttonText} onPress={() => submitMeetingRequest()}>

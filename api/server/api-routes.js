@@ -83,12 +83,11 @@ router
   .route("/user/removeMeeting/:userId&:meetingId&:auth_token")
   .post(userController.removeMeeting);
 
-//// Group paths ////
 // Get user schedule
-//router.route("/user/schedule/:userId").get(userController.viewSchedule);
+router.route("/user/schedule/:userId").get(userController.viewSchedule);
 
 // Set the schedule of user
-//router.route("/user/setSchedule").post(userController.setSchedule);
+router.route("/user/setSchedule").post(userController.setSchedule);
 
 //// Group paths ////
 
@@ -114,10 +113,14 @@ router.route("/group/addMemeber/:auth_token").post(groupController.addMember);
 router.route("/group/addMemeber/:auth_token").post(groupController.addMember);
 
 // //Remove member the group
-router.route("/group/removeMemeber/:auth_token").post(groupController.removeMember);
+router
+  .route("/group/removeMemeber/:auth_token")
+  .post(groupController.removeMember);
 
 // // Add member request to the group
-router.route("/group/addMemberRequest/:auth_token").post(groupController.addMemberRequest);
+router
+  .route("/group/addMemberRequest/:auth_token")
+  .post(groupController.addMemberRequest);
 
 // // Remove member request from the group
 router
@@ -177,7 +180,9 @@ router
 
 // Update request status
 router
-  .route("/meetingRequest/updateRequestStatus/:meetingRequestId&:status&:auth_token")
+  .route(
+    "/meetingRequest/updateRequestStatus/:meetingRequestId&:status&:auth_token"
+  )
   .post(meetingRequestController.updateRequestStatus);
 
 ///// Option routes ////
@@ -186,7 +191,9 @@ router
 router.route("/options/:auth_token").post(optionController.create);
 
 // Delete an Option
-router.route("/option/delete/:optionId&:auth_token").delete(optionController.delete);
+router
+  .route("/option/delete/:optionId&:auth_token")
+  .delete(optionController.delete);
 
 // View an Option
 router.route("/option/:optionId&:auth_token").get(optionController.view);
@@ -203,12 +210,12 @@ router
 
 // Add a vote
 router
-  .route("/option/addVote/:optionId&:userId&:auth_token")
+  .route("/option/addVote/:optionId&:userId&:groupId&:auth_token")
   .post(optionController.addVote);
 
 // Remove a vote
 router
-  .route("/option/removeVote/:optionId&:userId&:auth_token")
+  .route("/option/removeVote/:optionId&:userId&:groupId&:auth_token")
   .post(optionController.removeVote);
 
 //// Meeting paths ////

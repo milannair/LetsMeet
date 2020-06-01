@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
-import {
-  List, Text, Divider, FAB,
-} from 'react-native-paper';
-import styles from './styles';
-import { getUser } from '../../controllers/UserController';
-import * as Screen from '../../navigation/tab_navigator/stacks/profile/screen-names';
-import ScheduleComponent from '../../components/ScheduleComponent/index'
-import Day from '../../enums/Day';
-import { useIsFocused } from '@react-navigation/native'
+import React, { useState, useEffect } from "react";
+import { View, AsyncStorage } from "react-native";
+import { List, Text, Divider, FAB } from "react-native-paper";
+import styles from "./styles";
+import { getUser } from "../../controllers/UserController";
+import * as Screen from "../../navigation/tab_navigator/stacks/profile/screen-names";
+import ScheduleComponent from "../../components/ScheduleComponent/index";
+import Day from "../../enums/Day";
+import { useIsFocused } from "@react-navigation/native";
 import AppbarComponent from "../../components/AppbarComponent";
 import { AsyncStorage } from "react-native";
 
 function Profile({ navigation }) {
-  const [user, setUser] = useState(JSON.parse('{"username" : "", "email" : "", "displayName" : ""}'));
+  const [user, setUser] = useState(
+    JSON.parse('{"username" : "", "email" : "", "displayName" : ""}')
+  );
 
   const isFocused = useIsFocused();
   const firstDay = Day.SUNDAY;
   const lastDay = Day.SATURDAY;
   const firstHour = 8;
-  const lastHour = 22; 
-  const userId = AsyncStorage.getItem('userId');
+  const lastHour = 22;
+  const userId = AsyncStorage.getItem("userId");
 
   useEffect(() => {
     const showUser = async () => {
@@ -32,13 +32,13 @@ function Profile({ navigation }) {
             user.schedule = user.schedule.map((timeSlot) => {
               return {
                 startTime: new Date(timeSlot.startTime),
-                endTime: new Date(timeSlot.endTime)
+                endTime: new Date(timeSlot.endTime),
               };
             });
           }
           setUser(user);
         } else {
-          console.error('user not found');
+          console.error("user not found");
         }
       } catch (error) {
         console.error(error);
@@ -48,12 +48,12 @@ function Profile({ navigation }) {
   }, [isFocused]);
 
   const handleSettingsPress = () => {
-    console.log('settings pressed');
+    console.log("settings pressed");
   };
 
   return (
     <View style={styles.container}>
-      <AppbarComponent title='Profile' />
+      <AppbarComponent title="Profile" />
       <List.Item
         style={styles.item}
         title={user.displayName}
@@ -75,7 +75,12 @@ function Profile({ navigation }) {
       <FAB
         style={styles.fab}
         icon="pencil"
-        onPress={() => navigation.navigate(Screen.EDIT_SCHEDULE, { schedule: user.schedule ? user.schedule : [] })}
+        onPress={() =>
+          navigation.navigate(Screen.EDIT_SCHEDULE, {
+            userId: user._id,
+            schedule: user.schedule ? user.schedule : [],
+          })
+        }
       />
     </View>
   );

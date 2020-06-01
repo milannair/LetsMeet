@@ -168,7 +168,9 @@ function AddMembersScreen({route, navigation}) {
 
     return(
         <View>
-            <Appbar.Header>
+            <Appbar.Header
+                style = {{backgroundColor: "#663399"}}
+            >
                 <Appbar.BackAction color="white" onPress={async () => {
                     navigation.navigate(VIEW_GROUP), 
                     {
