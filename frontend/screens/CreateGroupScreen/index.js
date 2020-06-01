@@ -3,7 +3,8 @@ import { View } from 'react-native';
 import { Appbar, Avatar, IconButton, Button, Colors, TextInput, Chip, Searchbar, List} from 'react-native-paper';
 import styles from './styles'
 import { GROUPS } from '../../navigation/tab_navigator/stacks/groups/screen-names';
-import {getUsers, createUserGroup} from '../../controllers/GroupController';
+import {createUserGroup} from '../../controllers/GroupController';
+import {getUserByUsername} from '../../controllers/UserController';
 import AppbarComponent from "../../components/AppbarComponent";
 
 
@@ -29,7 +30,7 @@ function CreateGroupScreen({route, navigation}) {
             }
             if(query && query !== previousQuery) {
                 previousQuery = query
-                searchResults = (await getUsers(query)) 
+                searchResults = (await getUserByUsername(query)) 
                 setSearchList(getSearchItems(searchResults))              
             }
         }

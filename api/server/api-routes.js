@@ -53,15 +53,15 @@ router
 
 // Remove group request from the list of group requests the user has - d
 router
-  .route("/user/removeGroupRequest/:userId/:groupId")
+  .route("/user/removeGroupRequest/:userId&:groupId")
   .post(userController.removeGroupRequest);
 
 // Add group to the list of user's groups - d
-router.route("/user/addGroup/:userId/:groupId").post(userController.addGroup);
+router.route("/user/addGroup/:userId&:groupId").post(userController.addGroup);
 
 // Remove group from the list of user's groups - d
 router
-  .route("/user/removeGroup/:userId/:groupId")
+  .route("/user/removeGroup/:userId&:groupId")
   .post(userController.removeGroup);
 
 // Get user meetings - d

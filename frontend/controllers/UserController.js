@@ -105,6 +105,7 @@ export async function userGroups(id) {
 }
 
 export async function getUserByUsername(username) {
+  console.log(username);
   let responseData = {};
   try {
     responseData = (
@@ -126,17 +127,13 @@ export async function addGroupRequest(userId, groupId) {
   try {
     responseData = (
       await axios.post(
-        protocol +
-          baseUrl +
-          ":" +
-          port +
-          route +
+        +
           "/user/addGroupRequest/" +
           userId +
           "&" +
           groupId
       )
-    ).data;
+    );
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -151,17 +148,13 @@ export async function removeGroupRequest(userId, groupId) {
   try {
     responseData = (
       await axios.post(
-        protocol +
-          baseUrl +
-          ":" +
-          port +
-          route +
+        url+
           "/user/removeGroupRequest/" +
           userId +
           "&" +
           groupId
       )
-    ).data;
+    );
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -176,17 +169,13 @@ export async function addGroup(userId, groupId) {
   try {
     responseData = (
       await axios.post(
-        protocol +
-          baseUrl +
-          ":" +
-          port +
-          route +
+        url+
           "/user/addGroup/" +
           userId +
           "&" +
           groupId
       )
-    ).data;
+    )
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -201,17 +190,13 @@ export async function removeGroup(userId, groupId) {
   try {
     responseData = (
       await axios.post(
-        protocol +
-          baseUrl +
-          ":" +
-          port +
-          route +
+        url+
           "/user/addGroup/" +
           userId +
           "&" +
           groupId
       )
-    ).data;
+    );
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -243,11 +228,7 @@ export async function addMeeting(userId, meetingId) {
   try {
     responseData = (
       await axios.post(
-        protocol +
-          baseUrl +
-          ":" +
-          port +
-          route +
+        url+
           "/user/addMeeting/" +
           userId +
           "&" +
@@ -268,11 +249,7 @@ export async function removeMeeting(userId, meetingId) {
   try {
     responseData = (
       await axios.post(
-        protocol +
-          baseUrl +
-          ":" +
-          port +
-          route +
+        url+
           "/user/removeMeeting/" +
           userId +
           "&" +
