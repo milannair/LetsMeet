@@ -101,7 +101,7 @@ function ViewPollScreen({route, navigation}) {
             <View key={'option' + i}>
               <List.Item
                 // style={{backgroundColor: colors.accent}}
-                style={highlightIfVotedByCurrUser}
+                style={highlightIfVotedByCurrUser(option)}
                 title={moment(startTime).format("dddd, MMMM Do YYYY")}
                 description={moment(startTime).format("LT") + " to " + moment(endTime).format("LT")}
                 right={() => <Text style={styles.numVotes}>{numVotes}</Text>}
