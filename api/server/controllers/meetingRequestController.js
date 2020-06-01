@@ -1,8 +1,8 @@
 MeetingRequest = require('../models/meetingRequestModel')
+var socket = require('../../server');
 
 // Create a new meeting request
 exports.create = function(req, res) {
-    console.log("got here 2")
     let meetingRequest = new MeetingRequest();
     meetingRequest.author = req.body.author;
     meetingRequest.groupId = req.body.groupId;
@@ -19,12 +19,14 @@ exports.create = function(req, res) {
                 erroMessage: err.message,
                 errorName: err.name,
             })
+        } else {
+            res.json({
+                status: res.statusCode,
+                message: "Meeting Request created successfully",
+                data: meetingRequest
+            })
+            socket.io.in(meetingRequest.groupId).emit(meetingRequest);
         }
-        res.json({
-            status: res.statusCode,
-            message: "Meeting Request created successfully",
-            data: meetingRequest
-        })
     })
 }
 

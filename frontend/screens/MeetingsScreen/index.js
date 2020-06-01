@@ -1,17 +1,16 @@
 import React, { useState, useEffect} from 'react';
-import { View} from 'react-native';
+import { View, AsyncStorage} from 'react-native';
 import { List, useTheme } from 'react-native-paper';
 import styles from './styles';
 import {getUserMeetingsWithGroups} from '../../controllers/MeetingController';
 import moment from 'moment';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { useIsFocused } from '@react-navigation/native';
 import AppbarComponent from "../../components/AppbarComponent";
 
-// todo: probably want to change this later on
-const userId = '5ec07929b5169a2a249e2d95'
-
-function MeetingsScreen({route, navigation }) {
+function MeetingsScreen({ navigation }) {
     const { colors } = useTheme();
+    const isFocused = useIsFocused();
 
     // confirmed and tentative tab
     const FirstRoute = () => (
@@ -34,20 +33,18 @@ function MeetingsScreen({route, navigation }) {
 
     // meeting data
     const[meetingsDetails, setMeetingDetails] = useState([])
-    const[meetingsUpdated, setMeetingsUpdated] = useState(true)
 
-    useEffect( () => {
-      const getMeetings = async () =>{
-        if(meetingsUpdated || (route.params && route.params.reload)) {
+    useEffect(() => {
+      const getMeetings = async () => {
+        try {
+          const userId = await AsyncStorage.getItem('userId');
           setMeetingDetails(await getUserMeetingsWithGroups(userId));
-          setMeetingsUpdated(false)
-          if(route.params && route.params.reload) {
-            route.params.reload = false
-          }
+        } catch (error) {
+          console.error(error);
         }
       }
       getMeetings()
-    })
+    }, [isFocused])
 
     const renderTabBar = props => (
       <TabBar

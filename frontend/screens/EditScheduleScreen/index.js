@@ -102,7 +102,7 @@ function EditScheduleScreen({ route, navigation }) {
 
   const handleSave = async () => {
     try {
-      await setUserSchedule('5ec078fdb5169a2a249e2d94', schedule);
+      await setUserSchedule(route.params.userId, schedule);
       navigation.goBack();
     } catch (error) {
       console.error(error);
@@ -158,7 +158,9 @@ function EditScheduleScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Appbar.Header>
+      <Appbar.Header
+        style = {{backgroundColor: "#663399"}}
+      >
         <Appbar.BackAction color='white' onPress={navigation.goBack} />
         <Appbar.Content color='white' title='LetsMeet' />
         <Button color='white' onPress={handleSave}>SAVE</Button>

@@ -34,6 +34,7 @@ function retrySend() {
 }
 
 function onEvent (eventKey, data) {
+  console.log(listeners);
   listeners[eventKey].forEach((callbackFn) => {
     callbackFn(data);
   });
@@ -54,9 +55,9 @@ export function unsubscribe(eventKey, callbackFn) {
   listeners[eventKey].splice(index, 1);
 
   // if there are no more listeners for the given event key, remove the listener from the socket
-  if (listeners[eventKey].length === 0) {
-    socket.off(eventKey);
-  }
+  // if (listeners[eventKey].length === 0) {
+  //   socket.off(eventKey);
+  // }
 }
 
 export function sendData(eventKey, data) {
