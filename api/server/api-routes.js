@@ -46,6 +46,11 @@ router
   .route("/user/addGroupRequest/:userId&:groupId")
   .post(userController.addGroupRequest);
 
+// Get user's identifiers
+router
+  .route("/user/identifiers/:userId")
+  .get(userController.getUserIdentifiers);
+
 // Remove group request from the list of group requests the user has - d
 router
   .route("/user/removeGroupRequest/:userId/:groupId")
