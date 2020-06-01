@@ -1,6 +1,8 @@
 import { url } from '../api-routes';
 import {addGroup, addGroupRequest} from './UserController';
 const axios = require('axios').default;
+import { AsyncStorage } from "react-native";
+let token = AsyncStorage.getItem('token');
 
 export async function getUserGroups(userId) {
   let groups = [];

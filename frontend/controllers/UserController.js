@@ -1,18 +1,20 @@
 import { url } from "../api-routes";
 const axios = require("axios").default;
 import { AsyncStorage } from "react-native";
+let token = AsyncStorage.getItem('token');
 
 export async function postUser(username, email, phone, password, displayName) {
   try {
     const response = await axios.post(url + "/user/create", {
-      username: username,
-      email: email,
+      username: username.toLowerCase(),
+      email: email.toLowerCase(),
       phone: phone,
       password: password,
       displayName: displayName,
     });
-    console.log(response.data);
-    console.log(response.token);
+    // Store the token
+    AsyncStorage.setItem({token: response.data.token});
+    AsyncStorage.setItem({userId: response.data.data._id});
     return response;
   } catch (error) {
     console.error(error);
@@ -66,12 +68,13 @@ export async function loginUser(credential, password) {
   let responseData = {};
   try {
     responseData = (
-      await axios.get(url + "/user/login", {
-        cred: credential,
+      await axios.post(url + "/user/login", {
+        cred: credential.toLowerCase(),
         password: password,
       })
-    ).data;
+    );
     if (responseData.status === 200) {
+      AsyncStorage.setItem({token: response.data.token});
       return responseData.data;
     }
   } catch (error) {
@@ -96,6 +99,7 @@ export async function userGroups(id) {
 
 export async function getUserByUsername(username) {
   console.log(username);
+  console.log(token);
   let responseData = {};
   try {
     responseData = (

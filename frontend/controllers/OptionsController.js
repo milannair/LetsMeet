@@ -1,5 +1,7 @@
 import { url } from '../api-routes';
 const axios = require('axios').default;
+import { AsyncStorage } from "react-native";
+let token = AsyncStorage.getItem('token');
 
 export async function createOption(start, end, votes) {
     try {

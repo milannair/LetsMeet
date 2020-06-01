@@ -6,8 +6,9 @@ import AppbarComponent from "../../components/AppbarComponent/index";
 import styles from './styles'
 import { CREATE_GROUP} from '../../navigation/tab_navigator/stacks/groups/screen-names';
 import {getUserGroups} from '../../controllers/GroupController'
+import { AsyncStorage } from "react-native";
 
-const userId = '5ec07929b5169a2a249e2d95'
+const userId = AsyncStorage.getItem('userId');
 let userGroups = {}
 
 function GroupsScreen({route, navigation}) {

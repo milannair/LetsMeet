@@ -6,9 +6,10 @@ import {getUserMeetingsWithGroups} from '../../controllers/MeetingController';
 import moment from 'moment';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import AppbarComponent from "../../components/AppbarComponent";
+import { AsyncStorage } from "react-native";
 
 // todo: probably want to change this later on
-const userId = '5ec07929b5169a2a249e2d95'
+const userId = AsyncStorage.getItem('userId');
 
 function MeetingsScreen({route, navigation }) {
     const { colors } = useTheme();

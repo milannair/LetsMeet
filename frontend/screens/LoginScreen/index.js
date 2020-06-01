@@ -7,6 +7,7 @@ import {
 } from 'react-native-paper';
 import styles from './styles';
 import useSocket from '../../hooks/UseSocket/index';
+import {loginUser} from '../../controllers/UserController';
 
 const SIGNUP_SCREEN_NAME = 'Signup';
 const HOME_SCREEN_NAME = 'Tabs';
@@ -21,7 +22,7 @@ function Login({ navigation }) {
 
   const { sendData } = useSocket('user authenticated', null);
 
-  const handleLoginButtonPress = () => {
+  const handleLoginButtonPress = async () => {
     let flag = false;
     if (password.length < 6) {
       setShowPasswordError(true);
@@ -35,7 +36,10 @@ function Login({ navigation }) {
     }
     sendData(email);
     // TODO: check username and password in database
-    navigation.navigate(HOME_SCREEN_NAME);
+    const response = loginUser(email, password)
+    if(response.status === 200) {
+      navigation.navigate(HOME_SCREEN_NAME);
+    }
   };
 
   const handleSignupButtonPress = () => {
