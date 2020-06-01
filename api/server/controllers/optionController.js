@@ -121,7 +121,10 @@ exports.addVote = function(req, res) {
                 status: res.statusCode,
                 data: data
             })
-            socket.io.in(req.params.groupId).emit('add vote', req.params.userId);
+            socket.io.in(req.params.groupId).emit('add vote', { 
+                userId: req.params.userId, 
+                optionId: req.params.optionId 
+            });
         }
     })
 }
@@ -144,7 +147,10 @@ exports.removeVote = function(req, res) {
                 status: res.statusCode,
                 data: data
             })
-            socket.io.in(req.params.groupId).emit('remove vote', req.params.userId);
+            socket.io.in(req.params.groupId).emit('remove vote', { 
+                userId: req.params.userId, 
+                optionId: req.params.optionId 
+            });
         }
     })
 }

@@ -18,6 +18,30 @@ function ViewPollScreen({route, navigation}) {
   const [numVotes, setNumVotes] = useState([]);
   const [isHighlighted, setIsHighlighted] = useState([]);
   const { colors } = useTheme();
+  useSocket('add vote', ({userId, optionId}) => {
+    setOptionData((prev) => {
+      prev.forEach((option) => {
+        if (option._id === optionId) {
+          option.votes.push(userId);
+        }
+      });
+      return prev;
+    });
+  });
+
+  useSocket('remove vote', ({userId, optionId}) => {
+    setOptionData((prev) => {
+      prev.forEach((option) => {
+        if (option._id === optionId) {
+          const index = option.votes.indexOf(userId);
+          if (index != -1) {
+            option.votes.splice(index, 1);
+          }
+        }
+      });
+      return prev;
+    })
+  });
 
   const optionPressed = (option) => {
     console.log(option);
