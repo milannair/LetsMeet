@@ -20,9 +20,18 @@ function Profile({ navigation }) {
   const lastDay = Day.SATURDAY;
   const firstHour = 8;
   const lastHour = 22; 
-  const userId = AsyncStorage.getItem('userId');
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
+    const getId = async () => {
+      const id = await AsyncStorage.getItem('userId');
+      setUserId(id);
+    }
+
+    if(!userId) {
+      getId();
+    }
+    
     const showUser = async () => {
       try {
         const user = await getUser(userId);

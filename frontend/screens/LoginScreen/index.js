@@ -36,7 +36,7 @@ function Login({ navigation }) {
     }
     sendData(email);
     // TODO: check username and password in database
-    const response = loginUser(email, password)
+    const response = await loginUser(email, password);
     if(response.status === 200) {
       navigation.navigate(HOME_SCREEN_NAME);
     }

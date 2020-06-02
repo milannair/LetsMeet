@@ -1,4 +1,6 @@
-Group = require("../models/groupModel")
+Group = require("../models/groupModel");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 
 // Creates a new group

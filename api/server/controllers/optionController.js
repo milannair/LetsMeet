@@ -1,4 +1,6 @@
-Option = require('../models/optionModel')
+Option = require('../models/optionModel');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // Create an option
 exports.create = function(req, res) {

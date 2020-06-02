@@ -1,4 +1,6 @@
-MeetingRequest = require('../models/meetingRequestModel')
+MeetingRequest = require('../models/meetingRequestModel');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // Create a new meeting request
 exports.create = function(req, res) {

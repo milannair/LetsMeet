@@ -41,7 +41,7 @@ module.exports = {
     if (!validPass)
       return res.status(400).send("Invalid email/username or password");
     const token = jwt.sign({ _id: user._id }, process.env.ACCESS_TOKEN);
-    res.status(200).json({ token: token }).send(true);
+    res.status(200).json({ token: token, _id : user._id }).send(true);
   },
 
   view: async (req, res) => {

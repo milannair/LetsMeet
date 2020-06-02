@@ -1,8 +1,10 @@
 // meetingController.js
 // Import meeting model
-Meeting = require("../models/meetingModel")
+Meeting = require("../models/meetingModel");
 // Import dependent models
-User = require("../models/userModel")
+User = require("../models/userModel");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 /*
  * Creates a new meeting.

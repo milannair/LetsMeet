@@ -5,7 +5,7 @@ let token = AsyncStorage.getItem('token');
 
 export async function createOption(start, end, votes) {
     try {
-        console.log('got here')
+        let token = await AsyncStorage.getItem('token');
         const response =(await axios.post(url + '/options/' + token, {
             start: start,
             end: end,
@@ -24,6 +24,7 @@ export async function createOption(start, end, votes) {
 
 export async function getOption(optionId) {
     try {
+        let token = await AsyncStorage.getItem('token');
         const response = (await axios.get(url + '/option/' + optionId + "&" + token)).data
         if(response.status === 200) {
             return response.data;
@@ -37,6 +38,7 @@ export async function getOption(optionId) {
 
 export async function addVote(optionId, userId) {
     try {
+        let token = await AsyncStorage.getItem('token');
         const response = (await axios.post(url + '/option/addVote/' + optionId + '&' + userId + "&" + token)).data;
         if (response.status === 200) {
             return response.data;
@@ -50,6 +52,7 @@ export async function addVote(optionId, userId) {
 
 export async function removeVote(optionId, userId) {
     try {
+        let token = await AsyncStorage.getItem('token');
         const response = (await axios.post(url + '/option/removeVote/' + optionId + '&' + userId + "&" + token)).data;
         if (response.status === 200) {
             return response.data;

@@ -8,15 +8,15 @@ import { CREATE_GROUP} from '../../navigation/tab_navigator/stacks/groups/screen
 import {getUserGroups} from '../../controllers/GroupController'
 import { AsyncStorage } from "react-native";
 
-const userId = AsyncStorage.getItem('userId');
 let userGroups = {}
 
 function GroupsScreen({route, navigation}) {
-
-  const[groupsDetails, setGroupDetails] = useState([])
-  const[groupsUpdated, setGroupsUpdated] = useState(true)
+  const [userId, setUserId] = useState(null);
+  const [groupsDetails, setGroupDetails] = useState([])
+  const [groupsUpdated, setGroupsUpdated] = useState(true)
 
   useEffect( () => {
+
     const getGroups = async () =>{
       if(groupsUpdated || (route.params && route.params.reload)) {
         setGroupDetails(await getUserGroups(userId));
@@ -26,7 +26,16 @@ function GroupsScreen({route, navigation}) {
         }
       }
     }
-    getGroups()
+    getGroups();
+
+    const getId = async () => {
+      const id = await AsyncStorage.getItem('userId');
+      setUserId(id);
+    }
+
+    if(!userId) {
+      getId();
+    }
    })
 
   return (

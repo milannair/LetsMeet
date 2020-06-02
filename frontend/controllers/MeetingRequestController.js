@@ -1,7 +1,6 @@
 import { url } from '../api-routes';
 const axios = require('axios').default;
 import { AsyncStorage } from "react-native";
-let token = AsyncStorage.getItem('token');
 
 export async function createGroupMeetingRequest(author, groupId, name, isUnanimousMeetingRequest,
     requestedOptions, deadline, status) {
@@ -17,6 +16,7 @@ export async function createGroupMeetingRequest(author, groupId, name, isUnanimo
 
 export async function getMeetingRequest(meetingRequestId) {
     try{
+        let token = await AsyncStorage.getItem('token');
         const response = (await axios.get(url + '/meetingRequest/' + meetingRequestId + "&" + token)).data;
         if(response.status === 200) {
             return response.data;
@@ -32,6 +32,7 @@ async function createMeetingRequest(author, groupId, name, isUnanimousMeetingReq
     requestedOptions, deadline, status) {
 
     try{
+        let token = await AsyncStorage.getItem('token');
         const response = await axios.post(url + '/meetingRequests/' + token, {
             author: author,
             groupId: groupId,
@@ -50,6 +51,7 @@ async function createMeetingRequest(author, groupId, name, isUnanimousMeetingReq
 
 async function addMeetingRequestToGroup(groupId, meetingRequestId) {
     try{
+        let token = await AsyncStorage.getItem('token');
         return axios.post(url + '/group/addMeetingRequest/' + token, {
             groupId: groupId,
             meetingRequestId: meetingRequestId

@@ -9,9 +9,9 @@ import AppbarComponent from "../../components/AppbarComponent";
 import { AsyncStorage } from "react-native";
 
 // todo: probably want to change this later on
-const userId = AsyncStorage.getItem('userId');
 
 function MeetingsScreen({route, navigation }) {
+  const [userId, setUserId] = useState(null);
     const { colors } = useTheme();
 
     // confirmed and tentative tab
@@ -38,16 +38,26 @@ function MeetingsScreen({route, navigation }) {
     const[meetingsUpdated, setMeetingsUpdated] = useState(true)
 
     useEffect( () => {
+      const getId = async () => {
+        const id = await AsyncStorage.getItem('userId');
+        setUserId(id);
+      }
+  
+      if(!userId) {
+        getId();
+      }
+      
       const getMeetings = async () =>{
         if(meetingsUpdated || (route.params && route.params.reload)) {
           setMeetingDetails(await getUserMeetingsWithGroups(userId));
-          setMeetingsUpdated(false)
+          setMeetingsUpdated(false);
           if(route.params && route.params.reload) {
-            route.params.reload = false
+            route.params.reload = false;
           }
         }
       }
-      getMeetings()
+      getMeetings();
+
     })
 
     const renderTabBar = props => (
@@ -62,14 +72,14 @@ function MeetingsScreen({route, navigation }) {
 
     return (
         <View style={styles.container}>
-          <AppbarComponent />
+          {/* <AppbarComponent />
         
           <TabView 
             renderTabBar={renderTabBar}
             navigationState={{ index, routes }}
             renderScene={renderScene}
             onIndexChange={setIndex}
-          />
+          /> */}
         </View>
     );
 
