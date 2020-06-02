@@ -110,7 +110,13 @@ function MeetingsScreen({route, navigation }) {
       if (meetingsDetails[i].confirmed != isConfirmed) {
         continue;
       }
-      let day = moment(meetingsDetails[i].startTime).format("dddd, MMMM Do");
+
+      let day;
+      if (meetingsDetails[i].startTime === undefined) {
+        day = 'Undecided';
+      } else {
+        day = moment(meetingsDetails[i].startTime).format("dddd, MMMM Do");
+      }
 
       if (dateToMeetings[day] == null) {
         dateToMeetings[day] = [];
@@ -122,11 +128,17 @@ function MeetingsScreen({route, navigation }) {
       
       let subList = []
       for (let i=0; i<valueMeetings.length; i++) {
-        let start = moment(valueMeetings[i].startTime).format("LT");
-        let end = moment(valueMeetings[i].endTime).format("LT");
+        let descriptionText = ''
+        if (valueMeetings[i].startTime === undefined) {
+          descriptionText = 'Undecided'
+        } else {
+          let start = moment(valueMeetings[i].startTime).format("LT");
+          let end = moment(valueMeetings[i].endTime).format("LT");
+          descriptionText = valueMeetings[i].name + '\n' + `${start} - ${end}`
+        }
         subList.push(<List.Item
           title={valueMeetings[i].groupName}
-          description={valueMeetings[i].name + '\n' + `${start} - ${end}`}
+          description={descriptionText}
           key={"confirmed meeting " + i}
         />);
       }
