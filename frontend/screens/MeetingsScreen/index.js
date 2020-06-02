@@ -15,16 +15,26 @@ function MeetingsScreen({route, navigation }) {
   const [userId, setUserId] = useState(null);
   const { colors } = useTheme();
   const isFocused = useIsFocused();
+  let scrollviewTentative;
+  let scrollviewConfirmed;
 
   // confirmed and tentative tab
   const FirstRoute = () => (
-    <ScrollView scrollEnabled={true} style={{flexDirection : 'column'}}>
+    <ScrollView 
+      scrollEnabled={true} 
+      style={{flexDirection : 'column'}} 
+      ref={ref => scrollviewTentative = ref}
+      onContentSizeChange ={() => scrollviewTentative.scrollToEnd({animate : true})}>
       {confirmedMeetingComponents()}
     </ScrollView>
   );
 
   const SecondRoute = () => (
-    <ScrollView scrollEnabled={true} style={{flexDirection : 'column'}}>
+    <ScrollView 
+      scrollEnabled={true} 
+      style={{flexDirection : 'column'}} 
+      ref={ref => scrollviewConfirmed = ref}
+      onContentSizeChange ={() => scrollviewConfirmed.scrollToEnd({animate : true})}>
       {tentativeMeetingComponents()}
     </ScrollView>
   );

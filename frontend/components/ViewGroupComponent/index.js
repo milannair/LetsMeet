@@ -7,6 +7,7 @@ import moment from 'moment';
 
 function ViewGroupComponent({route, navigation, updateLog, logData, groupData}) {
     const [requestsLog, setRequestsLog] = useState([]);
+    let scrollview;
     
     useEffect(() => {
         let list = [];
@@ -72,7 +73,12 @@ function ViewGroupComponent({route, navigation, updateLog, logData, groupData}) 
 
     return(
         <View style={styles.container}>
-            <ScrollView style={{flex: 1, flexDirection: 'column'}} scrollEnabled={true}>
+            <ScrollView 
+                style={{flex: 1, flexDirection: 'column'}} 
+                scrollEnabled={true}
+                ref={ref => scrollview = ref}
+                onContentSizeChange ={() => scrollview.scrollToEnd({animate : true})}
+            >
                 {requestsLog}
             </ScrollView>
             <FAB
