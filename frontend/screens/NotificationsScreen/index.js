@@ -1,17 +1,17 @@
-import React, {useState, useEffect} from 'react';
-import { useFocusEffect } from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {useFocusEffect} from '@react-navigation/native';
 import {View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {AsyncStorage} from 'react-native-web';
 import NotificationComponent
-  from "../../components/NotificationComponent/index";
-import AppbarComponent from "../../components/AppbarComponent";
+  from '../../components/NotificationComponent/index';
+import AppbarComponent from '../../components/AppbarComponent';
 import {
   acceptGroupInvitation,
   declineGroupInvitation,
   getUserGroupInvitations
-} from "../../controllers/GroupInvitationController";
-import styles from "./styles";
+} from '../../controllers/GroupInvitationController';
+import styles from './styles';
 
 /*
  * Route parameters:
@@ -34,7 +34,7 @@ function NotificationsScreen({route, navigation}) {
 
   useEffect(() => {
     const getUserId = async () => {
-      setUserId(await AsyncStorage.getItem("userId"));
+      setUserId(await AsyncStorage.getItem('userId'));
     };
 
     const getInvitationsFromController = async () => {
@@ -44,18 +44,26 @@ function NotificationsScreen({route, navigation}) {
       }
     };
 
+    // Get user ID if it has not been acquired
     if (!userId) {
       getUserId();
     }
 
+    // Read invitations
     if (route.params) {
       const {invitationsSupplier} = route.params;
       if (invitationsSupplier) {
+        // Get invitations from the custom supplier
         setInvitations(invitationsSupplier());
       } else {
+        // Some parameters were given to this route,
+        // but invitationsSupplier is not set
+        // Get invitations from the controller
         getInvitationsFromController();
       }
     } else {
+      // No parameters were given to this route at all
+      // Get invitations from the controller
       getInvitationsFromController();
     }
   });
@@ -76,6 +84,7 @@ function NotificationsScreen({route, navigation}) {
         <Text key={0} style={styles.message}>No notifications</Text>
       );
     } else {
+      // Create NotificationComponent for each invitation
       for (const invitation of invitations) {
         components.push(
           <NotificationComponent
