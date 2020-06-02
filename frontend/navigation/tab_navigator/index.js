@@ -25,8 +25,8 @@ function TabNavigator() {
   const [numNewGroupRequests, setNumNewGroupRequests] = useState(0);
   const [numNewMeetingRequests, setNumNewMeetingRequests] = useState(0);
 
-  useSocket('add group request', () => {
-    console.log('add group request');
+  useSocket('add group request notification', () => {
+    console.log('add group request notification');
     if (currTab != TABS.Notifications) {
       setNumNewGroupRequests((prev) => prev + 1);
     }

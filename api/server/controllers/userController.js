@@ -1,5 +1,6 @@
 // Import user model
 User = require("../models/userModel");
+Group = require("../models/groupModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 var socket = require("../../server");
@@ -162,7 +163,15 @@ module.exports = {
       })
     );
     res.status(200).json(addReq);
-    socket.io.to(socket.clients[req.params.userId]).emit('add group request');
+
+    socket.io.to(socket.clients[req.params.userId]).emit('add group request notification');
+    Group.findById(req.params.groupId, {name: 1}, function(err, data){
+        if(err) {
+            console.error(err);
+        } else {
+            socket.io.to(socket.clients[req.params.userId]).emit('add group request', data);
+        }
+    });
   },
 
   removeGroupRequest: async (req, res) => {
