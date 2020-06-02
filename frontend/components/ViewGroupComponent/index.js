@@ -4,18 +4,12 @@ import {FAB, Text, Title, Button, Divider} from 'react-native-paper';
 import styles from './styles';
 import {CREATE_MEETING_REQUEST, VIEW_POLL} from '../../navigation/tab_navigator/stacks/groups/screen-names';
 import moment from 'moment';
-import Spinner from 'react-native-loading-spinner-overlay';
 
-function ViewGroupComponent({route, navigation, updateLog, logData}) {
+function ViewGroupComponent({route, navigation, updateLog, logData, groupData}) {
     const [requestsLog, setRequestsLog] = useState([]);
-    const [showSpinner, setShowSpinner] = useState(true);  
     
     useEffect(() => {
-        if(updateLog && logData.length > 0) {
-            let list = [];
-            if (logData.length === 0) {
-                list.push(<Text>You have no meeting requests. Tap the floating + button to create a meeting request.</Text>)
-            }
+        let list = [];
             for(let i=0; i < logData.length; i++) {
                 let data = logData[i];
                 let date = new Date(data.meetingRequest.deadline);
@@ -70,22 +64,11 @@ function ViewGroupComponent({route, navigation, updateLog, logData}) {
                 );
                 list.push(<Divider key={'request' + 'request' + i} />);
             }
-            setRequestsLog(list);
-            setShowSpinner(false);
-        }
-
-        
+            setRequestsLog(list);     
     }, [updateLog]);
 
     return(
         <View style={styles.container}>
-            <Spinner
-                visible={showSpinner}
-                textContent={'Loading...'}
-                textStyle={{
-                  color: 'white'
-              }}
-            />
             <ScrollView style={{flex: 1, flexDirection: 'column'}} scrollEnabled={true}>
                 {requestsLog}
             </ScrollView>
