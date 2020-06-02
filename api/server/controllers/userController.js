@@ -203,7 +203,6 @@ module.exports = {
     socket.io.sockets.connected[socket.clients[req.params.userId]].join(
       req.params.groupId
       );
-      console.log(socket.io.sockets.connected[clients[req.params.userId]])
     },
 
   removeGroup: async (req, res) => {
