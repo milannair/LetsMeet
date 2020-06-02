@@ -42,7 +42,7 @@ function Schedule({ firstDay, lastDay, firstHour, lastHour, schedule, divideHour
           firstDay={firstDay} 
           lastDay={lastDay}
           selectedDay={selectedDay}
-          onDayPress={handleDayPress} 
+          onDayPress={onDayPress ? handleDayPress : null} 
         />
       </View>
       <View 
