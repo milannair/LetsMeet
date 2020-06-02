@@ -72,13 +72,13 @@ function CreateGroupScreen({route, navigation}) {
             chips.push (
                 <Chip 
                     style={styles.chip} 
-                    key={user.username + 'Chip' + i} 
+                    key={user + 'Chip' + i} 
                     onClose={() => removeInvitee(user)}
                     avatar= {<Avatar.Text 
                         size={40} 
-                        label={username.toUpperCase().substring(0, 2)}
+                        label={user.toUpperCase().substring(0, 2)}
                         color='white'
-                        style={ {backgroundColor: colors[i % colors.length]} } 
+                        style={ {backgroundColor: 'green'}} 
                     />}
                 >
                     {invitees[i]}

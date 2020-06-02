@@ -7,7 +7,7 @@ import Day from '../../enums/Day';
 import { View, AsyncStorage } from 'react-native';
 import { Appbar, Menu, Divider } from 'react-native-paper';
 import {getMeetingRequest} from '../../controllers/MeetingRequestController';
-import {getUserIdentifiers, removeGroup, getUsersSchedules} from '../../controllers/UserController';
+import {getUserIdentifiers, removeGroup, getUsersSchedules, userMeetings, removeMeeting} from '../../controllers/UserController';
 import {getGroupData, removeUserFromGroup} from '../../controllers/GroupController';
 import { useFocusEffect } from '@react-navigation/native';
 import ScheduleComponent from '../../components/ScheduleComponent/index';
@@ -173,9 +173,14 @@ function ViewGroupScreen({ route, navigation }) {
           <Menu.Item onPress={() =>{setShowMenu(false); navigation.navigate(ADD_MEMBERS, {groupData: groupData, userId: route.params.userId})}} title="Members" />
           <Divider />
           <Menu.Item 
-            onPress={() => {
+            onPress={async () => {
               removeGroup(route.params.userId, route.params.groupId);
               removeUserFromGroup(route.params.groupId, route.params.userId);
+              const meetings = await userMeetings(route.params.userId);
+              for(let i =0; i < meetings.length; i++) {
+                await removeMeeting(route.params.userId, meetings[i]);
+              }
+              // console.log(meetings);
               navigation.navigate(GROUPS, {reload: true})
             }} 
             title="Leave group" 

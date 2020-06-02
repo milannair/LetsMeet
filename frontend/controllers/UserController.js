@@ -192,7 +192,7 @@ export async function userMeetings(userId) {
   let responseData = {};
   try {
     responseData = (
-      await axios.post(url + "/user/meetings/" + userId + "&" + token)
+      await axios.get(url + "/user/meetings/" + userId + "&" + token)
     ).data;
     if (responseData.status === 200) {
       return responseData.data;
@@ -224,6 +224,7 @@ export async function addMeeting(userId, meetingId) {
 export async function removeMeeting(userId, meetingId) {
   let token = await AsyncStorage.getItem('token');
   let responseData = {};
+  meetingId = await meetingId;
   try {
     responseData = (
       await axios.post(
