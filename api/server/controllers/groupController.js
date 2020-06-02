@@ -1,7 +1,8 @@
 Group = require("../models/groupModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
+Group = require("../models/groupModel")
+var socket = require('../../server');
 
 // Creates a new group
 exports.create = function(req, res) {
@@ -276,6 +277,7 @@ exports.addMeetingRequest = function(req, res) {
                 status: res.statusCode,
                 data: data
             })
+            socket.io.in(req.body.groupId).emit('add meeting request', req.body.meetingRequestId);
         }
     });
 }
@@ -306,6 +308,7 @@ exports.removeMeetingRequest = function(req, res) {
                 status: res.statusCode,
                 data: data
             })
+            socket.io.in(req.body.groupId).emit('remove meeting request');
         }
     });
 }

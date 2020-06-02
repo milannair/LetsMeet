@@ -93,6 +93,7 @@ io.on('connection', (socket) => {
       } else {
         if (data) {
           data.groups.forEach((groupId) => {
+            console.log('user: ' + userId + ' joined group: ' + groupId);
             socket.join(groupId);
           });
         } else {

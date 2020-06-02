@@ -255,6 +255,25 @@ export async function getUserSchedule(userId) {
   }
 }
 
+export async function getUsersSchedules(members) {
+  try {
+    let schedules = [];
+    for (let i = 0; i < members.length; i++) {
+      const user = await getUserSchedule(members[i]);
+      user.schedule = user.schedule.map((timeSlot) => {
+        return {
+          startTime: new Date(timeSlot.startTime),
+          endTime: new Date(timeSlot.endTime)
+        };
+      });
+      schedules.push(...(user.schedule));
+    }
+    return schedules;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export async function setUserSchedule(userId, schedule) {
   let token = await AsyncStorage.getItem('token');
   try {
