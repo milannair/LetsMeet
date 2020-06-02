@@ -17,6 +17,7 @@ function Login({ navigation }) {
   const [password, setPassword] = useState('');
   const [showPasswordError, setShowPasswordError] = useState(false);
   const [loadingIcon, setLoadingIcon] = useState(false);
+  const [loginLoadingIcon, setLoginLoadingIcon] = useState(false);
   const maxFieldLength = 25;
   const minFieldLength = 3;
 
@@ -40,7 +41,7 @@ function Login({ navigation }) {
     }
 
     if (!flag) {
-      setLoadingIcon(true);
+      setLoginLoadingIcon(true);
     }
     // TODO: send data AFTER authentication (authentication will return userId, so don't use 'email' either)
     await loginUser(email, password);
@@ -103,7 +104,7 @@ function Login({ navigation }) {
           mode="contained"
           disabled={!(email && password)}
           uppercase={false}
-          loading={loadingIcon}
+          loading={loginLoadingIcon}
         >
           <Text style={styles.buttonText}>
             Login
