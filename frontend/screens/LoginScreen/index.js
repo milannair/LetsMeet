@@ -65,7 +65,7 @@ function Login({ navigation }) {
       <TextInput // email field
         style={styles.textField}
         mode='outlined'
-        label="Email"
+        label="Email or Username"
         keyboardType="email-address"
         textContentType="emailAddress"
         value={email}
