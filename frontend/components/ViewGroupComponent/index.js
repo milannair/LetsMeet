@@ -92,6 +92,7 @@ function ViewGroupComponent({route, navigation, updateLog, logData}) {
                 onPress={() =>{navigation.navigate(CREATE_MEETING_REQUEST, {
                     userId: route.params.userId, 
                     groupId: route.params.groupId,
+                    groupData: groupData,
                 })}}
             />
         </View>
