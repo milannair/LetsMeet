@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, AsyncStorage } from 'react-native';
 import { Appbar, Avatar, IconButton, Button, Colors, TextInput, Chip, Searchbar, List} from 'react-native-paper';
 import styles from './styles'
 import { GROUPS } from '../../navigation/tab_navigator/stacks/groups/screen-names';
@@ -14,7 +14,7 @@ let previousQuery = "";
 let searchResults = [];
 
 function CreateGroupScreen({route, navigation}) {
-    const [userId, setUserId] = useState('');
+    // const [userId, setUserId] = useState('');
     const [groupName, setGroupName] = useState('');
     const [textActive, setTextActive] = useState(false);
     const [inviteeChips, setInviteeChips] = useState(getInviteeChips(invitedMemberUsernames));
@@ -23,7 +23,6 @@ function CreateGroupScreen({route, navigation}) {
     const colors = ['red', 'orange', 'green', 'blue', 'indigo', 'violet', 'pink']
 
     useEffect(() => {
-
         const results = async () => {
             let query = searchQuery;
             if(query) {
@@ -32,7 +31,14 @@ function CreateGroupScreen({route, navigation}) {
             if(query && query !== previousQuery) {
                 previousQuery = query;
                 searchResults = (await getUserByUsername(query)); 
-                setSearchList(getSearchItems(searchResults));              
+                let newSearchList = [];
+                const userId = (await AsyncStorage.getItem('userId'));
+                for(let i = 0; i< searchResults.length; i++) {
+                    if(searchResults[i]._id !== userId) {
+                        newSearchList.push(searchResults[i]);
+                    }
+                }
+                setSearchList(getSearchItems(newSearchList));              
             }
         }
         results() 
