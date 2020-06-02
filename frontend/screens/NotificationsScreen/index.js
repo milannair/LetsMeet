@@ -103,7 +103,7 @@ function NotificationsScreen({route, navigation}) {
   }
 
   return (
-      <View>
+      <View style={styles.container}>
         <AppbarComponent />
         {components}
       </View>
