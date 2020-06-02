@@ -6,7 +6,7 @@ import {CREATE_MEETING_REQUEST, VIEW_POLL} from '../../navigation/tab_navigator/
 import moment from 'moment';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-function ViewGroupComponent({route, navigation, updateLog, logData}) {
+function ViewGroupComponent({route, navigation, updateLog, logData, groupData}) {
     const [requestsLog, setRequestsLog] = useState([]);
     const [showSpinner, setShowSpinner] = useState(true);  
     
