@@ -1,9 +1,12 @@
 import { url } from '../api-routes';
 const axios = require('axios').default;
+import { AsyncStorage } from "react-native";
+let token = AsyncStorage.getItem('token');
 
 export async function createOption(start, end, votes) {
     try {
-        const response =(await axios.post(url + '/options/', {
+        let token = await AsyncStorage.getItem('token');
+        const response =(await axios.post(url + '/options/' + token, {
             start: start,
             end: end,
             votes: votes,
@@ -21,7 +24,8 @@ export async function createOption(start, end, votes) {
 
 export async function getOption(optionId) {
     try {
-        const response = (await axios.get(url + '/option/' + optionId)).data
+        let token = await AsyncStorage.getItem('token');
+        const response = (await axios.get(url + '/option/' + optionId + "&" + token)).data
         if(response.status === 200) {
             return response.data;
         } else {
@@ -32,9 +36,10 @@ export async function getOption(optionId) {
     }
 }
 
-export async function addVote(optionId, userId, groupId) {
+export async function addVote(optionId, userId) {
     try {
-        const response = (await axios.post(url + '/option/addVote/' + optionId + '&' + userId + '&' + groupId)).data;
+        let token = await AsyncStorage.getItem('token');
+        const response = (await axios.post(url + '/option/addVote/' + optionId + '&' + userId + "&" + token)).data;
         if (response.status === 200) {
             return response.data;
         } else {
@@ -45,9 +50,10 @@ export async function addVote(optionId, userId, groupId) {
     }
 }
 
-export async function removeVote(optionId, userId, groupId) {
+export async function removeVote(optionId, userId) {
     try {
-        const response = (await axios.post(url + '/option/removeVote/' + optionId + '&' + userId + '&' + groupId)).data;
+        let token = await AsyncStorage.getItem('token');
+        const response = (await axios.post(url + '/option/removeVote/' + optionId + '&' + userId + "&" + token)).data;
         if (response.status === 200) {
             return response.data;
         } else {

@@ -1,8 +1,15 @@
-Group = require("../models/groupModel")
+Group = require("../models/groupModel");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 var socket = require('../../server');
 
 // Creates a new group
 exports.create = function(req, res) {
+    try {
+        jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+        res.status(400).send("Invalid Token");
+    }
     let group = new Group()
     group.meetingRequests = req.body.meetingRequests ? req.body.meetingRequests : []
     group.memberRequests = req.body.memberRequests ? req.body.memberRequests : []
@@ -27,6 +34,11 @@ exports.create = function(req, res) {
 
 // Delete a group
 exports.delete = function(req, res) {
+    try {
+        jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+        res.status(400).send("Invalid Token");
+    }
     Group.findByIdAndRemove(req.body.id , function(err, data){
         if(err) {
             res.json({
@@ -45,6 +57,11 @@ exports.delete = function(req, res) {
 
 // Gets all the data about the group
 exports.view = function(req, res) {
+    try {
+        jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+        res.status(400).send("Invalid Token");
+    }
     Group.findById(req.params.groupId, function(err, data){
         if(err) {
             res.json({
@@ -63,6 +80,11 @@ exports.view = function(req, res) {
 
 // Gets the group's name and id
 exports.name = function(req, res) {
+    try {
+        jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+        res.status(400).send("Invalid Token");
+    }
     Group.findById(req.params.groupId, {name: 1}, function(err, data){
         if(err) {
             res.json({
@@ -83,6 +105,11 @@ exports.name = function(req, res) {
 
 // Receives a groupId and a string and updates the group's name to the passed string
 exports.rename = function(req, res) {
+    try {
+        jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+        res.status(400).send("Invalid Token");
+    }
     Group.update(
         {_id: req.body.groupId},
         {
@@ -107,6 +134,11 @@ exports.rename = function(req, res) {
 // Receives the groupId and the userID as input
 // Adds the userId to the list of group members
 exports.addMember = function(req, res) {
+    try {
+        jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+        res.status(400).send("Invalid Token");
+    }
     Group.update(
         {_id: req.body.groupId},
         {
@@ -132,6 +164,11 @@ exports.addMember = function(req, res) {
 // Receives the groupId and the userID as input
 // Removes the userId from the list of group members
 exports.removeMember = function(req, res) {
+    try {
+        jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+        res.status(400).send("Invalid Token");
+    }
     Group.update(
         {_id: req.body.groupId},
         {
@@ -157,6 +194,11 @@ exports.removeMember = function(req, res) {
 // Receives the groupId and the userID as input
 // Adds the userId to the list of group's member requests
 exports.addMemberRequest = function(req, res) {
+    try {
+        jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+        res.status(400).send("Invalid Token");
+    }
     Group.update(
         {_id: req.body.groupId},
         {
@@ -182,6 +224,11 @@ exports.addMemberRequest = function(req, res) {
 // Receives the groupId and the userID as input
 // Removes the userId from the list of group's member requests
 exports.removeMemberRequest = function(req, res) {
+    try {
+        jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+        res.status(400).send("Invalid Token");
+    }
     Group.update(
         {_id: req.body.groupId},
         {
@@ -207,6 +254,11 @@ exports.removeMemberRequest = function(req, res) {
 // Receives the groupId and the meetingRequestId as input
 // Adds the meetingRequestId from the list of group's meeting requests
 exports.addMeetingRequest = function(req, res) {
+    try {
+        jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+        res.status(400).send("Invalid Token");
+    }
     Group.update(
         {_id: req.body.groupId},
         {
@@ -233,6 +285,11 @@ exports.addMeetingRequest = function(req, res) {
 // Receives the groupId and the meetingRequestId as input
 // Removes the meetingRequestId from the list of group's meeting requests
 exports.removeMeetingRequest = function(req, res) {
+    try {
+        jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
+    } catch (error) {
+        res.status(400).send("Invalid Token");
+    }
     Group.update(
         {_id: req.params.groupId},
         {

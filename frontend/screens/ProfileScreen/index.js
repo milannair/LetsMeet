@@ -23,9 +23,8 @@ function Profile({ navigation }) {
   useEffect(() => {
     const showUser = async () => {
       try {
-        const userId = await AsyncStorage.getItem('userId');
-
-        const user = await getUser(userId);
+        const user = await getUser(await AsyncStorage.getItem('userId'));
+        console.log(user);
         if (user !== undefined) {
           if (user.schedule) {
             user.schedule = user.schedule.map((timeSlot) => {

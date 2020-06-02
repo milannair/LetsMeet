@@ -23,25 +23,26 @@ describe("/user/addMeeting", () => {
     try {
       const meetingId = constants.FAKE_OBJECT_ID;
 
-      const userRes = await axios.post(
-        `${constants.API_URI}/user/create`,
-        {
-          username: "testuser",
-          email: "test@example.com",
-          phone: "1234567890",
-          password: "DontUseThisPassword",
-          displayName: "TestUser",
-        }
-      );
+      const userRes = await axios.post(`${constants.API_URI}/user/create`, {
+        username: "testuser",
+        email: "test@example.com",
+        phone: "1234567890",
+        password: "DontUseThisPassword",
+        displayName: "TestUser",
+      });
       userId = userRes.data._id;
+      console.log(userRes);
+      token = userRes.headers["x-auth-token"];
       await axios.post(
         `${constants.API_URI}/user/addMeeting/${userId}/${meetingId}`
       );
-      const response = await axios.get(`${constants.API_URI}/user/${userId}`);
+      const response = await axios.get(
+        `${constants.API_URI}/user/${userId}&${token}`
+      );
       expect(response.data.meetings).toContain(meetingId);
     } finally {
       // Tear down
-      await axios.delete(`${constants.API_URI}/user/${userId}`);
+      await axios.delete(`${constants.API_URI}/user/${userId}&${token}`);
     }
   });
 });
@@ -52,16 +53,14 @@ describe("/user/removeMeeting", () => {
     try {
       const meetingId = constants.FAKE_OBJECT_ID;
 
-      const userRes = await axios.post(
-        `${constants.API_URI}/user/create`,
-        {
-          username: "testuser",
-          email: "test@example.com",
-          phone: "1234567890",
-          password: "DontUseThisPassword",
-          displayName: "TestUser",
-        }
-      );
+      const userRes = await axios.post(`${constants.API_URI}/user/create`, {
+        username: "testuser",
+        email: "test@example.com",
+        phone: "1234567890",
+        password: "DontUseThisPassword",
+        displayName: "TestUser",
+      });
+      console.log(userRes);
       userId = userRes.data._id;
       await axios.post(
         `${constants.API_URI}/user/addMeeting/${userId}/${meetingId}`
@@ -69,11 +68,13 @@ describe("/user/removeMeeting", () => {
       await axios.post(
         `${constants.API_URI}/user/removeMeeting/${userId}/${meetingId}`
       );
-      const response = await axios.get(`${constants.API_URI}/user/${userId}`);
+      const response = await axios.get(
+        `${constants.API_URI}/user/${userId}&${token}`
+      );
       expect(response.data.meetings).toHaveLength(0);
     } finally {
       // Tear down
-      await axios.delete(`${constants.API_URI}/user/${userId}`);
+      await axios.delete(`${constants.API_URI}/user/${userId}${token}`);
     }
   });
 });
