@@ -13,6 +13,9 @@ function ViewGroupComponent({route, navigation, updateLog, logData}) {
     useEffect(() => {
         if(updateLog && logData.length > 0) {
             let list = [];
+            if (logData.length === 0) {
+                list.push(<Text>You have no meeting requests. Tap the floating + button to create a meeting request.</Text>)
+            }
             for(let i=0; i < logData.length; i++) {
                 let data = logData[i];
                 let date = new Date(data.meetingRequest.deadline);

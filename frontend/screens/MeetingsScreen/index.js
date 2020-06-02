@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { View } from 'react-native';
-import { List, useTheme } from 'react-native-paper';
+import { List, useTheme, Text } from 'react-native-paper';
 import styles from './styles';
 import {getUserMeetingsWithGroups} from '../../controllers/MeetingController';
 import moment from 'moment';
@@ -101,7 +101,11 @@ function MeetingsScreen({route, navigation }) {
     // sort meetings based on startTime
     meetingsDetails.sort(compareMeetingsByDate);
 
-    let list = []
+    let list = [];
+
+    if (meetingsDetails.length == 0) {
+      list.push(<Text>No Meetings To Show</Text>);
+    }
     
     // map day string to an array of meetings
     let dateToMeetings = {}
@@ -130,11 +134,11 @@ function MeetingsScreen({route, navigation }) {
       for (let i=0; i<valueMeetings.length; i++) {
         let descriptionText = '';
         if (valueMeetings[i].startTime === undefined) {
-          descriptionText = valueMeetings[i].name + '\n' + 'Undecided'
+          descriptionText = valueMeetings[i].name + '\n' + 'Undecided';
         } else {
           let start = moment(valueMeetings[i].startTime).format("LT");
           let end = moment(valueMeetings[i].endTime).format("LT");
-          descriptionText = valueMeetings[i].name + '\n' + `${start} - ${end}`
+          descriptionText = valueMeetings[i].name + '\n' + `${start} - ${end}`;
         }
         subList.push(<List.Item
           title={valueMeetings[i].groupName}
