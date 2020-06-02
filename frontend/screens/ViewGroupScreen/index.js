@@ -37,6 +37,7 @@ function ViewGroupScreen({ route, navigation }) {
     React.useCallback( () => {
       setUpdatePage(true);
       setLogData([]);
+      setShowSpinner(true);
       return () => {
       };
     }, [])
