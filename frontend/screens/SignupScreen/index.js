@@ -10,6 +10,7 @@ import useSocket from '../../hooks/UseSocket/index';
 const LOGIN_SCREEN_NAME = 'Login';
 
 function Signup({ navigation }) {
+  const [errorMessage, setErrorMessage] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -61,18 +62,19 @@ function Signup({ navigation }) {
       setLoadingIcon(true);
       postUser(username, email, phone, password, displayName)
         .then(async (response) => {
-          console.log(response);
           if (response.status >= 200 && response.status < 300) {
             console.log('account created');
             sendData(await AsyncStorage.getItem('userId'));
             navigation.navigate('Tabs');
           } else {
-            // TODO: some error message on UI
-            Alert.alert('Failed to create account. Please try again.');
+            setErrorMessage(response.data.errorMessage);
+            setLoadingIcon(false);
+            alert('Failed to create account. Please try again.');
           }
         })
         .catch((error) => {
-          console.error(error);
+          setErrorMessage(response.data.errorMessage);
+          setLoadingIcon(false);
           Alert.alert('Failed to create account. Please try again.');
           // TODO: some error message on UI
         })
@@ -95,9 +97,9 @@ function Signup({ navigation }) {
       <Text style={styles.text}>Create Your Account</Text>
       <HelperText
         type="error"
-        visible={false}
+        visible={errorMessage}
       >
-        Error Message
+        {errorMessage}
       </HelperText>
       <TextInput // display name field
         style={styles.textField}
