@@ -73,3 +73,23 @@ export async function getGroup(groupId) {
     return group
 }
 
+export async function postMeeting(groupId, name, startTime, endTime) {
+    try {
+        let token = await AsyncStorage.getItem('token');
+        const response = await axios.post(url + "/meetings/" + token, {
+            author: AsyncStorage.getItem('userId'),
+            name: name,
+            groupID: groupId,
+            startTime: startTime,
+            endTime: endTime,
+            confirmed: false,
+        });
+        if (response.data.status === 200) {
+            return response;
+        } else {
+            console.log(response);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}

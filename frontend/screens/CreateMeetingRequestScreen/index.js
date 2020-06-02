@@ -6,6 +6,9 @@ import DateTimePickerComponent from '../../components/DatePickerComponent/index'
 import {VIEW_GROUP} from '../../navigation/tab_navigator/stacks/groups/screen-names'
 import {createGroupMeetingRequest} from '../../controllers/MeetingRequestController'
 import {createOption} from '../../controllers/OptionsController'
+import { postMeeting } from '../../controllers/MeetingController';
+import { addMeeting } from '../../controllers/UserController'
+import { addMeetingRequest } from '../../../api/server/controllers/groupController';
  
 function CreateMeetingRequest({route, navigation}) {
     const [meetingName, setMeetingName] = useState("");
@@ -113,6 +116,22 @@ function CreateMeetingRequest({route, navigation}) {
         const status = 0
         await createGroupMeetingRequest(route.params.userId, route.params.groupId, name, isUnanimousMeetingRequest, requestedOptions,
             deadlineDate, status);
+        
+        let response;
+        if (isUnanimousMeetingRequest) {
+            let start = new Date(options[0].date);
+            let end = new Date(start);
+            start.setHours(options[0].start.getHours(), options[0].start.getMinutes());
+            end.setHours(options[0].end.getHours(), options[0].end.getMinutes());
+            response = await postMeeting(route.params.groupId, name, start, end);
+        } else {
+            response = await postMeeting(route.params.groupId, name, undefined, undefined);
+        }
+
+        const members = route.params.groupData.members;
+        for (let i = 0; i < members.length; i++) {
+            await addMeeting(members[i], response.data.data._id)
+        }
         navigation.navigate(VIEW_GROUP, {groupId: route.params.groupId, userId: route.params.userId})
     }
 

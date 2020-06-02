@@ -11,7 +11,11 @@ export async function getUserGroupInvitations(userId) {
   let invitations = [];
   try {
     const groupIds = await getGroupRequests(userId);
+    console.log("in usergroup invitations");
+    console.log(groupIds);
+    console.log("userid" + userId);
     for (const groupId of groupIds) {
+      console.log("groupid" + groupId);
       const groupName = await getGroupName(groupId);
       invitations.push(new GroupInvitation(groupId, groupName));
     }
@@ -73,6 +77,7 @@ async function getGroupName(groupId) {
   const token = await AsyncStorage.getItem('token');
   const response = await axios.get(`${url}/group/name/${groupId}&` + token);
   if (response.status === 200) {
+    console.log(response.data);
     return response.data.data.name; // TODO: change this if API code is touched
   } else {
     throw response;
