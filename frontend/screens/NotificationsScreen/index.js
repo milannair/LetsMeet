@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
-import {View, AsyncStorage} from 'react-native';
+import {View, AsyncStorage, ScrollView} from 'react-native';
 import {Text} from 'react-native-paper';
 
 import NotificationComponent
@@ -115,7 +115,9 @@ function NotificationsScreen({route, navigation}) {
   return (
       <View style={styles.container}>
         <AppbarComponent />
-        {components}
+        <ScrollView style={{flexDirection: 'column'}} scrollEnabled={true}>
+          {components}
+        </ScrollView>
       </View>
   );
 }

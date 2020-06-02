@@ -176,11 +176,6 @@ function ViewGroupScreen({ route, navigation }) {
             onPress={async () => {
               removeGroup(route.params.userId, route.params.groupId);
               removeUserFromGroup(route.params.groupId, route.params.userId);
-              const meetings = await userMeetings(route.params.userId);
-              for(let i =0; i < meetings.length; i++) {
-                await removeMeeting(route.params.userId, meetings[i]);
-              }
-              // console.log(meetings);
               navigation.navigate(GROUPS, {reload: true})
             }} 
             title="Leave group" 
