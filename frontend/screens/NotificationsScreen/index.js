@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
-import {View} from 'react-native';
+import {View, AsyncStorage} from 'react-native';
 import {Text} from 'react-native-paper';
-import {AsyncStorage} from 'react-native-web';
+
 import NotificationComponent
   from '../../components/NotificationComponent/index';
 import AppbarComponent from '../../components/AppbarComponent';
@@ -36,11 +36,10 @@ function NotificationsScreen({route, navigation}) {
 
   useEffect(() => {
     const getUserId = async () => {
-      let id;
+      let id = await AsyncStorage.getItem('userId');
       if (!userId) {
-        id = await AsyncStorage.getItem('userId');
+        setUserId(id);
       }
-      setUserId(id);
       // Read invitations
       if (route.params) {
         const {invitationsSupplier} = route.params;
@@ -51,24 +50,19 @@ function NotificationsScreen({route, navigation}) {
           // Some parameters were given to this route,
           // but invitationsSupplier is not set
           // Get invitations from the controller
-          if (updateRequired) {
-            setInvitations(await getUserGroupInvitations(id));
-            setUpdateRequired(false);
-          }
+          setInvitations(await getUserGroupInvitations(id));
         }
       } else {
         // No parameters were given to this route at all
         // Get invitations from the controller
-        if (updateRequired) {
-          setInvitations(await getUserGroupInvitations(id));
-          setUpdateRequired(false);
-        }
+        setInvitations(await getUserGroupInvitations(id));
       }
+      setUpdateRequired(false);
     };
 
     // Get user ID if it has not been acquired
     getUserId();
-  }, [isFocused]);
+  }, [isFocused, updateRequired]);
 
   async function respondToInvitation(accepted, userId, groupId) {
     if (accepted) {
