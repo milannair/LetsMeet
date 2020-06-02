@@ -84,10 +84,10 @@ router
   .post(userController.removeMeeting);
 
 // Get user schedule
-router.route("/user/schedule/:userId").get(userController.viewSchedule);
+router.route("/user/schedule/:userId&:auth_token").get(userController.viewSchedule);
 
 // Set the schedule of user
-router.route("/user/setSchedule").post(userController.setSchedule);
+router.route("/user/setSchedule&:auth_token").post(userController.setSchedule);
 
 //// Group paths ////
 

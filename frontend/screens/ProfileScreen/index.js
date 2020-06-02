@@ -73,7 +73,7 @@ function Profile({ navigation }) {
       <FAB
         style={styles.fab}
         icon="pencil"
-        onPress={() => navigation.navigate(Screen.EDIT_SCHEDULE, { schedule: user.schedule ? user.schedule : [] })}
+        onPress={() => navigation.navigate(Screen.EDIT_SCHEDULE, { userId: user._id, schedule: user.schedule ? user.schedule : [] })}
       />
     </View>
   );

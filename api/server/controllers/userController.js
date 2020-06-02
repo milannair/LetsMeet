@@ -6,6 +6,7 @@ var socket = require("../../server");
 
 module.exports = {
   register: async (req, res) => {
+    console.log(req.body);
     const user = await User.findOne({ username: req.body.cred });
     const checkPhone = await User.findOne({ phone: req.body.phone });
     const checkEmail = await User.findOne({ email: req.body.email });

@@ -12,8 +12,8 @@ export async function postUser(username, email, phone, password, displayName) {
       displayName: displayName,
     });
     // Store the token
-    AsyncStorage.setItem('token', response.data.token);
-    AsyncStorage.setItem('userId', response.data.data._id);
+    await AsyncStorage.setItem('token', response.data.token);
+    await AsyncStorage.setItem('userId', response.data.data._id);
     return response;
   } catch (error) {
     console.error(error);
@@ -72,6 +72,7 @@ export async function loginUser(credential, password) {
   let token = await AsyncStorage.getItem('token');
   let responseData = {};
   try {
+    console.log('hi');
     responseData = (
       await axios.post(url + "/user/login", {
         cred: credential.toLowerCase(),

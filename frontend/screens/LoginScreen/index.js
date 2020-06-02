@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View,
+  View, AsyncStorage,
 } from 'react-native';
 import {
   Text, TextInput, Button, HelperText,
@@ -34,10 +34,10 @@ function Login({ navigation }) {
     if (!flag) {
       setLoadingIcon(true);
     }
-    sendData(email);
     // TODO: check username and password in database
     const response = await loginUser(email, password);
     if(response.status === 200) {
+      sendData(await AsyncStorage.getItem('userId'));
       navigation.navigate(HOME_SCREEN_NAME);
     }
   };
