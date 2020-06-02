@@ -10,7 +10,7 @@ export async function getUserMeetingsWithGroups(userId) {
         for(let i = 0; i < meetings.length; i++) {
             let group = null
             try {
-                group = await getGroup(meetings[i].groupID);
+                group = await getGroup(meetings[i].groupId);
             } catch (error) {
                 console.log(error)
                 return meetings;
@@ -29,9 +29,10 @@ export async function getUserMeetings(userId) {
         let token = await AsyncStorage.getItem('token');
         const response = await getUserMeetingIds(userId);
         for(let i = 0; i < response.length; i++) {
-            const newResponse = (await axios.get(url + '/meeting/' + response[i] + '&' + token)).data
+            const newResponse = (await axios.get(url + '/meeting/' + response[i] + '&' + token))
             if(newResponse.status === 200) {
-                meetings.push(newResponse.data)
+                console.log(newResponse);
+                meetings.push(newResponse.data.data)
             } else {
                 console.log(newResponse)
             }
@@ -73,13 +74,13 @@ export async function getGroup(groupId) {
     return group
 }
 
-export async function postMeeting(groupId, name, startTime, endTime) {
+export async function postMeeting(userId, groupId, name, startTime, endTime) {
     try {
         let token = await AsyncStorage.getItem('token');
         const response = await axios.post(url + "/meetings/" + token, {
-            author: AsyncStorage.getItem('userId'),
+            author: userId,
             name: name,
-            groupID: groupId,
+            groupId: groupId,
             startTime: startTime,
             endTime: endTime,
             confirmed: false,

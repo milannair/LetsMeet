@@ -8,7 +8,6 @@ import {createGroupMeetingRequest} from '../../controllers/MeetingRequestControl
 import {createOption} from '../../controllers/OptionsController'
 import { postMeeting } from '../../controllers/MeetingController';
 import { addMeeting } from '../../controllers/UserController'
-import { addMeetingRequest } from '../../../api/server/controllers/groupController';
  
 function CreateMeetingRequest({route, navigation}) {
     const [meetingName, setMeetingName] = useState("");
@@ -123,11 +122,12 @@ function CreateMeetingRequest({route, navigation}) {
             let end = new Date(start);
             start.setHours(options[0].start.getHours(), options[0].start.getMinutes());
             end.setHours(options[0].end.getHours(), options[0].end.getMinutes());
-            response = await postMeeting(route.params.groupId, name, start, end);
+            response = await postMeeting(route.params.userId, route.params.groupId, name, start, end);
         } else {
-            response = await postMeeting(route.params.groupId, name, undefined, undefined);
+            response = await postMeeting(route.params.userId, route.params.groupId, name, undefined, undefined);
         }
 
+        console.log(response)
         const members = route.params.groupData.members;
         for (let i = 0; i < members.length; i++) {
             await addMeeting(members[i], response.data.data._id)
