@@ -5,6 +5,7 @@ import {
 } from 'react-native-paper';
 import styles from './styles';
 import { postUser } from '../../controllers/UserController';
+import useSocket from '../../hooks/UseSocket/index';
 
 const LOGIN_SCREEN_NAME = 'Login';
 
