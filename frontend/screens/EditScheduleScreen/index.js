@@ -29,11 +29,15 @@ function EditScheduleScreen({ route, navigation }) {
     if (startTime && endTime) {
       const startTimeMoment = moment(startTime);
       const endTimeMoment = moment(endTime);
+      let endTimeCorrection = 0;
+      if (endTimeMoment.hour() === 0) {
+        endTimeCorrection = 1;
+      }
       setSchedule([
         ...schedule,
         {
           startTime: startTimeMoment.day(selectedDay).toDate(),
-          endTime: endTimeMoment.day(selectedDay).toDate()
+          endTime: endTimeMoment.day(selectedDay + endTimeCorrection).toDate()
         }
       ]);
     }
