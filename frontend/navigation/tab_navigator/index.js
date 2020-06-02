@@ -105,6 +105,13 @@ function TabNavigator() {
           tabBarIcon: ({ color }) => (
             <MaterialIcons name='notifications' color={color} size={24} />
           ),
+          tabBarBadge: numNewGroupRequests > 0 ? numNewGroupRequests : null
+        }}
+        listeners={{
+          tabPress: (e) => {
+            setCurrTab(TABS.Notifications);
+            setNumNewGroupRequests(0);
+          },
         }}
       />
       <Tab.Screen
@@ -115,12 +122,10 @@ function TabNavigator() {
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name='account-circle' color={color} size={24} />
           ),
-          tabBarBadge: numNewGroupRequests > 0 ? numNewGroupRequests : null
         }}
         listeners={{
           tabPress: (e) => {
             setCurrTab(TABS.Profile);
-            setNumNewGroupRequests(0);
           },
         }}
       />
