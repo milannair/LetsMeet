@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 
   button: {
     width: 100,
-    marginEnd: 40,
+    marginEnd: 16,
     marginVertical: 12,
   },
 
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
 
   buttonNegative: {
-    backgroundColor: '#808080',
+    backgroundColor: '#C0C0C0',
   },
 
   buttonsContainer: {

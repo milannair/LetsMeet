@@ -24,6 +24,7 @@ function NotificationComponent({ text, positiveAction, negativeAction }) {
           <Button
             onPress={positiveAction}
             mode='contained'
+            uppercase={false}
             style={[styles.button, styles.buttonPositive]}
           >
             Accept
@@ -31,6 +32,7 @@ function NotificationComponent({ text, positiveAction, negativeAction }) {
           <Button
             onPress={negativeAction}
             mode='contained'
+            uppercase={false}
             style={[styles.button, styles.buttonNegative]}
           >
             Decline
