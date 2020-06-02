@@ -26,6 +26,7 @@ function AddMembersScreen({route, navigation}) {
             setQuery('');
             invitees = [];
             const groupData = route.params.groupData;
+            console.log(groupData);
             const getMemberDetails = async () => {
                 const memberIds = groupData.members;
                 for(let i = 0; i < memberIds.length; i++) {
@@ -120,7 +121,6 @@ function AddMembersScreen({route, navigation}) {
             newInvitees.push(user);
         }
         invitees = newInvitees;
-        console.log(invitees);
         setUpdateChips(true);
     }
 
@@ -147,7 +147,6 @@ function AddMembersScreen({route, navigation}) {
                             color='white'
                             style={ {backgroundColor: colors[i % colors.length]} } 
                         />}
-                        right = {() => <IconButton color={'black'} icon={'circle-outline'}/> }
                         onPress={()=> {inviteOrUninviteUser(user);}}
                     />
                 )
@@ -160,7 +159,7 @@ function AddMembersScreen({route, navigation}) {
     function addMembersToGroup() {
         let memberRequests = [];
         const userId = route.params.userId;
-        for(let i = 0; i < invitees; i++) {
+        for(let i = 0; i < invitees.length; i++) {
             addGroupRequest(userId, invitees[i]._id);
         } 
         navigation.navigate(VIEW_GROUP, {userId: userId, groupId: route.params.groupData._id});
