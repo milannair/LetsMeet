@@ -162,6 +162,7 @@ module.exports = {
       })
     );
     res.status(200).json(addReq);
+    socket.io.to(socket.clients[req.params.userId]).emit('add group request');
   },
 
   removeGroupRequest: async (req, res) => {
@@ -180,6 +181,7 @@ module.exports = {
       })
     );
     res.status(200).json(removeReq);
+    socket.io.to(socket.clients[req.params.userId]).emit('remove group request');
   },
 
   addGroup: async (req, res) => {
@@ -199,7 +201,7 @@ module.exports = {
       })
     );
     res.status(200).json({ addGroup });
-    socket.io.sockets.sockets[clients[req.params.userId]].join(
+    socket.io.sockets.connected[clients[req.params.userId]].join(
       req.params.groupId
     );
   },
@@ -220,7 +222,7 @@ module.exports = {
       })
     );
     res.status(200).json(removeGroup);
-    socket.io.sockets.sockets[clients[req.params.userId]].leave(
+    socket.io.sockets.connected[clients[req.params.userId]].leave(
       req.params.groupId
     );
   },
