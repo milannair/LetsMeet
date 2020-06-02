@@ -111,7 +111,7 @@ router.route("/group/addMember/:auth_token").post(groupController.addMember);
 
 // //Remove member the group
 router
-  .route("/group/removeMember/:auth_token")
+  .route("/group/removeMember/:groupId&:userId&:auth_token")
   .post(groupController.removeMember);
 
 // // Add member request to the group
