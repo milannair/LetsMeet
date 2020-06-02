@@ -16,7 +16,7 @@ export async function postUser(username, email, phone, password, displayName) {
     await AsyncStorage.setItem('userId', response.data.data._id);
     return response;
   } catch (error) {
-    console.error(error);
+    return error.response;
   }
 }
 
