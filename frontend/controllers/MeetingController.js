@@ -31,7 +31,6 @@ export async function getUserMeetings(userId) {
         for(let i = 0; i < response.length; i++) {
             const newResponse = (await axios.get(url + '/meeting/' + response[i] + '&' + token))
             if(newResponse.status === 200) {
-                console.log(newResponse);
                 meetings.push(newResponse.data.data)
             } else {
                 console.log(newResponse)

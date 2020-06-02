@@ -128,9 +128,9 @@ function MeetingsScreen({route, navigation }) {
       
       let subList = []
       for (let i=0; i<valueMeetings.length; i++) {
-        let descriptionText = ''
+        let descriptionText = '';
         if (valueMeetings[i].startTime === undefined) {
-          descriptionText = 'Undecided'
+          descriptionText = valueMeetings[i].name + '\n' + 'Undecided'
         } else {
           let start = moment(valueMeetings[i].startTime).format("LT");
           let end = moment(valueMeetings[i].endTime).format("LT");
