@@ -18,6 +18,8 @@ function Login({ navigation }) {
   const [showPasswordError, setShowPasswordError] = useState(false);
   const [loadingIcon, setLoadingIcon] = useState(false);
   const [loginLoadingIcon, setLoginLoadingIcon] = useState(false);
+  const [loginErrorVisible, setLoginErrorVisible] = useState(false);
+  const [loginErrorText, setLoginErrorText] = useState('');
   const maxFieldLength = 25;
   const minFieldLength = 3;
 
@@ -40,6 +42,10 @@ function Login({ navigation }) {
     if(response.status === 200) {
       sendData(await AsyncStorage.getItem('userId'));
       navigation.navigate(HOME_SCREEN_NAME);
+    } else if (response.status === 400) {
+      setLoginErrorText(response.data);
+      setLoginErrorVisible(true);
+      setLoginLoadingIcon(false);
     }
   };
 
@@ -52,9 +58,9 @@ function Login({ navigation }) {
       <Text style={styles.text}>LetsMeet</Text>
       <HelperText
         type="error"
-        visible={false}
+        visible={loginErrorVisible}
       >
-        Error Message
+        {loginErrorText}
       </HelperText>
       <TextInput // email field
         style={styles.textField}

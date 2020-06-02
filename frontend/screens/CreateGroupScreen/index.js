@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, AsyncStorage } from 'react-native';
 import { Appbar, Avatar, IconButton, Button, Colors, TextInput, Chip, Searchbar, List} from 'react-native-paper';
 import styles from './styles'
 import { GROUPS } from '../../navigation/tab_navigator/stacks/groups/screen-names';
@@ -14,15 +14,15 @@ let previousQuery = "";
 let searchResults = [];
 
 function CreateGroupScreen({route, navigation}) {
-
+    // const [userId, setUserId] = useState('');
     const [groupName, setGroupName] = useState('');
     const [textActive, setTextActive] = useState(false);
     const [inviteeChips, setInviteeChips] = useState(getInviteeChips(invitedMemberUsernames));
     const [searchQuery, setSearchQuery] = useState();
     const [searchList, setSearchList] = useState();
+    const colors = ['red', 'orange', 'green', 'blue', 'indigo', 'violet', 'pink']
 
     useEffect(() => {
-
         const results = async () => {
             let query = searchQuery;
             if(query) {
@@ -31,7 +31,14 @@ function CreateGroupScreen({route, navigation}) {
             if(query && query !== previousQuery) {
                 previousQuery = query;
                 searchResults = (await getUserByUsername(query)); 
-                setSearchList(getSearchItems(searchResults));              
+                let newSearchList = [];
+                const userId = (await AsyncStorage.getItem('userId'));
+                for(let i = 0; i< searchResults.length; i++) {
+                    if(searchResults[i]._id !== userId) {
+                        newSearchList.push(searchResults[i]);
+                    }
+                }
+                setSearchList(getSearchItems(newSearchList));              
             }
         }
         results() 
@@ -67,7 +74,12 @@ function CreateGroupScreen({route, navigation}) {
                     style={styles.chip} 
                     key={user.username + 'Chip' + i} 
                     onClose={() => removeInvitee(user)}
-                    avatar= {<Avatar.Image size={23} source={{uri: 'https://picsum.photos/60' + i}}/>}
+                    avatar= {<Avatar.Text 
+                        size={40} 
+                        label={username.toUpperCase().substring(0, 2)}
+                        color='white'
+                        style={ {backgroundColor: colors[i % colors.length]} } 
+                    />}
                 >
                     {invitees[i]}
                 </Chip>
@@ -87,7 +99,12 @@ function CreateGroupScreen({route, navigation}) {
                         style={styles.listItem} 
                         key={username + 'item' + i} 
                         title={username} 
-                        left={() => <Avatar.Image size={40} source={{uri: 'https://picsum.photos/60' + i}} />}
+                        left={() => <Avatar.Text 
+                            size={40} 
+                            label={username.toUpperCase().substring(0, 2)}
+                            color='white'
+                            style={ {backgroundColor: colors[i % colors.length]} } 
+                        />}
                         right = {() => <IconButton color={color} icon={icon}/> }
                         onPress={()=> {
                                     inviteOrUninviteUser(username, usernames[i]._id); 
@@ -129,10 +146,12 @@ function CreateGroupScreen({route, navigation}) {
 
             <View style={styles.groupDetailsContainer}>
                 <View style={styles.groupAvatarEdit}>
-                    <Avatar.Image 
-                        style={styles.avatar} 
-                        size={50} 
-                        source={{uri: 'https://picsum.photos/600'}} />
+                    <Avatar.Text 
+                        size={40} 
+                        label={groupName && groupName.length > 2 ? groupName.toUpperCase().substring(0,2) : "GR"} 
+                        color='white'
+                        style={ {backgroundColor: colors[colors.length - 4]} } 
+                    />
 
                     <IconButton
                         icon='account-edit'
