@@ -17,73 +17,59 @@ function Signup({ navigation }) {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [showPasswordError, setShowPasswordError] = useState(false);
-  const [showConfirmPassError, setShowConfirmPassError] = useState(false);
   const [loadingIcon, setLoadingIcon] = useState(false);
-  const [showDisplayNameError, setDisplayNameError] = useState(false);
-  const [showUsernameError, setUsernameError] = useState(false);
   const maxFieldLength = 25;
   const minFieldLength = 3;
+  const [userNameValid, setUsernameValid] = useState(true);
+  const [emailValid, setEmailValid] = useState(true);
+  const [phoneValid, setPhoneValid] = useState(true);
+  const [passwordValid, setPasswordVaild] = useState(true);
+  const [passwordsMatch, setPasswordsMatch] =useState(true);
 
   const { sendData } = useSocket('user authenticated', null);
 
   const handleSignupButtonPress = () => {
-    let flag = false;
-    if (password !== confirmPassword) {
-      setShowConfirmPassError(true);
-      flag = true;
-    } else {
-      setShowConfirmPassError(false);
-    }
-
-    if (password.length < 6) {
-      setShowPasswordError(true);
-      flag = true;
-    } else {
-      setShowPasswordError(false);
-    }
-
-    if (displayName.length < minFieldLength) {
-      setDisplayNameError(true);
-      flag = true;
-    } else {
-      setDisplayNameError(false);
-    }
-
-    if (username.length < minFieldLength) {
-      setUsernameError(true);
-      flag = true;
-    } else {
-      setUsernameError(false);
-    }
-
-    if (!flag) {
-      console.log('sending account to database');
-      setLoadingIcon(true);
-      postUser(username, email, phone, password, displayName)
-        .then(async (response) => {
-          if (response.status >= 200 && response.status < 300) {
-            console.log('account created');
-            sendData(await AsyncStorage.getItem('userId'));
-            navigation.navigate('Tabs');
-          } else {
-            setErrorMessage(response.data.errorMessage);
-            setLoadingIcon(false);
-            alert('Failed to create account. Please try again.');
-          }
-        })
-        .catch((error) => {
-          setErrorMessage(response.data.errorMessage);
+    console.log('sending account to database');
+    setLoadingIcon(true);
+    postUser(username, email, phone, password, displayName)
+      .then(async (response) => {
+        if (response.status >= 200 && response.status < 300) {
+          console.log('account created');
+          sendData(await AsyncStorage.getItem('userId'));
+          navigation.navigate('Tabs');
+        } else {
+          setErrorMessage(response.data.errorMessage ? response.data.errorMessage : response.data);
           setLoadingIcon(false);
-          Alert.alert('Failed to create account. Please try again.');
-          // TODO: some error message on UI
-        })
-    }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   };
 
   const handleBackButtonPress = () => {
     navigation.navigate(LOGIN_SCREEN_NAME);
   };
+
+  const validateUsername = (username) => {
+    username.indexOf(" ") > 0 ? setUsernameValid(false) : setUsernameValid(true);
+  }
+
+  const validateEmail = (email) => {
+    email.indexOf("@") < 0 ? setEmailValid(false) : setEmailValid(true);
+  }
+
+  const validatePhoneNo = (phone) => {
+    phone.length !== 10 ? setPhoneValid(false) : setPhoneValid(true);
+  }
+
+  const validatePassword = (password) => {
+    password.length < 6 ? setPasswordVaild(false): setPasswordVaild(true);
+  }
+  
+  const validatePasswordsMatch = (pass) => {
+    pass !== password ? setPasswordsMatch(false): setPasswordsMatch(true);
+  }
 
   return (
     <View style={styles.container}>
@@ -112,7 +98,7 @@ function Signup({ navigation }) {
       />
       <HelperText
         type="error"
-        visible={showDisplayNameError}
+        visible={false}
       >
         Display Name must be at least {minFieldLength} characters long
       </HelperText>
@@ -122,14 +108,14 @@ function Signup({ navigation }) {
         label="Username"
         autoCompleteType="username"
         value={username}
-        onChange={(e) => setUsername(e.nativeEvent.text)}
+        onChange={(e) => {setUsername(e.nativeEvent.text); validateUsername(e.nativeEvent.text)}}
         maxLength={maxFieldLength}
       />
       <HelperText
         type="error"
-        visible={showUsernameError}
+        visible={!userNameValid}
       >
-        Username must be at least {minFieldLength} characters long
+        Username cannot have any spaces
       </HelperText>
       <TextInput // email field
         style={styles.textField}
@@ -139,12 +125,12 @@ function Signup({ navigation }) {
         keyboardType="email-address"
         textContentType="emailAddress"
         value={email}
-        onChange={(e) => setEmail(e.nativeEvent.text)}
+        onChange={(e) => {setEmail(e.nativeEvent.text); validateEmail(e.nativeEvent.text)}}
         maxLength={256}
       />
       <HelperText
         type="error"
-        visible={false}
+        visible={!emailValid}
       >
         Email is invalid
       </HelperText>
@@ -156,12 +142,12 @@ function Signup({ navigation }) {
         keyboardType="phone-pad"
         textContentType="telephoneNumber"
         value={phone}
-        onChange={(e) => setPhone(e.nativeEvent.text)}
+        onChange={(e) => {setPhone(e.nativeEvent.text); validatePhoneNo(e.nativeEvent.text)}}
         maxLength={maxFieldLength}
       />
       <HelperText
         type="error"
-        visible={false}
+        visible={!phoneValid}
       >
         Phone Number is invalid
       </HelperText>
@@ -172,36 +158,38 @@ function Signup({ navigation }) {
         secureTextEntry
         autoCorrect={false}
         value={password}
-        onChange={(e) => setPassword(e.nativeEvent.text)}
+        onChange={(e) => {setPassword(e.nativeEvent.text); validatePassword(e.nativeEvent.text)}}
         maxLength={maxFieldLength}
       />
       <HelperText
         type="error"
-        visible={showPasswordError}
+        visible={!passwordValid}
       >
         Password must be at least 6 characters long
       </HelperText>
-      <TextInput // confirm password field
+      {passwordValid && password.length > 0 && <TextInput // confirm password field
         style={styles.textField}
         mode='outlined'
         label="Confirm Password"
         secureTextEntry
         autoCorrect={false}
         value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.nativeEvent.text)}
+        onChange={(e) => {setConfirmPassword(e.nativeEvent.text), validatePasswordsMatch(e.nativeEvent.text)}}
         maxLength={maxFieldLength}
-      />
-      <HelperText
+      />}
+      {passwordValid && password.length > 0 && <HelperText
         type="error"
-        visible={showConfirmPassError}
+        visible={!passwordsMatch}
       >
         Passwords do not match
-      </HelperText>
+      </HelperText>}
       <Button // create account button
         onPress={() => handleSignupButtonPress()}
         style={styles.button}
         mode="contained"
-        disabled={!(displayName && username && email && password && confirmPassword && phone)}
+        disabled={!(displayName && username && email && password && 
+          confirmPassword && phone && userNameValid && emailValid && phoneValid
+          && passwordValid && passwordsMatch)}
         uppercase={false}
         loading={loadingIcon}
       >
