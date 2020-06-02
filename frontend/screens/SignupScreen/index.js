@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, Alert } from 'react-native';
+import { Text, View, Alert, AsyncStorage } from 'react-native';
 import {
   TextInput, Button, HelperText, IconButton,
 } from 'react-native-paper';
@@ -22,6 +22,8 @@ function Signup({ navigation }) {
   const [showUsernameError, setUsernameError] = useState(false);
   const maxFieldLength = 25;
   const minFieldLength = 3;
+
+  const { sendData } = useSocket('user authenticated', null);
 
   const handleSignupButtonPress = () => {
     let flag = false;
@@ -57,10 +59,11 @@ function Signup({ navigation }) {
       console.log('sending account to database');
       setLoadingIcon(true);
       postUser(username, email, phone, password, displayName)
-        .then((response) => {
+        .then(async (response) => {
           console.log(response);
           if (response.status >= 200 && response.status < 300) {
             console.log('account created');
+            sendData(await AsyncStorage.getItem('userId'));
             navigation.navigate('Tabs');
           } else {
             // TODO: some error message on UI
