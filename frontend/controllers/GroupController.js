@@ -10,12 +10,9 @@ export async function getUserGroups(userId) {
     let token = await AsyncStorage.getItem('token');
     response = await userGroups(await userId);
     response = response.data.data;
-    console.log(response);
     for (let i = 0; i < response.length; i++) {
-      console.log("here!!");
       const newResponse = (await axios.get(url + "/group/name/" + response[i] + "&" + token))
         .data;
-      console.log("here " + newResponse);
       if (newResponse.status === 200) {
         groups.push(newResponse.data);
       } else {

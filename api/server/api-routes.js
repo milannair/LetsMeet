@@ -223,19 +223,19 @@ router
 //// Meeting paths ////
 
 // Create a meeting
-router.route("/meetings").post(meetingController.create);
+router.route("/meetings/:auth_token").post(meetingController.create);
 
 // Delete a meeting
-router.route("/meeting/delete/:meetingId").delete(meetingController.delete);
+router.route("/meeting/delete/:meetingId&:auth_token").delete(meetingController.delete);
 
 // Get all the details about a meeting
-router.route("/meeting/:meetingId").get(meetingController.view);
+router.route("/meeting/:meetingId&:auth_token").get(meetingController.view);
 
 // Confirm a meeting
-router.route("/meeting/confirm/:meetingId").post(meetingController.confirm);
+router.route("/meeting/confirm/:meetingId&:auth_token").post(meetingController.confirm);
 
 // Unconfirm a meeting
-router.route("/meeting/unconfirm/:meetingId").post(meetingController.unconfirm);
+router.route("/meeting/unconfirm/:meetingId&:auth_token").post(meetingController.unconfirm);
 
 // Export API routes
 module.exports = router;

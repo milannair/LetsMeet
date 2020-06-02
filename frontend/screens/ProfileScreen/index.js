@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, AsyncStorage } from 'react-native';
 import {
   List, Text, Divider, FAB,
 } from 'react-native-paper';
@@ -10,7 +10,6 @@ import ScheduleComponent from '../../components/ScheduleComponent/index'
 import Day from '../../enums/Day';
 import { useIsFocused } from '@react-navigation/native'
 import AppbarComponent from "../../components/AppbarComponent";
-import { AsyncStorage } from "react-native";
 
 function Profile({ navigation }) {
   const [user, setUser] = useState(JSON.parse('{"username" : "", "email" : "", "displayName" : ""}'));
@@ -20,21 +19,11 @@ function Profile({ navigation }) {
   const lastDay = Day.SATURDAY;
   const firstHour = 8;
   const lastHour = 22; 
-  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    const getId = async () => {
-      const id = await AsyncStorage.getItem('userId');
-      setUserId(id);
-    }
-
-    if(!userId) {
-      getId();
-    }
-    
     const showUser = async () => {
       try {
-        const user = await getUser(userId);
+        const user = await getUser(await AsyncStorage.getItem('userId'));
         console.log(user);
         if (user !== undefined) {
           if (user.schedule) {

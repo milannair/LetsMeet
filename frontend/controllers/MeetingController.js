@@ -26,9 +26,10 @@ export async function getUserMeetingsWithGroups(userId) {
 export async function getUserMeetings(userId) {
     let meetings = []
     try {
+        let token = await AsyncStorage.getItem('token');
         const response = await getUserMeetingIds(userId);
         for(let i = 0; i < response.length; i++) {
-            const newResponse = (await axios.get(url + '/meeting/' + response[i])).data
+            const newResponse = (await axios.get(url + '/meeting/' + response[i] + '&' + token)).data
             if(newResponse.status === 200) {
                 meetings.push(newResponse.data)
             } else {
@@ -44,7 +45,8 @@ export async function getUserMeetings(userId) {
 async function getUserMeetingIds(userId) {
     let responseData = {}
     try {
-        responseData = (await axios.get(url + '/user/meetings/' + userId)).data
+        let token = await AsyncStorage.getItem('token');
+        responseData = (await axios.get(url + '/user/meetings/' + userId + '&' + token)).data
         if(responseData.status === 200) {
             return responseData.data
         }     
@@ -58,7 +60,8 @@ async function getUserMeetingIds(userId) {
 export async function getGroup(groupId) {
     let group = null
     try {     
-        const newResponse = (await axios.get(url + '/group/name/' + groupId)).data
+        let token = await AsyncStorage.getItem('token');
+        const newResponse = (await axios.get(url + '/group/name/' + groupId + '&' + token)).data
         if(newResponse.status === 200) {
             group = newResponse.data
         } else {

@@ -23,8 +23,10 @@ export async function postUser(username, email, phone, password, displayName) {
 export async function getUser(id) {
   let token = await AsyncStorage.getItem('token');
   let responseData = {};
+  id = await id;
   try {
-    responseData = await axios.get(url + "/user/" + id + "&" + token).data;
+    responseData = await axios.get(url + "/user/" + id + "&" + token);
+    console.log(responseData);
     if (responseData.status === 200) {
       return responseData.data;
     }

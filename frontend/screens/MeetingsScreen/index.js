@@ -72,14 +72,14 @@ function MeetingsScreen({route, navigation }) {
 
     return (
         <View style={styles.container}>
-          {/* <AppbarComponent />
+          <AppbarComponent />
         
           <TabView 
             renderTabBar={renderTabBar}
             navigationState={{ index, routes }}
             renderScene={renderScene}
             onIndexChange={setIndex}
-          /> */}
+          />
         </View>
     );
 
