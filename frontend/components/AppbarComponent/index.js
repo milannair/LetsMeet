@@ -20,13 +20,7 @@ function AppbarComponent({
   backOnPress = () => {},
 
   /* The buttons shown at the end of the app bar */
-  buttons = [
-    (<Appbar.Action
-      icon='dots-vertical'
-      color={styles.menuButton.color}
-      onPress={() => alert('Will eventually take you to the settings screen')}
-    />),
-  ],
+  buttons = [],
 }) {
   let backButton;
   if (showBack) {
