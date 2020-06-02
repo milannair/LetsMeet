@@ -83,64 +83,75 @@ function MeetingsScreen({route, navigation }) {
         </View>
     );
 
+    function compareMeetingsByDate(a, b) {
+      let aStart = moment(a.startTime);
+      let bStart = moment(b.startTime);
+ 
+      if (aStart.isBefore(bStart)) {
+        return -1;
+      }
+      if (aStart.isAfter(bStart)) {
+        return 1;
+      }
+      return 0;
+    }
+
     function tentativeMeetingComponents() {
-      let list = []
-      for (let i = 0; i < meetingsDetails.length; i++) {
-        // parse Date
-        let start = moment(meetingsDetails[i].startTime).format("LT");
-        let end = moment(meetingsDetails[i].endTime).format("LT");
-        let day = moment(meetingsDetails[i].startTime).format("dddd, MMMM Do");
-        if (!(meetingsDetails[i].confirmed)) {
-          list.push (
-            <List.Section key={"unconfirmed " + i}>
-              <List.Subheader 
-                style={{
-                    color:'black',
-                    fontSize: 18,
-                  }}
-                  key={"unconfirmed header " + i}>
-                {day}
-              </List.Subheader>
-                <List.Item
-                  title={meetingsDetails[i].groupName}
-                  description={meetingsDetails[i].name + '\n' + `${start} - ${end}`}
-                  key={"unconfirmed meeting " + i}
-                />
-            </List.Section>
-          )
-        }     
-      } 
-      return list
+      return confirmedMeetingComponentsImpl(false);
     }
 
     function confirmedMeetingComponents() {
+      return confirmedMeetingComponentsImpl(true);
+    }
+
+    function confirmedMeetingComponentsImpl(isConfirmed) {
+      // sort meetings based on startTime
+      meetingsDetails.sort(compareMeetingsByDate);
+
       let list = []
+      
+      // map day string to an array of meetings
+      let dateToMeetings = {}
       for (let i = 0; i < meetingsDetails.length; i++) {
-        // parse Date
-        let start = moment(meetingsDetails[i].startTime).format("LT");
-        let end = moment(meetingsDetails[i].endTime).format("LT");
+        // Only keep the confirmed/tentative meeting.
+        if (meetingsDetails[i].confirmed != isConfirmed) {
+          continue;
+        }
         let day = moment(meetingsDetails[i].startTime).format("dddd, MMMM Do");
+
+        if (dateToMeetings[day] == null) {
+          dateToMeetings[day] = [];
+        }
+        dateToMeetings[day].push(meetingsDetails[i]);
+      }
+
+      for (let [keyDay, valueMeetings] of Object.entries(dateToMeetings)) {
         
-        if (meetingsDetails[i].confirmed == true) {
-          list.push (
-            <List.Section key={"confirmed " + i}>
-              <List.Subheader 
-                style={{
-                    color:'black',
-                    fontSize: 18,
-                  }}
-                  key={"confirmed header " + i}>
-                {day}
-              </List.Subheader>
-              <List.Item
-                title={meetingsDetails[i].groupName}
-                description={meetingsDetails[i].name + '\n' + `${start} - ${end}`}
-                key={"confirmed meeting " + i}
-              />
-            </List.Section>
-          )
-        }      
-      } 
+        let subList = []
+        for (let i=0; i<valueMeetings.length; i++) {
+          let start = moment(valueMeetings[i].startTime).format("LT");
+          let end = moment(valueMeetings[i].endTime).format("LT");
+          subList.push(<List.Item
+            title={valueMeetings[i].groupName}
+            description={valueMeetings[i].name + '\n' + `${start} - ${end}`}
+            key={"confirmed meeting " + i}
+          />);
+        }
+
+        list.push (
+          <List.Section key={keyDay}>
+            <List.Subheader 
+              style={{
+                  color:'black',
+                  fontSize: 18,
+                }}
+                key={keyDay}>
+              {keyDay}
+            </List.Subheader>
+            {subList}
+          </List.Section>
+        ) 
+      }
       return list
     }
 }
