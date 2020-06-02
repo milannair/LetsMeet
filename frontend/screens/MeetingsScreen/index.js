@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { List, useTheme, Text } from 'react-native-paper';
 import styles from './styles';
 import {getUserMeetingsWithGroups} from '../../controllers/MeetingController';
@@ -18,11 +18,15 @@ function MeetingsScreen({route, navigation }) {
 
   // confirmed and tentative tab
   const FirstRoute = () => (
-    confirmedMeetingComponents()
+    <ScrollView scrollEnabled={true} style={{flexDirection : 'column'}}>
+      {confirmedMeetingComponents()}
+    </ScrollView>
   );
 
   const SecondRoute = () => (
-    tentativeMeetingComponents()
+    <ScrollView scrollEnabled={true} style={{flexDirection : 'column'}}>
+      {tentativeMeetingComponents()}
+    </ScrollView>
   );
 
   const [index, setIndex] = React.useState(0);
