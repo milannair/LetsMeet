@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView } from 'react-native';
-import { FAB } from 'react-native-paper';
+import { FAB, Text } from 'react-native-paper';
 import CardComponent from '../../components/GroupCardComponent/index';
 import AppbarComponent from "../../components/AppbarComponent/index";
 import styles from './styles'
@@ -48,6 +48,9 @@ function GroupsScreen({route, navigation}) {
 
   function groupComponents() {
     let list = []
+    if (groupsDetails.length === 0) {
+      list.push(<Text>You don't have any groups. Tap the floating + button to create a group.</Text>);
+    }
     for (let i = 0; i < groupsDetails.length; i++) {
       list.push (
         <CardComponent 
