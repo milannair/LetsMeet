@@ -128,7 +128,7 @@ export async function addGroupRequest(userId, groupId) {
       await axios.post(
         url + "/user/addGroupRequest/" + userId + "&" + groupId + "&" + token
       )
-    ).data;
+    );
     if (responseData.status === 200) {
       return responseData.data;
     }

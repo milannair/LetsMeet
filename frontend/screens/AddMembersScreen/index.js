@@ -156,11 +156,11 @@ function AddMembersScreen({route, navigation}) {
         setSearchedMembersList(items);
     }
 
-    function addMembersToGroup() {
+    async function addMembersToGroup() {
         let memberRequests = [];
         const userId = route.params.userId;
         for(let i = 0; i < invitees.length; i++) {
-            addGroupRequest(userId, invitees[i]._id);
+            await addGroupRequest(invitees[i]._id, groupData._id);
         } 
         navigation.navigate(VIEW_GROUP, {userId: userId, groupId: route.params.groupData._id});
     }
