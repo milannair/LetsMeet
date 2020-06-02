@@ -8,7 +8,7 @@ import { View, AsyncStorage } from 'react-native';
 import { Appbar, Menu, Divider } from 'react-native-paper';
 import {getMeetingRequest} from '../../controllers/MeetingRequestController';
 import {getUserIdentifiers, removeGroup, getUsersSchedules} from '../../controllers/UserController';
-import {getGroupData} from '../../controllers/GroupController';
+import {getGroupData, removeUserFromGroup} from '../../controllers/GroupController';
 import { useFocusEffect } from '@react-navigation/native';
 import ScheduleComponent from '../../components/ScheduleComponent/index';
 import {GROUPS, ADD_MEMBERS} from '../../navigation/tab_navigator/stacks/groups/screen-names';
@@ -175,6 +175,7 @@ function ViewGroupScreen({ route, navigation }) {
           <Menu.Item 
             onPress={() => {
               removeGroup(route.params.userId, route.params.groupId);
+              removeUserFromGroup(route.params.groupId, route.params.userid);
               navigation.navigate(GROUPS, {reload: true})
             }} 
             title="Leave group" 
