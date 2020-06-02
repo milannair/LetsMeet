@@ -66,7 +66,7 @@ else console.log("DB connected");
 var port = process.env.PORT || 8000;
 
 //Logging from morgan
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 
 // Send message for default URL
 // TODO: only allow cors from specific origin

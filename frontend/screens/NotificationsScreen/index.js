@@ -34,37 +34,36 @@ function NotificationsScreen({route, navigation}) {
 
   useEffect(() => {
     const getUserId = async () => {
-      setUserId(await AsyncStorage.getItem('userId'));
-    };
-
-    const getInvitationsFromController = async () => {
-      if (updateRequired) {
-        setInvitations(await getUserGroupInvitations(userId));
-        setUpdateRequired(false);
+      const userId = await AsyncStorage.getItem('userId');
+      setUserId(userId);
+      // Read invitations
+      if (route.params) {
+        const {invitationsSupplier} = route.params;
+        if (invitationsSupplier) {
+          // Get invitations from the custom supplier
+          setInvitations(invitationsSupplier());
+        } else {
+          // Some parameters were given to this route,
+          // but invitationsSupplier is not set
+          // Get invitations from the controller
+          if (updateRequired) {
+            setInvitations(await getUserGroupInvitations(userId));
+            setUpdateRequired(false);
+          }
+        }
+      } else {
+        // No parameters were given to this route at all
+        // Get invitations from the controller
+        if (updateRequired) {
+          setInvitations(await getUserGroupInvitations(userId));
+          setUpdateRequired(false);
+        }
       }
     };
 
     // Get user ID if it has not been acquired
     if (!userId) {
       getUserId();
-    }
-
-    // Read invitations
-    if (route.params) {
-      const {invitationsSupplier} = route.params;
-      if (invitationsSupplier) {
-        // Get invitations from the custom supplier
-        setInvitations(invitationsSupplier());
-      } else {
-        // Some parameters were given to this route,
-        // but invitationsSupplier is not set
-        // Get invitations from the controller
-        getInvitationsFromController();
-      }
-    } else {
-      // No parameters were given to this route at all
-      // Get invitations from the controller
-      getInvitationsFromController();
     }
   });
 
