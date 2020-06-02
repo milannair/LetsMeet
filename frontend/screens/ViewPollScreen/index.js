@@ -16,8 +16,6 @@ function ViewPollScreen({route, navigation}) {
   const [author, setAuthor] = useState("");
   const [optionData, setOptionData] = useState([]);
   const [pollOptions, setPollOptions] = useState([]);
-  const [numVotes, setNumVotes] = useState([]);
-  const [isHighlighted, setIsHighlighted] = useState([]);
   const [updateOptions, setUpdateOptions] = useState(false);
   const { colors } = useTheme();
   useSocket('add vote', ({userId, optionId}) => {
@@ -111,7 +109,6 @@ function ViewPollScreen({route, navigation}) {
           );
         }
         setPollOptions(list);
-        setNumVotes(numVotesList);
         setUpdateOptions(false);
       } catch (error) {
         console.error(error);
@@ -122,7 +119,7 @@ function ViewPollScreen({route, navigation}) {
 
   return(
     <View>
-      <Appbar.Header style={styles.navbar} >
+      <Appbar.Header style={{backgroundColor: "#663399"}} >
         <Appbar.BackAction 
           onPress={() => {navigation.navigate(VIEW_GROUP, {groupId: route.params.groupId, userId: route.params.userId})}}
           color="white"

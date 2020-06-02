@@ -57,10 +57,8 @@ function ViewGroupComponent({route, navigation, updateLog, logData, showSpinner}
                                 </Button>
                             </View>
                         }
-                        {/* placeholder number of people who voted */}
-                        <Text style={styles.medText}>10/12 members voted</Text>
                         <Text style={styles.medText}>
-                            Closes {moment(date).format("l")} at {moment(date).format("LT")}
+                            Closes {moment(date).format("l")} at {moment(date).format("LT")} ({moment(date).fromNow()})
                         </Text>
                     </View>
                 );

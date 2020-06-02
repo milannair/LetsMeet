@@ -49,14 +49,17 @@ export async function deleteUser(id) {
   }
   return responseData;
 }
-export async function updateUser(id) {
+export async function updateUser(id, username, email, displayName) {
   let token = await AsyncStorage.getItem('token');
   let responseData = {};
   try {
     responseData = (
       await axios.patch(
-        url + "/user/" + id + "&" + token
-        //ADD JSON BODY
+        url + "/user/" + id + "&" + token, {
+          username: username,
+          email: email,
+          displayName: displayName,
+        }
       )
     ).data;
     if (responseData.status === 200) {
