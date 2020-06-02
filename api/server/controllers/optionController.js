@@ -1,6 +1,5 @@
 Option = require("../models/optionModel");
 var socket = require("../../server");
-Option = require('../models/optionModel');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 

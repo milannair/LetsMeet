@@ -1,6 +1,5 @@
 MeetingRequest = require("../models/meetingRequestModel");
 var socket = require("../../server");
-MeetingRequest = require('../models/meetingRequestModel');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
