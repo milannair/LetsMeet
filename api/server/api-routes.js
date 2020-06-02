@@ -140,11 +140,11 @@ router
 ///// MeetingRequest routes ////
 
 // Create a meeting request
-router.route("/meetingRequests/").post(meetingRequestController.create);
+router.route("/meetingRequests/:auth_token").post(meetingRequestController.create);
 
 // Delete a meeting request
 router
-  .route("/meetingRequest/delete/:meetingRequestId&::auth_token")
+  .route("/meetingRequest/delete/:meetingRequestId&:auth_token")
   .delete(meetingRequestController.delete);
 
 // Get all data about the meeting request
