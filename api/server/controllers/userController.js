@@ -200,7 +200,7 @@ module.exports = {
       })
     );
     res.status(200).json({ addGroup });
-    socket.io.sockets.connected[clients[req.params.userId]].join(
+    socket.io.sockets.connected[socket.clients[req.params.userId]].join(
       req.params.groupId
       );
       console.log(socket.io.sockets.connected[clients[req.params.userId]])
@@ -222,7 +222,7 @@ module.exports = {
       })
     );
     res.status(200).json(removeGroup);
-    socket.io.sockets.connected[clients[req.params.userId]].leave(
+    socket.io.sockets.connected[socket.clients[req.params.userId]].leave(
       req.params.groupId
     );
   },
@@ -333,12 +333,13 @@ module.exports = {
             errorMessage: err.message,
             errorName: err.name,
           });
+        } else {
+          res.json({
+            status: res.statusCode,
+            message: "User retreived!",
+            data: data,
+          });
         }
-        res.json({
-          status: res.statusCode,
-          message: "User retreived!",
-          data: data,
-        });
       }
     );
   },
