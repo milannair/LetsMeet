@@ -55,7 +55,7 @@ function Profile({ navigation }) {
       <List.Item
         style={styles.item}
         title={user.displayName}
-        description={user.email}
+        description={user.email + ' / ' + user.username}
         left={() => <List.Icon icon="account-circle" />}
         right={() => <Text>Tap to edit</Text>}
         onPress={() => navigation.navigate(Screen.EDIT_PROFILE)}
