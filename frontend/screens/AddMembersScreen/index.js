@@ -29,10 +29,12 @@ function AddMembersScreen({route, navigation}) {
             console.log(groupData);
             const getMemberDetails = async () => {
                 const memberIds = groupData.members;
+                let currMembers = []
                 for(let i = 0; i < memberIds.length; i++) {
                     const member = await getUserIdentifiers(memberIds[i]);
-                    await setMembers([...members, member[0]]);
+                    currMembers.push(member[0]);
                 }
+                setMembers(currMembers);
             }
             getMemberDetails();
             setHaveMembers(false);
@@ -62,7 +64,6 @@ function AddMembersScreen({route, navigation}) {
     function getMembers(groupMembers) {
         let items = []
             for (let i = 0; i < groupMembers.length; i++) {
-                console.log(groupMembers[i])
                 let username = groupMembers[i].username ? groupMembers[i].username : "USER";
                 username = username.length > 2 ? username : "USER";
                 items.push(
