@@ -37,7 +37,14 @@ const styles = StyleSheet.create({
     },
     spinnerText: {
         color: 'white'
-    }
+    },
+    message: {
+        marginVertical: 12,
+        flex: 1,
+        alignSelf: 'center',
+        textAlign: 'center',
+        width: '80%',
+    },
 });
 
 export default styles;

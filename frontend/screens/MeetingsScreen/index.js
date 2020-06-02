@@ -118,7 +118,7 @@ function MeetingsScreen({route, navigation }) {
     let list = [];
 
     if (meetingsDetails.length == 0) {
-      list.push(<Text key={0}>No Meetings To Show</Text>);
+      list.push(<Text style={styles.message} key={0}>No Meetings To Show</Text>);
     }
     
     // map day string to an array of meetings

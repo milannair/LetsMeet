@@ -21,7 +21,7 @@ import styles from './styles';
  */
 function NotificationsScreen({route, navigation}) {
   const [userId, setUserId] = useState(null);
-  const [invitations, setInvitations] = useState(null);
+  const [invitations, setInvitations] = useState([]);
   const [updateRequired, setUpdateRequired] = useState(true);
 
   const isFocused = useIsFocused();
@@ -103,7 +103,7 @@ function NotificationsScreen({route, navigation}) {
   }
 
   return (
-      <View>
+      <View style={styles.container}>
         <AppbarComponent />
         {components}
       </View>
