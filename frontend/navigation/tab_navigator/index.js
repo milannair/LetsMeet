@@ -26,12 +26,14 @@ function TabNavigator() {
   const [numNewMeetingRequests, setNumNewMeetingRequests] = useState(0);
 
   useSocket('add group request', () => {
+    console.log('add group request');
     if (currTab != TABS.Notifications) {
       setNumNewGroupRequests((prev) => prev + 1);
     }
   });
 
   useSocket('remove group request', () => {
+    console.log('remove group request');
     setNumNewGroupRequests((prev) => {
       if (currTab != TABS.Notifications) {
         if (prev > 0) {
@@ -44,12 +46,14 @@ function TabNavigator() {
   });
 
   useSocket('add meeting request', () => {
+    console.log('add meeting request');
     if (currTab != TABS.Groups) {
       setNumNewMeetingRequests((prev) => prev + 1);
     }
   });
 
   useSocket('remove meeting request', () => {
+    console.log('remove meeting request');
     setNumNewMeetingRequests((prev) => {
       if (currTab != TABS.Groups) {
         if (prev > 0) {

@@ -185,7 +185,6 @@ module.exports = {
   },
 
   addGroup: async (req, res) => {
-    console.log("here");
     try {
       jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
     } catch (error) {
@@ -203,8 +202,9 @@ module.exports = {
     res.status(200).json({ addGroup });
     socket.io.sockets.connected[clients[req.params.userId]].join(
       req.params.groupId
-    );
-  },
+      );
+      console.log(socket.io.sockets.connected[clients[req.params.userId]])
+    },
 
   removeGroup: async (req, res) => {
     try {
