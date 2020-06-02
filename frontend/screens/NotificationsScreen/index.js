@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import {View} from 'react-native';
 import {Text} from 'react-native-paper';
+import {AsyncStorage} from 'react-native-web';
 import NotificationComponent
   from "../../components/NotificationComponent/index";
 import AppbarComponent from "../../components/AppbarComponent";
@@ -19,7 +20,7 @@ import styles from "./styles";
  *   invitations will be read from the controller.
  */
 function NotificationsScreen({route, navigation}) {
-  const userId = "5ed56a7ffb2e2701d17a7f00"; // TODO: retrieve actual user ID
+  const [userId, setUserId] = useState(null);
   const [invitations, setInvitations] = useState(null);
   const [updateRequired, setUpdateRequired] = useState(false);
 
@@ -32,12 +33,20 @@ function NotificationsScreen({route, navigation}) {
   );
 
   useEffect(() => {
+    const getUserId = async () => {
+      setUserId(await AsyncStorage.getItem("userId"));
+    };
+
     const getInvitationsFromController = async () => {
       if (updateRequired) {
         setInvitations(await getUserGroupInvitations(userId));
         setUpdateRequired(false);
       }
     };
+
+    if (!userId) {
+      getUserId();
+    }
 
     if (route.params) {
       const {invitationsSupplier} = route.params;
