@@ -54,7 +54,6 @@ function ViewGroupScreen({ route, navigation }) {
       navigation={navigation}
       logData={logData}
       updateLog={updateLog}
-      showSpinner={showSpinner}
       groupData={groupData}   
     />
   );
