@@ -33,11 +33,11 @@ function EditProfile({ navigation }) {
         setUserId(userId);
 
         const user = await getUser(userId);
-        console.log(user);
         setUser(user);
         setDisplayName(user.displayName);
         setUsername(user.username);
         setEmail(user.email);
+        console.log(user.password);
       } catch (error) {
         console.error(error);
       }

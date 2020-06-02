@@ -23,9 +23,8 @@ function Profile({ navigation }) {
   useEffect(() => {
     const showUser = async () => {
       try {
-        const userId = await AsyncStorage.getItem('userId');
-
-        const user = await getUser(userId);
+        const user = await getUser(await AsyncStorage.getItem('userId'));
+        console.log(user);
         if (user !== undefined) {
           if (user.schedule) {
             user.schedule = user.schedule.map((timeSlot) => {
@@ -74,7 +73,7 @@ function Profile({ navigation }) {
       <FAB
         style={styles.fab}
         icon="pencil"
-        onPress={() => navigation.navigate(Screen.EDIT_SCHEDULE, { userId: user._id, schedule: user.schedule ? user.schedule : [] })}
+        onPress={() => navigation.navigate(Screen.EDIT_SCHEDULE, { schedule: user.schedule ? user.schedule : [] })}
       />
     </View>
   );
