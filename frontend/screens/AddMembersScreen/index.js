@@ -9,6 +9,7 @@ import { VIEW_GROUP } from '../../navigation/tab_navigator/stacks/groups/screen-
 let invitees = []
 function AddMembersScreen({route, navigation}) {
     const memberIds = route.params.groupData.members;
+    const memberRequests = route.params.groupData.memberRequests;
     const [members, setMembers] = useState([]);
     const [displayMembers, setDisplayMembers] = useState([]);
     const [haveMembers, setHaveMembers] = useState(false);
@@ -131,7 +132,7 @@ function AddMembersScreen({route, navigation}) {
         let items = [];
         for(let i = 0; i < users.length; i++) {
             const user = users[i];
-            if(memberIds.indexOf(user._id) < 0) {
+            if(memberIds.indexOf(user._id) < 0 && memberRequests.indexOf(user._id)) {
                 const oldMembers = searchedMembers;
                 await setSearchedMembers([...searchedMembers, user]);
                 const username = user.username;
