@@ -31,7 +31,6 @@ function EditProfile({ navigation }) {
         const userId = await AsyncStorage.getItem('userId');
 
         const user = await getUser(userId);
-        console.log(user);
         setUser(user);
         setDisplayName(user.displayName);
         setUsername(user.username);
