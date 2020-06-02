@@ -11,11 +11,7 @@ export async function getUserGroupInvitations(userId) {
   let invitations = [];
   try {
     const groupIds = await getGroupRequests(userId);
-    console.log("in usergroup invitations");
-    console.log(groupIds);
-    console.log("userid" + userId);
     for (const groupId of groupIds) {
-      console.log("groupid" + groupId);
       const groupName = await getGroupName(groupId);
       invitations.push(new GroupInvitation(groupId, groupName));
     }
