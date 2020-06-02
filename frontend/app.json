@@ -11,7 +11,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "https://placekitten.com/300/500",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
