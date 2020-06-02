@@ -27,7 +27,6 @@ function ViewGroupScreen({ route, navigation }) {
   const [updatePage, setUpdatePage] = useState(false);
   const [logData, setLogData] = useState([]);
   const [updateLog, setUpdateLog] = useState(false);
-  const [showSpinner, setShowSpinner] = useState(false);
   const [groupSchedule, setGroupSchedule] = useState([]);
   const [dialogVisible, setDialogVisible] = useState(false);
   const [dialogData, setDialogData] = useState({});
@@ -36,7 +35,6 @@ function ViewGroupScreen({ route, navigation }) {
     React.useCallback( () => {
       setUpdatePage(true);
       setLogData([]);
-      setShowSpinner(true);
       return () => {
       };
     }, [])
@@ -56,7 +54,6 @@ function ViewGroupScreen({ route, navigation }) {
       navigation={navigation}
       logData={logData}
       updateLog={updateLog}
-      showSpinner={showSpinner}
       groupData={groupData}   
     />
   );

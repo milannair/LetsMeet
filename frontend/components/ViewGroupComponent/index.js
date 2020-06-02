@@ -6,8 +6,9 @@ import {CREATE_MEETING_REQUEST, VIEW_POLL} from '../../navigation/tab_navigator/
 import moment from 'moment';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-function ViewGroupComponent({groupData, route, navigation, updateLog, logData, showSpinner}) {
-    const [requestsLog, setRequestsLog] = useState([]);  
+function ViewGroupComponent({route, navigation, updateLog, logData}) {
+    const [requestsLog, setRequestsLog] = useState([]);
+    const [showSpinner, setShowSpinner] = useState(true);  
     
     useEffect(() => {
         if(updateLog && logData.length > 0) {
@@ -67,6 +68,7 @@ function ViewGroupComponent({groupData, route, navigation, updateLog, logData, s
                 list.push(<Divider key={'request' + 'request' + i} />);
             }
             setRequestsLog(list);
+            setShowSpinner(false);
         }
 
         
@@ -76,7 +78,7 @@ function ViewGroupComponent({groupData, route, navigation, updateLog, logData, s
         <View style={styles.container}>
             <Spinner
                 visible={showSpinner}
-                textContent={'Loading Requests...'}
+                textContent={'Loading...'}
                 textStyle={{
                   color: 'white'
               }}

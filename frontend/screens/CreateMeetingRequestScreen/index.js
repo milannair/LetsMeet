@@ -180,11 +180,13 @@ function CreateMeetingRequest({route, navigation}) {
 
                 <View style={styles.deadlineContainer}>
                     <DateTimePickerComponent 
-                        callBack={(date) => {setDeadlineDate(date)}} 
+                    //   {(new Date).toLocaleDateString}
+                        callBack={async (date) => {await setDeadlineDate(date)}} 
                         mode='date'
                         display='calendar'
                         style={styles.datePicker}
                         fontSize={15}
+                        currDate={deadlineDate}
                     />
                     <DateTimePickerComponent
                         callBack={(date) => {
@@ -196,6 +198,7 @@ function CreateMeetingRequest({route, navigation}) {
                         display='clock'
                         style={styles.timePicker}
                         fontSize={15}
+                        currDate={deadlineDate}
                     />
                 </View>
 
