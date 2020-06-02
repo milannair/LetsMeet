@@ -77,7 +77,9 @@ function ViewGroupComponent({route, navigation, updateLog, logData, showSpinner}
             <Spinner
                 visible={showSpinner}
                 textContent={'Loading Requests...'}
-                textStyle={styles.spinnerText}
+                textStyle={{
+                  color: 'white'
+              }}
             />
             <ScrollView style={{flex: 1, flexDirection: 'column'}} scrollEnabled={true}>
                 {requestsLog}

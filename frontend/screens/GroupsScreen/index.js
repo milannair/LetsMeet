@@ -1,35 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, AsyncStorage } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { FAB } from 'react-native-paper';
 import CardComponent from '../../components/GroupCardComponent/index';
 import AppbarComponent from "../../components/AppbarComponent/index";
 import styles from './styles'
 import { CREATE_GROUP} from '../../navigation/tab_navigator/stacks/groups/screen-names';
 import {getUserGroups} from '../../controllers/GroupController'
+import { AsyncStorage } from "react-native";
 import { useIsFocused } from '@react-navigation/native';
 
 let userGroups = {}
 
 function GroupsScreen({route, navigation}) {
-  const [groupsDetails, setGroupDetails] = useState([]);
-  const [userId, setUserId] = useState('');
-
+  const [userId, setUserId] = useState(null);
+  const [groupsDetails, setGroupDetails] = useState([])
+  const [groupsUpdated, setGroupsUpdated] = useState(true)
   const isFocused = useIsFocused();
 
   useEffect( () => {
     const getGroups = async () =>{
-      try {
-        const userId = await AsyncStorage.getItem('userId');
-        setUserId(userId);
-        const test = await getUserGroups(userId);
-        console.log(test);
-        setGroupDetails(test);
-      } catch (error) {
-        console.error(error);
+      const id = await AsyncStorage.getItem('userId');
+      setUserId(id);
+
+      setGroupDetails(await getUserGroups(id));
+      setGroupsUpdated(false)
+      if(route.params && route.params.reload) {
+        route.params.reload = false
       }
     }
-    getGroups()
-   }, [isFocused])
+    getGroups();
+
+  }, [isFocused])
 
   return (
     <View style={styles.container}>
