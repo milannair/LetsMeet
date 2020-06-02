@@ -12,7 +12,7 @@ function ViewGroupComponent({route, navigation, updateLog, logData, groupData}) 
     useEffect(() => {
         let list = [];
         if (logData.length === 0) {
-            list.push(<Text key={0}>You don't have any meeting requests. Tap on the floating + button to create a meeting request.</Text>)
+            list.push(<Text style={styles.message} key={0}>You don't have any meeting requests. Tap on the floating + button to create a meeting request.</Text>)
         }
             for(let i=0; i < logData.length; i++) {
                 let data = logData[i];

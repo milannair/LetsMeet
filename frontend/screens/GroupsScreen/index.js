@@ -49,7 +49,7 @@ function GroupsScreen({route, navigation}) {
   function groupComponents() {
     let list = []
     if (groupsDetails.length === 0) {
-      list.push(<Text key={0}>You don't have any groups. Tap the floating + button to create a group.</Text>);
+      list.push(<Text style={styles.message} key={0}>You don't have any groups. Tap the floating + button to create a group.</Text>);
     }
     for (let i = 0; i < groupsDetails.length; i++) {
       list.push (
