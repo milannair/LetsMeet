@@ -12,6 +12,7 @@ import {
   getUserGroupInvitations
 } from '../../controllers/GroupInvitationController';
 import styles from './styles';
+import useSocket from '../../hooks/UseSocket';
 
 /*
  * Route parameters:
@@ -25,6 +26,15 @@ function NotificationsScreen({route, navigation}) {
   const [updateRequired, setUpdateRequired] = useState(true);
 
   const isFocused = useIsFocused();
+
+  useSocket('add group request', (data) => {
+    setInvitations((prev) => {
+      return [...prev, {
+        groupId: data._id,
+        groupName: data.name
+      }];
+    });
+  });
 
   useFocusEffect(
     React.useCallback( () => {
