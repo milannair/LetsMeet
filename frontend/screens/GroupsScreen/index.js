@@ -7,6 +7,7 @@ import styles from './styles'
 import { CREATE_GROUP} from '../../navigation/tab_navigator/stacks/groups/screen-names';
 import {getUserGroups} from '../../controllers/GroupController'
 import { AsyncStorage } from "react-native";
+import { useIsFocused } from '@react-navigation/native';
 
 let userGroups = {}
 
@@ -14,29 +15,22 @@ function GroupsScreen({route, navigation}) {
   const [userId, setUserId] = useState(null);
   const [groupsDetails, setGroupDetails] = useState([])
   const [groupsUpdated, setGroupsUpdated] = useState(true)
+  const isFocused = useIsFocused();
 
   useEffect( () => {
-
     const getGroups = async () =>{
-      if(groupsUpdated || (route.params && route.params.reload)) {
-        setGroupDetails(await getUserGroups(userId));
-        setGroupsUpdated(false)
-        if(route.params && route.params.reload) {
-          route.params.reload = false
-        }
+      const id = await AsyncStorage.getItem('userId');
+      setUserId(id);
+
+      setGroupDetails(await getUserGroups(id));
+      setGroupsUpdated(false)
+      if(route.params && route.params.reload) {
+        route.params.reload = false
       }
     }
     getGroups();
 
-    const getId = async () => {
-      const id = await AsyncStorage.getItem('userId');
-      setUserId(id);
-    }
-
-    if(!userId) {
-      getId();
-    }
-   })
+  }, [isFocused])
 
   return (
     <View style={styles.container}>

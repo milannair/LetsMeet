@@ -26,7 +26,6 @@ export async function getUser(id) {
   id = await id;
   try {
     responseData = await axios.get(url + "/user/" + id + "&" + token);
-    console.log(responseData);
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -72,7 +71,6 @@ export async function loginUser(credential, password) {
   let token = await AsyncStorage.getItem('token');
   let responseData = {};
   try {
-    console.log('hi');
     responseData = (
       await axios.post(url + "/user/login", {
         cred: credential.toLowerCase(),

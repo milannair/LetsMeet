@@ -1,6 +1,7 @@
 import { url } from '../api-routes';
 const axios = require('axios').default;
 import GroupInvitation from "../models/GroupInvitation";
+import { AsyncStorage } from "react-native";
 
 /*
  * Returns the array of pending group invitations for a user represented by
@@ -55,7 +56,8 @@ export async function declineGroupInvitation(userId, groupId) {
  * join. An exception will be thrown if an error occurred.
  */
 async function getGroupRequests(userId) {
-  const response = await axios.get(`${url}/user/${userId}`);
+  const token = await AsyncStorage.getItem('token');
+  const response = await axios.get(`${url}/user/${userId}&` + token);
   if (response.status === 200) {
     return response.data.requests;
   } else {
@@ -68,7 +70,8 @@ async function getGroupRequests(userId) {
  * be thrown if an error occurred.
  */
 async function getGroupName(groupId) {
-  const response = await axios.get(`${url}/group/name/${groupId}`);
+  const token = await AsyncStorage.getItem('token');
+  const response = await axios.get(`${url}/group/name/${groupId}&` + token);
   if (response.status === 200) {
     return response.data.data.name; // TODO: change this if API code is touched
   } else {
@@ -80,13 +83,14 @@ async function getGroupName(groupId) {
  * Adds a user to a group. An exception will be thrown if an error occurred.
  */
 async function addUserToGroup(userId, groupId) {
+  const token = await AsyncStorage.getItem('token');
   const userResponse = await axios.post(
-    `${url}/user/addGroup/${userId}&${groupId}`);
+    `${url}/user/addGroup/${userId}&${groupId}&` + token);
   if (userResponse.status !== 200) {
     throw userResponse;
   }
   const groupResponse = await axios.post(
-    `${url}/group/addMemeber`, // TODO: typo in API route
+    `${url}/group/addMember/` + token,
     {
     userId: userId,
     groupId: groupId,
@@ -101,8 +105,9 @@ async function addUserToGroup(userId, groupId) {
  * An exception will be thrown if an error occurred.
  */
 async function removeGroupRequest(userId, groupId) {
+  const token = await AsyncStorage.getItem('token');
   const response = await axios.post(
-    `${url}/user/removeGroupRequest/${userId}&${groupId}`);
+    `${url}/user/removeGroupRequest/${userId}&${groupId}&` + token);
   if (response.status === 200) {
     return response.data;
   } else {

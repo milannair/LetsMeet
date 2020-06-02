@@ -107,14 +107,11 @@ router.route("/group/name/:groupId&:auth_token").get(groupController.name);
 router.route("/group/rename/:auth_token").post(groupController.rename);
 
 // //Add member to the group
-router.route("/group/addMemeber/:auth_token").post(groupController.addMember);
-
-// //Add member to the group
-router.route("/group/addMemeber/:auth_token").post(groupController.addMember);
+router.route("/group/addMember/:auth_token").post(groupController.addMember);
 
 // //Remove member the group
 router
-  .route("/group/removeMemeber/:auth_token")
+  .route("/group/removeMember/:auth_token")
   .post(groupController.removeMember);
 
 // // Add member request to the group
