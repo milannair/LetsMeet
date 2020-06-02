@@ -82,7 +82,7 @@ export async function loginUser(credential, password) {
       return responseData;
     }
   } catch (error) {
-    console.error(error);
+    return error.response;
   }
   return responseData;
 }
