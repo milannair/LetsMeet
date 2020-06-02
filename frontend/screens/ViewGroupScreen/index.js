@@ -175,7 +175,7 @@ function ViewGroupScreen({ route, navigation }) {
           <Menu.Item 
             onPress={() => {
               removeGroup(route.params.userId, route.params.groupId);
-              removeUserFromGroup(route.params.groupId, route.params.userid);
+              removeUserFromGroup(route.params.groupId, route.params.userId);
               navigation.navigate(GROUPS, {reload: true})
             }} 
             title="Leave group" 

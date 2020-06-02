@@ -68,7 +68,6 @@ export async function updateUser(id) {
 }
 
 export async function loginUser(credential, password) {
-  let token = await AsyncStorage.getItem('token');
   let responseData = {};
   try {
     responseData = (
