@@ -5,7 +5,7 @@ import styles from './styles';
 import {CREATE_MEETING_REQUEST, VIEW_POLL} from '../../navigation/tab_navigator/stacks/groups/screen-names';
 import moment from 'moment';
 
-function ViewGroupComponent({route, navigation, updateLog, logData}) {
+function ViewGroupComponent({route, navigation, updateLog, logData, groupData}) {
     const [requestsLog, setRequestsLog] = useState([]);
     
     useEffect(() => {

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {AsyncStorage} from 'react-native-web';
@@ -22,7 +22,9 @@ import styles from './styles';
 function NotificationsScreen({route, navigation}) {
   const [userId, setUserId] = useState(null);
   const [invitations, setInvitations] = useState(null);
-  const [updateRequired, setUpdateRequired] = useState(false);
+  const [updateRequired, setUpdateRequired] = useState(true);
+
+  const isFocused = useIsFocused();
 
   useFocusEffect(
     React.useCallback( () => {
@@ -34,8 +36,11 @@ function NotificationsScreen({route, navigation}) {
 
   useEffect(() => {
     const getUserId = async () => {
-      const userId = await AsyncStorage.getItem('userId');
-      setUserId(userId);
+      let id;
+      if (!userId) {
+        id = await AsyncStorage.getItem('userId');
+      }
+      setUserId(id);
       // Read invitations
       if (route.params) {
         const {invitationsSupplier} = route.params;
@@ -47,7 +52,7 @@ function NotificationsScreen({route, navigation}) {
           // but invitationsSupplier is not set
           // Get invitations from the controller
           if (updateRequired) {
-            setInvitations(await getUserGroupInvitations(userId));
+            setInvitations(await getUserGroupInvitations(id));
             setUpdateRequired(false);
           }
         }
@@ -55,17 +60,15 @@ function NotificationsScreen({route, navigation}) {
         // No parameters were given to this route at all
         // Get invitations from the controller
         if (updateRequired) {
-          setInvitations(await getUserGroupInvitations(userId));
+          setInvitations(await getUserGroupInvitations(id));
           setUpdateRequired(false);
         }
       }
     };
 
     // Get user ID if it has not been acquired
-    if (!userId) {
-      getUserId();
-    }
-  });
+    getUserId();
+  }, [isFocused]);
 
   async function respondToInvitation(accepted, userId, groupId) {
     if (accepted) {

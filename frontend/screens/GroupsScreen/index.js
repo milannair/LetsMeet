@@ -16,7 +16,7 @@ function GroupsScreen({route, navigation}) {
   const [groupsDetails, setGroupDetails] = useState([])
   const [groupsUpdated, setGroupsUpdated] = useState(true)
   const isFocused = useIsFocused();
-
+  
   useEffect( () => {
     const getGroups = async () =>{
       const id = await AsyncStorage.getItem('userId');
