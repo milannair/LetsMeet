@@ -4,7 +4,7 @@ import {
   Appbar, TextInput, Button,
 } from 'react-native-paper';
 import styles from './styles';
-import { getUser } from '../../controllers/UserController';
+import { getUser, updateUser, deleteUser } from '../../controllers/UserController';
 import * as Screen from '../../navigation/tab_navigator/stacks/profile/screen-names';
 import ChangePasswordDialog from './ChangePassword';
 import DeleteAccountDialog from './DeleteAccount';
@@ -15,6 +15,7 @@ function EditProfile({ navigation }) {
   const [displayName, setDisplayName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [userId, setUserId] = useState('');
 
   const [visibleChangePassword, setVisibleChangePassword] = useState(false);
   const [showCurrPasswordHelperText, setCurrPasswordHelperText] = useState(false);
@@ -29,6 +30,7 @@ function EditProfile({ navigation }) {
     const showUser = async () => {
       try {
         const userId = await AsyncStorage.getItem('userId');
+        setUserId(userId);
 
         const user = await getUser(userId);
         console.log(user);
@@ -43,16 +45,16 @@ function EditProfile({ navigation }) {
     showUser();
   }, [isFocused]);
 
-  const handleChangeDisplayName = (text) => {
-    console.log('change display name');
+  const handleChangeDisplayName = () => {
+    updateUser(userId, username, email, displayName);
   };
 
-  const handleChangeUsername = (text) => {
-    console.log('change username');
+  const handleChangeUsername = () => {
+    updateUser(userId, username, email, displayName);
   };
 
-  const handleChangeEmail = (text) => {
-    console.log('change email');
+  const handleChangeEmail = () => {
+    updateUser(userId, username, email, displayName);
   };
 
   const handleChangePassword = (currPassword, newPassword) => {
@@ -81,6 +83,7 @@ function EditProfile({ navigation }) {
     if (password === user.password) {
       setVisibleDeleteAccount(false);
       console.log('Account deleted');
+      deleteUser(userId);
       navigation.navigate('Login'); // navigate to login page
     } else {
       setShowDeleteHelperText(true);
@@ -100,7 +103,7 @@ function EditProfile({ navigation }) {
         label="Display Name"
         value={displayName}
         onChangeText={(text) => setDisplayName(text)}
-        onBlur={(text) => handleChangeDisplayName(text)}
+        onBlur={() => handleChangeDisplayName()}
         autoFocus={false}
       />
       <TextInput
@@ -108,14 +111,14 @@ function EditProfile({ navigation }) {
         label="Username"
         value={username}
         onChangeText={(text) => setUsername(text)}
-        onBlur={(text) => handleChangeUsername(text)}
+        onBlur={() => handleChangeUsername()}
       />
       <TextInput
         style={styles.textInput}
         label="Email"
         value={email}
         onChangeText={(text) => setEmail(text)}
-        onBlur={(text) => handleChangeEmail(text)}
+        onBlur={() => handleChangeEmail()}
       />
       <Button
         style={styles.button}

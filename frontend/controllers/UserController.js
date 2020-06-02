@@ -51,13 +51,16 @@ export async function deleteUser(id) {
   }
   return responseData;
 }
-export async function updateUser(id) {
+export async function updateUser(id, username, email, displayName) {
   let responseData = {};
   try {
     responseData = (
       await axios.patch(
-        url + "/user/" + id
-        //ADD JSON BODY
+        url + "/user/" + id, {
+          username: username,
+          email: email,
+          displayName: displayName,
+        }
       )
     ).data;
     if (responseData.status === 200) {

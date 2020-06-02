@@ -16,8 +16,6 @@ function ViewPollScreen({route, navigation}) {
   const [author, setAuthor] = useState("");
   const [optionData, setOptionData] = useState([]);
   const [pollOptions, setPollOptions] = useState([]);
-  const [numVotes, setNumVotes] = useState([]);
-  const [isHighlighted, setIsHighlighted] = useState([]);
   const [updateOptions, setUpdateOptions] = useState(false);
   const { colors } = useTheme();
   useSocket('add vote', ({userId, optionId}) => {
@@ -111,7 +109,6 @@ function ViewPollScreen({route, navigation}) {
           );
         }
         setPollOptions(list);
-        setNumVotes(numVotesList);
         setUpdateOptions(false);
       } catch (error) {
         console.error(error);
