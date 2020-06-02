@@ -14,6 +14,7 @@ import ScheduleComponent from '../../components/ScheduleComponent/index';
 import {GROUPS, ADD_MEMBERS} from '../../navigation/tab_navigator/stacks/groups/screen-names';
 import moment from 'moment';
 import useSocket from '../../hooks/UseSocket';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 function ViewGroupScreen({ route, navigation }) {
   const { colors } = useTheme();
@@ -30,6 +31,7 @@ function ViewGroupScreen({ route, navigation }) {
   const [groupSchedule, setGroupSchedule] = useState([]);
   const [dialogVisible, setDialogVisible] = useState(false);
   const [dialogData, setDialogData] = useState({});
+  const [showSpinner, setShowSpinner] = useState(true);
 
   useFocusEffect(
     React.useCallback( () => {
@@ -136,6 +138,7 @@ function ViewGroupScreen({ route, navigation }) {
       setLogData(newLogData);
 
       setGroupSchedule(await getUsersSchedules(data.members));
+      setShowSpinner(false);
     };
 
     if(updatePage) {
@@ -182,6 +185,14 @@ function ViewGroupScreen({ route, navigation }) {
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
+      />
+
+      <Spinner
+          visible={showSpinner}
+          textContent={'Loading...'}
+          textStyle={{
+          color: 'white'
+        }}
       />
 
       <Portal>
