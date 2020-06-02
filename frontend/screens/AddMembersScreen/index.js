@@ -161,7 +161,7 @@ function AddMembersScreen({route, navigation}) {
         let memberRequests = [];
         const userId = route.params.userId;
         for(let i = 0; i < invitees.length; i++) {
-            await addGroupRequest(invitees[i]._id, groupData._id);
+            await addGroupRequest(invitees[i]._id, route.params.groupData._id);
         } 
         navigation.navigate(VIEW_GROUP, {userId: userId, groupId: route.params.groupData._id});
     }
