@@ -1,3 +1,6 @@
+/*
+ * Constant values useful in API unit tests.
+ */
 module.exports = Object.freeze({
   /*
    * The URI to LetsMeet API in a test
