@@ -25,6 +25,7 @@ function Signup({ navigation }) {
   const [phoneValid, setPhoneValid] = useState(true);
   const [passwordValid, setPasswordVaild] = useState(true);
   const [passwordsMatch, setPasswordsMatch] =useState(true);
+  const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
   const { sendData } = useSocket('user authenticated', null);
 
@@ -56,7 +57,7 @@ function Signup({ navigation }) {
   }
 
   const validateEmail = (email) => {
-    email.indexOf("@") < 0 ? setEmailValid(false) : setEmailValid(true);
+    !email.match(mailformat) ? setEmailValid(false) : setEmailValid(true);
   }
 
   const validatePhoneNo = (phone) => {
