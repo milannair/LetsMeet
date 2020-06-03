@@ -7,13 +7,14 @@ import Day from '../../enums/Day';
 import { View, AsyncStorage } from 'react-native';
 import { Appbar, Menu, Divider } from 'react-native-paper';
 import {getMeetingRequest} from '../../controllers/MeetingRequestController';
-import {getUserIdentifiers, removeGroup, getUsersSchedules} from '../../controllers/UserController';
-import {getGroupData} from '../../controllers/GroupController';
+import {getUserIdentifiers, removeGroup, getUsersSchedules, userMeetings, removeMeeting} from '../../controllers/UserController';
+import {getGroupData, removeUserFromGroup} from '../../controllers/GroupController';
 import { useFocusEffect } from '@react-navigation/native';
 import ScheduleComponent from '../../components/ScheduleComponent/index';
 import {GROUPS, ADD_MEMBERS} from '../../navigation/tab_navigator/stacks/groups/screen-names';
 import moment from 'moment';
 import useSocket from '../../hooks/UseSocket';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 function ViewGroupScreen({ route, navigation }) {
   const { colors } = useTheme();
@@ -27,10 +28,10 @@ function ViewGroupScreen({ route, navigation }) {
   const [updatePage, setUpdatePage] = useState(false);
   const [logData, setLogData] = useState([]);
   const [updateLog, setUpdateLog] = useState(false);
-  const [showSpinner, setShowSpinner] = useState(false);
   const [groupSchedule, setGroupSchedule] = useState([]);
   const [dialogVisible, setDialogVisible] = useState(false);
   const [dialogData, setDialogData] = useState({});
+  const [showSpinner, setShowSpinner] = useState(true);
 
   useFocusEffect(
     React.useCallback( () => {
@@ -56,7 +57,7 @@ function ViewGroupScreen({ route, navigation }) {
       navigation={navigation}
       logData={logData}
       updateLog={updateLog}
-      showSpinner={showSpinner}   
+      groupData={groupData}   
     />
   );
 
@@ -138,6 +139,7 @@ function ViewGroupScreen({ route, navigation }) {
       setLogData(newLogData);
 
       setGroupSchedule(await getUsersSchedules(data.members));
+      setShowSpinner(false);
     };
 
     if(updatePage) {
@@ -171,8 +173,9 @@ function ViewGroupScreen({ route, navigation }) {
           <Menu.Item onPress={() =>{setShowMenu(false); navigation.navigate(ADD_MEMBERS, {groupData: groupData, userId: route.params.userId})}} title="Members" />
           <Divider />
           <Menu.Item 
-            onPress={() => {
+            onPress={async () => {
               removeGroup(route.params.userId, route.params.groupId);
+              removeUserFromGroup(route.params.groupId, route.params.userId);
               navigation.navigate(GROUPS, {reload: true})
             }} 
             title="Leave group" 
@@ -184,6 +187,14 @@ function ViewGroupScreen({ route, navigation }) {
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
+      />
+
+      <Spinner
+          visible={showSpinner}
+          textContent={'Loading...'}
+          textStyle={{
+          color: 'white'
+        }}
       />
 
       <Portal>

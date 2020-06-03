@@ -9,7 +9,6 @@ var groupSchema = mongoose.Schema({
   members: [mongoose.Types.ObjectId], //UserID
   owner: mongoose.Types.ObjectId, //UserID
   name: {type: String, required : true}
-  //schedule: [Schedule],
 });
 
 var Group = (module.exports = mongoose.model("group", groupSchema));

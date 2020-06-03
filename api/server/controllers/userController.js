@@ -1,5 +1,6 @@
 // Import user model
 User = require("../models/userModel");
+Group = require("../models/groupModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 var socket = require("../../server");
@@ -7,7 +8,7 @@ var socket = require("../../server");
 module.exports = {
   register: async (req, res) => {
     console.log(req.body);
-    const user = await User.findOne({ username: req.body.cred });
+    const user = await User.findOne({ username: req.body.username });
     const checkPhone = await User.findOne({ phone: req.body.phone });
     const checkEmail = await User.findOne({ email: req.body.email });
     if (user)
@@ -162,6 +163,15 @@ module.exports = {
       })
     );
     res.status(200).json(addReq);
+
+    socket.io.to(socket.clients[req.params.userId]).emit('add group request notification');
+    Group.findById(req.params.groupId, {name: 1}, function(err, data){
+        if(err) {
+            console.error(err);
+        } else {
+            socket.io.to(socket.clients[req.params.userId]).emit('add group request', data);
+        }
+    });
   },
 
   removeGroupRequest: async (req, res) => {
@@ -180,10 +190,10 @@ module.exports = {
       })
     );
     res.status(200).json(removeReq);
+    socket.io.to(socket.clients[req.params.userId]).emit('remove group request');
   },
 
   addGroup: async (req, res) => {
-    console.log("here");
     try {
       jwt.verify(req.params.auth_token, process.env.ACCESS_TOKEN);
     } catch (error) {
@@ -199,10 +209,10 @@ module.exports = {
       })
     );
     res.status(200).json({ addGroup });
-    socket.io.sockets.sockets[clients[req.params.userId]].join(
+    socket.io.sockets.connected[socket.clients[req.params.userId]].join(
       req.params.groupId
-    );
-  },
+      );
+    },
 
   removeGroup: async (req, res) => {
     try {
@@ -220,7 +230,7 @@ module.exports = {
       })
     );
     res.status(200).json(removeGroup);
-    socket.io.sockets.sockets[clients[req.params.userId]].leave(
+    socket.io.sockets.connected[socket.clients[req.params.userId]].leave(
       req.params.groupId
     );
   },
@@ -331,12 +341,13 @@ module.exports = {
             errorMessage: err.message,
             errorName: err.name,
           });
+        } else {
+          res.json({
+            status: res.statusCode,
+            message: "User retreived!",
+            data: data,
+          });
         }
-        res.json({
-          status: res.statusCode,
-          message: "User retreived!",
-          data: data,
-        });
       }
     );
   },

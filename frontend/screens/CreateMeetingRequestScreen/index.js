@@ -6,6 +6,8 @@ import DateTimePickerComponent from '../../components/DatePickerComponent/index'
 import {VIEW_GROUP} from '../../navigation/tab_navigator/stacks/groups/screen-names'
 import {createGroupMeetingRequest} from '../../controllers/MeetingRequestController'
 import {createOption} from '../../controllers/OptionsController'
+import { postMeeting } from '../../controllers/MeetingController';
+import { addMeeting } from '../../controllers/UserController'
  
 function CreateMeetingRequest({route, navigation}) {
     const [meetingName, setMeetingName] = useState("");
@@ -113,6 +115,23 @@ function CreateMeetingRequest({route, navigation}) {
         const status = 0
         await createGroupMeetingRequest(route.params.userId, route.params.groupId, name, isUnanimousMeetingRequest, requestedOptions,
             deadlineDate, status);
+        
+        let response;
+        if (isUnanimousMeetingRequest) {
+            let start = new Date(options[0].date);
+            let end = new Date(start);
+            start.setHours(options[0].start.getHours(), options[0].start.getMinutes());
+            end.setHours(options[0].end.getHours(), options[0].end.getMinutes());
+            response = await postMeeting(route.params.userId, route.params.groupId, name, start, end);
+        } else {
+            response = await postMeeting(route.params.userId, route.params.groupId, name, undefined, undefined);
+        }
+
+        console.log(response)
+        const members = route.params.groupData.members;
+        for (let i = 0; i < members.length; i++) {
+            await addMeeting(members[i], response.data.data._id)
+        }
         navigation.navigate(VIEW_GROUP, {groupId: route.params.groupId, userId: route.params.userId})
     }
 
@@ -161,11 +180,13 @@ function CreateMeetingRequest({route, navigation}) {
 
                 <View style={styles.deadlineContainer}>
                     <DateTimePickerComponent 
-                        callBack={(date) => {setDeadlineDate(date)}} 
+                    //   {(new Date).toLocaleDateString}
+                        callBack={async (date) => {await setDeadlineDate(date)}} 
                         mode='date'
                         display='calendar'
                         style={styles.datePicker}
                         fontSize={15}
+                        currDate={deadlineDate}
                     />
                     <DateTimePickerComponent
                         callBack={(date) => {
@@ -177,6 +198,7 @@ function CreateMeetingRequest({route, navigation}) {
                         display='clock'
                         style={styles.timePicker}
                         fontSize={15}
+                        currDate={deadlineDate}
                     />
                 </View>
 

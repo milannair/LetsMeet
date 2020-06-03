@@ -4,14 +4,16 @@ import {FAB, Text, Title, Button, Divider} from 'react-native-paper';
 import styles from './styles';
 import {CREATE_MEETING_REQUEST, VIEW_POLL} from '../../navigation/tab_navigator/stacks/groups/screen-names';
 import moment from 'moment';
-import Spinner from 'react-native-loading-spinner-overlay';
 
-function ViewGroupComponent({route, navigation, updateLog, logData, showSpinner}) {
-    const [requestsLog, setRequestsLog] = useState([]);  
+function ViewGroupComponent({route, navigation, updateLog, logData, groupData}) {
+    const [requestsLog, setRequestsLog] = useState([]);
+    let scrollview;
     
     useEffect(() => {
-        if(updateLog && logData.length > 0) {
-            let list = [];
+        let list = [];
+        if (logData.length === 0) {
+            list.push(<Text style={styles.message} key={0}>You don't have any meeting requests. Tap on the floating + button to create a meeting request.</Text>)
+        }
             for(let i=0; i < logData.length; i++) {
                 let data = logData[i];
                 let date = new Date(data.meetingRequest.deadline);
@@ -64,22 +66,17 @@ function ViewGroupComponent({route, navigation, updateLog, logData, showSpinner}
                 );
                 list.push(<Divider key={'request' + 'request' + i} />);
             }
-            setRequestsLog(list);
-        }
-
-        
+            setRequestsLog(list);     
     }, [updateLog]);
 
     return(
         <View style={styles.container}>
-            <Spinner
-                visible={showSpinner}
-                textContent={'Loading Requests...'}
-                textStyle={{
-                  color: 'white'
-              }}
-            />
-            <ScrollView style={{flex: 1, flexDirection: 'column'}} scrollEnabled={true}>
+            <ScrollView 
+                style={{flex: 1, flexDirection: 'column'}} 
+                scrollEnabled={true}
+                ref={ref => scrollview = ref}
+                onContentSizeChange ={() => scrollview.scrollToEnd({animate : true})}
+            >
                 {requestsLog}
             </ScrollView>
             <FAB
@@ -88,6 +85,7 @@ function ViewGroupComponent({route, navigation, updateLog, logData, showSpinner}
                 onPress={() =>{navigation.navigate(CREATE_MEETING_REQUEST, {
                     userId: route.params.userId, 
                     groupId: route.params.groupId,
+                    groupData: groupData,
                 })}}
             />
         </View>

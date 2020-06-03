@@ -36,10 +36,10 @@ export async function getOption(optionId) {
     }
 }
 
-export async function addVote(optionId, userId) {
+export async function addVote(optionId, userId, groupId) {
     try {
         let token = await AsyncStorage.getItem('token');
-        const response = (await axios.post(url + '/option/addVote/' + optionId + '&' + userId + "&" + token)).data;
+        const response = (await axios.post(url + '/option/addVote/' + optionId + '&' + userId + "&" + groupId + "&" + token)).data;
         if (response.status === 200) {
             return response.data;
         } else {
@@ -50,10 +50,10 @@ export async function addVote(optionId, userId) {
     }
 }
 
-export async function removeVote(optionId, userId) {
+export async function removeVote(optionId, userId, groupId) {
     try {
         let token = await AsyncStorage.getItem('token');
-        const response = (await axios.post(url + '/option/removeVote/' + optionId + '&' + userId + "&" + token)).data;
+        const response = (await axios.post(url + '/option/removeVote/' + optionId + '&' + userId + "&" + groupId + "&" + token)).data;
         if (response.status === 200) {
             return response.data;
         } else {

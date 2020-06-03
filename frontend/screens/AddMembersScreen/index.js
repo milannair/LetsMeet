@@ -9,6 +9,7 @@ import { VIEW_GROUP } from '../../navigation/tab_navigator/stacks/groups/screen-
 let invitees = []
 function AddMembersScreen({route, navigation}) {
     const memberIds = route.params.groupData.members;
+    const memberRequests = route.params.groupData.memberRequests;
     const [members, setMembers] = useState([]);
     const [displayMembers, setDisplayMembers] = useState([]);
     const [haveMembers, setHaveMembers] = useState(false);
@@ -29,10 +30,12 @@ function AddMembersScreen({route, navigation}) {
             console.log(groupData);
             const getMemberDetails = async () => {
                 const memberIds = groupData.members;
+                let currMembers = []
                 for(let i = 0; i < memberIds.length; i++) {
                     const member = await getUserIdentifiers(memberIds[i]);
-                    await setMembers([...members, member[0]]);
+                    currMembers.push(member[0]);
                 }
+                setMembers(currMembers);
             }
             getMemberDetails();
             setHaveMembers(false);
@@ -62,7 +65,6 @@ function AddMembersScreen({route, navigation}) {
     function getMembers(groupMembers) {
         let items = []
             for (let i = 0; i < groupMembers.length; i++) {
-                console.log(groupMembers[i])
                 let username = groupMembers[i].username ? groupMembers[i].username : "USER";
                 username = username.length > 2 ? username : "USER";
                 items.push(
@@ -130,7 +132,7 @@ function AddMembersScreen({route, navigation}) {
         let items = [];
         for(let i = 0; i < users.length; i++) {
             const user = users[i];
-            if(memberIds.indexOf(user._id) < 0) {
+            if(memberIds.indexOf(user._id) < 0 && memberRequests.indexOf(user._id) < 0) {
                 const oldMembers = searchedMembers;
                 await setSearchedMembers([...searchedMembers, user]);
                 const username = user.username;
@@ -156,11 +158,11 @@ function AddMembersScreen({route, navigation}) {
         setSearchedMembersList(items);
     }
 
-    function addMembersToGroup() {
+    async function addMembersToGroup() {
         let memberRequests = [];
         const userId = route.params.userId;
         for(let i = 0; i < invitees.length; i++) {
-            addGroupRequest(userId, invitees[i]._id);
+            await addGroupRequest(invitees[i]._id, route.params.groupData._id);
         } 
         navigation.navigate(VIEW_GROUP, {userId: userId, groupId: route.params.groupData._id});
     }

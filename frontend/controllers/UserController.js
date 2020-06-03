@@ -16,7 +16,7 @@ export async function postUser(username, email, phone, password, displayName) {
     await AsyncStorage.setItem('userId', response.data.data._id);
     return response;
   } catch (error) {
-    console.error(error);
+    return error.response;
   }
 }
 
@@ -26,7 +26,6 @@ export async function getUser(id) {
   id = await id;
   try {
     responseData = await axios.get(url + "/user/" + id + "&" + token);
-    console.log(responseData);
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -72,10 +71,8 @@ export async function updateUser(id, username, email, displayName) {
 }
 
 export async function loginUser(credential, password) {
-  let token = await AsyncStorage.getItem('token');
   let responseData = {};
   try {
-    console.log('hi');
     responseData = (
       await axios.post(url + "/user/login", {
         cred: credential.toLowerCase(),
@@ -88,7 +85,7 @@ export async function loginUser(credential, password) {
       return responseData;
     }
   } catch (error) {
-    console.error(error);
+    return error.response;
   }
   return responseData;
 }
@@ -133,7 +130,7 @@ export async function addGroupRequest(userId, groupId) {
       await axios.post(
         url + "/user/addGroupRequest/" + userId + "&" + groupId + "&" + token
       )
-    ).data;
+    );
     if (responseData.status === 200) {
       return responseData.data;
     }
@@ -198,7 +195,7 @@ export async function userMeetings(userId) {
   let responseData = {};
   try {
     responseData = (
-      await axios.post(url + "/user/meetings/" + userId + "&" + token)
+      await axios.get(url + "/user/meetings/" + userId + "&" + token)
     ).data;
     if (responseData.status === 200) {
       return responseData.data;
@@ -230,6 +227,7 @@ export async function addMeeting(userId, meetingId) {
 export async function removeMeeting(userId, meetingId) {
   let token = await AsyncStorage.getItem('token');
   let responseData = {};
+  meetingId = await meetingId;
   try {
     responseData = (
       await axios.post(

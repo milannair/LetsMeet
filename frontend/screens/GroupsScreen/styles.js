@@ -14,7 +14,14 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
         backgroundColor: "#663399",
-    }
+    },
+    message: {
+        marginVertical: 12,
+        flex: 1,
+        alignSelf: 'center',
+        textAlign: 'center',
+        width: '80%',
+    },
 });
 
 export default styles

@@ -170,9 +170,9 @@ exports.removeMember = function(req, res) {
         res.status(400).send("Invalid Token");
     }
     Group.update(
-        {_id: req.body.groupId},
+        {_id: req.params.groupId},
         {
-            $pull: {members : req.body.userId}
+            $pull: {members : req.params.userId}
         },
     function(err, data) {
         if(err) {

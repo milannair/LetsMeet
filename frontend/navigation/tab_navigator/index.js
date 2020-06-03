@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import * as Screen from './screen-names';
 import MeetingsStackScreen from './stacks/meetings/index';
 import GroupsStackScreen from './stacks/groups/index';
+import NotificationsScreen from './stacks/notifications/index';
 import ProfileStackScreen from './stacks/profile/index';
 import useSocket from '../../hooks/UseSocket/index';
 
@@ -23,13 +25,15 @@ function TabNavigator() {
   const [numNewGroupRequests, setNumNewGroupRequests] = useState(0);
   const [numNewMeetingRequests, setNumNewMeetingRequests] = useState(0);
 
-  useSocket('add group request', () => {
+  useSocket('add group request notification', () => {
+    console.log('add group request notification');
     if (currTab != TABS.Notifications) {
       setNumNewGroupRequests((prev) => prev + 1);
     }
   });
 
   useSocket('remove group request', () => {
+    console.log('remove group request');
     setNumNewGroupRequests((prev) => {
       if (currTab != TABS.Notifications) {
         if (prev > 0) {
@@ -42,12 +46,14 @@ function TabNavigator() {
   });
 
   useSocket('add meeting request', () => {
+    console.log('add meeting request');
     if (currTab != TABS.Groups) {
       setNumNewMeetingRequests((prev) => prev + 1);
     }
   });
 
   useSocket('remove meeting request', () => {
+    console.log('remove meeting request');
     setNumNewMeetingRequests((prev) => {
       if (currTab != TABS.Groups) {
         if (prev > 0) {
@@ -96,6 +102,23 @@ function TabNavigator() {
         }}
       />
       <Tab.Screen
+        name={Screen.NOTIFICATIONS}
+        component={NotificationsScreen}
+        options={{
+          tabBarColor: '#b57edc',
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name='notifications' color={color} size={24} />
+          ),
+          tabBarBadge: numNewGroupRequests > 0 ? numNewGroupRequests : null
+        }}
+        listeners={{
+          tabPress: (e) => {
+            setCurrTab(TABS.Notifications);
+            setNumNewGroupRequests(0);
+          },
+        }}
+      />
+      <Tab.Screen
         name={Screen.PROFILE}
         component={ProfileStackScreen}
         options={{
@@ -103,12 +126,10 @@ function TabNavigator() {
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name='account-circle' color={color} size={24} />
           ),
-          tabBarBadge: numNewGroupRequests > 0 ? numNewGroupRequests : null
         }}
         listeners={{
           tabPress: (e) => {
             setCurrTab(TABS.Profile);
-            setNumNewGroupRequests(0);
           },
         }}
       />

@@ -17,6 +17,9 @@ function Login({ navigation }) {
   const [password, setPassword] = useState('');
   const [showPasswordError, setShowPasswordError] = useState(false);
   const [loadingIcon, setLoadingIcon] = useState(false);
+  const [loginLoadingIcon, setLoginLoadingIcon] = useState(false);
+  const [loginErrorVisible, setLoginErrorVisible] = useState(false);
+  const [loginErrorText, setLoginErrorText] = useState('');
   const maxFieldLength = 25;
   const minFieldLength = 3;
 
@@ -32,13 +35,17 @@ function Login({ navigation }) {
     }
 
     if (!flag) {
-      setLoadingIcon(true);
+      setLoginLoadingIcon(true);
     }
     // TODO: check username and password in database
     const response = await loginUser(email, password);
     if(response.status === 200) {
       sendData(await AsyncStorage.getItem('userId'));
       navigation.navigate(HOME_SCREEN_NAME);
+    } else if (response.status === 400) {
+      setLoginErrorText(response.data);
+      setLoginErrorVisible(true);
+      setLoginLoadingIcon(false);
     }
   };
 
@@ -51,14 +58,14 @@ function Login({ navigation }) {
       <Text style={styles.text}>LetsMeet</Text>
       <HelperText
         type="error"
-        visible={false}
+        visible={loginErrorVisible}
       >
-        Error Message
+        {loginErrorText}
       </HelperText>
       <TextInput // email field
         style={styles.textField}
         mode='outlined'
-        label="Email"
+        label="Email or Username"
         keyboardType="email-address"
         textContentType="emailAddress"
         value={email}
@@ -94,7 +101,7 @@ function Login({ navigation }) {
           mode="contained"
           disabled={!(email && password)}
           uppercase={false}
-          loading={loadingIcon}
+          loading={loginLoadingIcon}
         >
           <Text style={styles.buttonText}>
             Login

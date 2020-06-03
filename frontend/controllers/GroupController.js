@@ -48,6 +48,18 @@ export async function createUserGroup(owner, name, memberRequests) {
   }
 }
 
+export async function removeUserFromGroup(groupId, userId) {
+  try {
+    let token = await AsyncStorage.getItem('token');
+    const response = (await axios.post(url + "/group/removeMember/" + groupId + "&" + userId + "&" + token));
+    if (response.status === 200) {
+      return response.data;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 // Helper Functions
 
 async function createGroup(owner, name, memberRequests) {

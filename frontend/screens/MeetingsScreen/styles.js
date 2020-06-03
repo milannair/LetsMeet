@@ -14,6 +14,11 @@ const styles = StyleSheet.create({
     tabview: {
         backgroundColor: 'ghostwhite',
     },
+    message: {
+        marginVertical: 12,
+        flex: 1,
+        alignSelf: 'center',
+    },
 });
 
 export default styles
