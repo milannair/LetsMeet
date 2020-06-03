@@ -1,7 +1,7 @@
 // Tests for the /user endpoints
 
-const constants = require("./ignored/constants");
-const variables = require("./ignored/variables");
+const constants = require("./non_tests/constants");
+const variables = require("./non_tests/variables");
 const axios = require("axios").default;
 
 describe("/user/meetings/:userId", () => {

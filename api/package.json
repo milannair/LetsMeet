@@ -35,13 +35,13 @@
     "kill-port": "^1.6.0"
   },
   "jest": {
-    "globalSetup": "./__tests__/ignored/globalSetup",
+    "globalSetup": "./__tests__/non_tests/globalSetup",
     "setupFilesAfterEnv": [
-      "./__tests__/ignored/setup.js"
+      "./__tests__/non_tests/setup.js"
     ],
     "testEnvironment": "node",
     "testPathIgnorePatterns": [
-      "__tests__/ignored"
+      "__tests__/non_tests"
     ]
   },
   "nodemonConfig": {

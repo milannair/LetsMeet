@@ -1,6 +1,6 @@
 // Tests for the /meeting and /meetings endpoints
 
-const constants = require('./ignored/constants');
+const constants = require('./non_tests/constants');
 const axios = require('axios').default;
 const mongoose = require('mongoose');
 
