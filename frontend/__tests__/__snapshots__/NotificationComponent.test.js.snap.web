@@ -122,7 +122,7 @@ exports[`renders correctly 1`] = `
             "borderTopWidth": "0px",
             "boxShadow": "0px 0.75px 1.5px rgba(0,0,0,0.24)",
             "marginBottom": "12px",
-            "marginRight": "40px",
+            "marginRight": "16px",
             "marginTop": "12px",
             "minWidth": "64px",
             "width": "100px",
@@ -193,7 +193,6 @@ exports[`renders correctly 1`] = `
                   "marginRight": "16px",
                   "marginTop": "9px",
                   "textAlign": "center",
-                  "textTransform": "uppercase",
                 }
               }
             >
@@ -206,7 +205,7 @@ exports[`renders correctly 1`] = `
         className="css-view-1dbjc4n"
         style={
           Object {
-            "backgroundColor": "rgba(128,128,128,1.00)",
+            "backgroundColor": "rgba(192,192,192,1.00)",
             "borderBottomColor": "rgba(0,0,0,0.00)",
             "borderBottomLeftRadius": "4px",
             "borderBottomRightRadius": "4px",
@@ -225,7 +224,7 @@ exports[`renders correctly 1`] = `
             "borderTopWidth": "0px",
             "boxShadow": "0px 0.75px 1.5px rgba(0,0,0,0.24)",
             "marginBottom": "12px",
-            "marginRight": "40px",
+            "marginRight": "16px",
             "marginTop": "12px",
             "minWidth": "64px",
             "width": "100px",
@@ -296,7 +295,6 @@ exports[`renders correctly 1`] = `
                   "marginRight": "16px",
                   "marginTop": "9px",
                   "textAlign": "center",
-                  "textTransform": "uppercase",
                 }
               }
             >

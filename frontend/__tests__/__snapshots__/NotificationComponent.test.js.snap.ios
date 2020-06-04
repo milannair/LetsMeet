@@ -94,7 +94,7 @@ exports[`renders correctly 1`] = `
             "borderStyle": "solid",
             "borderWidth": 0,
             "elevation": 2,
-            "marginEnd": 40,
+            "marginEnd": 16,
             "marginVertical": 12,
             "minWidth": 64,
             "shadowColor": "#000000",
@@ -162,9 +162,7 @@ exports[`renders correctly 1`] = `
                       "textAlign": "center",
                     },
                     undefined,
-                    Object {
-                      "textTransform": "uppercase",
-                    },
+                    false,
                     Object {
                       "color": "#ffffff",
                       "fontFamily": "System",
@@ -187,13 +185,13 @@ exports[`renders correctly 1`] = `
       <View
         style={
           Object {
-            "backgroundColor": "#808080",
+            "backgroundColor": "#C0C0C0",
             "borderColor": "transparent",
             "borderRadius": 4,
             "borderStyle": "solid",
             "borderWidth": 0,
             "elevation": 2,
-            "marginEnd": 40,
+            "marginEnd": 16,
             "marginVertical": 12,
             "minWidth": 64,
             "shadowColor": "#000000",
@@ -261,9 +259,7 @@ exports[`renders correctly 1`] = `
                       "textAlign": "center",
                     },
                     undefined,
-                    Object {
-                      "textTransform": "uppercase",
-                    },
+                    false,
                     Object {
                       "color": "#ffffff",
                       "fontFamily": "System",
