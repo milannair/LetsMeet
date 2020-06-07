@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "frontend",
-    "slug": "frontend",
+    "name": "LetsMeet",
+    "slug": "letsmeet",
     "platforms": [
       "ios",
       "android",
@@ -23,6 +23,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "LetsMeet is a useful tool for teams and groups to see in what time slots are their colleagues, family and friends available, and schedule a meeting for a time period that works for everyone.",
+    "githubUrl": "https://github.com/milannair/LetsMeet"
   }
 }
