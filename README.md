@@ -7,16 +7,20 @@ time period that works for everyone.
 ## Supported Platforms
 
 LetsMeet's back-end and front-end are both platform-independent. You can run
-the back-end on any platform that has Node.js and an internet connection (or Node.js and MongoDB). The
-front-end supports Android, iOS and web.
+the back-end on any platform that has Node.js and an internet connection (or
+Node.js and MongoDB). The front-end supports Android, iOS and web.
 
-## Building and Testing LetsMeet
+## Get Started
 
-Refer to the [user](https://github.com/milannair/LetsMeet/wiki/User-Documentation) or [dev](https://github.com/milannair/LetsMeet/wiki/Developer-Documentation) documentation for respective building and testing instructions.
+To build, install, and run this app, please refer to the user and developer
+documentation, whose link is listed below.
 
-### Links
-[Requirements, Architecture, Design, Testing, and CI](https://docs.google.com/document/d/1dkohsmQGX5KDGNGMGTPQ_vPJNPvdhAjXJFZqr1CVU9Q/edit?usp=sharing)
+## Links
 
-[Developer Documentation](https://github.com/milannair/LetsMeet/wiki/Developer-Documentation)
+- [User Documentation](https://github.com/milannair/LetsMeet/wiki/User-Documentation)
 
-[User Documentation](https://github.com/milannair/LetsMeet/wiki/User-Documentation)
+- [Developer Documentation](https://github.com/milannair/LetsMeet/wiki/Developer-Documentation)
+
+- [Continuous Integration](https://travis-ci.com/milannair/LetsMeet) ![Build Status](https://travis-ci.com/milannair/LetsMeet.svg?branch=master)
+
+- [Requirements, Architecture, Design, Testing, and CI](https://docs.google.com/document/d/1dkohsmQGX5KDGNGMGTPQ_vPJNPvdhAjXJFZqr1CVU9Q/edit?usp=sharing)
