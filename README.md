@@ -24,3 +24,11 @@ documentation, whose link is listed below.
 - [Continuous Integration](https://travis-ci.com/milannair/LetsMeet) ![Build Status](https://travis-ci.com/milannair/LetsMeet.svg?branch=master)
 
 - [Requirements, Architecture, Design, Testing, and CI](https://docs.google.com/document/d/1dkohsmQGX5KDGNGMGTPQ_vPJNPvdhAjXJFZqr1CVU9Q/edit?usp=sharing)
+
+## Screenshots
+
+![meetings confirmed](https://github.com/milannair/LetsMeet/blob/master/.github/images/meetings%20confirmed.PNG)
+![groups](https://github.com/milannair/LetsMeet/blob/master/.github/images/groups.PNG)
+![meeting requests](https://github.com/milannair/LetsMeet/blob/master/.github/images/meeting%20requests.PNG)
+![poll](https://github.com/milannair/LetsMeet/blob/master/.github/images/poll.PNG)
+![profile](https://github.com/milannair/LetsMeet/blob/master/.github/images/profile.PNG)
